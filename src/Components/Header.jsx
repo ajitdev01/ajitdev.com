@@ -61,69 +61,7 @@ const Header = () => {
 
   return (
     <>
-      <style jsx>{`
-        .nav-item {
-          position: relative;
-        }
-
-        .nav-item::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-          transition: all 0.3s ease;
-          transform: translateX(-50%);
-        }
-
-        .nav-item:hover::after {
-          width: 70%;
-        }
-
-        .active-nav::after {
-          width: 70%;
-        }
-
-        .gradient-text {
-          background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .scroll-progress {
-          background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
-          height: 2px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          z-index: 9999;
-          transition: width 0.3s ease;
-          width: 0;
-        }
-
-        .mobile-menu {
-          will-change: transform, opacity;
-          transform-origin: top center;
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
-        }
-      `}</style>
+     
 
       <header
         ref={menuRef}

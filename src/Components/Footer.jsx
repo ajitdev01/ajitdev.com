@@ -84,58 +84,6 @@ const Footer = () => {
 
   return (
     <>
-      <style jsx>{`
-        .tech-tag {
-          transition: all 0.2s ease;
-        }
-
-        .tech-tag:hover {
-          transform: translateY(-2px);
-        }
-
-        .social-icon {
-          transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-          transform: scale(1.1) rotate(5deg);
-        }
-
-        .nav-link {
-          position: relative;
-          overflow: hidden;
-        }
-
-        .nav-link::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background: #3b82f6;
-          transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-          width: 100%;
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 0.5s ease-out;
-        }
-      `}</style>
 
       <footer className="bg-gray-900 text-gray-300 animate-fadeInUp">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
