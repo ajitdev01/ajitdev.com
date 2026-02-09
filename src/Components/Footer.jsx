@@ -208,9 +208,9 @@ const Footer = () => {
                 </h4>
 
                 <div className="flex flex-wrap gap-2">
-                  {technologies.map((tech) => (
+                  {technologies.map((techs) => (
                     <span
-                      key={tech}
+                      key={techs}
                       className="px-3 py-1.5 text-sm font-medium
           bg-gradient-to-br from-gray-800 to-gray-900
           border border-gray-700/60
@@ -219,7 +219,7 @@ const Footer = () => {
           hover:-translate-y-0.5
           transition-all duration-300 cursor-default"
                     >
-                      {tech}
+                      {techs}
                     </span>
                   ))}
                 </div>
