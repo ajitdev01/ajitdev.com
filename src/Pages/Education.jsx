@@ -820,7 +820,6 @@ const Education = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="/contact"
                     className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl min-w-[220px]"
                   >
                     <FiSend className="text-xl" />
@@ -830,7 +829,6 @@ const Education = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="/projects"
                     className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 min-w-[220px]"
                   >
                     <FiCode className="text-xl" />

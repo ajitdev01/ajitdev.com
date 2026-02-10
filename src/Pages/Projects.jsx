@@ -766,52 +766,7 @@ const Projects = () => {
             </div>
           </motion.section>
 
-          {/* CTA Section */}
-          <motion.section
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="text-center bg-white/90 backdrop-blur-sm rounded-3xl p-12 border border-gray-200/50 shadow-xl">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                Want to See More?
-              </h3>
-              <p className="text-gray-600 text-lg mb-10 max-w-2xl mx-auto">
-                Explore detailed project documentation, code samples, and ongoing development work on GitHub
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <motion.a
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="https://github.com/ajitdev01"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-gray-900 to-black text-white rounded-xl font-semibold hover:from-black hover:to-gray-900 transition-all duration-300 shadow-xl hover:shadow-2xl min-w-[220px]"
-                >
-                  <FiGithub className="text-xl" />
-                  Explore GitHub
-                </motion.a>
-                <motion.a
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-xl font-semibold hover:from-blue-100 hover:to-indigo-100 transition-all duration-300 border border-blue-200 hover:border-blue-300 min-w-[220px]"
-                >
-                  <FiSend className="text-xl" />
-                  Discuss Project
-                </motion.a>
-              </div>
-              <p className="text-gray-500 text-sm mt-8">
-                Also check out my{" "}
-                <a href="/resume.pdf" className="text-blue-600 hover:text-blue-700 font-semibold underline">
-                  resume
-                </a>{" "}
-                for more project details and technical specifications
-              </p>
-            </div>
-          </motion.section>
+        
         </div>
       </main>
 

@@ -755,53 +755,6 @@ const Skills = () => {
               </div>
             </div>
           </motion.div>
-
-          {/* CTA Section */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="mb-8"
-          >
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white p-12 shadow-2xl">
-              {/* Background effects */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10"></div>
-              
-              <div className="relative text-center">
-                <h3 className="text-3xl lg:text-4xl font-bold mb-6">
-                  Ready to Apply These Skills?
-                </h3>
-                <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
-                  Let's discuss how these technical skills can contribute to your next project or organization
-                </p>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                  <motion.a
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl min-w-[200px]"
-                  >
-                    <FiSend className="text-xl" />
-                    Start a Project
-                  </motion.a>
-                  <motion.a
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    href="/projects"
-                    className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 min-w-[200px]"
-                  >
-                    <FiCode className="text-xl" />
-                    View Projects
-                  </motion.a>
-                </div>
-                <p className="text-gray-400 text-sm mt-8">
-                  Also check out my <a href="/resume.pdf" className="text-blue-400 hover:text-blue-300 underline">resume</a> for more details
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </main>
 
