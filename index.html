@@ -2,52 +2,118 @@
 <html lang="en">
 <head>
 
-  <!-- Basic Setup -->
+  <!-- ================================================= -->
+  <!-- BASIC SETUP -->
+  <!-- ================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="content-language" content="en" />
 
-  <!-- Title (VERY IMPORTANT for SEO) -->
-  <title>Ajit Dev | Cloud & Security Developer Portfolio</title>
+  <!-- ================================================= -->
+  <!-- PRIMARY SEO -->
+  <!-- ================================================= -->
+  <title>Ajit Dev | DevOps, DevSecOps & Cloud Security Developer Portfolio</title>
 
-  <!-- Meta Description -->
-  <meta name="description" content="Ajit Dev portfolio showcasing cloud computing, DevOps, cybersecurity, and modern web development projects. Student at Amity University Online, learning at Brainzima Innovation Institute." />
+  <meta name="description"
+    content="Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio. Student at Amity University Online and learner at Brainzima Innovation Institute. Projects in cloud computing, security automation and modern web technologies." />
 
-  <!-- Canonical URL -->
+  <meta name="keywords"
+    content="Ajit Dev, DevOps engineer Katihar, DevSecOps engineer India, Cloud Security engineer, Cybersecurity portfolio, Cloud computing developer, DevOps portfolio India" />
+
+  <meta name="author" content="Ajit Dev" />
+
+  <!-- Canonical -->
   <link rel="canonical" href="https://ajitdev.com/" />
 
-  <!-- Favicon (fix path - remove ./public) -->
+  <!-- Robots -->
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- ================================================= -->
+  <!-- PERFORMANCE + BROWSER OPTIMIZATION -->
+  <!-- ================================================= -->
+  <meta name="theme-color" content="#000000" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ================================================= -->
+  <!-- GEO TARGETING (LOCAL SEO SIGNALS) -->
+  <!-- ================================================= -->
+  <meta name="geo.region" content="IN-BR" />
+  <meta name="geo.placename" content="Katihar" />
+
+  <!-- ================================================= -->
+  <!-- FAVICON -->
+  <!-- ================================================= -->
   <link rel="icon" type="image/png" href="/logo.png" />
 
-  <!-- Open Graph (Social Sharing SEO) -->
-  <meta property="og:title" content="Ajit Dev Portfolio" />
-  <meta property="og:description" content="Cloud, DevOps and Security developer portfolio." />
+  <!-- ================================================= -->
+  <!-- OPEN GRAPH (FACEBOOK / LINKEDIN / WHATSAPP) -->
+  <!-- ================================================= -->
+  <meta property="og:title" content="Ajit Dev | DevOps & Cloud Security Developer" />
+  <meta property="og:description"
+    content="Professional portfolio of Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity projects." />
   <meta property="og:url" content="https://ajitdev.com/" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ajit Dev Portfolio" />
 
-  <!-- Twitter Card -->
+  <!-- ================================================= -->
+  <!-- TWITTER CARD SEO -->
+  <!-- ================================================= -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ajit Dev Portfolio" />
-  <meta name="twitter:description" content="Cloud & Security developer portfolio." />
+  <meta name="twitter:title" content="Ajit Dev Developer Portfolio" />
+  <meta name="twitter:description"
+    content="DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio." />
 
-  <!-- Indexing Control -->
-  <meta name="robots" content="index, follow" />
+  <!-- ================================================= -->
+  <!-- IDENTITY / AUTHORITY SIGNAL -->
+  <!-- ================================================= -->
+  <link rel="me" href="https://www.brainzima.com/" />
 
-  <!-- Structured Data (SEO Advanced) -->
+  <!-- ================================================= -->
+  <!-- STRUCTURED DATA (ADVANCED SEO - GOOGLE ENTITY SIGNAL) -->
+  <!-- ================================================= -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Person",
     "name":"Ajit Dev",
     "url":"https://ajitdev.com",
-    "jobTitle":"Cloud & Security Developer",
-    "alumniOf":"Amity University Online"
+    "jobTitle":"DevOps and Cloud Security Developer",
+    "description":"DevOps, DevSecOps, Cloud Security and Cybersecurity developer based in Katihar, India.",
+    "address":{
+      "@type":"PostalAddress",
+      "addressLocality":"Katihar",
+      "addressCountry":"India"
+    },
+    "alumniOf":{
+      "@type":"CollegeOrUniversity",
+      "name":"Amity University Online"
+    },
+    "knowsAbout":[
+      "DevOps Engineering",
+      "DevSecOps",
+      "Cloud Security",
+      "Cybersecurity",
+      "Cloud Computing",
+      "Linux",
+      "Docker",
+      "Web Development"
+    ],
+    "sameAs":[
+      "https://www.brainzima.com/"
+    ]
   }
   </script>
 
 </head>
 
 <body>
+
+  <!-- React Root -->
   <div id="root"></div>
+
+  <!-- Main Script -->
   <script type="module" src="/src/main.jsx"></script>
+
 </body>
 </html>
