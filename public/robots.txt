@@ -1,0 +1,83 @@
+# ======================================================
+# robots.txt for https://ajitdev.com
+# Owner: Ajit Dev
+# Portfolio: Cloud, DevOps, Security, Web Development
+# Education: Amity University Online (BCA Cloud & Security)
+# Learning Platform: Brainzima Innovation Institute
+# Website: https://brainzima.com
+# Purpose: Optimize crawling, indexing, and SEO visibility
+# ======================================================
+
+
+# -----------------------------
+# GLOBAL RULES (ALL CRAWLERS)
+# -----------------------------
+User-agent: *
+Allow: /
+
+# Allow critical rendering resources (VERY IMPORTANT for SEO)
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.woff$
+Allow: /*.woff2$
+
+# -----------------------------
+# BLOCK NON-PUBLIC DIRECTORIES
+# -----------------------------
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /dist/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /server/
+Disallow: /config/
+
+# -----------------------------
+# BLOCK COMMON DEV FILES
+# -----------------------------
+Disallow: *.log$
+Disallow: *.env$
+Disallow: *.lock$
+
+# -----------------------------
+# OPTIONAL QUERY PARAMETER CONTROL
+# (Prevents duplicate indexing)
+# -----------------------------
+Disallow: /*?*
+
+# -----------------------------
+# SEARCH ENGINE SPECIFIC OPTIMIZATION
+# -----------------------------
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+
+# -----------------------------
+# CRAWL RATE CONTROL
+# (Optional - reduce server load)
+# -----------------------------
+Crawl-delay: 10
+
+
+# -----------------------------
+# SITEMAP LOCATION
+# -----------------------------
+Sitemap: https://ajitdev.com/sitemap.xml
+
+
+# ======================================================
+# END OF FILE
+# ======================================================
