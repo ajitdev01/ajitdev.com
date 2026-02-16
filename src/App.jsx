@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 /* Loader */
-import Loader from "./Components/Loader"
+import Loader from "./Components/Loader";
 
-/* Lazy loaded pages (IMPORTANT for performance) */
-const Home = lazy(() => import("./Pages/Home"));
+/* IMPORTANT: Homepage should NOT be lazy */
+import Home from "./Pages/Home";
+
+/* Lazy load secondary pages only */
 const About = lazy(() => import("./Pages/About"));
 const Skills = lazy(() => import("./Pages/Skills"));
 const Projects = lazy(() => import("./Pages/Projects"));
@@ -16,21 +18,60 @@ const Contact = lazy(() => import("./Pages/Contact"));
 const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loader />}>
-        <Routes>
 
-          {/* Homepage loads first (best for SEO + LCP) */}
-          <Route path="/" element={<Home />} />
+      <Routes>
 
-          {/* Lazy routes */}
-          <Route path="/about" element={<About />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/contact" element={<Contact />} />
+        {/* Homepage loads instantly (BEST for LCP + SEO) */}
+        <Route path="/" element={<Home />} />
 
-        </Routes>
-      </Suspense>
+        {/* Lazy routes wrapped individually (elite pattern) */}
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<Loader />}>
+              <About />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/skills"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Skills />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/projects"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Projects />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/education"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Education />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Contact />
+            </Suspense>
+          }
+        />
+
+      </Routes>
+
     </BrowserRouter>
   );
 };
