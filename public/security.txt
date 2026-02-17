@@ -1,0 +1,59 @@
+# ==============================================================================
+# security.txt — ajitdev.com
+# ==============================================================================
+# Standard   : RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)
+# Spec ref   : https://securitytxt.org/
+# Location   : https://ajitdev.com/.well-known/security.txt
+# Owner      : Ajit Dev
+# Revised    : 2026-02-17
+#
+# This file tells security researchers how to responsibly disclose
+# vulnerabilities found on ajitdev.com. Compliant with RFC 9116 field order.
+# ==============================================================================
+
+# ── Primary disclosure contact ─────────────────────────────────────────────
+# Security researchers should use the email channel as the primary route.
+# The web form is provided as an alternative for those who prefer it.
+Contact: mailto:security@ajitdev.com
+Contact: https://ajitdev.com/contact
+
+# ── File expiry ────────────────────────────────────────────────────────────
+# RFC 9116 §2.5.5 — MUST be present. Crawlers and tools treat an expired
+# security.txt as invalid. Renew annually; set a calendar reminder.
+# Next renewal due: 2027-02-17
+Expires: 2027-02-17T23:59:59.000Z
+
+# ── Preferred languages for disclosure reports ─────────────────────────────
+# Researchers may submit reports in English or Hindi.
+Preferred-Languages: en, hi
+
+# ── Canonical URL ──────────────────────────────────────────────────────────
+# RFC 9116 §2.5.2 — Prevents mirror/phishing confusion.
+# This is the only authoritative location for this file.
+Canonical: https://ajitdev.com/.well-known/security.txt
+
+# ── Vulnerability disclosure policy ───────────────────────────────────────
+# Link to the full responsible disclosure policy page.
+# Policy should outline: scope, out-of-scope items, SLA, and legal safe harbor.
+Policy: https://ajitdev.com/security-policy
+
+# ── Hiring signal ──────────────────────────────────────────────────────────
+# RFC 9116 §2.5.6 — Optional. Signals open security/dev roles.
+# Security researchers who find this file are a self-selected technical audience.
+Hiring: https://ajitdev.com
+
+# ── Acknowledgments ────────────────────────────────────────────────────────
+# Hall of thanks for responsible disclosures. Points to the About page
+# until a dedicated /acknowledgments or /hall-of-fame page exists.
+Acknowledgments: https://ajitdev.com/about
+
+# ==============================================================================
+# END OF FILE
+# ==============================================================================
+# Post-deploy checklist:
+#   [ ] Verify: curl -I https://ajitdev.com/.well-known/security.txt → HTTP 200
+#   [ ] Validate: https://securitytxt.org/ → paste canonical URL
+#   [ ] Confirm Content-Type: text/plain; charset=utf-8 in response headers
+#   [ ] Set renewal reminder: 2027-02-01 (2 weeks before Expires)
+#   [ ] Consider PGP signing: https://www.rfc-editor.org/rfc/rfc9116#section-2.4
+# ==============================================================================
