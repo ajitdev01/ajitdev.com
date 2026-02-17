@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  sitemap-images.xml — Portfolio Screenshots & Visual Assets
+  ============================================================================
+  Domain     : https://ajitdev.com
+  Scope      : Project screenshots, architecture diagrams, OG images
+  Namespace  : image sitemap extension (Google-specific)
+  Spec       : https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
+  Updated    : 2026-02-17
+
+  SEO strategy:
+    - Google Images is an underutilized visibility channel for developer portfolios
+    - Architecture diagrams + project screenshots indexed here drive awareness
+      for queries like "Kubernetes deployment diagram" or "MERN stack dashboard UI"
+    - <image:title> and <image:caption> are the primary keyword vectors for image search
+    - All image URLs should be production-hosted (not localhost, not GitHub raw URLs)
+    - WebP/AVIF formats are crawlable; include both if serving modern formats
+    - Image filenames should be keyword-descriptive, not hash-based:
+        ✅  aws-multi-region-architecture.webp
+        ❌  img-a3f91b2.webp
+
+  NOTE: This namespace is supported by Googlebot only. Bingbot uses
+  its own image discovery via standard HTML; ensure <img alt=""> tags
+  are populated on all project pages for Bing coverage.
+  ============================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cloud Computing — Visual assets
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/cloud/aws-multi-region-deployment</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/aws-multi-region-architecture.webp</image:loc>
+      <image:title>AWS Multi-Region Deployment Architecture — ajitdev.com</image:title>
+      <image:caption>High-availability AWS infrastructure spanning multiple regions with Route 53 failover, ALB, and ECS Fargate clusters.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/aws-cost-dashboard-screenshot.webp</image:loc>
+      <image:title>Cloud Cost Monitoring Dashboard — AWS Cost Explorer Integration</image:title>
+      <image:caption>Real-time cost tracking dashboard built with AWS Cost Explorer API and React, displaying spend per service and region.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/cloud/serverless-api-architecture</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/serverless-architecture-diagram.webp</image:loc>
+      <image:title>Serverless API Architecture — AWS Lambda, API Gateway, DynamoDB</image:title>
+      <image:caption>Event-driven serverless architecture using AWS Lambda, API Gateway, DynamoDB, and SQS for asynchronous processing.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: DevOps & CI/CD — Visual assets
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/kubernetes-ci-cd-pipeline</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/kubernetes-cicd-pipeline-diagram.webp</image:loc>
+      <image:title>Kubernetes CI/CD Pipeline — GitHub Actions to EKS</image:title>
+      <image:caption>End-to-end CI/CD pipeline diagram: GitHub Actions build → Docker Hub → Helm chart deployment → Amazon EKS with rolling updates.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/k8s-dashboard-screenshot.webp</image:loc>
+      <image:title>Kubernetes Dashboard — Namespace Resource Monitoring</image:title>
+      <image:caption>Kubernetes dashboard showing pod health, resource utilization, and deployment status across staging and production namespaces.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/terraform-infrastructure-as-code</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/terraform-iac-architecture.webp</image:loc>
+      <image:title>Terraform Infrastructure as Code — AWS VPC, EC2, RDS Module Layout</image:title>
+      <image:caption>Modular Terraform configuration managing VPC, subnets, EC2 auto-scaling groups, RDS, and IAM roles across dev/staging/prod workspaces.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cybersecurity — Visual assets
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/security/web-application-security-audit</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/owasp-audit-report-screenshot.webp</image:loc>
+      <image:title>Web Application Security Audit Report — OWASP Top 10 Assessment</image:title>
+      <image:caption>Security audit report showing vulnerability findings mapped to OWASP Top 10 categories with severity ratings and remediation steps.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/security/zero-trust-architecture-implementation</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/zero-trust-network-diagram.webp</image:loc>
+      <image:title>Zero Trust Network Architecture Diagram — Identity-Aware Proxy</image:title>
+      <image:caption>Zero trust implementation using identity-aware proxy, micro-segmentation, and continuous verification for all network resources.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Web Development — Visual assets
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/web/mern-stack-saas-dashboard</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/mern-saas-dashboard-ui.webp</image:loc>
+      <image:title>MERN Stack SaaS Dashboard — React + Node.js + MongoDB</image:title>
+      <image:caption>Full-stack SaaS dashboard built with React, Node.js, Express, and MongoDB featuring real-time analytics, role-based access control, and dark mode.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/projects/mern-dashboard-mobile.webp</image:loc>
+      <image:title>MERN SaaS Dashboard — Mobile Responsive View</image:title>
+      <image:caption>Mobile-responsive SaaS dashboard optimized for iOS and Android viewports with touch-first navigation and progressive enhancement.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       OPEN GRAPH / SOCIAL — Preview images for key pages
+       Ensures blog post preview images are indexed for brand awareness
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/og/home.png</image:loc>
+      <image:title>Ajit Dev — Cloud, DevOps, Cybersecurity & Web Development Portfolio</image:title>
+      <image:caption>Professional developer portfolio showcasing cloud infrastructure, DevOps pipelines, cybersecurity projects, and full-stack web development work.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/about</loc>
+    <image:image>
+      <image:loc>https://ajitdev.com/images/ajitdev-profile.webp</image:loc>
+      <image:title>Ajit Dev — Cloud &amp; DevOps Developer, Amity University Online BCA</image:title>
+      <image:caption>Ajit Dev, BCA Cloud &amp; Security student at Amity University Online and Brainzima Innovation Institute. Specializing in cloud infrastructure, DevOps automation, and cybersecurity.</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

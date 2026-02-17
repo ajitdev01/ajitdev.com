@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  sitemap-blog.xml — Technical Articles & Writeups
+  ============================================================================
+  Domain     : https://ajitdev.com
+  Scope      : Technical blog posts, guides, writeups, tutorials
+  Updated    : 2026-02-17
+
+  SEO strategy:
+    - Blog content is the primary topical authority lever for non-branded queries
+    - Each article targets a discrete long-tail keyword in one of four clusters:
+        Cloud Computing / DevOps / Cybersecurity / Web Development
+    - URL slugs follow the pattern: /blog/{keyword-optimized-slug}
+      (no date in URL — avoids perceived staleness on evergreen content)
+    - priority 0.7 for recent posts; drops to 0.5 for posts older than 12 months
+      that have not been refreshed (indicate via lastmod update on refresh)
+    - changefreq: "never" is valid and honest for archived posts with no edits
+
+  SCALING NOTE:
+    When posts exceed 200, split by topic cluster and register each
+    in sitemap_index.xml:
+      sitemap-blog-cloud.xml
+      sitemap-blog-devops.xml
+      sitemap-blog-security.xml
+      sitemap-blog-web.xml
+
+  AUTOMATION:
+    Next.js — use next-sitemap or a custom /api/sitemap.xml route
+    that reads from your CMS/MDX file system at build time and injects
+    accurate lastmod from git commit timestamps or CMS updatedAt field.
+  ============================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cloud Computing
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/blog/aws-lambda-cold-start-optimization</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/cloud-cost-optimization-strategies-2026</loc>
+    <lastmod>2026-01-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/gcp-vs-aws-vs-azure-developer-comparison</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: DevOps & CI/CD
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/blog/github-actions-full-stack-deployment-guide</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/kubernetes-zero-downtime-deployment</loc>
+    <lastmod>2026-01-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/terraform-best-practices-infrastructure-as-code</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/docker-multi-stage-builds-production</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cybersecurity
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/blog/owasp-top-10-developer-checklist-2026</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/zero-trust-security-model-explained</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/securing-nodejs-api-best-practices</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Web Development
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/blog/nextjs-app-router-seo-optimization</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/core-web-vitals-developer-guide-2026</loc>
+    <lastmod>2026-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/blog/react-server-components-deep-dive</loc>
+    <lastmod>2025-12-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       ARCHIVED: Posts older than 12 months with no refresh
+       Reduced priority; consider canonical-redirecting to updated versions.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/blog/linux-commands-devops-cheatsheet</loc>
+    <lastmod>2025-03-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

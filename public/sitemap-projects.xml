@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  sitemap-projects.xml — Individual Project Detail Pages
+  ============================================================================
+  Domain     : https://ajitdev.com
+  Scope      : All individual project case study pages
+  Updated    : 2026-02-17
+
+  SEO strategy:
+    - Each project URL is a discrete E-E-A-T signal for a specific skill cluster
+    - URL slugs are keyword-optimized (technology + domain, not just project name)
+    - Topics map to Google's "helpful content" topical authority model:
+        /projects/cloud/     → Cloud Computing cluster
+        /projects/devops/    → DevOps & CI/CD cluster
+        /projects/security/  → Cybersecurity cluster
+        /projects/web/       → Web Development cluster
+    - priority 0.8 for all project pages (equal weight; Google ignores
+      relative priority across separate sitemaps in any case)
+    - lastmod should be dynamically injected at build time via your
+      framework's sitemap generation plugin (see automation notes)
+
+  URL STRUCTURE PATTERN:
+    https://ajitdev.com/projects/{topic-cluster}/{keyword-slug}
+
+  SCALING NOTE:
+    When projects > 50, split into per-topic sitemaps and register each
+    in sitemap_index.xml (sitemap-projects-cloud.xml, etc.)
+  ============================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cloud Computing
+       Target queries: "AWS infrastructure project", "cloud deployment portfolio"
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/cloud/aws-multi-region-deployment</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/cloud/serverless-api-architecture</loc>
+    <lastmod>2026-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/cloud/cloud-cost-optimization-dashboard</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: DevOps & CI/CD
+       Target queries: "DevOps pipeline project", "Kubernetes deployment example"
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/kubernetes-ci-cd-pipeline</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/docker-compose-microservices</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/github-actions-automation</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/devops/terraform-infrastructure-as-code</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Cybersecurity
+       Target queries: "security audit project", "penetration testing portfolio"
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/security/web-application-security-audit</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/security/network-intrusion-detection-system</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/security/zero-trust-architecture-implementation</loc>
+    <lastmod>2025-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CLUSTER: Web Development
+       Target queries: "full stack developer portfolio", "MERN stack project"
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <url>
+    <loc>https://ajitdev.com/projects/web/mern-stack-saas-dashboard</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/web/nextjs-portfolio-site</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ajitdev.com/projects/web/rest-api-node-express</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

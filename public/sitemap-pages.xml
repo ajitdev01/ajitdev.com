@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  sitemap-pages.xml — Core Portfolio Pages
+  ============================================================================
+  Domain     : https://ajitdev.com
+  Scope      : All top-level, evergreen portfolio pages
+  Updated    : 2026-02-17
+
+  Priority hierarchy rationale:
+    1.0  Homepage        — primary brand + recruiter landing point
+    0.9  Projects index  — highest conversion intent page
+    0.85 Skills          — keyword-rich, expertise demonstration
+    0.8  About           — E-E-A-T author authority signal
+    0.7  Blog index      — topical authority hub
+    0.6  Contact         — low crawl priority; low content value
+    0.5  Privacy/Legal   — required but suppressed from primary budget
+
+  changefreq guidance (Google treats this as a hint, not a directive):
+    weekly   → dynamic / frequently updated content
+    monthly  → semi-stable content updated on demand
+    yearly   → static / rarely touched pages
+
+  NOTE: All URLs use trailing-slash-normalized canonical form consistent
+  with Next.js default routing. Align with canonical <link> tags in <head>.
+  ============================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TIER 1 — Brand & conversion-critical pages
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Homepage — primary recruiter/employer entry point -->
+  <url>
+    <loc>https://ajitdev.com/</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Projects index — highest-intent page; core portfolio showcase -->
+  <url>
+    <loc>https://ajitdev.com/projects</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TIER 2 — Expertise & authority pages
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Skills — keyword-rich expertise demonstration; targets "Cloud DevOps developer" queries -->
+  <url>
+    <loc>https://ajitdev.com/skills</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About — E-E-A-T author authority signal; Person schema anchor page -->
+  <url>
+    <loc>https://ajitdev.com/about</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog / Articles index — topical authority hub; Cloud, DevOps, Security -->
+  <url>
+    <loc>https://ajitdev.com/blog</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Certifications — trust signal; targets "[name] AWS certified" branded queries -->
+  <url>
+    <loc>https://ajitdev.com/certifications</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TIER 3 — Supporting pages (lower crawl budget allocation)
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Contact — low content density; low crawl priority -->
+  <url>
+    <loc>https://ajitdev.com/contact</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Resume/CV — high recruiter value; separate indexable page if applicable -->
+  <!-- Remove if resume is a PDF download only (non-indexable) -->
+  <url>
+    <loc>https://ajitdev.com/resume</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TIER 4 — Legal / utility pages
+       Included for completeness; minimal crawl budget consumed.
+       These pages should carry <meta name="robots" content="noindex"> OR
+       be included here — not both. Choose one strategy; sitemap inclusion
+       signals indexability intent.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Privacy Policy — required for AdSense, analytics, and trust signals -->
+  <url>
+    <loc>https://ajitdev.com/privacy</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

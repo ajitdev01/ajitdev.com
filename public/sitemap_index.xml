@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  SITEMAP INDEX — ajitdev.com
+  ============================================================================
+  Protocol   : https://www.sitemaps.org/protocol.html
+  Spec       : https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+  Generated  : 2026-02-17
+  Owner      : Ajit Dev  <https://ajitdev.com>
+
+  Architecture:
+    sitemap_index.xml       ← this file (master registry)
+    ├── sitemap-pages.xml   ← core portfolio pages
+    ├── sitemap-projects.xml← individual project detail pages
+    ├── sitemap-blog.xml    ← technical articles / writeups
+    └── sitemap-images.xml  ← project screenshots & OG assets
+
+  Submission:
+    Google  → Search Console > Sitemaps > Add sitemap URL
+    Bing    → curl "https://www.bing.com/ping?sitemap=https://ajitdev.com/sitemap_index.xml"
+    robots  → Sitemap: https://ajitdev.com/sitemap_index.xml
+  ============================================================================
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core portfolio pages — highest crawl priority -->
+  <sitemap>
+    <loc>https://ajitdev.com/sitemap-pages.xml</loc>
+    <lastmod>2026-02-17</lastmod>
+  </sitemap>
+
+  <!-- Project detail pages — primary E-E-A-T content surface -->
+  <sitemap>
+    <loc>https://ajitdev.com/sitemap-projects.xml</loc>
+    <lastmod>2026-02-17</lastmod>
+  </sitemap>
+
+  <!-- Technical blog / writeups — topical authority cluster -->
+  <sitemap>
+    <loc>https://ajitdev.com/sitemap-blog.xml</loc>
+    <lastmod>2026-02-17</lastmod>
+  </sitemap>
+
+  <!-- Image sitemap — portfolio screenshots, diagrams, OG images -->
+  <sitemap>
+    <loc>https://ajitdev.com/sitemap-images.xml</loc>
+    <lastmod>2026-02-17</lastmod>
+  </sitemap>
+
+</sitemapindex>
