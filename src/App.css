@@ -2,20 +2,7 @@
 
 /* loder start */
 /* From Uiverse.io by vinodjangid07 */
-.loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.book-wrapper {
-    width: 150px;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative;
-}
 .loader-container {
   display: flex;
   justify-content: center;
@@ -23,33 +10,78 @@
   height: 100vh;
   width: 100%;
 }
-
-.book {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.137));
+/* From Uiverse.io by Vosoone */ 
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.book-wrapper .book-page {
-    width: 50%;
-    height: auto;
-    position: absolute;
-    animation: paging 0.15s linear infinite;
-    transform-origin: left;
+.loader {
+  width: 50%;
 }
 
-@keyframes paging {
-    0% {
-        transform: rotateY(0deg) skewY(0deg);
-    }
+.trace-bg {
+  stroke: #333;
+  stroke-width: 1.8;
+  fill: none;
+}
 
-    50% {
-        transform: rotateY(90deg) skewY(-20deg);
-    }
+.trace-flow {
+  stroke-width: 1.8;
+  fill: none;
+  stroke-dasharray: 40 400;
+  stroke-dashoffset: 438;
+  filter: drop-shadow(0 0 6px currentColor);
+  animation: flow 3s cubic-bezier(0.5, 0, 0.9, 1) infinite;
+}
 
-    100% {
-        transform: rotateY(180deg) skewY(0deg);
-    }
+.yellow {
+  stroke: #ffea00;
+  color: #ffea00;
+}
+.blue {
+  stroke: #00ccff;
+  color: #00ccff;
+}
+.green {
+  stroke: #00ff15;
+  color: #00ff15;
+}
+.purple {
+  stroke: #9900ff;
+  color: #9900ff;
+}
+.red {
+  stroke: #ff3300;
+  color: #ff3300;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Čip */
+.chip-body {
+  rx: 20;
+  ry: 20;
+}
+
+/* Text uvnitř čipu */
+.chip-text {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Piny */
+.chip-pin {
+  stroke: #444;
+  stroke-width: 0.5;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.6));
 }
 
 /* loder end */
