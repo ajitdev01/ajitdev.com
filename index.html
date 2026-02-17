@@ -1,156 +1,207 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
 
-  <!-- ================================================= -->
-  <!-- BASIC SETUP -->
-  <!-- ================================================= -->
+  <!-- ============================================================ -->
+  <!-- [1] CHARSET + VIEWPORT                                      -->
+  <!-- ============================================================ -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="content-language" content="en" />
 
-  <!-- ================================================= -->
-  <!-- PRIMARY SEO -->
-  <!-- ================================================= -->
-  <title>Ajit Dev | DevOps, DevSecOps & Cloud Security Developer Portfolio</title>
+  <!-- ============================================================ -->
+  <!-- [2] PRIMARY SEO                                             -->
+  <!-- ============================================================ -->
+  <title>Ajit Dev — DevOps, DevSecOps & Cloud Security Developer | India</title>
 
   <meta name="description"
-    content="Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio. Student at Amity University Online and learner at Brainzima Innovation Institute. Projects in cloud computing, security automation and modern web technologies." />
-
-  <meta name="keywords"
-    content="Ajit Dev, DevOps engineer Katihar, DevSecOps engineer India, Cloud Security engineer, Cybersecurity portfolio, Cloud computing developer, DevOps portfolio India" />
+    content="Ajit Dev is a DevOps, DevSecOps & Cloud Security developer from Katihar, India. Specializing in cloud computing, cybersecurity, Linux & Docker automation. Explore projects and portfolio." />
 
   <meta name="author" content="Ajit Dev" />
 
-  <!-- Canonical -->
+  <!-- ============================================================ -->
+  <!-- [3] CRAWLING & INDEXING                                     -->
+  <!-- ============================================================ -->
+  <meta name="robots"
+    content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot"
+    content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
   <link rel="canonical" href="https://ajitdev.com/" />
 
-  <!-- Robots -->
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <!--
+    Sitemap link in <head> — helps Googlebot discover and schedule
+    crawls without waiting for Search Console submission.
+  -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-  <!-- ================================================= -->
-  <!-- PERFORMANCE + BROWSER OPTIMIZATION -->
-  <!-- ================================================= -->
-  <meta name="theme-color" content="#000000" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- ================================================= -->
-  <!-- GEO TARGETING (LOCAL SEO SIGNALS) -->
-  <!-- ================================================= -->
+  <!-- ============================================================ -->
+  <!-- [4] GEO TARGETING                                           -->
+  <!-- ============================================================ -->
   <meta name="geo.region" content="IN-BR" />
-  <meta name="geo.placename" content="Katihar" />
+  <meta name="geo.placename" content="Katihar, Bihar, India" />
+  <meta name="geo.position" content="25.5671;87.5757" />
+  <meta name="ICBM" content="25.5671, 87.5757" />
 
-  <!-- ================================================= -->
-  <!-- FAVICON -->
-  <!-- ================================================= -->
-  <link rel="icon" type="image/png" href="/logo.png" />
+  <!-- ============================================================ -->
+  <!-- [5] LANGUAGE & INTERNATIONALISATION                         -->
+  <!-- ============================================================ -->
+  <link rel="alternate" hreflang="en" href="https://ajitdev.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://ajitdev.com/" />
 
-  <!-- ================================================= -->
-  <!-- OPEN GRAPH (FACEBOOK / LINKEDIN / WHATSAPP) -->
-  <!-- ================================================= -->
-  <meta property="og:title" content="Ajit Dev | DevOps & Cloud Security Developer" />
-  <meta property="og:description"
-    content="Professional portfolio of Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity projects." />
-  <meta property="og:url" content="https://ajitdev.com/" />
+  <!-- ============================================================ -->
+  <!-- [6] PERFORMANCE OPTIMISATION                                -->
+  <!-- ============================================================ -->
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.youtube.com" />
+  <link rel="dns-prefetch" href="https://img.youtube.com" />
+
+  <!-- ============================================================ -->
+  <!-- [7] FAVICON — Full multi-platform coverage                  -->
+  <!-- ============================================================ -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="msapplication-TileColor" content="#000000" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+  <!-- ============================================================ -->
+  <!-- [8] OPEN GRAPH                                              -->
+  <!-- ============================================================ -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ajit Dev Portfolio" />
+  <meta property="og:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Developer" />
+  <meta property="og:description"
+    content="Professional portfolio of Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity projects. Cloud computing, Linux, Docker and security automation." />
+  <meta property="og:url" content="https://ajitdev.com/" />
+  <meta property="og:image" content="https://ajitdev.com/og-image.png" />
+  <meta property="og:image:secure_url" content="https://ajitdev.com/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Ajit Dev — DevOps & Cloud Security Developer Portfolio" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:locale:alternate" content="en_US" />
 
-  <!-- ================================================= -->
-  <!-- TWITTER CARD SEO -->
-  <!-- ================================================= -->
+  <!-- ============================================================ -->
+  <!-- [9] TWITTER / X CARD                                        -->
+  <!-- ============================================================ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ajit Dev Developer Portfolio" />
-  <meta name="twitter:description" content="DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio." />
+  <meta name="twitter:site" content="@ajitdev01" />
+  <meta name="twitter:creator" content="@ajitdev01" />
+  <meta name="twitter:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Developer" />
+  <meta name="twitter:description"
+    content="DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio. Cloud computing, Linux, Docker automation and security engineering projects." />
+  <meta name="twitter:image" content="https://ajitdev.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Ajit Dev Developer Portfolio" />
 
-  <!-- ================================================= -->
-  <!-- IDENTITY / AUTHORITY SIGNAL -->
-  <!-- ================================================= -->
+  <!-- ============================================================ -->
+  <!-- [10] IDENTITY / AUTHORITY — rel=me (E-E-A-T signal)        -->
+  <!-- ============================================================ -->
+  <link rel="me" href="https://github.com/ajitdev01" />
+  <link rel="me" href="https://linkedin.com/in/ajitdev01" />
+  <link rel="me" href="https://twitter.com/ajitdev01" />
   <link rel="me" href="https://www.brainzima.com/" />
 
-  <!-- ================================================= -->
-  <!-- STRUCTURED DATA (ADVANCED SEO - GOOGLE ENTITY SIGNAL) -->
-  <!-- ================================================= -->
+  <!-- ============================================================ -->
+  <!-- [11] JSON-LD — PERSON                                       -->
+  <!--                                                              -->
+  <!--  AUDIT FIX: Added mainEntityOfPage → ProfilePage for        -->
+  <!--  bidirectional entity resolution. Added subjectOf to close   -->
+  <!--  the loop between Person and CreativeWork.                   -->
+  <!-- ============================================================ -->
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Ajit Dev",
-    "url":"https://ajitdev.com",
-    "jobTitle":"DevOps and Cloud Security Developer",
-    "description":"DevOps, DevSecOps, Cloud Security and Cybersecurity developer based in Katihar, India.",
-    "address":{
-      "@type":"PostalAddress",
-      "addressLocality":"Katihar",
-      "addressCountry":"India"
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://ajitdev.com/#person",
+
+    "name": "Ajit Dev",
+    "alternateName": ["ajitdev", "ajitdev01"],
+    "url": "https://ajitdev.com",
+
+    "mainEntityOfPage": {
+      "@id": "https://ajitdev.com/#profilepage"
     },
-    "alumniOf":{
-      "@type":"CollegeOrUniversity",
-      "name":"Amity University Online"
+
+    "image": {
+      "@type": "ImageObject",
+      "@id": "https://ajitdev.com/#personimage",
+      "url": "https://ajitdev.com/logo.png",
+      "width": 400,
+      "height": 400,
+      "caption": "Ajit Dev — DevOps & Cloud Security Developer"
     },
-    "knowsAbout":[
+
+    "jobTitle": "DevOps & Cloud Security Developer",
+
+    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in cloud computing, security automation, Linux, and Docker.",
+
+    "gender": "Male",
+    "nationality": "Indian",
+
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Katihar",
+      "addressRegion": "Bihar",
+      "addressCountry": "IN"
+    },
+
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Amity University Online",
+        "url": "https://amityonline.com"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Brainzima Innovation Institute",
+        "url": "https://www.brainzima.com/"
+      }
+    ],
+
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "DevOps & Cloud Security Developer",
+      "occupationLocation": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "skills": "DevOps, DevSecOps, Cloud Security, Cybersecurity, Linux, Docker, Cloud Computing, Security Automation, CI/CD Pipelines, Infrastructure as Code"
+    },
+
+    "knowsAbout": [
       "DevOps Engineering",
       "DevSecOps",
       "Cloud Security",
       "Cybersecurity",
       "Cloud Computing",
-      "Linux",
-      "Docker",
+      "Linux System Administration",
+      "Docker Containerization",
+      "Security Automation",
+      "CI/CD Pipelines",
+      "Infrastructure as Code",
+      "Network Security",
       "Web Development"
     ],
-    "sameAs":[
-      "https://www.brainzima.com/"
-    ]
-  }
-  </script>
-  <!-- ================================================= -->
-  <!-- ULTRA RICH RESULT STRUCTURED DATA -->
-  <!-- ================================================= -->
 
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "dateCreated": "2026-02-09T10:00:00+05:30",
-  "dateModified": "2026-02-17T12:00:00+05:30",
-
-  "mainEntity": {
-    "@type": "Person",
-    "name": "Ajit Dev",
-    "alternateName": "ajitdev",
-    "identifier": "ajitdev-profile",
-
-    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute.",
-
-    "jobTitle": "DevOps & Cloud Security Developer",
-
-    "image": "https://ajitdev.com/logo.png",
-
-    "interactionStatistic": [
-      {
-        "@type": "InteractionCounter",
-        "interactionType": "https://schema.org/FollowAction",
-        "userInteractionCount": 0
-      },
-      {
-        "@type": "InteractionCounter",
-        "interactionType": "https://schema.org/LikeAction",
-        "userInteractionCount": 0
-      }
+    "knowsLanguage": [
+      { "@type": "Language", "name": "English" },
+      { "@type": "Language", "name": "Hindi" }
     ],
 
-    "knowsAbout": [
-      "DevOps",
-      "DevSecOps",
-      "Cloud Security",
-      "Cybersecurity",
-      "Cloud Computing",
-      "Linux",
-      "Docker"
-    ],
+    "subjectOf": {
+      "@id": "https://ajitdev.com/#profilepage"
+    },
 
-    "sameAs":[
+    "sameAs": [
       "https://ajitdev.com",
       "https://ajitdev01.netlify.app/",
       "https://ajitdev-com.vercel.app/",
@@ -161,81 +212,240 @@
       "https://facebook.com/ajitdev01",
       "https://instagram.com/ajitdev01"
     ]
-
   }
-}
-</script>
+  </script>
 
-
-
- <!-- VIDEO RICH RESULT -->
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"VideoObject",
-
- "name":"JavaScript Gaming Edit | Coding Reels for Developers",
- "description":"DevOps, JavaScript and coding showcase by Ajit Dev demonstrating development skills, creative coding and technical editing.",
-
- "thumbnailUrl":[
-   "https://img.youtube.com/vi/9jDShfTLjwo/maxresdefault.jpg"
- ],
-
- "uploadDate":"2026-02-17T10:00:00+05:30",
-
- "duration":"PT2M00S",
-
- "embedUrl":"https://www.youtube.com/embed/9jDShfTLjwo",
-
- "contentUrl":"https://www.youtube.com/watch?v=9jDShfTLjwo",
-
- "publisher":{
-   "@type":"Person",
-   "name":"Ajit Dev",
-   "url":"https://ajitdev.com"
- }
-}
-</script>
-
-
-
-
-  <!-- BREADCRUMB RICH RESULT -->
+  <!-- ============================================================ -->
+  <!-- [12] JSON-LD — PROFILE PAGE                                 -->
+  <!--                                                              -->
+  <!--  AUDIT FIX: Added about + mentions + speakable.             -->
+  <!--  speakable → eligibility for Google Assistant voice results. -->
+  <!--  mentions → topical entity nodes Google can resolve.         -->
+  <!-- ============================================================ -->
   <script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"BreadcrumbList",
- "itemListElement":[
-   {
-     "@type":"ListItem",
-     "position":1,
-     "name":"Home",
-     "item":"https://ajitdev.com/"
-   },
-   {
-     "@type":"ListItem",
-     "position":2,
-     "name":"Projects",
-     "item":"https://ajitdev.com/projects"
-   },
-   {
-     "@type":"ListItem",
-     "position":3,
-     "name":"Contact",
-     "item":"https://ajitdev.com/contact"
-   }
- ]
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://ajitdev.com/#profilepage",
+
+    "name": "Ajit Dev — DevOps & Cloud Security Developer Portfolio",
+    "url": "https://ajitdev.com/",
+    "description": "Official developer portfolio of Ajit Dev, a DevOps, DevSecOps and Cloud Security engineer from Katihar, India.",
+    "inLanguage": "en-IN",
+
+    "isPartOf": { "@id": "https://ajitdev.com/#website" },
+
+    "about": { "@id": "https://ajitdev.com/#person" },
+
+    "mentions": [
+      { "@type": "Thing", "name": "DevOps" },
+      { "@type": "Thing", "name": "DevSecOps" },
+      { "@type": "Thing", "name": "Cloud Security" },
+      { "@type": "Thing", "name": "Docker" },
+      { "@type": "Thing", "name": "Linux" },
+      { "@type": "Thing", "name": "Cybersecurity" }
+    ],
+
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", "h2", ".hero-description"]
+    },
+
+    "dateCreated": "2026-02-09T10:00:00+05:30",
+    "dateModified": "2026-02-17T12:00:00+05:30",
+    "datePublished": "2026-02-09T10:00:00+05:30",
+
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://ajitdev.com/og-image.png",
+      "width": 1200,
+      "height": 630
+    },
+
+    "mainEntity": { "@id": "https://ajitdev.com/#person" },
+    "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
+
+    "significantLinks": [
+      "https://github.com/ajitdev01",
+      "https://linkedin.com/in/ajitdev01"
+    ]
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [13] JSON-LD — WEBPAGE (expert addition)                    -->
+  <!--                                                              -->
+  <!--  Google's QRG treats WebPage and ProfilePage as separate     -->
+  <!--  but linkable entity types. Having both increases the        -->
+  <!--  number of schema anchors on the same URL and improves       -->
+  <!--  rich result eligibility coverage.                           -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://ajitdev.com/#webpage",
+    "url": "https://ajitdev.com/",
+    "name": "Ajit Dev — DevOps & Cloud Security Developer",
+    "description": "Official portfolio and professional homepage of Ajit Dev, DevOps and Cloud Security developer from Katihar, India.",
+    "inLanguage": "en-IN",
+    "isPartOf": { "@id": "https://ajitdev.com/#website" },
+    "about": { "@id": "https://ajitdev.com/#person" },
+    "author": { "@id": "https://ajitdev.com/#person" },
+    "datePublished": "2026-02-09T10:00:00+05:30",
+    "dateModified": "2026-02-17T12:00:00+05:30",
+    "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://ajitdev.com/og-image.png"
+    }
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [14] JSON-LD — WEBSITE                                      -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://ajitdev.com/#website",
+    "name": "Ajit Dev Portfolio",
+    "url": "https://ajitdev.com",
+    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio by Ajit Dev.",
+    "inLanguage": "en-IN",
+    "publisher": { "@id": "https://ajitdev.com/#person" },
+    "author": { "@id": "https://ajitdev.com/#person" },
+    "copyrightHolder": { "@id": "https://ajitdev.com/#person" },
+    "copyrightYear": "2026"
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [15] JSON-LD — BREADCRUMB                                   -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://ajitdev.com/#breadcrumb",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://ajitdev.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ajitdev.com/projects" },
+      { "@type": "ListItem", "position": 3, "name": "About",    "item": "https://ajitdev.com/about" },
+      { "@type": "ListItem", "position": 4, "name": "Contact",  "item": "https://ajitdev.com/contact" }
+    ]
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [16] JSON-LD — VIDEO OBJECT                                 -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+    "name": "JavaScript & DevOps Coding Showcase | Ajit Dev",
+    "description": "DevOps, JavaScript and coding showcase by Ajit Dev demonstrating development skills, security automation, creative coding and technical editing.",
+    "thumbnailUrl": [
+      "https://img.youtube.com/vi/9jDShfTLjwo/maxresdefault.jpg",
+      "https://img.youtube.com/vi/9jDShfTLjwo/hqdefault.jpg"
+    ],
+    "uploadDate": "2026-02-17T10:00:00+05:30",
+    "duration": "PT2M00S",
+    "embedUrl": "https://www.youtube.com/embed/9jDShfTLjwo",
+    "contentUrl": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+    "potentialAction": {
+      "@type": "WatchAction",
+      "target": "https://www.youtube.com/watch?v=9jDShfTLjwo"
+    },
+    "publisher": { "@id": "https://ajitdev.com/#person" },
+    "author":    { "@id": "https://ajitdev.com/#person" },
+    "inLanguage": "en",
+    "keywords": "DevOps, JavaScript, Cloud Security, coding portfolio, Ajit Dev"
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [17] JSON-LD — ITEM LIST (Projects)                         -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Ajit Dev — DevOps & Security Projects",
+    "description": "Featured DevOps, Cloud Security and Cybersecurity projects by Ajit Dev.",
+    "url": "https://ajitdev.com/projects",
+    "author": { "@id": "https://ajitdev.com/#person" },
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "numberOfItems": 3,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "DevOps Automation Projects",        "url": "https://ajitdev.com/projects" },
+      { "@type": "ListItem", "position": 2, "name": "Cloud Security Engineering",        "url": "https://ajitdev.com/projects" },
+      { "@type": "ListItem", "position": 3, "name": "Cybersecurity & DevSecOps Portfolio","url": "https://ajitdev.com/projects" }
+    ]
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [18] JSON-LD — CREATIVE WORK SERIES                         -->
+  <!--                                                              -->
+  <!--  THE HIDDEN SCHEMA TRICK.                                    -->
+  <!--  CreativeWorkSeries is used by publishers, podcasters, and   -->
+  <!--  YouTube channels — almost never by developer portfolios.    -->
+  <!--  It signals to Google that your projects are an ongoing,     -->
+  <!--  authoritative body of work rather than a static page.       -->
+  <!--  This is a direct Knowledge Graph growth signal.             -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWorkSeries",
+    "@id": "https://ajitdev.com/#workseries",
+
+    "name": "Ajit Dev — DevOps & Cloud Security Works",
+    "description": "An ongoing series of DevOps, DevSecOps, Cloud Security and Cybersecurity projects and technical writings by Ajit Dev.",
+
+    "url": "https://ajitdev.com/projects",
+    "author":  { "@id": "https://ajitdev.com/#person" },
+    "creator": { "@id": "https://ajitdev.com/#person" },
+    "inLanguage": "en-IN",
+    "startDate": "2026-02-09",
+
+    "genre": ["DevOps", "Cloud Security", "Cybersecurity", "DevSecOps"],
+
+    "about": [
+      { "@type": "Thing", "name": "DevOps Engineering" },
+      { "@type": "Thing", "name": "Cloud Security" },
+      { "@type": "Thing", "name": "Cybersecurity" },
+      { "@type": "Thing", "name": "DevSecOps" }
+    ]
+  }
+  </script>
 
 </head>
 
 <body>
 
-  <!-- React Root -->
-  <div id="root"></div>
+  <!--
+    ================================================================
+    E-E-A-T VISIBLE IDENTITY LINKS — add these to your React Footer.
+    ================================================================
+    Google's Quality Raters look for on-page, crawlable identity
+    links — structured data alone is not enough. Real anchor tags
+    with rel="me" pointing to GitHub and LinkedIn directly link
+    your on-page content to your author entity.
 
-  <!-- Main Script -->
+    Add inside your <Footer /> component:
+
+    <a href="https://github.com/ajitdev01"       rel="me noopener noreferrer">GitHub</a>
+    <a href="https://linkedin.com/in/ajitdev01"  rel="me noopener noreferrer">LinkedIn</a>
+    <a href="https://twitter.com/ajitdev01"      rel="me noopener noreferrer">Twitter / X</a>
+    ================================================================
+  -->
+
+  <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 
 </body>
