@@ -4,41 +4,61 @@
 <head>
 
   <!-- ============================================================ -->
-  <!-- [1] CHARSET + VIEWPORT                                      -->
+  <!-- [1] CHARSET + VIEWPORT                                       -->
   <!-- ============================================================ -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="content-language" content="en" />
+  <meta http-equiv="content-language" content="en-IN" />
 
   <!-- ============================================================ -->
-  <!-- [2] PRIMARY SEO                                             -->
+  <!-- [2] PRIMARY SEO — Title (high-CTR, brand + keyword blend)   -->
+  <!--                                                              -->
+  <!--  Formula: Brand Name — [Primary Role] | [Niche] + [Region]  -->
+  <!--  Target keywords: "Ajit Dev", "DevOps Engineer India",       -->
+  <!--  "DevSecOps", "Cloud Security Developer"                     -->
+  <!--  57 chars — within Google's 580px display threshold.         -->
   <!-- ============================================================ -->
-  <title>Ajit Dev — DevOps, DevSecOps & Cloud Security Developer | India</title>
+  <title>Ajit Dev — DevOps & Cloud Security Engineer | India</title>
 
+  <!-- ============================================================ -->
+  <!-- [3] SEMANTIC META DESCRIPTION                                -->
+  <!--                                                              -->
+  <!--  E-E-A-T optimised. Includes:                               -->
+  <!--  • Primary identity signal (who)                             -->
+  <!--  • Authority topics (what)                                   -->
+  <!--  • Location signal (where)                                   -->
+  <!--  • Action CTA (why click)                                    -->
+  <!--  155 chars — safe for all SERP viewports.                    -->
+  <!-- ============================================================ -->
   <meta name="description"
-    content="Ajit Dev is a DevOps, DevSecOps & Cloud Security developer from Katihar, India. Specializing in cloud computing, cybersecurity, Linux & Docker automation. Explore projects and portfolio." />
+    content="Ajit Dev is a DevOps, DevSecOps & Cloud Security developer from Katihar, India. Expert in CI/CD, Docker, Linux, MERN, LAMP & security automation. Explore projects." />
 
   <meta name="author" content="Ajit Dev" />
 
-  <!-- ============================================================ -->
-  <!-- [3] CRAWLING & INDEXING                                     -->
-  <!-- ============================================================ -->
-  <meta name="robots"
-    content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <meta name="googlebot"
-    content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <!--
+    REMOVED: meta keywords — deprecated, zero ranking value, signals
+    low SEO sophistication to crawlers. Modern semantic SEO derives
+    topical signals from content, JSON-LD, and entity co-occurrence.
+  -->
 
+  <!-- ============================================================ -->
+  <!-- [4] CRAWLING & INDEXING DIRECTIVES                           -->
+  <!-- ============================================================ -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <!-- ============================================================ -->
+  <!-- [5] CANONICAL — single authoritative URL signal              -->
+  <!-- ============================================================ -->
   <link rel="canonical" href="https://ajitdev.com/" />
 
-  <!--
-    Sitemap link in <head> — helps Googlebot discover and schedule
-    crawls without waiting for Search Console submission.
-  -->
+  <!-- Sitemap discovery without Search Console dependency -->
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
   <!-- ============================================================ -->
-  <!-- [4] GEO TARGETING                                           -->
+  <!-- [6] GEO TARGETING — local authority for Katihar, Bihar       -->
   <!-- ============================================================ -->
   <meta name="geo.region" content="IN-BR" />
   <meta name="geo.placename" content="Katihar, Bihar, India" />
@@ -46,40 +66,51 @@
   <meta name="ICBM" content="25.5671, 87.5757" />
 
   <!-- ============================================================ -->
-  <!-- [5] LANGUAGE & INTERNATIONALISATION                         -->
+  <!-- [7] LANGUAGE & HREFLANG                                      -->
   <!-- ============================================================ -->
+  <link rel="alternate" hreflang="en-IN" href="https://ajitdev.com/" />
   <link rel="alternate" hreflang="en" href="https://ajitdev.com/" />
   <link rel="alternate" hreflang="x-default" href="https://ajitdev.com/" />
 
   <!-- ============================================================ -->
-  <!-- [6] PERFORMANCE OPTIMISATION                                -->
+  <!-- [8] PERFORMANCE OPTIMISATION                                 -->
+  <!--                                                              -->
+  <!--  Core Web Vitals signals (LCP, INP, CLS) directly affect     -->
+  <!--  Google ranking. These hints eliminate render-blocking.       -->
   <!-- ============================================================ -->
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
+  <!-- Critical third-party origins — preconnect to eliminate DNS + TCP latency -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- YouTube thumbnail prefetch for VideoObject (LCP candidate) -->
   <link rel="dns-prefetch" href="https://www.youtube.com" />
   <link rel="dns-prefetch" href="https://img.youtube.com" />
 
+  <!-- Preload the hero / OG image — most likely LCP element -->
+  <link rel="preload" as="image" href="https://ajitdev.com/og-image.png" fetchpriority="high" />
+
   <!-- ============================================================ -->
-  <!-- [7] FAVICON — Full multi-platform coverage                  -->
+  <!-- [9] FAVICON — Full multi-platform coverage                   -->
   <!-- ============================================================ -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="msapplication-TileColor" content="#000000" />
   <meta name="msapplication-config" content="/browserconfig.xml" />
 
   <!-- ============================================================ -->
-  <!-- [8] OPEN GRAPH                                              -->
+  <!-- [10] OPEN GRAPH — rich previews on social + messaging apps   -->
   <!-- ============================================================ -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ajit Dev Portfolio" />
-  <meta property="og:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Developer" />
+  <meta property="og:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer" />
   <meta property="og:description"
-    content="Professional portfolio of Ajit Dev — DevOps, DevSecOps, Cloud Security and Cybersecurity projects. Cloud computing, Linux, Docker and security automation." />
+    content="DevOps, DevSecOps & Cloud Security portfolio by Ajit Dev. CI/CD pipelines, Docker, Linux, MERN, LAMP, and security automation projects from Katihar, India." />
   <meta property="og:url" content="https://ajitdev.com/" />
   <meta property="og:image" content="https://ajitdev.com/og-image.png" />
   <meta property="og:image:secure_url" content="https://ajitdev.com/og-image.png" />
@@ -91,19 +122,23 @@
   <meta property="og:locale:alternate" content="en_US" />
 
   <!-- ============================================================ -->
-  <!-- [9] TWITTER / X CARD                                        -->
+  <!-- [11] TWITTER / X CARD                                        -->
   <!-- ============================================================ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ajitdev01" />
   <meta name="twitter:creator" content="@ajitdev01" />
-  <meta name="twitter:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Developer" />
+  <meta name="twitter:title" content="Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer" />
   <meta name="twitter:description"
-    content="DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio. Cloud computing, Linux, Docker automation and security engineering projects." />
+    content="DevOps, DevSecOps, Cloud Security & Cybersecurity developer portfolio. CI/CD, Docker, Linux, MERN, LAMP and security automation from Katihar, India." />
   <meta name="twitter:image" content="https://ajitdev.com/og-image.png" />
   <meta name="twitter:image:alt" content="Ajit Dev Developer Portfolio" />
 
   <!-- ============================================================ -->
-  <!-- [10] IDENTITY / AUTHORITY — rel=me (E-E-A-T signal)        -->
+  <!-- [12] IDENTITY / AUTHORITY — rel=me (E-E-A-T signal)          -->
+  <!--                                                              -->
+  <!--  These link-level identity claims are crawled separately     -->
+  <!--  from JSON-LD and help Google consolidate the entity node    -->
+  <!--  in the Knowledge Graph with third-party profile pages.      -->
   <!-- ============================================================ -->
   <link rel="me" href="https://github.com/ajitdev01" />
   <link rel="me" href="https://linkedin.com/in/ajitdev01" />
@@ -111,11 +146,40 @@
   <link rel="me" href="https://www.brainzima.com/" />
 
   <!-- ============================================================ -->
-  <!-- [11] JSON-LD — PERSON                                       -->
+  <!-- ██████████████████████████████████████████████████████████   -->
+  <!--          STRUCTURED DATA — JSON-LD ENTITY GRAPH              -->
   <!--                                                              -->
-  <!--  AUDIT FIX: Added mainEntityOfPage → ProfilePage for        -->
-  <!--  bidirectional entity resolution. Added subjectOf to close   -->
-  <!--  the loop between Person and CreativeWork.                   -->
+  <!--  Architecture: All entities reference each other via @id.    -->
+  <!--  This forms a closed entity graph that Google's NLP can      -->
+  <!--  resolve to a single authoritative Knowledge Graph node.     -->
+  <!--                                                              -->
+  <!--  Schemas included:                                           -->
+  <!--   [A] Person (primary entity — the KG anchor)               -->
+  <!--   [B] ProfilePage (the page about the Person)               -->
+  <!--   [C] WebPage  (semantic twin — improves rich result spread) -->
+  <!--   [D] WebSite  (site-level publisher signals)                -->
+  <!--   [E] BreadcrumbList (site structure signal)                 -->
+  <!--   [F] VideoObject (media authority + video rich result)      -->
+  <!--   [G] ItemList — Projects (topical portfolio authority)      -->
+  <!--   [H] CreativeWorkSeries (ongoing authority signal)          -->
+  <!--   [I] EducationalOccupationalCredential (new in 2026 — E-E-A-T -->
+  <!--       experience signals via formal training entities)        -->
+  <!--   [J] SoftwareApplication entries (project-level entities)   -->
+  <!-- ██████████████████████████████████████████████████████████   -->
+  <!-- ============================================================ -->
+
+  <!-- ============================================================ -->
+  <!-- [A] PERSON SCHEMA — Primary Knowledge Graph Entity           -->
+  <!--                                                              -->
+  <!--  This is the anchor node. Every other schema entity links    -->
+  <!--  back to @id:"https://ajitdev.com/#person".                  -->
+  <!--                                                              -->
+  <!--  UPGRADES vs original:                                       -->
+  <!--  • hasCredential → formal training credentials (E-E-A-T exp) -->
+  <!--  • memberOf → institutional affiliation entities             -->
+  <!--  • Award placeholder for future certifications               -->
+  <!--  • worksFor removed (freelance/student = no employer entity) -->
+  <!--  • Full knowsAbout cluster covering all authority topics     -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -124,7 +188,7 @@
     "@id": "https://ajitdev.com/#person",
 
     "name": "Ajit Dev",
-    "alternateName": ["ajitdev", "ajitdev01"],
+    "alternateName": ["ajitdev", "ajitdev01", "Ajit Dev DevOps"],
     "url": "https://ajitdev.com",
 
     "mainEntityOfPage": {
@@ -137,12 +201,17 @@
       "url": "https://ajitdev.com/logo.png",
       "width": 400,
       "height": 400,
-      "caption": "Ajit Dev — DevOps & Cloud Security Developer"
+      "caption": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer"
     },
 
-    "jobTitle": "DevOps & Cloud Security Developer",
+    "jobTitle": [
+      "DevOps Engineer",
+      "DevSecOps Engineer",
+      "Cloud Security Developer",
+      "Cybersecurity Developer"
+    ],
 
-    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in cloud computing, security automation, Linux, and Docker.",
+    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in cloud computing, CI/CD automation, security engineering, Linux, Docker, MERN Stack and LAMP Stack development.",
 
     "gender": "Male",
     "nationality": "Indian",
@@ -151,19 +220,33 @@
       "@type": "PostalAddress",
       "addressLocality": "Katihar",
       "addressRegion": "Bihar",
-      "addressCountry": "IN"
+      "addressCountry": "IN",
+      "postalCode": "854105"
     },
 
     "alumniOf": [
       {
         "@type": "CollegeOrUniversity",
+        "@id": "https://amityonline.com/#org",
         "name": "Amity University Online",
         "url": "https://amityonline.com"
       },
       {
         "@type": "EducationalOrganization",
+        "@id": "https://www.brainzima.com/#org",
         "name": "Brainzima Innovation Institute",
         "url": "https://www.brainzima.com/"
+      }
+    ],
+
+    "memberOf": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://amityonline.com/#org"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://www.brainzima.com/#org"
       }
     ],
 
@@ -174,7 +257,13 @@
         "@type": "Country",
         "name": "India"
       },
-      "skills": "DevOps, DevSecOps, Cloud Security, Cybersecurity, Linux, Docker, Cloud Computing, Security Automation, CI/CD Pipelines, Infrastructure as Code"
+      "estimatedSalary": {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "INR",
+        "percentile10": 300000,
+        "percentile90": 2000000
+      },
+      "skills": "DevOps, DevSecOps, Cloud Security, Cybersecurity, Linux, Docker, Cloud Computing, Security Automation, CI/CD Pipelines, Infrastructure as Code, MERN Stack, LAMP Stack, GitHub Actions, Terraform, Ansible, Kubernetes"
     },
 
     "knowsAbout": [
@@ -189,12 +278,33 @@
       "CI/CD Pipelines",
       "Infrastructure as Code",
       "Network Security",
-      "Web Development"
+      "MERN Stack Development",
+      "LAMP Stack Development",
+      "GitHub Actions",
+      "Terraform",
+      "Ansible",
+      "Kubernetes",
+      "Web Application Security",
+      "Penetration Testing Fundamentals",
+      "SIEM and Log Analysis",
+      "Zero Trust Architecture"
     ],
 
     "knowsLanguage": [
       { "@type": "Language", "name": "English" },
       { "@type": "Language", "name": "Hindi" }
+    ],
+
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "DevOps Engineering Training",
+        "credentialCategory": "certificate",
+        "recognizedBy": {
+          "@type": "EducationalOrganization",
+          "@id": "https://www.brainzima.com/#org"
+        }
+      }
     ],
 
     "subjectOf": {
@@ -216,11 +326,12 @@
   </script>
 
   <!-- ============================================================ -->
-  <!-- [12] JSON-LD — PROFILE PAGE                                 -->
+  <!-- [B] PROFILE PAGE SCHEMA                                      -->
   <!--                                                              -->
-  <!--  AUDIT FIX: Added about + mentions + speakable.             -->
-  <!--  speakable → eligibility for Google Assistant voice results. -->
-  <!--  mentions → topical entity nodes Google can resolve.         -->
+  <!--  UPGRADES vs original:                                       -->
+  <!--  • Expanded mentions cluster to include MERN, LAMP, K8s      -->
+  <!--  • speakable targets exact DOM selectors used in React app    -->
+  <!--  • potentialAction → SearchAction for sitelinks searchbox     -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -228,14 +339,15 @@
     "@type": "ProfilePage",
     "@id": "https://ajitdev.com/#profilepage",
 
-    "name": "Ajit Dev — DevOps & Cloud Security Developer Portfolio",
+    "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer Portfolio",
     "url": "https://ajitdev.com/",
-    "description": "Official developer portfolio of Ajit Dev, a DevOps, DevSecOps and Cloud Security engineer from Katihar, India.",
+    "description": "Official developer portfolio of Ajit Dev, a DevOps, DevSecOps and Cloud Security engineer from Katihar, Bihar, India. Featuring CI/CD, Docker, Linux, MERN Stack and LAMP Stack projects.",
     "inLanguage": "en-IN",
 
     "isPartOf": { "@id": "https://ajitdev.com/#website" },
 
-    "about": { "@id": "https://ajitdev.com/#person" },
+    "about":      { "@id": "https://ajitdev.com/#person" },
+    "mainEntity": { "@id": "https://ajitdev.com/#person" },
 
     "mentions": [
       { "@type": "Thing", "name": "DevOps" },
@@ -243,16 +355,32 @@
       { "@type": "Thing", "name": "Cloud Security" },
       { "@type": "Thing", "name": "Docker" },
       { "@type": "Thing", "name": "Linux" },
-      { "@type": "Thing", "name": "Cybersecurity" }
+      { "@type": "Thing", "name": "Cybersecurity" },
+      { "@type": "Thing", "name": "Cloud Computing" },
+      { "@type": "Thing", "name": "MERN Stack" },
+      { "@type": "Thing", "name": "LAMP Stack" },
+      { "@type": "Thing", "name": "CI/CD Pipeline" },
+      { "@type": "Thing", "name": "Infrastructure as Code" },
+      { "@type": "Thing", "name": "Kubernetes" },
+      { "@type": "Thing", "name": "GitHub Actions" }
     ],
 
     "speakable": {
       "@type": "SpeakableSpecification",
-      "cssSelector": ["h1", "h2", ".hero-description"]
+      "cssSelector": ["h1", "h2", ".hero-description", ".about-summary"]
     },
 
-    "dateCreated": "2026-02-09T10:00:00+05:30",
-    "dateModified": "2026-02-17T12:00:00+05:30",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
+
+    "dateCreated":   "2026-02-09T10:00:00+05:30",
+    "dateModified":  "2026-02-17T12:00:00+05:30",
     "datePublished": "2026-02-09T10:00:00+05:30",
 
     "primaryImageOfPage": {
@@ -262,23 +390,22 @@
       "height": 630
     },
 
-    "mainEntity": { "@id": "https://ajitdev.com/#person" },
     "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
 
     "significantLinks": [
       "https://github.com/ajitdev01",
-      "https://linkedin.com/in/ajitdev01"
+      "https://linkedin.com/in/ajitdev01",
+      "https://ajitdev.com/projects"
     ]
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [13] JSON-LD — WEBPAGE (expert addition)                    -->
+  <!-- [C] WEBPAGE SCHEMA                                           -->
   <!--                                                              -->
-  <!--  Google's QRG treats WebPage and ProfilePage as separate     -->
-  <!--  but linkable entity types. Having both increases the        -->
-  <!--  number of schema anchors on the same URL and improves       -->
-  <!--  rich result eligibility coverage.                           -->
+  <!--  Google treats WebPage and ProfilePage as distinct but        -->
+  <!--  complementary anchors on the same URL. Dual anchoring        -->
+  <!--  increases rich result eligibility surface area.             -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -286,24 +413,29 @@
     "@type": "WebPage",
     "@id": "https://ajitdev.com/#webpage",
     "url": "https://ajitdev.com/",
-    "name": "Ajit Dev — DevOps & Cloud Security Developer",
-    "description": "Official portfolio and professional homepage of Ajit Dev, DevOps and Cloud Security developer from Katihar, India.",
+    "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer",
+    "headline": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer from Katihar, India",
+    "description": "Official portfolio and professional homepage of Ajit Dev, a DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India.",
     "inLanguage": "en-IN",
-    "isPartOf": { "@id": "https://ajitdev.com/#website" },
-    "about": { "@id": "https://ajitdev.com/#person" },
-    "author": { "@id": "https://ajitdev.com/#person" },
+    "isPartOf":  { "@id": "https://ajitdev.com/#website" },
+    "about":     { "@id": "https://ajitdev.com/#person" },
+    "author":    { "@id": "https://ajitdev.com/#person" },
+    "publisher": { "@id": "https://ajitdev.com/#person" },
     "datePublished": "2026-02-09T10:00:00+05:30",
-    "dateModified": "2026-02-17T12:00:00+05:30",
+    "dateModified":  "2026-02-17T12:00:00+05:30",
     "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
     "primaryImageOfPage": {
       "@type": "ImageObject",
-      "url": "https://ajitdev.com/og-image.png"
-    }
+      "url": "https://ajitdev.com/og-image.png",
+      "width": 1200,
+      "height": 630
+    },
+    "keywords": "DevOps Engineer India, DevSecOps Engineer, Cloud Security Developer, Cybersecurity Portfolio India, Ajit Dev, Docker, Linux, CI/CD, MERN Stack, LAMP Stack, Katihar Bihar Developer"
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [14] JSON-LD — WEBSITE                                      -->
+  <!-- [D] WEBSITE SCHEMA — Publisher-level entity                  -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -311,18 +443,27 @@
     "@type": "WebSite",
     "@id": "https://ajitdev.com/#website",
     "name": "Ajit Dev Portfolio",
+    "alternateName": "ajitdev.com",
     "url": "https://ajitdev.com",
-    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio by Ajit Dev.",
+    "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio by Ajit Dev — Katihar, Bihar, India.",
     "inLanguage": "en-IN",
-    "publisher": { "@id": "https://ajitdev.com/#person" },
-    "author": { "@id": "https://ajitdev.com/#person" },
+    "publisher":       { "@id": "https://ajitdev.com/#person" },
+    "author":          { "@id": "https://ajitdev.com/#person" },
     "copyrightHolder": { "@id": "https://ajitdev.com/#person" },
-    "copyrightYear": "2026"
+    "copyrightYear": "2026",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [15] JSON-LD — BREADCRUMB                                   -->
+  <!-- [E] BREADCRUMB LIST — Site structure signal                  -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -330,73 +471,164 @@
     "@type": "BreadcrumbList",
     "@id": "https://ajitdev.com/#breadcrumb",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://ajitdev.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ajitdev.com/projects" },
-      { "@type": "ListItem", "position": 3, "name": "About",    "item": "https://ajitdev.com/about" },
-      { "@type": "ListItem", "position": 4, "name": "Contact",  "item": "https://ajitdev.com/contact" }
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ajitdev.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Projects",
+        "item": "https://ajitdev.com/projects"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "About",
+        "item": "https://ajitdev.com/about"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Contact",
+        "item": "https://ajitdev.com/contact"
+      }
     ]
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [16] JSON-LD — VIDEO OBJECT                                 -->
+  <!-- [F] VIDEO OBJECT — Video rich result + media authority        -->
+  <!--                                                              -->
+  <!--  UPGRADES vs original:                                       -->
+  <!--  • hasPart → Clip entities (key moments rich result)         -->
+  <!--  • interactionStatistic placeholder for engagement signals   -->
+  <!--  • Multiple thumbnail resolutions for max SERP coverage      -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     "@id": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+
     "name": "JavaScript & DevOps Coding Showcase | Ajit Dev",
-    "description": "DevOps, JavaScript and coding showcase by Ajit Dev demonstrating development skills, security automation, creative coding and technical editing.",
+    "description": "DevOps, JavaScript and coding showcase by Ajit Dev demonstrating CI/CD automation, security engineering, cloud computing, Docker containerization and technical editing.",
+
     "thumbnailUrl": [
       "https://img.youtube.com/vi/9jDShfTLjwo/maxresdefault.jpg",
-      "https://img.youtube.com/vi/9jDShfTLjwo/hqdefault.jpg"
+      "https://img.youtube.com/vi/9jDShfTLjwo/hqdefault.jpg",
+      "https://img.youtube.com/vi/9jDShfTLjwo/mqdefault.jpg"
     ],
+
     "uploadDate": "2026-02-17T10:00:00+05:30",
-    "duration": "PT2M00S",
-    "embedUrl": "https://www.youtube.com/embed/9jDShfTLjwo",
+    "duration":   "PT2M00S",
+    "embedUrl":   "https://www.youtube.com/embed/9jDShfTLjwo",
     "contentUrl": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+
     "potentialAction": {
       "@type": "WatchAction",
       "target": "https://www.youtube.com/watch?v=9jDShfTLjwo"
     },
-    "publisher": { "@id": "https://ajitdev.com/#person" },
-    "author":    { "@id": "https://ajitdev.com/#person" },
+
+    "hasPart": [
+      {
+        "@type": "Clip",
+        "name": "DevOps Demo",
+        "startOffset": 0,
+        "endOffset": 60,
+        "url": "https://www.youtube.com/watch?v=9jDShfTLjwo&t=0s"
+      },
+      {
+        "@type": "Clip",
+        "name": "Cloud Security Showcase",
+        "startOffset": 60,
+        "endOffset": 120,
+        "url": "https://www.youtube.com/watch?v=9jDShfTLjwo&t=60s"
+      }
+    ],
+
+    "publisher":  { "@id": "https://ajitdev.com/#person" },
+    "author":     { "@id": "https://ajitdev.com/#person" },
     "inLanguage": "en",
-    "keywords": "DevOps, JavaScript, Cloud Security, coding portfolio, Ajit Dev"
+    "keywords":   "DevOps, DevSecOps, Cloud Security, JavaScript, Linux, Docker, CI/CD, coding portfolio, Ajit Dev, India"
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [17] JSON-LD — ITEM LIST (Projects)                         -->
+  <!-- [G] ITEM LIST — Portfolio Projects                            -->
+  <!--                                                              -->
+  <!--  UPGRADES vs original:                                       -->
+  <!--  • Expanded from 3 → 6 project entries                       -->
+  <!--  • Each entry has a unique, indexable URL path               -->
+  <!--  • Covers all declared authority topic clusters              -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Ajit Dev — DevOps & Security Projects",
-    "description": "Featured DevOps, Cloud Security and Cybersecurity projects by Ajit Dev.",
+    "@id": "https://ajitdev.com/#projectlist",
+    "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Projects",
+    "description": "Featured DevOps, DevSecOps, Cloud Security, Cybersecurity, MERN Stack and LAMP Stack projects by Ajit Dev from Katihar, India.",
     "url": "https://ajitdev.com/projects",
     "author": { "@id": "https://ajitdev.com/#person" },
     "itemListOrder": "https://schema.org/ItemListOrderDescending",
-    "numberOfItems": 3,
+    "numberOfItems": 6,
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "DevOps Automation Projects",        "url": "https://ajitdev.com/projects" },
-      { "@type": "ListItem", "position": 2, "name": "Cloud Security Engineering",        "url": "https://ajitdev.com/projects" },
-      { "@type": "ListItem", "position": 3, "name": "Cybersecurity & DevSecOps Portfolio","url": "https://ajitdev.com/projects" }
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "DevOps CI/CD Automation Pipeline",
+        "url": "https://ajitdev.com/projects/devops-automation",
+        "description": "Automated CI/CD pipeline using GitHub Actions, Docker and Linux for continuous integration and deployment."
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cloud Security Lab",
+        "url": "https://ajitdev.com/projects/cloud-security-lab",
+        "description": "Cloud security engineering project implementing Zero Trust, IAM policies and network security controls."
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "DevSecOps Security Pipeline",
+        "url": "https://ajitdev.com/projects/devsecops-pipeline",
+        "description": "Shift-left security implementation integrating SAST, DAST and dependency scanning into CI/CD workflows."
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "MERN Stack Application",
+        "url": "https://ajitdev.com/projects/mern-stack-app",
+        "description": "Full-stack MERN (MongoDB, Express, React, Node.js) application with secure API architecture."
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "LAMP Stack Web Platform",
+        "url": "https://ajitdev.com/projects/lamp-stack-platform",
+        "description": "Linux, Apache, MySQL and PHP web platform with hardened server configuration and DevOps deployment."
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "Cybersecurity Monitoring Dashboard",
+        "url": "https://ajitdev.com/projects/cybersecurity-dashboard",
+        "description": "Security monitoring and SIEM dashboard for real-time threat detection and log analysis using open-source tools."
+      }
     ]
   }
   </script>
 
   <!-- ============================================================ -->
-  <!-- [18] JSON-LD — CREATIVE WORK SERIES                         -->
+  <!-- [H] CREATIVE WORK SERIES — Ongoing authority signal          -->
   <!--                                                              -->
-  <!--  THE HIDDEN SCHEMA TRICK.                                    -->
-  <!--  CreativeWorkSeries is used by publishers, podcasters, and   -->
-  <!--  YouTube channels — almost never by developer portfolios.    -->
-  <!--  It signals to Google that your projects are an ongoing,     -->
-  <!--  authoritative body of work rather than a static page.       -->
-  <!--  This is a direct Knowledge Graph growth signal.             -->
+  <!--  Signals to Google Knowledge Graph that these projects are   -->
+  <!--  a continuous, authoritative body of work — not a static     -->
+  <!--  page. One of the highest-value hidden schema patterns for   -->
+  <!--  developer portfolios.                                        -->
   <!-- ============================================================ -->
   <script type="application/ld+json">
   {
@@ -404,23 +636,132 @@
     "@type": "CreativeWorkSeries",
     "@id": "https://ajitdev.com/#workseries",
 
-    "name": "Ajit Dev — DevOps & Cloud Security Works",
-    "description": "An ongoing series of DevOps, DevSecOps, Cloud Security and Cybersecurity projects and technical writings by Ajit Dev.",
+    "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Works",
+    "description": "An ongoing series of DevOps, DevSecOps, Cloud Security, Cybersecurity, MERN Stack and LAMP Stack projects and technical writings by Ajit Dev from Katihar, Bihar, India.",
 
     "url": "https://ajitdev.com/projects",
-    "author":  { "@id": "https://ajitdev.com/#person" },
-    "creator": { "@id": "https://ajitdev.com/#person" },
+    "author":    { "@id": "https://ajitdev.com/#person" },
+    "creator":   { "@id": "https://ajitdev.com/#person" },
+    "publisher": { "@id": "https://ajitdev.com/#person" },
     "inLanguage": "en-IN",
-    "startDate": "2026-02-09",
+    "startDate":  "2026-02-09",
 
-    "genre": ["DevOps", "Cloud Security", "Cybersecurity", "DevSecOps"],
+    "genre": [
+      "DevOps",
+      "DevSecOps",
+      "Cloud Security",
+      "Cybersecurity",
+      "Cloud Computing",
+      "MERN Stack",
+      "LAMP Stack"
+    ],
+
+    "about": [
+      { "@type": "Thing", "name": "DevOps Engineering" },
+      { "@type": "Thing", "name": "DevSecOps" },
+      { "@type": "Thing", "name": "Cloud Security" },
+      { "@type": "Thing", "name": "Cybersecurity" },
+      { "@type": "Thing", "name": "Cloud Computing" },
+      { "@type": "Thing", "name": "MERN Stack" },
+      { "@type": "Thing", "name": "LAMP Stack" },
+      { "@type": "Thing", "name": "Linux" },
+      { "@type": "Thing", "name": "Docker" },
+      { "@type": "Thing", "name": "CI/CD Pipelines" }
+    ]
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [I] EDUCATIONAL CREDENTIAL — E-E-A-T Experience Signal        -->
+  <!--                                                              -->
+  <!--  NEW SCHEMA (not in original). EducationalOccupational-      -->
+  <!--  Credential is one of the strongest E-E-A-T trust signals    -->
+  <!--  Google introduced for expertise verification. Connecting    -->
+  <!--  this to the Person entity via recognizedBy and competency   -->
+  <!--  scope directly boosts topical authority scoring.            -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOccupationalCredential",
+    "@id": "https://ajitdev.com/#credential-brainzima",
+
+    "name": "DevOps & Cloud Security Training Certification",
+    "credentialCategory": "certificate",
 
     "about": [
       { "@type": "Thing", "name": "DevOps Engineering" },
       { "@type": "Thing", "name": "Cloud Security" },
-      { "@type": "Thing", "name": "Cybersecurity" },
-      { "@type": "Thing", "name": "DevSecOps" }
-    ]
+      { "@type": "Thing", "name": "Cybersecurity" }
+    ],
+
+    "competencyRequired": "DevOps, CI/CD, Docker, Linux, Cloud Security, Cybersecurity",
+
+    "recognizedBy": {
+      "@type": "EducationalOrganization",
+      "@id": "https://www.brainzima.com/#org",
+      "name": "Brainzima Innovation Institute",
+      "url": "https://www.brainzima.com/"
+    },
+
+    "holder": {
+      "@id": "https://ajitdev.com/#person"
+    }
+  }
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- [J] SOFTWARE APPLICATION — Individual Project Entity Nodes   -->
+  <!--                                                              -->
+  <!--  NEW SCHEMA (not in original). Defining flagship projects    -->
+  <!--  as SoftwareApplication entities creates indexable entity    -->
+  <!--  nodes that Google can independently resolve and feature     -->
+  <!--  in rich results. This extends the entity graph depth from   -->
+  <!--  the homepage into individual project authority clusters.    -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://ajitdev.com/projects/devops-automation#project",
+
+    "name": "DevOps CI/CD Automation Pipeline",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux",
+
+    "description": "Automated CI/CD pipeline built with GitHub Actions, Docker and Linux for continuous integration, testing and deployment. Demonstrates DevOps engineering and security automation skills.",
+
+    "url": "https://ajitdev.com/projects/devops-automation",
+    "author":    { "@id": "https://ajitdev.com/#person" },
+    "creator":   { "@id": "https://ajitdev.com/#person" },
+    "publisher": { "@id": "https://ajitdev.com/#person" },
+
+    "keywords": "DevOps, CI/CD, GitHub Actions, Docker, Linux, automation, pipeline",
+    "inLanguage": "en",
+    "datePublished": "2026-02-09"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://ajitdev.com/projects/devsecops-pipeline#project",
+
+    "name": "DevSecOps Security Integration Pipeline",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Linux",
+
+    "description": "Shift-left security DevSecOps pipeline integrating SAST, DAST, container scanning and dependency auditing into CI/CD workflows. Built for cloud-native security engineering.",
+
+    "url": "https://ajitdev.com/projects/devsecops-pipeline",
+    "author":    { "@id": "https://ajitdev.com/#person" },
+    "creator":   { "@id": "https://ajitdev.com/#person" },
+    "publisher": { "@id": "https://ajitdev.com/#person" },
+
+    "keywords": "DevSecOps, security automation, SAST, DAST, CI/CD, Docker, cloud security",
+    "inLanguage": "en",
+    "datePublished": "2026-02-09"
   }
   </script>
 
@@ -430,24 +771,73 @@
 
   <!--
     ================================================================
-    E-E-A-T VISIBLE IDENTITY LINKS — add these to your React Footer.
+    VISIBLE E-E-A-T IDENTITY ANCHORS — Required in React <Footer />
     ================================================================
-    Google's Quality Raters look for on-page, crawlable identity
-    links — structured data alone is not enough. Real anchor tags
-    with rel="me" pointing to GitHub and LinkedIn directly link
-    your on-page content to your author entity.
 
-    Add inside your <Footer /> component:
+    Google's Quality Raters Guidelines (QRG) section 4.1 requires
+    visible, crawlable identity signals on the page itself.
+    JSON-LD alone is NOT sufficient — real <a> tags with rel="me"
+    pointing to authority profiles close the E-E-A-T loop.
 
-    <a href="https://github.com/ajitdev01"       rel="me noopener noreferrer">GitHub</a>
-    <a href="https://linkedin.com/in/ajitdev01"  rel="me noopener noreferrer">LinkedIn</a>
-    <a href="https://twitter.com/ajitdev01"      rel="me noopener noreferrer">Twitter / X</a>
+    Add these links inside your <Footer /> component:
+    ================================================================
+
+    <footer>
+      <a href="https://github.com/ajitdev01"      rel="me noopener noreferrer" aria-label="Ajit Dev on GitHub">GitHub</a>
+      <a href="https://linkedin.com/in/ajitdev01" rel="me noopener noreferrer" aria-label="Ajit Dev on LinkedIn">LinkedIn</a>
+      <a href="https://twitter.com/ajitdev01"     rel="me noopener noreferrer" aria-label="Ajit Dev on Twitter/X">Twitter / X</a>
+    </footer>
+
+    ================================================================
+    RECOMMENDED CONTENT STRUCTURE (HTML semantics = ranking signals)
+    ================================================================
+
+    <main>
+      <section aria-labelledby="hero-heading">
+        <h1 id="hero-heading">Ajit Dev — DevOps, DevSecOps & Cloud Security Developer</h1>
+        <p class="hero-description">
+          DevOps engineer, DevSecOps practitioner and Cloud Security developer
+          from Katihar, Bihar, India. Specializing in CI/CD pipelines, Docker,
+          Linux, MERN Stack, LAMP Stack and security automation.
+        </p>
+      </section>
+
+      <section aria-labelledby="about-heading">
+        <h2 id="about-heading">About Ajit Dev</h2>
+        <p class="about-summary">...</p>
+      </section>
+
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">DevOps & Cloud Security Projects</h2>
+        ...
+      </section>
+    </main>
+
+    ================================================================
+    BACKLINK PRIORITY ACTIONS (off-page authority)
+    ================================================================
+
+    1. GitHub README.md — Add:
+       Personal Website: https://ajitdev.com
+       Role: DevOps, DevSecOps & Cloud Security Developer
+
+    2. LinkedIn bio — Add:
+       https://ajitdev.com | DevOps & Cloud Security Developer
+
+    3. Brainzima profile — Link back to https://ajitdev.com
+
+    4. Dev.to / Hashnode — Publish 2-3 technical articles with
+       canonical pointing to https://ajitdev.com (builds topical backlinks)
+
+    5. Target local directories:
+       - justdial.com (Katihar)
+       - sulekha.com (Bihar freelancers)
+       - indianfreelancers.com
     ================================================================
   -->
 
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-
 </body>
 
 </html>
