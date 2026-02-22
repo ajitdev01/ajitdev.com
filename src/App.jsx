@@ -14,17 +14,18 @@ const Skills = lazy(() => import("./Pages/Skills"));
 const Projects = lazy(() => import("./Pages/Projects"));
 const Education = lazy(() => import("./Pages/Education"));
 const Contact = lazy(() => import("./Pages/Contact"));
+const Privacy = lazy(() => import("./Pages/Privacy"));
+const Terms = lazy(() => import("./Pages/Terms"));
 
 const App = () => {
   return (
     <BrowserRouter>
-
       <Routes>
 
         {/* Homepage loads instantly (BEST for LCP + SEO) */}
         <Route path="/" element={<Home />} />
 
-        {/* Lazy routes wrapped individually (elite pattern) */}
+        {/* Lazy routes */}
         <Route
           path="/about"
           element={
@@ -70,8 +71,26 @@ const App = () => {
           }
         />
 
-      </Routes>
+        {/* NEW LEGAL PAGES */}
+        <Route
+          path="/privacy"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Privacy />
+            </Suspense>
+          }
+        />
 
+        <Route
+          path="/terms"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Terms />
+            </Suspense>
+          }
+        />
+
+      </Routes>
     </BrowserRouter>
   );
 };
