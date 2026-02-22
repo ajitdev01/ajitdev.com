@@ -317,7 +317,7 @@ const About = () => {
                       <div className="bg-white/90 backdrop-blur rounded-xl p-4 shadow-lg">
                         <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Education</p>
                         <p className="text-base font-bold text-gray-900">BCA Cloud &amp; Security</p>
-                        <p className="text-sm text-gray-600">Amity University Online · 2024</p>
+                        <p className="text-sm text-gray-600">Amity University Online · 2025</p>
                       </div>
                     </div>
                   </div>
