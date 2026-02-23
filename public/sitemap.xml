@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Homepage -->
+
+  <!-- HOMEPAGE — Highest crawl priority -->
   <url>
     <loc>https://ajitdev.com/</loc>
     <lastmod>2026-02-23</lastmod>
@@ -9,7 +15,7 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- About Page -->
+  <!-- ABOUT — Personal brand & background -->
   <url>
     <loc>https://ajitdev.com/about</loc>
     <lastmod>2026-02-23</lastmod>
@@ -17,7 +23,7 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Projects Page -->
+  <!-- PROJECTS — Portfolio work, update often -->
   <url>
     <loc>https://ajitdev.com/projects</loc>
     <lastmod>2026-02-23</lastmod>
@@ -25,7 +31,7 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Skills Page -->
+  <!-- SKILLS — Tech stack & expertise -->
   <url>
     <loc>https://ajitdev.com/skills</loc>
     <lastmod>2026-02-23</lastmod>
@@ -33,7 +39,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Contact Page -->
+  <!-- CONTACT — Recruiter / client landing -->
   <url>
     <loc>https://ajitdev.com/contact</loc>
     <lastmod>2026-02-23</lastmod>
@@ -41,12 +47,20 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Resume (Important for recruiters & Google indexing) -->
+  <!-- RESUME PDF — Indexed for recruiter search engines -->
   <url>
     <loc>https://ajitdev.com/resume.pdf</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <!-- SECURITY POLICY — Trust signal for security crawlers -->
+  <url>
+    <loc>https://ajitdev.com/security-policy</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 
 </urlset>

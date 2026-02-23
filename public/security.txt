@@ -1,59 +1,122 @@
 # ==============================================================================
 # security.txt — ajitdev.com
-# ==============================================================================
-# Standard   : RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)
-# Spec ref   : https://securitytxt.org/
-# Location   : https://ajitdev.com/.well-known/security.txt
-# Owner      : Ajit Dev
-# Revised    : 2026-02-17
-#
-# This file tells security researchers how to responsibly disclose
-# vulnerabilities found on ajitdev.com. Compliant with RFC 9116 field order.
+# Standard:          RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)
+# Canonical URL:     https://ajitdev.com/.well-known/security.txt
+# Owner:             Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer
+# Last-Updated:      2026-02-23
 # ==============================================================================
 
-# ── Primary disclosure contact ─────────────────────────────────────────────
-# Security researchers should use the email channel as the primary route.
-# The web form is provided as an alternative for those who prefer it.
+
+# ------------------------------------------------------------------------------
+# CONTACT
+# Preferred channel first. Multiple Contact fields are valid per RFC 9116.
+# ------------------------------------------------------------------------------
+
+# Primary — encrypted email preferred
 Contact: mailto:security@ajitdev.com
+
+# Secondary — web form for researchers who don't use email
 Contact: https://ajitdev.com/contact
 
-# ── File expiry ────────────────────────────────────────────────────────────
-# RFC 9116 §2.5.5 — MUST be present. Crawlers and tools treat an expired
-# security.txt as invalid. Renew annually; set a calendar reminder.
-# Next renewal due: 2027-02-17
-Expires: 2027-02-17T23:59:59.000Z
+# Response SLA: Best-effort within 72 hours for initial acknowledgment.
+# Critical vulnerabilities affecting infrastructure or user data: 24 hours.
 
-# ── Preferred languages for disclosure reports ─────────────────────────────
-# Researchers may submit reports in English or Hindi.
-Preferred-Languages: en, hi
 
-# ── Canonical URL ──────────────────────────────────────────────────────────
-# RFC 9116 §2.5.2 — Prevents mirror/phishing confusion.
-# This is the only authoritative location for this file.
-Canonical: https://ajitdev.com/.well-known/security.txt
+# ------------------------------------------------------------------------------
+# DISCLOSURE POLICY
+# Full scope, rules of engagement, and legal safe harbor defined here.
+# ------------------------------------------------------------------------------
 
-# ── Vulnerability disclosure policy ───────────────────────────────────────
-# Link to the full responsible disclosure policy page.
-# Policy should outline: scope, out-of-scope items, SLA, and legal safe harbor.
 Policy: https://ajitdev.com/security-policy
 
-# ── Hiring signal ──────────────────────────────────────────────────────────
-# RFC 9116 §2.5.6 — Optional. Signals open security/dev roles.
-# Security researchers who find this file are a self-selected technical audience.
-Hiring: https://ajitdev.com
+# Summary (full details at the URL above):
+#   ✔  Responsible / coordinated disclosure welcomed
+#   ✔  Legal safe harbor granted for good-faith research
+#   ✔  Static portfolio site — limited attack surface, no auth, no PII stored
+#   ✗  Automated destructive scans, DoS/DDoS, or social engineering NOT permitted
+#   ✗  Third-party services (CDN, hosting provider) are out of scope
+#
+# Disclosure timeline:
+#   Day  0 — Report received, acknowledgment sent (≤72h)
+#   Day  7 — Triage and severity classification shared with reporter
+#   Day 30 — Target remediation for High/Critical findings
+#   Day 90 — Coordinated public disclosure window (negotiable)
 
-# ── Acknowledgments ────────────────────────────────────────────────────────
-# Hall of thanks for responsible disclosures. Points to the About page
-# until a dedicated /acknowledgments or /hall-of-fame page exists.
+
+# ------------------------------------------------------------------------------
+# ENCRYPTION
+# Uncomment and populate when PGP key is published.
+# Using encrypted reports is strongly encouraged for sensitive findings.
+# ------------------------------------------------------------------------------
+
+# Encryption: https://ajitdev.com/.well-known/pgp-key.txt
+# Key fingerprint: [ADD YOUR FINGERPRINT HERE WHEN READY]
+
+
+# ------------------------------------------------------------------------------
+# PREFERRED LANGUAGES
+# Reports in these languages will receive the fastest response.
+# ------------------------------------------------------------------------------
+
+Preferred-Languages: en, hi
+
+
+# ------------------------------------------------------------------------------
+# CANONICAL
+# The authoritative copy of this file. Used by automated scanners and
+# aggregators to avoid processing mirrors or cached versions.
+# ------------------------------------------------------------------------------
+
+Canonical: https://ajitdev.com/.well-known/security.txt
+
+
+# ------------------------------------------------------------------------------
+# ACKNOWLEDGMENTS
+# Researchers who have responsibly reported issues will be credited here
+# (with their consent). Currently no open reports on record.
+# ------------------------------------------------------------------------------
+
 Acknowledgments: https://ajitdev.com/about
+
+
+# ------------------------------------------------------------------------------
+# HIRING
+# Interested in working with a DevSecOps & Cloud Security Engineer?
+# Open to security-focused roles, freelance engagements, and collaborations.
+# ------------------------------------------------------------------------------
+
+Hiring: https://ajitdev.com/contact
+
+
+# ------------------------------------------------------------------------------
+# SCOPE NOTES (informational — not part of RFC 9116 spec)
+#
+# In-scope assets:
+#   • https://ajitdev.com and all subdomains
+#   • DNS configuration (ajitdev.com)
+#   • Static files and build artifacts served from origin
+#
+# Out-of-scope:
+#   • Hosting infrastructure (Vercel / Netlify / Cloudflare — report to them)
+#   • Third-party scripts and CDN resources
+#   • Rate-limiting or brute-force on a site with no login surface
+#   • Self-XSS or issues requiring physical device access
+#
+# Please do NOT:
+#   • Submit automated scanner output without manual triage
+#   • Test against production in a destructive manner
+#   • Exfiltrate or publicly disclose data before coordinated disclosure
+# ------------------------------------------------------------------------------
+
+
+# ------------------------------------------------------------------------------
+# EXPIRATION (REQUIRED by RFC 9116 — file is invalid without this field)
+# Rotate annually. Set a calendar reminder.
+# ------------------------------------------------------------------------------
+
+Expires: 2027-02-23T23:59:59Z
+
 
 # ==============================================================================
 # END OF FILE
-# ==============================================================================
-# Post-deploy checklist:
-#   [ ] Verify: curl -I https://ajitdev.com/.well-known/security.txt → HTTP 200
-#   [ ] Validate: https://securitytxt.org/ → paste canonical URL
-#   [ ] Confirm Content-Type: text/plain; charset=utf-8 in response headers
-#   [ ] Set renewal reminder: 2027-02-01 (2 weeks before Expires)
-#   [ ] Consider PGP signing: https://www.rfc-editor.org/rfc/rfc9116#section-2.4
 # ==============================================================================
