@@ -42,9 +42,9 @@ const personSchema = {
   url: "https://ajitdev.com/about",
   image: "https://ajitdev.com/profile.jpg",
   jobTitle: "DevOps Engineer & Full Stack Developer",
-  // ✅ FIXED: Removed false "5+ years" claim — consistent with 2+ years on Home
+  // ✅ FIXED: Removed false "5+ years" claim — consistent with 1+ years on Home
   description:
-    "Ajit Kumar is a DevOps Engineer and Full Stack Developer from Katihar, Bihar, India, with 2+ years of experience building secure cloud-native infrastructure, CI/CD pipelines, and MERN stack applications following DevSecOps principles.",
+    "Ajit Kumar is a DevOps Engineer and Full Stack Developer from Katihar, Bihar, India, with 1+ years of experience building secure cloud-native infrastructure, CI/CD pipelines, and MERN stack applications following DevSecOps principles.",
   email: "ajitk23192@gmail.com",
   address: {
     "@type": "PostalAddress",
@@ -341,7 +341,7 @@ const About = () => {
                       <p>
                         I'm <strong className="text-gray-900">Ajit Kumar</strong>, a{" "}
                         <strong>DevOps Engineer</strong> and <strong>Full Stack Developer</strong> from{" "}
-                        <strong>Katihar, Bihar, India</strong>. With 2+ years of hands-on experience,
+                        <strong>Katihar, Bihar, India</strong>. With 1+ years of hands-on experience,
                         I design and operate cloud-native infrastructure on <strong>AWS</strong> —
                         spanning EC2, EKS, S3, IAM, and VPC — while orchestrating containerized
                         workloads with <strong>Docker</strong> and <strong>Kubernetes</strong>.
