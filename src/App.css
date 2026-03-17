@@ -85,3 +85,14 @@
 }
 
 /* loder end */
+
+/* new laltaen future */
+.lantern-light {
+  filter: drop-shadow(0 0 10px rgba(212,175,55,0.7));
+  animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}

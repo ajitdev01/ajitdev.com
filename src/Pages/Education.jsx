@@ -216,15 +216,15 @@ const selfLearning = [
 const timelineData = [
   {
     semester: "Semester 1",
-    title: "Foundations",
+    title: "Foundations ,  SGPA - 8.52",
     description: "Programming basics, Mathematics, Computer Fundamentals",
     skills: ["C++ Basics", "Discrete Math", "Computer Architecture"],
     icon: FiBook,
     gradient: "from-blue-500/15 to-blue-600/15",
   },
   {
-    semester: "Semester 2",
-    title: "Web Technologies",
+    semester: "Semester 2 ",
+    title: "Web Technologies ,  SGPA - 7.38",
     description: "HTML, CSS, JavaScript fundamentals, Database concepts",
     skills: ["HTML/CSS", "JavaScript", "SQL Basics"],
     icon: FiCode,
