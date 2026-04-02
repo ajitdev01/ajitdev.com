@@ -1,8 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-// only this add ramadan fastival
-import { RamadanOverlay } from 'ramadan-overlay/react';
 
 /* Loader */
 import Loader from "./Components/Loader";
