@@ -22,41 +22,6 @@ const Terms = lazy(() => import("./Pages/Terms"));
 const App = () => {
   return (
     <BrowserRouter>
-      <RamadanOverlay
-        variant="lanterns"
-        position="both"
-        opacity={0.95}
-
-        // Replace generic confetti with themed particles
-        confetti="crescent-stars"
-
-        locale="en"
-        region="premium"
-
-        // Rich gradient-inspired palette (gold + emerald + night blue)
-        colors={[
-          "#d4af37", // gold
-          "#f6e27a", // soft gold
-          "#0b3d2e", // deep green
-          "#14532d", // emerald
-          "#020617", // night sky
-          "#1e3a8a", // royal blue
-          "#7c3aed", // subtle purple
-        ]}
-
-        glowColor="rgba(212,175,55,0.7)"   // soft golden glow
-        ceilingColor="linear-gradient(to bottom, #020617, #0b3d2e)"
-        ropeColor="#b8962e"
-
-        lanternStyle={2}   // more detailed lantern design
-
-        // New advanced props (custom logic you should add)
-        animation="sway"
-        glowIntensity={0.8}
-        particleDensity={60}
-        blurBackground={true}
-        flicker={true}
-      />
 
       <Routes>
 
