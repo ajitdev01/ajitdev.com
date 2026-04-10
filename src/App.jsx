@@ -22,10 +22,6 @@ const App = () => {
     <BrowserRouter>
 
       <Routes>
-
-
-
-
         {/* Homepage loads instantly (BEST for LCP + SEO) */}
         <Route path="/" element={<Home />} />
 
