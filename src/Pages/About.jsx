@@ -100,16 +100,16 @@ const profilePageSchema = {
 
 // ========== DATA ==========
 const skills = [
-  { name: "MERN Stack",     icon: FiCode,     color: "from-blue-500 to-cyan-500" },
-  { name: "Cloud Security", icon: FiShield,   color: "from-green-500 to-emerald-500" },
-  { name: "DevSecOps",      icon: FiCpu,      color: "from-purple-500 to-violet-500" },
-  { name: "REST APIs",      icon: FiDatabase, color: "from-orange-500 to-amber-500" },
-  { name: "AWS",            icon: FiCloud,    color: "from-yellow-500 to-orange-500" },
-  { name: "Docker",         icon: FiDatabase, color: "from-blue-400 to-cyan-400" },
-  { name: "React.js",       icon: FiCode,     color: "from-cyan-500 to-blue-500" },
-  { name: "Node.js",        icon: FiCpu,      color: "from-green-500 to-teal-500" },
-  { name: "TypeScript",     icon: FiCode,     color: "from-blue-600 to-indigo-500" },
-  { name: "MongoDB",        icon: FiDatabase, color: "from-green-600 to-lime-500" },
+  { name: "MERN Stack", icon: FiCode, color: "from-blue-500 to-cyan-500" },
+  { name: "Cloud Security", icon: FiShield, color: "from-green-500 to-emerald-500" },
+  { name: "DevSecOps", icon: FiCpu, color: "from-purple-500 to-violet-500" },
+  { name: "REST APIs", icon: FiDatabase, color: "from-orange-500 to-amber-500" },
+  { name: "AWS", icon: FiCloud, color: "from-yellow-500 to-orange-500" },
+  { name: "Docker", icon: FiDatabase, color: "from-blue-400 to-cyan-400" },
+  { name: "React.js", icon: FiCode, color: "from-cyan-500 to-blue-500" },
+  { name: "Node.js", icon: FiCpu, color: "from-green-500 to-teal-500" },
+  { name: "TypeScript", icon: FiCode, color: "from-blue-600 to-indigo-500" },
+  { name: "MongoDB", icon: FiDatabase, color: "from-green-600 to-lime-500" },
 ];
 
 const expertise = [
@@ -140,12 +140,12 @@ const expertise = [
 ];
 
 const contactDetails = [
-  { icon: FiMail,      label: "Email",     value: "ajitk23192@gmail.com",                href: "mailto:ajitk23192@gmail.com",              itemProp: "email" },
-  { icon: FiGithub,   label: "GitHub",    value: "github.com/ajitdev01",                href: "https://github.com/ajitdev01",             itemProp: "sameAs" },
-  { icon: FiLinkedin, label: "LinkedIn",  value: "linkedin.com/in/ajitdev01",            href: "https://www.linkedin.com/in/ajitdev01",    itemProp: "sameAs" },
-  { icon: FiMapPin,   label: "Location",  value: "Katihar, Bihar, India (Remote)",       href: null,                                       itemProp: "address" },
-  { icon: FiBriefcase,label: "Role",      value: "DevOps Engineer & Full Stack Developer", href: null,                                     itemProp: "jobTitle" },
-  { icon: FiBookOpen, label: "Education", value: "BCA Cloud & Security — Amity University", href: null,                                   itemProp: "alumniOf" },
+  { icon: FiMail, label: "Email", value: "ajitk23192@gmail.com", href: "mailto:ajitk23192@gmail.com", itemProp: "email" },
+  { icon: FiGithub, label: "GitHub", value: "github.com/ajitdev01", href: "https://github.com/ajitdev01", itemProp: "sameAs" },
+  { icon: FiLinkedin, label: "LinkedIn", value: "linkedin.com/in/ajitdev01", href: "https://www.linkedin.com/in/ajitdev01", itemProp: "sameAs" },
+  { icon: FiMapPin, label: "Location", value: "Katihar, Bihar, India (Remote)", href: null, itemProp: "address" },
+  { icon: FiBriefcase, label: "Role", value: "DevOps Engineer & Full Stack Developer", href: null, itemProp: "jobTitle" },
+  { icon: FiBookOpen, label: "Education", value: "BCA Cloud & Security — Amity University", href: null, itemProp: "alumniOf" },
 ];
 
 const philosophy = [
@@ -315,9 +315,38 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="bg-white/90 backdrop-blur rounded-xl p-4 shadow-lg">
-                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Education</p>
-                        <p className="text-base font-bold text-gray-900">BCA Cloud &amp; Security</p>
-                        <p className="text-sm text-gray-600">Amity University Online · 2025</p>
+                        <div className="space-y-3">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            Education
+                          </p>
+
+                          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                            <p className="text-base font-bold text-gray-900">
+                              BCA — Cloud & Security
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              Amity University Online · 2025
+                            </p>
+                          </div>
+
+                          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                            <p className="text-base font-bold text-gray-900">
+                              Skills & Practical Training
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              Brainzima Innovation Institute
+                            </p>
+
+                            <a
+                              href="https://brainzima.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block mt-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition"
+                            >
+                              Visit brainzima.com →
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -368,9 +397,9 @@ const About = () => {
                       className="grid grid-cols-3 gap-4 mt-8"
                     >
                       {[
-                        { icon: FiAward, label: "Focus",    value: "DevSecOps" },
-                        { icon: FiCloud, label: "Cloud",    value: "AWS Expert" },
-                        { icon: FiCode,  label: "Projects", value: "15+" },
+                        { icon: FiAward, label: "Focus", value: "DevSecOps" },
+                        { icon: FiCloud, label: "Cloud", value: "AWS Expert" },
+                        { icon: FiCode, label: "Projects", value: "15+" },
                       ].map((stat) => (
                         <div key={stat.label} className="text-center p-3 bg-gray-50 rounded-xl border border-gray-100">
                           <stat.icon className="w-5 h-5 mx-auto text-blue-600 mb-2" aria-hidden="true" />
