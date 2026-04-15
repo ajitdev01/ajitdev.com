@@ -93,7 +93,7 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",      item: "https://ajitdev.com" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ajitdev.com" },
     { "@type": "ListItem", position: 2, name: "Education", item: "https://ajitdev.com/education" },
   ],
 };
@@ -265,17 +265,17 @@ const timelineData = [
 ];
 
 const keyLearningAreas = [
-  { icon: FiCloud,     text: "Cloud Computing", color: "text-blue-600",   bg: "bg-blue-50"   },
-  { icon: FiShield,    text: "Cybersecurity",   color: "text-emerald-600",bg: "bg-emerald-50"},
-  { icon: FiCode,      text: "Full Stack Dev",  color: "text-purple-600", bg: "bg-purple-50" },
-  { icon: FiGitBranch, text: "DevOps Concepts", color: "text-amber-600",  bg: "bg-amber-50"  },
+  { icon: FiCloud, text: "Cloud Computing", color: "text-blue-600", bg: "bg-blue-50" },
+  { icon: FiShield, text: "Cybersecurity", color: "text-emerald-600", bg: "bg-emerald-50" },
+  { icon: FiCode, text: "Full Stack Dev", color: "text-purple-600", bg: "bg-purple-50" },
+  { icon: FiGitBranch, text: "DevOps Concepts", color: "text-amber-600", bg: "bg-amber-50" },
 ];
 
 const statusStyles = {
-  Completed:   "bg-green-100 text-green-800",
-  Learning:    "bg-blue-100 text-blue-800",
-  Advanced:    "bg-purple-100 text-purple-800",
-  "In Progress":"bg-amber-100 text-amber-800",
+  Completed: "bg-green-100 text-green-800",
+  Learning: "bg-blue-100 text-blue-800",
+  Advanced: "bg-purple-100 text-purple-800",
+  "In Progress": "bg-amber-100 text-amber-800",
 };
 
 // ========== ANIMATION VARIANTS ==========
@@ -292,12 +292,12 @@ const itemVariants = {
 const cardVariants = {
   hidden: { scale: 0.95, opacity: 0 },
   visible: { scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  hover:   { scale: 1.02, y: -5,   transition: { duration: 0.2 } },
+  hover: { scale: 1.02, y: -5, transition: { duration: 0.2 } },
 };
 
 // ========== MAIN COMPONENT ==========
 const Education = () => {
-  const [isLoaded, setIsLoaded]               = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // ✅ REMOVED: activeTimeline state was set but never used in rendering
@@ -460,10 +460,10 @@ const Education = () => {
                     <h2 className="text-xl font-bold text-gray-900">Quick Navigation</h2>
                     <div className="grid grid-cols-2 gap-3">
                       {[
-                        { icon: FiBook,      label: "Program",        section: "main-education" },
-                        { icon: FiTarget,    label: "Focus Areas",    section: "focus-areas"    },
-                        { icon: FiAward,     label: "Certifications", section: "certifications" },
-                        { icon: FiTrendingUp,label: "Timeline",       section: "timeline"       },
+                        { icon: FiBook, label: "Program", section: "main-education" },
+                        { icon: FiTarget, label: "Focus Areas", section: "focus-areas" },
+                        { icon: FiAward, label: "Certifications", section: "certifications" },
+                        { icon: FiTrendingUp, label: "Timeline", section: "timeline" },
                       ].map((item) => (
                         <motion.button
                           key={item.section}
@@ -530,7 +530,69 @@ const Education = () => {
                           itemScope
                           itemType="https://schema.org/CollegeOrUniversity"
                         >
-                          <span itemProp="name">Amity University Online</span>
+                          <div className="mt-2 space-y-1 text-sm">
+
+                            {/* Academic Provider */}
+                            <p
+                              className="text-blue-600 font-medium"
+                              itemProp="provider"
+                              itemScope
+                              itemType="https://schema.org/CollegeOrUniversity"
+                            >
+                              <a
+                                href="https://amityonline.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                itemProp="url"
+                                className="hover:underline"
+                              >
+                                <span itemProp="name">Amity University Online</span>
+                              </a>
+                            </p>
+
+                            {/* Skills & Training */}
+                            <p
+                              className="text-indigo-600 font-medium"
+                              itemProp="educationalOrganization"
+                              itemScope
+                              itemType="https://schema.org/Organization"
+                            >
+                              <a
+                                href="https://brainzima.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                itemProp="url"
+                                className="hover:underline"
+                              >
+                                <span itemProp="name">Brainzima Innovation Institute</span>
+                              </a>
+                              <span className="text-gray-500 ml-1 text-xs">
+                                · Skills & Practical Training (DevOps, MERN, CI/CD)
+                              </span>
+                            </p>
+
+                            {/* Industry Exposure */}
+                            <p
+                              className="text-purple-600 font-medium"
+                              itemProp="worksFor"
+                              itemScope
+                              itemType="https://schema.org/Organization"
+                            >
+                              <a
+                                href="https://rexvel.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                itemProp="url"
+                                className="hover:underline"
+                              >
+                                <span itemProp="name">Rexvel</span>
+                              </a>
+                              <span className="text-gray-500 ml-1 text-xs">
+                                · Industry Exposure & Real-World Experience
+                              </span>
+                            </p>
+
+                          </div>
                         </p>
                       </div>
                       <div className="inline-flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-md self-start">
@@ -804,9 +866,8 @@ const Education = () => {
                     <motion.div
                       key={item.semester}
                       variants={itemVariants}
-                      className={`relative flex flex-col lg:flex-row items-center gap-8 ${
-                        index % 2 === 0 ? "lg:flex-row-reverse" : ""
-                      }`}
+                      className={`relative flex flex-col lg:flex-row items-center gap-8 ${index % 2 === 0 ? "lg:flex-row-reverse" : ""
+                        }`}
                     >
                       {/* Timeline dot */}
                       <div
@@ -848,55 +909,6 @@ const Education = () => {
                       <div className="hidden lg:block lg:w-2/12" aria-hidden="true" />
                     </motion.div>
                   ))}
-                </div>
-              </div>
-            </motion.section>
-
-            {/* ===== CTA ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={itemVariants}
-              aria-label="Contact call to action"
-            >
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white p-12 shadow-2xl">
-                <div
-                  className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10"
-                  aria-hidden="true"
-                />
-                <div className="relative text-center">
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                    Ready to Build Something Great?
-                  </h2>
-                  <p className="text-gray-300 text-lg mb-10 max-w-xl mx-auto">
-                    Let's discuss how my education, skills, and learning journey can contribute to your projects.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link
-                      to="/contact"
-                      className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-xl min-w-[200px]"
-                      aria-label="Contact Ajit Kumar"
-                    >
-                      <FiSend className="w-5 h-5" aria-hidden="true" />
-                      Get In Touch
-                    </Link>
-                    <Link
-                      to="/projects"
-                      className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 border border-white/20 transition-all min-w-[200px]"
-                      aria-label="View DevOps and full stack projects"
-                    >
-                      <FiCode className="w-5 h-5" aria-hidden="true" />
-                      View Projects
-                    </Link>
-                  </div>
-                  <p className="text-gray-400 text-sm mt-8">
-                    Download my{" "}
-                    <a href="/resume.pdf" download className="text-blue-400 hover:text-blue-300 underline font-medium">
-                      resume
-                    </a>{" "}
-                    for detailed academic and professional information
-                  </p>
                 </div>
               </div>
             </motion.section>
