@@ -1,373 +1,213 @@
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import {
-  FiCode, FiMail, FiMapPin, FiGithub, FiLinkedin, FiShield,
-  FiCloud, FiLayers, FiAward, FiCpu, FiArrowRight, FiServer,
-  FiCheckCircle, FiBriefcase, FiUser, FiTerminal, FiTool,
-  FiGitBranch, FiMonitor, FiLock, FiDatabase, FiZap,
+  FiCode, FiMail, FiGithub, FiLinkedin, FiArrowRight,
+  FiDatabase, FiServer, FiZap, FiTrendingUp,
+  FiBox, FiGitBranch, FiTerminal, FiAward, FiClock, FiUsers,
+  FiCpu, FiCloud, FiShield, FiLayers
 } from "react-icons/fi";
-import { FaGraduationCap, FaDocker, FaAws, FaJenkins, FaGithub } from "react-icons/fa";
-import { SiKubernetes, SiTerraform, SiPrometheus, SiGrafana, SiSonarqube } from "react-icons/si";
+import { FaReact, FaNodeJs, FaAws, FaDocker, FaLinux, FaPhp } from "react-icons/fa";
+import { SiMongodb, SiTypescript, SiTailwindcss, SiExpress, SiPrisma, SiRedis, SiNextdotjs, SiMysql } from "react-icons/si";
 
-// ========== CONFIGURATION ==========
+// Configuration
 const SITE_CONFIG = {
   name: "Ajit Kumar",
   fullName: "Ajit Kumar",
-  headline: "Ajit Kumar — DevOps Engineer | Katihar, Bihar, India",
-  description:
-    "Ajit Kumar is a professional DevOps & DevSecOps Engineer based in Katihar, Bihar, India. Expert in AWS cloud infrastructure, Docker, Kubernetes, CI/CD automation, and secure MERN stack applications. Available for remote opportunities worldwide.",
-  keywords: [
-    "DevOps Engineer Katihar",
-    "DevOps Engineer Bihar",
-    "DevOps Engineer India",
-    "DevSecOps Engineer India",
-    "Cloud Engineer Katihar",
-    "CI/CD Engineer India",
-    "AWS DevOps Engineer",
-    "Remote DevOps Engineer",
-    "DevOps Consultant Bihar",
-    "Cloud Infrastructure Engineer",
-  ].join(", "),
-  canonical: "https://ajitdev.com",
-  location: {
-    city: "Katihar",
-    state: "Bihar",
-    country: "India",
-    full: "Katihar, Bihar, India",
-  },
-  roles: {
-    primary: "DevOps Engineer",
-    secondary: ["DevSecOps Engineer", "Cloud Engineer", "Full-Stack Engineer"],
-  },
+  headline: "Ajit Kumar — Full Stack Developer | Bihar, India",
+  description: "Building scalable web systems with LAMP, MERN, and Next.js. Focused on clean architecture, CI/CD pipelines, and production-ready deployments.",
+  location: { full: "Katihar, Bihar, India", short: "Bihar, India" },
+  roles: { primary: "Full Stack Developer" },
   contact: {
     email: "ajitk23192@gmail.com",
     github: "https://github.com/ajitdev01",
     linkedin: "https://www.linkedin.com/in/ajitdev01",
-    website: "https://ajitdev.com",
   },
   education: {
-    degree: "BCA Cloud & Security",
-    university: "Amity University Online",
-    year: "2024",
-  },
+    degree: "BCA in Cloud & Security",
+    institution: "Amity University Online",
+    training: "Brainzima Innovation Institute",
+    trainingUrl: "https://brainzima.com"
+  }
 };
 
-// ========== STRUCTURED DATA ==========
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE_CONFIG.name,
-  url: SITE_CONFIG.canonical,
-  image: "https://ajitdev.com/profile.jpg",
-  jobTitle: [SITE_CONFIG.roles.primary, ...SITE_CONFIG.roles.secondary].join(", "),
-  description: SITE_CONFIG.description,
-  email: SITE_CONFIG.contact.email,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: SITE_CONFIG.location.city,
-    addressRegion: SITE_CONFIG.location.state,
-    addressCountry: "IN",
-  },
-  sameAs: [
-    SITE_CONFIG.contact.github,
-    SITE_CONFIG.contact.linkedin,
-    SITE_CONFIG.canonical,
-  ],
-  alumniOf: [
-    {
-      "@type": "CollegeOrUniversity",
-      name: SITE_CONFIG.education.university,
-    },
-  ],
-  hasCredential: {
-    "@type": "EducationalOccupationalCredential",
-    credentialCategory: "degree",
-    name: SITE_CONFIG.education.degree,
-    recognizedBy: { "@type": "Organization", name: SITE_CONFIG.education.university },
-  },
-  knowsAbout: [
-    "DevOps Engineering", "DevSecOps", "Cloud Security", "AWS", "Docker",
-    "Kubernetes", "Terraform", "CI/CD Pipelines", "MERN Stack", "React",
-    "Node.js", "TypeScript", "Prometheus", "Grafana", "Jenkins",
-  ],
-  worksFor: {
-    "@type": "Organization",
-    name: "Freelance",
-    description: "Remote DevOps Engineering & Consulting",
-  },
-  skills:
-    "DevOps, DevSecOps, Cloud Architecture, CI/CD Automation, Containerization, Infrastructure as Code, Security Engineering, MERN Stack",
+// Animations
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://ajitdev.com",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Projects",
-      item: "https://ajitdev.com/projects",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Contact",
-      item: "https://ajitdev.com/contact",
-    },
-  ],
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "What does Ajit Kumar do as a DevOps Engineer?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ajit Kumar is a DevOps Engineer based in Katihar, Bihar, India who specializes in building and managing CI/CD pipelines, cloud infrastructure on AWS, container orchestration with Docker and Kubernetes, and implementing DevSecOps practices to integrate security into every stage of the software delivery lifecycle.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What is DevSecOps and how does Ajit implement it?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "DevSecOps is the practice of integrating security into every phase of DevOps — from planning and coding to testing and deployment. Ajit Kumar implements DevSecOps by using SAST/DAST tools, enforcing least-privilege IAM policies, automating compliance checks with SonarQube, and building security gates into CI/CD pipelines using GitHub Actions and Jenkins.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What cloud and DevOps tools does Ajit Kumar use?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ajit Kumar is experienced with AWS (EC2, S3, EKS, IAM, VPC), Docker, Kubernetes, Terraform, GitHub Actions, Jenkins, Prometheus, Grafana, SonarQube, and the MERN stack (MongoDB, Express, React, Node.js).",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is Ajit Kumar available for remote DevOps opportunities?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Ajit Kumar is based in Katihar, Bihar, India and is fully available for remote DevOps, DevSecOps, and cloud engineering opportunities with teams and companies worldwide.",
-      },
-    },
-  ],
-};
-
-const profilePageSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  mainEntity: { "@type": "Person", name: SITE_CONFIG.name },
-  name: `${SITE_CONFIG.name} — DevOps Portfolio`,
-  url: SITE_CONFIG.canonical,
-  description: SITE_CONFIG.description,
-};
-
-// ========== ANIMATION VARIANTS ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const staggerContainer = {
+const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
+  visible: { opacity: 1, transition: { duration: 0.5 } }
 };
 
-// ========== DATA ==========
-const stats = [
-  { value: "15+", label: "Projects Shipped", description: "Production deployments", icon: FiBriefcase, color: "blue" },
-  { value: "20+", label: "Technologies", description: "DevOps & cloud tools", icon: FiTool, color: "purple" },
-  { value: "100%", label: "Security Focus", description: "DevSecOps integrated", icon: FiShield, color: "green" },
-  { value: "1+", label: "Years Experience", description: "Professional DevOps", icon: FiAward, color: "orange" },
-];
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+};
 
-const expertise = [
+const scaleOnHover = {
+  whileHover: { scale: 1.05, y: -5 },
+  transition: { duration: 0.2 }
+};
+
+// Tech Stack Data
+const techCategories = [
   {
-    icon: FiShield, title: "DevSecOps",
-    description: "Security-first DevOps with automated compliance, SAST/DAST scanning, and secure CI/CD pipelines that enforce policy at every stage.",
-    gradient: "from-blue-500 to-cyan-500",
-    keywords: ["Security", "SAST/DAST", "Compliance"],
-  },
-  {
-    icon: FiCloud, title: "Cloud Architecture",
-    description: "AWS infrastructure design, containerization with Docker, and Kubernetes orchestration for resilient, auto-scaling workloads.",
-    gradient: "from-purple-500 to-violet-500",
-    keywords: ["AWS", "Docker", "Kubernetes"],
-  },
-  {
-    icon: FiGitBranch, title: "CI/CD Automation",
-    description: "Automated pipelines using GitHub Actions and Jenkins with Infrastructure as Code via Terraform for repeatable, reliable deployments.",
+    name: "LAMP Stack",
+    icon: FaLinux,
+    items: ["Linux", "Apache", "MySQL", "PHP"],
     gradient: "from-orange-500 to-red-500",
-    keywords: ["CI/CD", "GitHub Actions", "Terraform"],
+    color: "orange"
   },
   {
-    icon: FiCode, title: "Full-Stack Engineering",
-    description: "MERN stack applications with TypeScript, REST APIs, and microservices architecture — built for performance and maintainability.",
-    gradient: "from-green-500 to-emerald-500",
-    keywords: ["React", "Node.js", "MongoDB"],
+    name: "MERN Stack",
+    icon: FaReact,
+    items: ["MongoDB", "Express", "React", "Node.js"],
+    gradient: "from-blue-500 to-cyan-500",
+    color: "blue"
   },
+  {
+    name: "Next.js Ecosystem",
+    icon: SiNextdotjs,
+    items: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
+    gradient: "from-gray-700 to-gray-900",
+    color: "gray"
+  },
+  {
+    name: "Cloud & CI/CD",
+    icon: FaAws,
+    items: ["AWS", "Docker", "GitHub Actions", "Vercel"],
+    gradient: "from-purple-500 to-indigo-500",
+    color: "purple"
+  }
 ];
 
-const techStack = {
-  cloud: [
-    { name: "AWS", icon: FaAws, gradient: "from-orange-400 to-yellow-500" },
-    { name: "Docker", icon: FaDocker, gradient: "from-blue-400 to-blue-600" },
-    { name: "Kubernetes", icon: SiKubernetes, gradient: "from-blue-500 to-indigo-600" },
-  ],
-  cicd: [
-    { name: "GitHub Actions", icon: FaGithub, gradient: "from-gray-600 to-gray-800" },
-    { name: "Jenkins", icon: FaJenkins, gradient: "from-red-500 to-red-700" },
-    { name: "Terraform", icon: SiTerraform, gradient: "from-purple-500 to-indigo-600" },
-  ],
-  monitoring: [
-    { name: "Prometheus", icon: SiPrometheus, gradient: "from-orange-500 to-red-600" },
-    { name: "Grafana", icon: SiGrafana, gradient: "from-orange-400 to-orange-600" },
-    { name: "SonarQube", icon: SiSonarqube, gradient: "from-blue-500 to-blue-700" },
-  ],
-  development: [
-    { name: "React", icon: FiCode, gradient: "from-cyan-500 to-blue-500" },
-    { name: "Node.js", icon: FiTerminal, gradient: "from-green-500 to-emerald-600" },
-    { name: "MongoDB", icon: FiDatabase, gradient: "from-green-600 to-lime-600" },
-  ],
-};
-
-const faqs = [
+// Projects Data
+const featuredProjects = [
   {
-    q: "What does a DevOps Engineer do?",
-    a: "A DevOps Engineer bridges development and operations — automating deployment pipelines, managing cloud infrastructure, and ensuring systems are secure, scalable, and observable. My work spans writing Terraform configs, building CI/CD workflows, and instrumenting monitoring stacks.",
+    title: "Cloud Task Manager",
+    stack: ["React", "Node.js", "MongoDB", "Docker"],
+    description: "Full-stack task management with real-time updates, JWT authentication, and containerized deployment on AWS ECS.",
+    impact: "Reduced task completion time by 40%",
+    gradient: "from-blue-500 to-cyan-500"
   },
   {
-    q: "What is DevSecOps?",
-    a: "DevSecOps integrates security practices directly into the DevOps lifecycle. Instead of treating security as an afterthought, I embed SAST/DAST scanning, dependency audits, and policy-as-code checks into every pipeline stage so vulnerabilities are caught before they reach production.",
+    title: "DevOps Dashboard",
+    stack: ["Next.js", "TypeScript", "AWS", "Tailwind"],
+    description: "Monitoring dashboard for CI/CD pipelines with live metrics, status alerts, and automated reporting via GitHub Actions.",
+    impact: "Decreased deployment failures by 65%",
+    gradient: "from-purple-500 to-pink-500"
   },
   {
-    q: "What tools do you use?",
-    a: "My core stack includes AWS for cloud infrastructure, Docker + Kubernetes for containerization, Terraform for IaC, GitHub Actions & Jenkins for CI/CD, and Prometheus + Grafana for observability. On the application side I work with the MERN stack and TypeScript.",
-  },
-  {
-    q: "Are you available for remote work?",
-    a: "Yes — I'm based in Katihar, Bihar, India and fully available for remote DevOps, DevSecOps, and cloud engineering roles or contracts with teams worldwide.",
-  },
+    title: "E-Commerce API",
+    stack: ["Express", "MongoDB", "Redis", "Stripe"],
+    description: "Scalable payment gateway integration with rate limiting, webhook handlers, and order management for 10k+ concurrent users.",
+    impact: "Processed 5k+ transactions in first month",
+    gradient: "from-orange-500 to-red-500"
+  }
 ];
 
-const colorMap = {
-  blue: { bar: "from-blue-500 to-cyan-500", icon: "text-blue-600", bg: "bg-blue-50" },
-  purple: { bar: "from-purple-500 to-violet-500", icon: "text-purple-600", bg: "bg-purple-50" },
-  green: { bar: "from-green-500 to-emerald-500", icon: "text-green-600", bg: "bg-green-50" },
-  orange: { bar: "from-orange-500 to-red-500", icon: "text-orange-600", bg: "bg-orange-50" },
-};
+// Workflow Steps
+const workflowSteps = [
+  { icon: FiCode, title: "Clean Code", desc: "Modular, documented, and test-driven" },
+  { icon: FiLayers, title: "Scalable Systems", desc: "Designed for growth and reliability" },
+  { icon: FiGitBranch, title: "CI/CD Pipelines", desc: "Automated testing and deployment" },
+  { icon: FiCloud, title: "Cloud-Ready", desc: "Docker + AWS infrastructure" }
+];
 
-// ========== SUBCOMPONENTS ==========
-const StatCard = ({ stat }) => {
-  const c = colorMap[stat.color];
+// Components
+const StatCard = ({ stat, index }) => (
+  <motion.div
+    variants={fadeUp}
+    whileHover={{ y: -5, scale: 1.02 }}
+    className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+  >
+    <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
+    <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${stat.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+      <stat.icon className="w-7 h-7 text-white" />
+    </div>
+    <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+    <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+  </motion.div>
+);
+
+const TechCard = ({ tech }) => {
+  const colorMap = {
+    orange: "from-orange-500 to-red-500",
+    blue: "from-blue-500 to-cyan-500",
+    gray: "from-gray-700 to-gray-900",
+    purple: "from-purple-500 to-indigo-500"
+  };
+  
   return (
     <motion.div
-      variants={fadeInUp}
-      whileHover={{ y: -4, scale: 1.03 }}
-      transition={{ duration: 0.2 }}
-      className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-100"
-      itemScope
-      itemType="https://schema.org/QuantitativeValue"
+      variants={fadeUp}
+      whileHover={{ y: -5 }}
+      className="group bg-white rounded-xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300"
     >
-      <meta itemProp="name" content={stat.label} />
-      <meta itemProp="value" content={stat.value} />
-      <div className={`w-12 h-12 rounded-xl ${c.bg} flex items-center justify-center mb-4`}>
-        <stat.icon className={`w-6 h-6 ${c.icon}`} />
+      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${colorMap[tech.color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+        <tech.icon className="w-6 h-6 text-white" />
       </div>
-      <div className={`text-3xl font-bold bg-gradient-to-r ${c.bar} bg-clip-text text-transparent`}>
-        {stat.value}
+      <h3 className="font-bold text-gray-900 mb-3 text-lg">{tech.name}</h3>
+      <div className="flex flex-wrap gap-2">
+        {tech.items.map((item) => (
+          <span key={item} className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs rounded-lg font-medium">
+            {item}
+          </span>
+        ))}
       </div>
-      <div className="font-semibold text-gray-900 mt-1">{stat.label}</div>
-      <p className="text-sm text-gray-500 mt-1">{stat.description}</p>
     </motion.div>
   );
 };
 
-const ExpertiseCard = ({ item }) => (
-  <motion.article
-    variants={fadeInUp}
-    whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-    transition={{ duration: 0.25 }}
-    className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 group"
-    itemScope
-    itemType="https://schema.org/Service"
+const ProjectCard = ({ project, index }) => (
+  <motion.div
+    variants={fadeUp}
+    whileHover={{ y: -8 }}
+    className="group bg-white rounded-xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer"
   >
-    <meta itemProp="name" content={item.title} />
-    <meta itemProp="description" content={item.description} />
-    <div
-      className={`w-14 h-14 rounded-xl bg-gradient-to-r ${item.gradient} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}
-    >
-      <item.icon className="w-7 h-7 text-white" />
-    </div>
-    <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-    <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
-    <div className="flex flex-wrap gap-2">
-      {item.keywords.map((kw) => (
-        <span key={kw} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-          {kw}
+    <div className={`w-1 h-12 bg-gradient-to-b ${project.gradient} rounded-full mb-4`} />
+    <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+    <div className="flex flex-wrap gap-2 mb-3">
+      {project.stack.map((tech) => (
+        <span key={tech} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
+          {tech}
         </span>
       ))}
     </div>
-  </motion.article>
-);
-
-const TechBadge = ({ tech }) => (
-  <motion.div
-    variants={fadeInUp}
-    whileHover={{ scale: 1.1, y: -4 }}
-    className={`p-3 rounded-xl bg-gradient-to-br ${tech.gradient} text-center group cursor-pointer shadow-sm`}
-  >
-    <tech.icon className="w-6 h-6 mx-auto mb-2 text-white opacity-90" />
-    <span className="text-xs font-semibold text-white opacity-90">{tech.name}</span>
-  </motion.div>
-);
-
-const TechCategory = ({ title, items }) => (
-  <div className="space-y-3">
-    <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{title}</h4>
-    <div className="grid grid-cols-3 gap-3">
-      {items.map((tech) => (
-        <TechBadge key={tech.name} tech={tech} />
-      ))}
-    </div>
-  </div>
-);
-
-const FAQItem = ({ faq, index }) => (
-  <motion.div
-    variants={fadeInUp}
-    className="border border-gray-200 rounded-xl p-6 bg-white hover:border-blue-200 hover:shadow-md transition-all"
-    itemScope
-    itemType="https://schema.org/Question"
-  >
-    <h3 className="font-semibold text-gray-900 mb-2 flex items-start gap-3" itemProp="name">
-      <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-        {index + 1}
-      </span>
-      {faq.q}
-    </h3>
-    <div itemScope itemType="https://schema.org/Answer" itemProp="acceptedAnswer">
-      <p className="text-gray-600 leading-relaxed pl-9" itemProp="text">{faq.a}</p>
+    <p className="text-gray-600 text-sm leading-relaxed mb-3">{project.description}</p>
+    <div className="flex items-center gap-2 text-emerald-600 text-xs font-medium">
+      <FiTrendingUp className="w-3 h-3" />
+      <span>{project.impact}</span>
     </div>
   </motion.div>
 );
 
-// ========== MAIN COMPONENT ==========
+const WorkflowCard = ({ step, index }) => (
+  <motion.div
+    variants={fadeUp}
+    whileHover={{ y: -3 }}
+    className="text-center p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+  >
+    <div className="w-14 h-14 mx-auto bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center mb-4 shadow-md">
+      <step.icon className="w-7 h-7 text-white" />
+    </div>
+    <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
+    <p className="text-gray-500 text-sm">{step.desc}</p>
+  </motion.div>
+);
+
+// Main Component
 const Home = () => {
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -375,512 +215,262 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        {/* === Core SEO === */}
         <title>{SITE_CONFIG.headline}</title>
         <meta name="description" content={SITE_CONFIG.description} />
-        <meta name="keywords" content={SITE_CONFIG.keywords} />
-        <link rel="canonical" href={SITE_CONFIG.canonical} />
-        <meta name="author" content={SITE_CONFIG.name} />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <meta name="language" content="en" />
-
-        {/* === Performance Hints === */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://github.com" />
-        <link rel="dns-prefetch" href="https://linkedin.com" />
-
-        {/* === Geographic SEO === */}
-        <meta name="geo.region" content="IN-BR" />
-        <meta name="geo.placename" content={SITE_CONFIG.location.full} />
-        <meta name="geo.position" content="25.5667;87.5667" />
-        <meta name="ICBM" content="25.5667, 87.5667" />
-
-        {/* === Open Graph === */}
-        <meta property="og:type" content="profile" />
-        <meta property="og:title" content={SITE_CONFIG.headline} />
-        <meta property="og:description" content={SITE_CONFIG.description} />
-        <meta property="og:url" content={SITE_CONFIG.canonical} />
-        <meta property="og:site_name" content={SITE_CONFIG.name} />
-        <meta property="og:locale" content="en_IN" />
-        <meta property="og:image" content="https://ajitdev.com/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={`${SITE_CONFIG.name} - DevOps Engineer`} />
-        <meta property="profile:first_name" content="Ajit" />
-        <meta property="profile:last_name" content="Kumar" />
-
-        {/* === Twitter Card === */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={SITE_CONFIG.headline} />
-        <meta name="twitter:description" content={SITE_CONFIG.description} />
-        <meta name="twitter:image" content="https://ajitdev.com/og-image.jpg" />
-        <meta name="twitter:image:alt" content={`${SITE_CONFIG.name} - DevOps Engineer`} />
-
-        {/* === JSON-LD Structured Data (all schemas in Helmet for proper SSR injection) === */}
-        <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(profilePageSchema)}</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
 
       <Header />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className="min-h-screen bg-white"
-        itemScope
-        itemType="https://schema.org/ProfilePage"
-      >
-        <main className="pt-24 pb-16" role="main">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            {/* ===== HERO ===== */}
-            <motion.section
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="hero-heading"
-              itemScope
-              itemType="https://schema.org/Person"
-              itemProp="mainEntity"
-            >
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
-                {/* Left */}
-                <div className="space-y-8">
-                  <motion.div
-                    variants={fadeInUp}
-                    className="inline-flex items-center gap-3 px-4 py-2 bg-emerald-50 rounded-full border border-emerald-200"
-                  >
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium text-emerald-700">
-                      Open to Remote DevOps Opportunities
+      <motion.main style={{ opacity }} className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white pt-20 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Hero Section */}
+          <motion.section
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+            style={{ y: heroY }}
+            className="min-h-[85vh] flex items-center mb-16"
+          >
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8">
+                <motion.div variants={fadeUp}>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                  </motion.div>
-
-                  <div className="space-y-3">
-                    <motion.h1
-                      id="hero-heading"
-                      variants={fadeInUp}
-                      className="text-5xl lg:text-6xl font-bold text-gray-950 tracking-tight"
-                      itemProp="name"
-                    >
-                      Ajit Kumar
-                    </motion.h1>
-
-                    <motion.div variants={fadeInUp}>
-                      <h2
-                        className="text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
-                        itemProp="jobTitle"
-                      >
-                        {SITE_CONFIG.roles.primary}
-                      </h2>
-                    </motion.div>
-
-                    <motion.p variants={fadeInUp} className="text-lg text-gray-600">
-                      <span className="font-semibold text-gray-900" itemProp="address">
-                        {SITE_CONFIG.location.full}
-                      </span>
-                      {" · "}Specializing in DevSecOps, Cloud Infrastructure & CI/CD
-                    </motion.p>
+                    <span className="text-sm font-medium text-gray-700">Available for opportunities</span>
                   </div>
+                </motion.div>
 
-                  {/* Role Tags */}
-                  <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
-                    {SITE_CONFIG.roles.secondary.map((role) => (
-                      <span
-                        key={role}
-                        className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium border border-blue-100"
-                      >
-                        {role}
-                      </span>
-                    ))}
-                  </motion.div>
+                <motion.h1 variants={fadeUp} className="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
+                  <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                    Building Scalable
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    Web Systems
+                  </span>
+                </motion.h1>
 
-                  {/* Education & Location */}
-                  <motion.div variants={fadeInUp} className="flex flex-wrap gap-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <FaGraduationCap className="w-5 h-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900 text-sm" itemProp="hasCredential">{SITE_CONFIG.education.degree}</p>
-                        <p className="text-xs text-gray-500">{SITE_CONFIG.education.university}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
-                        <FiMapPin className="w-5 h-5 text-green-600" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900 text-sm">{SITE_CONFIG.location.full}</p>
-                        <p className="text-xs text-gray-500">Available Worldwide · Remote</p>
-                      </div>
-                    </div>
-                  </motion.div>
+                <motion.p variants={fadeUp} className="text-lg text-gray-600 leading-relaxed max-w-lg">
+                  I design and develop modern applications with efficient architecture, 
+                  performance-focused workflows, and reliable deployment pipelines.
+                  <span className="block mt-2 text-gray-500 text-base">
+                    Based in <span className="font-medium text-gray-700">{SITE_CONFIG.location.short}</span>
+                  </span>
+                </motion.p>
 
-                  {/* CTAs */}
-                  <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                    <Link
-                      to="/projects"
-                      className="group inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl font-semibold text-white hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-200 hover:shadow-blue-300"
-                      aria-label="View Ajit Kumar's DevOps projects portfolio"
-                    >
-                      <FiCode className="w-5 h-5" />
-                      View Projects
-                      <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+                  <Link
+                    to="/projects"
+                    className="group inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  >
+                    <FiCode className="w-5 h-5" />
+                    View Projects
+                    <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-gray-200 rounded-xl font-semibold hover:border-gray-300 hover:shadow-md transition-all duration-300"
+                  >
+                    <FiMail className="w-5 h-5" />
+                    Get in Touch
+                  </Link>
+                </motion.div>
 
-                    <Link
-                      to="/contact"
-                      className="group inline-flex items-center gap-3 px-7 py-3.5 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-900 hover:border-blue-300 hover:bg-blue-50 transition-all"
-                      aria-label="Contact Ajit Kumar for remote DevOps opportunities"
-                    >
-                      <FiMail className="w-5 h-5" />
-                      Get in Touch
-                    </Link>
-                  </motion.div>
-
-                  {/* Social */}
-                  <motion.div variants={fadeInUp} className="flex items-center gap-4">
-                    <span className="text-sm text-gray-400">Connect:</span>
-                    <a
-                      href={SITE_CONFIG.contact.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2.5 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-                      aria-label="Ajit Kumar GitHub profile"
-                      itemProp="sameAs"
-                    >
-                      <FiGithub className="w-5 h-5 text-gray-700" />
+                <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4 pt-4">
+                  <div className="flex items-center gap-2">
+                    <a href={SITE_CONFIG.contact.github} target="_blank" rel="noopener noreferrer" 
+                      className="p-2.5 bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-110 transition-all duration-300">
+                      <FiGithub className="w-5 h-5" />
                     </a>
-                    <a
-                      href={SITE_CONFIG.contact.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2.5 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors"
-                      aria-label="Ajit Kumar LinkedIn profile"
-                      itemProp="sameAs"
-                    >
+                    <a href={SITE_CONFIG.contact.linkedin} target="_blank" rel="noopener noreferrer"
+                      className="p-2.5 bg-blue-50 rounded-lg hover:bg-blue-100 hover:scale-110 transition-all duration-300">
                       <FiLinkedin className="w-5 h-5 text-blue-700" />
                     </a>
-                    <a
-                      href={`mailto:${SITE_CONFIG.contact.email}`}
-                      className="p-2.5 bg-red-100 rounded-lg hover:bg-red-200 transition-colors"
-                      aria-label="Email Ajit Kumar"
-                      itemProp="email"
-                    >
-                      <FiMail className="w-5 h-5 text-red-700" />
+                    <a href={`mailto:${SITE_CONFIG.contact.email}`}
+                      className="p-2.5 bg-red-50 rounded-lg hover:bg-red-100 hover:scale-110 transition-all duration-300">
+                      <FiMail className="w-5 h-5 text-red-600" />
                     </a>
-                  </motion.div>
-                </div>
-
-                {/* Right — Visual */}
-                <motion.div variants={fadeInUp} className="relative hidden lg:block">
-                  <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-8 shadow-2xl overflow-hidden">
-                    {/* Subtle grid overlay */}
-                    <div
-                      className="absolute inset-0 opacity-10"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(99,102,241,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.4) 1px, transparent 1px)",
-                        backgroundSize: "32px 32px",
-                      }}
-                    />
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl" />
-
-                    <div className="relative">
-                      <div className="flex justify-between items-center mb-8">
-                        <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/20">
-                          <span className="text-white/90 text-sm font-medium">Remote · Worldwide</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                          <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                          <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                        </div>
-                      </div>
-
-                      <div className="text-center mb-8">
-                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
-                          <FiShield className="w-10 h-10 text-white" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-1">DevSecOps</h3>
-                        <p className="text-gray-400 text-sm">Security · Scale · Automation</p>
-                      </div>
-
-                      {/* Terminal-style snippet */}
-                      <div className="bg-black/40 rounded-xl p-4 border border-white/10 mb-4 font-mono text-xs">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="text-green-400">▶</span>
-                          <span className="text-gray-400">pipeline.yaml</span>
-                        </div>
-                        <div className="space-y-1">
-                          <p><span className="text-blue-400">deploy:</span> <span className="text-green-300">production</span></p>
-                          <p className="pl-2"><span className="text-purple-400">security_scan:</span> <span className="text-yellow-300">✓ passed</span></p>
-                          <p className="pl-2"><span className="text-purple-400">container:</span> <span className="text-cyan-300">k8s/aws-eks</span></p>
-                          <p className="pl-2"><span className="text-purple-400">iac:</span> <span className="text-cyan-300">terraform apply</span></p>
-                          <p className="pl-2"><span className="text-purple-400">status:</span> <span className="text-green-400 animate-pulse">● running</span></p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-4 gap-2">
-                        {["AWS", "Docker", "K8s", "Terraform"].map((tech) => (
-                          <div key={tech} className="py-2 px-1 bg-white/5 rounded-lg border border-white/10 text-center">
-                            <span className="text-white/80 text-xs font-medium">{tech}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                  </div>
+                  <div className="h-6 w-px bg-gray-200" />
+                  <div className="flex gap-2">
+                    {["LAMP", "MERN", "Next.js"].map((badge) => (
+                      <span key={badge} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-mono">
+                        {badge}
+                      </span>
+                    ))}
                   </div>
                 </motion.div>
               </div>
-            </motion.section>
 
-            {/* ===== STATS ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="stats-heading"
-            >
-              <h2 id="stats-heading" className="sr-only">Professional Statistics</h2>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-                {stats.map((stat, i) => (
-                  <StatCard key={i} stat={stat} />
-                ))}
-              </div>
-            </motion.section>
-
-            {/* ===== ABOUT / TOPICAL AUTHORITY ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="about-heading"
-              itemScope
-              itemType="https://schema.org/Person"
-              itemProp="about"
-            >
-              <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-white rounded-3xl p-8 lg:p-12 border border-blue-100">
-                <h2
-                  id="about-heading"
-                  className="text-3xl font-bold text-gray-900 mb-6"
-                >
-                  DevOps Engineer from{" "}
-                  <span className="text-blue-600">Katihar, Bihar, India</span>
-                </h2>
-
-                <div className="grid lg:grid-cols-2 gap-10">
-                  {/* Rich text block — topical authority for SEO */}
-                  <div className="space-y-4 text-gray-700 leading-relaxed">
-                    <p>
-                      I'm <strong className="text-gray-900">Ajit Kumar</strong>, a{" "}
-                      <strong className="text-blue-600">DevOps & DevSecOps Engineer</strong> based in{" "}
-                      <strong>Katihar, Bihar</strong>. I specialize in building cloud-native infrastructure
-                      on <strong>AWS</strong>, orchestrating containerized workloads with{" "}
-                      <strong>Docker and Kubernetes</strong>, and automating delivery pipelines using{" "}
-                      <strong>GitHub Actions</strong> and <strong>Terraform</strong>.
-                    </p>
-                    <p>
-                      My philosophy is <em>security by design</em>. Every pipeline I build includes
-                      automated SAST/DAST scanning, least-privilege IAM enforcement, and policy-as-code
-                      checks — so teams ship fast without sacrificing compliance. I monitor production
-                      environments with <strong>Prometheus</strong> and <strong>Grafana</strong> to
-                      catch regressions before users notice.
-                    </p>
-                    <p>
-                      On the application side, I develop and deploy <strong>MERN stack</strong>{" "}
-                      applications with TypeScript and RESTful microservices. Whether architecting
-                      greenfield infra or migrating legacy workloads to the cloud, I focus on
-                      reliability, observability, and cost-efficiency.
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {["Katihar", "Bihar", "India", "Remote"].map((loc) => (
-                        <span
-                          key={loc}
-                          className="px-3 py-1.5 bg-white rounded-full text-gray-700 text-sm font-medium shadow-sm border border-gray-200"
+              {/* Abstract Visual */}
+              <motion.div variants={fadeUp} className="hidden lg:block relative">
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl animate-pulse" />
+                  <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl border border-gray-200 p-6 shadow-xl">
+                    <div className="grid grid-cols-2 gap-4">
+                      {[
+                        { icon: FaPhp, name: "PHP", color: "text-indigo-500" },
+                        { icon: SiMysql, name: "MySQL", color: "text-blue-500" },
+                        { icon: FaReact, name: "React", color: "text-cyan-500" },
+                        { icon: FaNodeJs, name: "Node.js", color: "text-green-500" },
+                        { icon: SiNextdotjs, name: "Next.js", color: "text-gray-900" },
+                        { icon: FaAws, name: "AWS", color: "text-orange-500" },
+                      ].map((tech, i) => (
+                        <motion.div
+                          key={i}
+                          whileHover={{ scale: 1.05 }}
+                          className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 shadow-sm"
                         >
-                          📍 {loc}
-                        </span>
+                          <tech.icon className={`w-6 h-6 ${tech.color}`} />
+                          <span className="font-medium text-gray-700 text-sm">{tech.name}</span>
+                        </motion.div>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Capability grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { icon: FiShield, label: "DevSecOps", sub: "Security-first pipelines", color: "text-blue-600", bg: "bg-blue-50" },
-                      { icon: FiCloud, label: "Cloud Native", sub: "AWS · EKS · VPC", color: "text-purple-600", bg: "bg-purple-50" },
-                      { icon: FiGitBranch, label: "CI/CD", sub: "GitHub Actions · Jenkins", color: "text-green-600", bg: "bg-green-50" },
-                      { icon: FiMonitor, label: "Observability", sub: "Prometheus · Grafana", color: "text-orange-600", bg: "bg-orange-50" },
-                    ].map((item) => (
-                      <div key={item.label} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                        <div className={`w-9 h-9 rounded-lg ${item.bg} flex items-center justify-center mb-3`}>
-                          <item.icon className={`w-5 h-5 ${item.color}`} />
-                        </div>
-                        <p className="font-semibold text-gray-900 text-sm">{item.label}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{item.sub}</p>
-                      </div>
-                    ))}
+                    <div className="mt-4 p-3 bg-gray-900 rounded-xl font-mono text-xs">
+                      <div className="text-green-400">$ git push origin main</div>
+                      <div className="text-gray-400">✓ Linting passed (2.1s)</div>
+                      <div className="text-gray-400">✓ Tests passed (4.3s)</div>
+                      <div className="text-blue-400">→ Deployed to production</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.section>
+              </motion.div>
+            </div>
+          </motion.section>
 
-            {/* ===== EXPERTISE GRID ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="expertise-heading"
-            >
-              <div className="text-center mb-12">
-                <h2 id="expertise-heading" className="text-3xl font-bold text-gray-900 mb-3">
-                  Core Expertise
-                </h2>
-                <p className="text-gray-500 max-w-xl mx-auto">
-                  End-to-end DevOps capabilities from infrastructure design to secure delivery.
-                </p>
-              </div>
+          {/* About Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="mb-24"
+          >
+            <div className="max-w-3xl mx-auto text-center">
+              <motion.div variants={fadeUp} className="inline-block mb-4">
+                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">About</div>
+              </motion.div>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-6">
+                Focused on real-world solutions
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-600 text-lg leading-relaxed">
+                Focused on creating real-world solutions using LAMP, MERN, and Next.js ecosystems. 
+                Continuously improving through hands-on development, system design, and integrating 
+                CI/CD practices into production-ready environments.
+              </motion.p>
+            </div>
+          </motion.section>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {expertise.map((item, i) => (
-                  <ExpertiseCard key={i} item={item} />
-                ))}
-              </div>
-            </motion.section>
+          {/* Tech Stack Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="mb-24"
+          >
+            <div className="text-center mb-12">
+              <motion.div variants={fadeUp} className="inline-block mb-4">
+                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Tech Stack</div>
+              </motion.div>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Modern Development Arsenal</motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 text-lg">End-to-end technologies I rely on daily</motion.p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {techCategories.map((tech, i) => <TechCard key={i} tech={tech} />)}
+            </div>
+          </motion.section>
 
-            {/* ===== TECH STACK ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="tech-heading"
-              itemProp="knowsAbout"
-            >
-              <div className="text-center mb-12">
-                <h2 id="tech-heading" className="text-3xl font-bold text-gray-900 mb-3">
-                  Technologies & Tools
-                </h2>
-                <p className="text-gray-500 max-w-xl mx-auto">
-                  20+ tools across cloud, containerization, CI/CD, monitoring, and full-stack development.
-                </p>
-              </div>
+          {/* Projects Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="mb-24"
+          >
+            <div className="text-center mb-12">
+              <motion.div variants={fadeUp} className="inline-block mb-4">
+                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Portfolio</div>
+              </motion.div>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Featured Projects</motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 text-lg">Real impact, production deployments</motion.p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              {featuredProjects.map((project, i) => <ProjectCard key={i} project={project} index={i} />)}
+            </div>
+            <div className="text-center mt-10">
+              <Link to="/projects" className="inline-flex items-center gap-2 text-gray-700 font-semibold hover:gap-3 transition-all duration-300 group">
+                View all projects <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </motion.section>
 
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-md">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                  <TechCategory title="Cloud & Container" items={techStack.cloud} />
-                  <TechCategory title="CI/CD & IaC" items={techStack.cicd} />
-                  <TechCategory title="Monitoring & Security" items={techStack.monitoring} />
-                  <TechCategory title="Development" items={techStack.development} />
+          {/* Education & Learning */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="mb-24"
+          >
+            <div className="grid md:grid-cols-2 gap-8">
+              <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center mb-5">
+                  <FiAward className="w-6 h-6 text-white" />
                 </div>
-              </div>
-            </motion.section>
-
-            {/* ===== FAQ — Rich Snippet Bait ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="mb-24"
-              aria-labelledby="faq-heading"
-              itemScope
-              itemType="https://schema.org/FAQPage"
-            >
-              <div className="text-center mb-12">
-                <h2 id="faq-heading" className="text-3xl font-bold text-gray-900 mb-3">
-                  Frequently Asked Questions
-                </h2>
-                <p className="text-gray-500 max-w-xl mx-auto">
-                  Common questions about my work, tools, and availability.
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
+                <p className="text-gray-800 font-medium">{SITE_CONFIG.education.degree}</p>
+                <p className="text-gray-500 text-sm mb-3">{SITE_CONFIG.education.institution}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Specialized in cloud infrastructure and security fundamentals.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-                {faqs.map((faq, i) => (
-                  <FAQItem key={i} faq={faq} index={i} />
-                ))}
-              </div>
-            </motion.section>
-
-            {/* ===== FINAL CTA ===== */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              className="mb-20"
-              aria-label="Hire DevOps Engineer call to action"
-            >
-              <div className="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-12 text-center overflow-hidden">
-                <div className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
-                    backgroundSize: "60px 60px",
-                  }}
-                />
-                <div className="relative">
-                  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                    Hire a DevOps Engineer from India
-                  </h2>
-                  <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
-                    Looking for a DevSecOps expert to build secure, scalable infrastructure? 
-                    Let's talk — I'm available for remote roles worldwide.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link
-                      to="/contact"
-                      className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-xl"
-                      aria-label="Contact Ajit Kumar DevOps Engineer"
-                    >
-                      <FiMail className="w-5 h-5" />
-                      Discuss Your Project
-                      <FiArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link
-                      to="/projects"
-                      className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 border border-white/30 transition-all"
-                      aria-label="View Ajit Kumar's DevOps portfolio"
-                    >
-                      <FiCode className="w-5 h-5" />
-                      View Portfolio
-                    </Link>
-                  </div>
-                  <p className="text-white/60 mt-6 text-sm">
-                    Remote DevOps Engineer · Katihar, Bihar, India · Available Worldwide
-                  </p>
+              <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
+                  <FiTrendingUp className="w-6 h-6 text-white" />
                 </div>
-              </div>
-            </motion.section>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Practical Training</h3>
+                <p className="text-gray-800 font-medium">
+                  <a href={SITE_CONFIG.education.trainingUrl} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">
+                    Brainzima Innovation Institute
+                  </a>
+                </p>
+                <p className="text-gray-500 text-sm mb-3">brainzima.com</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Hands-on development training focusing on real-world projects and industry workflows.
+                </p>
+              </motion.div>
+            </div>
+          </motion.section>
 
-            {/* ===== Hidden SEO Nav (crawlable, screen-reader only) ===== */}
-            <nav className="sr-only" aria-label="Site pages">
-              <ul>
-                <li><Link to="/">Home — DevOps Engineer Katihar Bihar India</Link></li>
-                <li><Link to="/about">About Ajit Kumar — DevSecOps Engineer Bihar</Link></li>
-                <li><Link to="/projects">DevOps Projects Portfolio India</Link></li>
-                <li><Link to="/contact">Contact Ajit Kumar — Remote DevOps Engineer</Link></li>
-                <li><Link to="/skills">DevOps Skills AWS Docker Kubernetes Terraform</Link></li>
-              </ul>
-            </nav>
-
-          </div>
-        </main>
-      </motion.div>
+          {/* Workflow Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="mb-24"
+          >
+            <div className="text-center mb-12">
+              <motion.div variants={fadeUp} className="inline-block mb-4">
+                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Approach</div>
+              </motion.div>
+              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Development Philosophy</motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 text-lg">Clean, scalable, and automated</motion.p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {workflowSteps.map((step, i) => <WorkflowCard key={i} step={step} />)}
+            </div>
+          </motion.section>
+        </div>
+      </motion.main>
 
       <Footer />
     </>
