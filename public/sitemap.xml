@@ -2,65 +2,93 @@
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
   xsi:schemaLocation="
     http://www.sitemaps.org/schemas/sitemap/0.9
-    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+    http://www.google.com/schemas/sitemap-image/1.1
+    http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
 
-
-  <!-- HOMEPAGE — Highest crawl priority -->
+  <!-- ====================================================== -->
+  <!-- HOMEPAGE — Primary landing page for Full Stack Engineer -->
+  <!-- Priority: 1.0 | Change: Weekly | Crawl first         -->
+  <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/</loc>
-    <lastmod>2026-02-23</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://ajitdev.com/"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
   </url>
 
-  <!-- ABOUT — Personal brand & background -->
+  <!-- ====================================================== -->
+  <!-- PROJECTS PORTFOLIO — MERN & Next.js projects showcase -->
+  <!-- Priority: 0.9 | Change: Weekly (new projects added)   -->
+  <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/about</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://ajitdev.com/projects/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- PROJECTS — Portfolio work, update often -->
+  <!-- ====================================================== -->
+  <!-- ABOUT PAGE — Full Stack Engineer background & journey -->
+  <!-- Priority: 0.8 | Change: Yearly (static content)       -->
+  <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/projects</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- SKILLS — Tech stack & expertise -->
-  <url>
-    <loc>https://ajitdev.com/skills</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://ajitdev.com/about/</loc>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- CONTACT — Recruiter / client landing -->
+  <!-- ====================================================== -->
+  <!-- SKILLS PAGE — Technical stack (MERN, Next.js, TS)     -->
+  <!-- Priority: 0.7 | Change: Monthly (skills update)       -->
+  <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/contact</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://ajitdev.com/skills/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- RESUME PDF — Indexed for recruiter search engines -->
+  <!-- ====================================================== -->
+  <!-- CONTACT PAGE — Hire Full Stack Engineer               -->
+  <!-- Priority: 0.6 | Change: Yearly (stable)               -->
+  <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/resume.pdf</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://ajitdev.com/contact/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- privacy POLICY — Trust signal for security crawlers -->
+  <!-- ====================================================== -->
+  <!-- RESUME PDF — Downloadable CV for recruiters           -->
+  <!-- Priority: 0.5 | Change: Semi-annual                   -->
+  <!-- ====================================================== -->
   <url>
-    <loc>https://www.ajitdev.com/privacy</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://ajitdev.com/resume.pdf</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ====================================================== -->
+  <!-- PRIVACY POLICY — Legal compliance & trust signal      -->
+  <!-- Priority: 0.3 | Change: Yearly (rare changes)         -->
+  <!-- ====================================================== -->
+  <url>
+    <loc>https://ajitdev.com/privacy/</loc>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.3</priority>
   </url>
 
 </urlset>
