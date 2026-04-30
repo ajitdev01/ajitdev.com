@@ -1,52 +1,54 @@
 # ==============================================================================
-# robots.txt — Enterprise Crawl Configuration
+# ROBOTS.TXT — ENTERPRISE-GRADE CRAWL MANAGEMENT
 # ==============================================================================
 # Domain        : https://ajitdev.com
-# Owner         : Ajit Dev
-# Topics        : Cloud Computing · DevOps · Cybersecurity · Web Development
-# Stack         : Next.js / React / Vercel  [update if different]
-# Audience      : Recruiters · Tech Companies · Developers
-# Spec ref      : https://developers.google.com/search/docs/crawling-indexing/robots/intro
-# Validator     : https://support.google.com/webmasters/answer/6062598
-# Last revised  : 2026-02-17
-#
-# Architecture principles:
-#   1. Permissive-first global policy — restrict only what has clear risk
-#   2. Render-critical assets are ALWAYS explicitly allowed (JS/CSS/fonts)
-#   3. Googlebot and Bingbot receive tailored per-bot directives
-#   4. AI training bots and aggressive scrapers are fully suppressed
-#   5. Query-parameter noise is stripped to protect crawl budget
-#   6. Crawl-delay is applied only where the crawler honors it (not Googlebot)
+# Owner         : Ajit Kumar (ajitdev01)
+# Role          : Full Stack Engineer
+# Stack         : React / Next.js / Tailwind CSS
+# Audience      : Recruiters · Tech Companies · Developers · Hiring Managers
+# ==============================================================================
+# STRATEGIC PRINCIPLES:
+#   1. Permissive for search engines — block only harmful or useless paths
+#   2. Render-critical assets ALWAYS allowed (JS/CSS/fonts)
+#   3. Protect crawl budget — block duplicate content, parameters, archives
+#   4. AI training crawlers fully suppressed (no ranking benefit)
+#   5. Geographic targeting: India-first, global secondary
+#   6. Mobile-first indexing ensured
 # ==============================================================================
 
 
 # ==============================================================================
-# SECTION 1 — GLOBAL CATCH-ALL
-# Applies to every crawler not addressed by a later User-agent block.
-# Googlebot ignores Crawl-delay and self-regulates via Search Console settings.
+# SECTION 1 — GLOBAL DIRECTIVES (Fallback for all crawlers)
 # ==============================================================================
 
 User-agent: *
 
-# ── Core indexable surface ────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
+# CORE INDEXABLE SURFACE
+# ────────────────────────────────────────────────────────────────────────────
 Allow: /
 
-# ── Render-critical resources ─────────────────────────────────────────────
-# Blocking these triggers "Googlebot can't access CSS/JS" warnings in Search
-# Console and causes incomplete rendering → lower Core Web Vitals scores.
+# ────────────────────────────────────────────────────────────────────────────
+# RENDER-CRITICAL RESOURCES (Must be allowed for proper indexing)
+# ────────────────────────────────────────────────────────────────────────────
 Allow: /assets/
 Allow: /static/
 Allow: /public/
-Allow: /_next/static/           # Next.js static chunks
-Allow: /_next/image             # Next.js on-demand image optimization
+Allow: /_next/static/              # Next.js chunks (critical for hydration)
+Allow: /_next/image                # Next.js image optimization
 Allow: /fonts/
 Allow: /images/
 Allow: /icons/
 Allow: /media/
-Allow: /og/                     # Open Graph dynamic image routes
+Allow: /og/                        # Open Graph images
+Allow: /videos/
+Allow: /favicon.ico
+Allow: /robots.txt
+Allow: /sitemap.xml
 
-# ── Asset extension allow-list (belt-and-suspenders) ─────────────────────
-# Covers hashed/CDN paths that don't share a common directory prefix.
+# ────────────────────────────────────────────────────────────────────────────
+# ASSET EXTENSION ALLOW-LIST (Cover hashed/CDN paths)
+# ────────────────────────────────────────────────────────────────────────────
 Allow: /*.css$
 Allow: /*.js$
 Allow: /*.mjs$
@@ -64,19 +66,34 @@ Allow: /*.woff$
 Allow: /*.woff2$
 Allow: /*.ttf$
 Allow: /*.otf$
+Allow: /*.eot$
 Allow: /*.json$
 Allow: /*.xml$
 Allow: /*.txt$
+Allow: /*.pdf$
 
-# ── Source control & CI ───────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
+# SOURCE CONTROL & CI/CD (Blocked - security risk, no value)
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /.git/
 Disallow: /.github/
 Disallow: /.gitlab/
+Disallow: /.gitignore
+Disallow: /.gitattributes
 Disallow: /.svn/
 Disallow: /.hg/
+Disallow: /.bzr/
+Disallow: /Dockerfile
+Disallow: /docker-compose.yml
+Disallow: /.dockerignore
+Disallow: /.circleci/
+Disallow: /.travis.yml
+Disallow: /.github/workflows/
+Disallow: /.gitlab-ci.yml
 
-# ── Build artifacts & framework internals ────────────────────────────────
-# Intermediate compilation outputs — canonical content is served from / already.
+# ────────────────────────────────────────────────────────────────────────────
+# BUILD ARTIFACTS & FRAMEWORK INTERNALS
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /dist/
 Disallow: /build/
 Disallow: /.next/
@@ -86,117 +103,307 @@ Disallow: /.svelte-kit/
 Disallow: /out/
 Disallow: /.vercel/
 Disallow: /.netlify/
+Disallow: /.cache/
+Disallow: /coverage/
+Disallow: /.nyc_output/
 
-# ── Dependency trees ──────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
+# DEPENDENCY DIRECTORIES (Massive files, no indexing value)
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /node_modules/
 Disallow: /vendor/
 Disallow: /bower_components/
 Disallow: /.pnp/
+Disallow: /.pnp.js
+Disallow: /jspm_packages/
+Disallow: /packages/
 
-# ── Server, config & secrets ──────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION & SECRETS (Blocked - security critical)
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /api/internal/
+Disallow: /api/private/
 Disallow: /api/admin/
 Disallow: /api/auth/
+Disallow: /api/webhook/
 Disallow: /config/
 Disallow: /private/
 Disallow: /server/
 Disallow: /secrets/
 Disallow: /temp/
 Disallow: /tmp/
+Disallow: /logs/
+Disallow: /backups/
 Disallow: /.env
 Disallow: /.env.local
 Disallow: /.env.production
 Disallow: /.env.development
 Disallow: /.env.staging
+Disallow: /.env.test
+Disallow: /.secrets
+Disallow: /secret/
+Disallow: /credentials/
 
-# ── Lockfiles & dot-files ─────────────────────────────────────────────────
-# No indexing value; may expose dependency audit surface.
+# ────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION FILES (No indexing value, may expose tech stack details)
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /package.json
 Disallow: /package-lock.json
 Disallow: /yarn.lock
 Disallow: /pnpm-lock.yaml
+Disallow: /bun.lockb
+Disallow: /composer.json
 Disallow: /composer.lock
 Disallow: /.htaccess
 Disallow: /.htpasswd
 Disallow: /tsconfig.json
+Disallow: /tsconfig.node.json
 Disallow: /next.config.js
+Disallow: /next.config.mjs
 Disallow: /vite.config.js
+Disallow: /vite.config.ts
+Disallow: /webpack.config.js
 Disallow: /tailwind.config.js
+Disallow: /postcss.config.js
+Disallow: /eslint.config.js
+Disallow: /.eslintrc
+Disallow: /.eslintrc.json
+Disallow: /.prettierrc
+Disallow: /.prettierrc.json
+Disallow: /jest.config.js
+Disallow: /vitest.config.js
+Disallow: /playwright.config.ts
+Disallow: /cypress.config.js
 
-# ── Admin / CMS / dashboard ───────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────
+# ADMIN & CMS PATHS (Blocked - privileged access)
+# ────────────────────────────────────────────────────────────────────────────
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /cms/
-Disallow: /studio/              # Sanity.io studio route
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /studio/                 # Sanity.io
+Disallow: /ghost/
+Disallow: /contentful/
+Disallow: /prismic/
+Disallow: /strapi/
+Disallow: /keystone/
+Disallow: /payload/
 
-# ── Query parameter noise — duplicate content & crawl budget risk ─────────
-# Each unique parameter string creates a crawlable duplicate URL.
+# ────────────────────────────────────────────────────────────────────────────
+# TEMPORARY & DRAFT CONTENT (Prevent premature indexing)
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /draft/
+Disallow: /drafts/
+Disallow: /wip/
+Disallow: /work-in-progress/
+Disallow: /temp/
+Disallow: /tmp/
+Disallow: /staging/
+Disallow: /preview/
+Disallow: /*/draft/
+Disallow: /*/preview/
+
+# ────────────────────────────────────────────────────────────────────────────
+# USER CONTENT & GENERATED FILES
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /uploads/temp/
+Disallow: /uploads/private/
+Disallow: /user-content/temp/
+Disallow: /media/temp/
+Disallow: /cgi-bin/
+
+# ────────────────────────────────────────────────────────────────────────────
+# FEEDS & PRINT VERSIONS (Duplicate content risk)
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /*/feed/
+Disallow: /*/print/
+Disallow: /*/pdf/
+Disallow: /rss/
+Disallow: /atom/
+Disallow: /feed.xml
+Disallow: /rss.xml
+
+# ────────────────────────────────────────────────────────────────────────────
+# QUERY PARAMETERS (Prevent duplicate URLs & crawl budget waste)
+# ────────────────────────────────────────────────────────────────────────────
+
+# UTM/Tracking parameters
 Disallow: /*?utm_source=
 Disallow: /*?utm_medium=
 Disallow: /*?utm_campaign=
 Disallow: /*?utm_content=
 Disallow: /*?utm_term=
+Disallow: /*?utm_id=
 Disallow: /*?ref=
 Disallow: /*?source=
+Disallow: /*?referrer=
 Disallow: /*?fbclid=
 Disallow: /*?gclid=
+Disallow: /*?gclsrc=
 Disallow: /*?msclkid=
 Disallow: /*?mc_cid=
 Disallow: /*?mc_eid=
+Disallow: /*?dclid=
+Disallow: /*?reddit=
+Disallow: /*?twclid=
+Disallow: /*?li_fat_id=
+Disallow: /*?hsCtaTracking=
+
+# Session & auth parameters
 Disallow: /*?session=
+Disallow: /*?sessionid=
+Disallow: /*?sid=
 Disallow: /*?token=
+Disallow: /*?access_token=
 Disallow: /*?auth=
+Disallow: /*?auth_token=
+Disallow: /*?api_key=
+Disallow: /*?code=
+Disallow: /*?state=
+
+# Preview & draft parameters
 Disallow: /*?preview=
+Disallow: /*?preview_id=
+Disallow: /*?preview_nonce=
 Disallow: /*?draft=
-Disallow: /*?debug=
-Disallow: /*?test=
-Disallow: /*?cache=
-Disallow: /*?timestamp=
-Disallow: /*?v=
+Disallow: /*?draft_id=
+Disallow: /*?version=
+Disallow: /*?revision=
 Disallow: /*?ver=
+Disallow: /*?v=
 
-# ── Dynamic filter / sort routes ─────────────────────────────────────────
+# Debug & dev parameters
+Disallow: /*?debug=
+Disallow: /*?debug_mode=
+Disallow: /*?dev=
+Disallow: /*?development=
+Disallow: /*?test=
+Disallow: /*?testing=
+Disallow: /*?local=
+Disallow: /*?staging=
+
+# Cache busting
+Disallow: /*?cache=
+Disallow: /*?cachebuster=
+Disallow: /*?cb=
+Disallow: /*?timestamp=
+Disallow: /*?_=
+Disallow: /*?nocache=
+Disallow: /*?reload=
+
+# Pagination & sorting (let Googlebot discover via rel=next/prev instead)
+Disallow: /*?page=
+Disallow: /*?paged=
+Disallow: /*?offset=
+Disallow: /*?limit=
+Disallow: /*?sort=
+Disallow: /*?order=
+Disallow: /*?filter=
+Disallow: /*?filters=
+Disallow: /*?tag=
+Disallow: /*?tags=
+Disallow: /*?category=
+Disallow: /*?search=
+
+# Miscellaneous
+Disallow: /*?modal=
+Disallow: /*?popup=
+Disallow: /*?lightbox=
+Disallow: /*?iframe=
+Disallow: /*?embed=
+Disallow: /*?format=
+Disallow: /*?output=
+Disallow: /*?download=
+Disallow: /*?file=
+Disallow: /*?attachment=
+Disallow: /*?share=
+Disallow: /*?print=
+
+# ────────────────────────────────────────────────────────────────────────────
+# SEARCH & DYNAMIC ROUTES (Block to prevent infinite crawl)
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /search/
 Disallow: /search?
+Disallow: /?s=
+Disallow: /?q=
+Disallow: /?query=
+Disallow: /filter/
 Disallow: /filter?
-Disallow: /sort?
-Disallow: /tag?
+Disallow: /tag/
+Disallow: /tags/
+Disallow: /category/
+Disallow: /archive/
+Disallow: /date/
+Disallow: /author/
+Disallow: /page/
+Disallow: /pages/
 
-# ── Crawl-delay for generic bots ─────────────────────────────────────────
-# Protects Vercel/Netlify serverless function concurrency limits.
-# Googlebot self-regulates and ignores this directive.
+# ────────────────────────────────────────────────────────────────────────────
+# API & WEBHOOKS (No indexing value)
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /api/
+Disallow: /graphql
+Disallow: /__graphql
+Disallow: /webhook/
+Disallow: /webhooks/
+Disallow: /hook/
+Disallow: /rest/
+Disallow: /v1/
+Disallow: /v2/
+Disallow: /v3/
+
+# ────────────────────────────────────────────────────────────────────────────
+# PROXY & CDN PATHS
+# ────────────────────────────────────────────────────────────────────────────
+Disallow: /cdn-cgi/
+Disallow: /.well-known/
+Disallow: /_verify/
+Disallow: /_health/
+Disallow: /_status/
+Disallow: /ping/
+Disallow: /healthz
+Disallow: /readyz
+Disallow: /livez
+
+# ────────────────────────────────────────────────────────────────────────────
+# CRAWL DELAY (Protects server resources)
+# ────────────────────────────────────────────────────────────────────────────
 Crawl-delay: 5
 
 
 # ==============================================================================
-# SECTION 2 — GOOGLEBOT
-# Primary ranking signal source. Full surface allowed.
-# Mobile-first indexing: all rendering assets must be reachable or CWV degrades.
-# No Crawl-delay — manage crawl rate via Google Search Console if needed.
+# SECTION 2 — GOOGLEBOT (Primary crawler - most important)
 # ==============================================================================
 
 User-agent: Googlebot
 
+# Full access to core content
 Allow: /
 
-# Next.js / React hydration assets — required for accurate CWV measurement
+# Render-critical resources (required for Core Web Vitals)
 Allow: /_next/static/
 Allow: /_next/image
 Allow: /assets/
 Allow: /static/
-Allow: /public/
 Allow: /fonts/
 Allow: /images/
+Allow: /icons/
+Allow: /media/
 Allow: /og/
 
+# Allow all important asset types
 Allow: /*.css$
 Allow: /*.js$
-Allow: /*.mjs$
+Allow: /*.json$
 Allow: /*.woff2$
 Allow: /*.webp$
 Allow: /*.avif$
 Allow: /*.svg$
 
-# Infrastructure / non-content paths
+# Disable harmful paths (faster crawling)
 Disallow: /.git/
 Disallow: /.github/
 Disallow: /node_modules/
@@ -206,25 +413,25 @@ Disallow: /config/
 Disallow: /private/
 Disallow: /admin/
 Disallow: /api/internal/
+Disallow: /api/private/
 Disallow: /api/auth/
 
-# Parameter suppression
-Disallow: /*?utm_source=
-Disallow: /*?utm_medium=
-Disallow: /*?utm_campaign=
-Disallow: /*?fbclid=
-Disallow: /*?gclid=
-Disallow: /*?session=
-Disallow: /*?token=
-Disallow: /*?preview=
-Disallow: /*?debug=
-Disallow: /*?draft=
+# Strict parameter control
+Disallow: /*?*
+Allow: /*?$
+Allow: /*?utm_*
+
+# No crawl delay (Google ignores it anyway)
+# Manage crawl rate via Google Search Console instead
+
+# Enable JavaScript rendering for SPA
+# Supporting directives:
+#   <meta name="googlebot" content="index, follow, max-image-preview:large">
+#   <meta name="google" content="notranslate">
 
 
 # ==============================================================================
-# SECTION 3 — GOOGLEBOT-IMAGE
-# Indexes portfolio screenshots, project thumbnails, OG images.
-# Google Images is a high-intent discovery channel for developer portfolios.
+# SECTION 3 — GOOGLEBOT-IMAGE (Portfolio visuals)
 # ==============================================================================
 
 User-agent: Googlebot-image
@@ -234,6 +441,9 @@ Allow: /images/
 Allow: /media/
 Allow: /og/
 Allow: /assets/
+Allow: /screenshots/
+Allow: /thumbnails/
+
 Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.jpeg$
@@ -245,33 +455,38 @@ Allow: /*.svg$
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /private/
+Disallow: /admin/
+Disallow: /temp/
 
 
 # ==============================================================================
-# SECTION 4 — GOOGLEBOT-VIDEO
-# Required if portfolio includes demo videos, screencasts, or case study clips.
-# Remove this block if no video content is published.
+# SECTION 4 — GOOGLEBOT-VIDEO (Demo videos, case studies)
 # ==============================================================================
 
 User-agent: Googlebot-video
 
 Allow: /
+Allow: /videos/
 Allow: /media/
 Allow: /assets/
+Allow: /demos/
+Allow: /screencasts/
+
 Allow: /*.mp4$
 Allow: /*.webm$
 Allow: /*.ogg$
+Allow: /*.mov$
+Allow: /*.avi$
+Allow: /*.mkv$
 
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /private/
+Disallow: /temp/
 
 
 # ==============================================================================
-# SECTION 5 — BINGBOT
-# Powers Bing Search + Microsoft Copilot + LinkedIn job post enrichment signals.
-# High-priority for recruiter-facing visibility in Microsoft ecosystem.
-# Crawl-delay is honored; 5s is conservative for serverless edge hosting.
+# SECTION 5 — BINGBOT (Microsoft ecosystem - LinkedIn integration)
 # ==============================================================================
 
 User-agent: Bingbot
@@ -281,10 +496,14 @@ Allow: /assets/
 Allow: /static/
 Allow: /fonts/
 Allow: /images/
+Allow: /media/
+
 Allow: /*.css$
 Allow: /*.js$
+Allow: /*.json$
 Allow: /*.woff2$
 Allow: /*.webp$
+Allow: /*.avif$
 
 Disallow: /.git/
 Disallow: /.github/
@@ -294,6 +513,8 @@ Disallow: /.next/
 Disallow: /config/
 Disallow: /private/
 Disallow: /admin/
+
+# Parameter suppression
 Disallow: /*?utm_source=
 Disallow: /*?utm_medium=
 Disallow: /*?session=
@@ -301,18 +522,20 @@ Disallow: /*?token=
 Disallow: /*?debug=
 Disallow: /*?preview=
 
-Crawl-delay: 5
+# Bing respects crawl delay
+Crawl-delay: 3
 
 
 # ==============================================================================
-# SECTION 6 — DUCKDUCKBOT
-# Privacy-focused users; niche but relevant secondary channel.
+# SECTION 6 — DUCKDUCKBOT (Privacy-focused search engine)
 # ==============================================================================
 
 User-agent: DuckDuckBot
 
 Allow: /
 Allow: /assets/
+Allow: /static/
+
 Allow: /*.css$
 Allow: /*.js$
 
@@ -328,63 +551,88 @@ Crawl-delay: 10
 
 
 # ==============================================================================
-# SECTION 7 — SLURP (Yahoo / Oath)
-# Declining market share; index still partially proxied through Bing.
+# SECTION 7 — YANDEX (Russian search engine)
 # ==============================================================================
 
-User-agent: Slurp
+User-agent: Yandex
 
 Allow: /
+Allow: /assets/
+Allow: /static/
+Allow: /images/
+
 Disallow: /.git/
 Disallow: /node_modules/
 Disallow: /private/
-Disallow: /*?session=
-Disallow: /*?token=
+Disallow: /admin/
 
-Crawl-delay: 15
+Crawl-delay: 5
 
 
 # ==============================================================================
-# SECTION 8 — AI TRAINING CRAWLERS  [FULLY SUPPRESSED]
-# These bots harvest content for LLM training datasets.
-# They return zero search ranking benefit and impose meaningful serverless cost.
-# Suppression is standard posture for solo developer portfolios.
+# SECTION 8 — BAIDUSPIDER (Chinese search engine - optional international)
 # ==============================================================================
 
+User-agent: Baiduspider
+
+Allow: /
+Allow: /assets/
+Allow: /static/
+
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /private/
+
+Crawl-delay: 10
+
+
+# ==============================================================================
+# SECTION 9 — AI TRAINING CRAWLERS (FULLY BLOCKED)
+# These bots provide ZERO ranking benefit but consume valuable resources
+# ==============================================================================
+
+# OpenAI
 User-agent: GPTBot
 Disallow: /
 
 User-agent: ChatGPT-User
 Disallow: /
 
+# Google's AI (separate from search crawler)
 User-agent: Google-Extended
 Disallow: /
 
+# CommonCrawl
 User-agent: CCBot
 Disallow: /
 
+# Anthropic (Claude)
 User-agent: anthropic-ai
 Disallow: /
 
 User-agent: Claude-Web
 Disallow: /
 
-User-agent: Omgilibot
-Disallow: /
-
-User-agent: Omgili
-Disallow: /
-
+# Facebook/Meta AI
 User-agent: FacebookBot
 Disallow: /
 
 User-agent: meta-externalagent
 Disallow: /
 
+# Apple
 User-agent: Applebot-Extended
 Disallow: /
 
+# Perplexity
 User-agent: PerplexityBot
+Disallow: /
+
+# Other AI scrapers
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: Omgili
 Disallow: /
 
 User-agent: YouBot
@@ -399,11 +647,18 @@ Disallow: /
 User-agent: Kangaroo Bot
 Disallow: /
 
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
 
 # ==============================================================================
-# SECTION 9 — AGGRESSIVE / COMMERCIAL SCRAPERS  [SUPPRESSED]
-# High-volume crawlers that serve SEO tooling dashboards, not search engines.
-# Suppressing reduces serverless invocation volume with no ranking impact.
+# SECTION 10 — SEO & SCRAPING TOOLS (BLOCKED - no ranking value)
 # ==============================================================================
 
 User-agent: AhrefsBot
@@ -436,37 +691,70 @@ Disallow: /
 User-agent: SiteAuditBot
 Disallow: /
 
-# ── PetalBot (Huawei AppGallery) — retain for APAC market visibility ──────
-User-agent: PetalBot
-Allow: /
-Crawl-delay: 10
+User-agent: SEOkicks-Robot
+Disallow: /
+
+User-agent: serpstatbot
+Disallow: /
+
+User-agent: ZoominfoBot
+Disallow: /
+
+User-agent: Rogerbot
+Disallow: /
+
+User-agent: Mozilla/5.0 (compatible; Uptimebot/
+Disallow: /
 
 
 # ==============================================================================
-# SECTION 10 — SITEMAP DECLARATIONS
-# Absolute URLs required. Googlebot auto-discovers; Bing requires a ping.
-# Bing Sitemap Ping:
-#   curl "https://www.bing.com/ping?sitemap=https://ajitdev.com/sitemap.xml"
+# SECTION 11 — SITEMAP LOCATIONS
 # ==============================================================================
 
 Sitemap: https://ajitdev.com/sitemap.xml
+Sitemap: https://ajitdev.com/sitemap-pages.xml
+Sitemap: https://ajitdev.com/sitemap-projects.xml
+Sitemap: https://ajitdev.com/sitemap-images.xml
 
-# Uncomment as content scales to a multi-sitemap architecture:
-# Sitemap: https://ajitdev.com/sitemap-pages.xml
-# Sitemap: https://ajitdev.com/sitemap-projects.xml
+# Additional sitemaps as content scales:
 # Sitemap: https://ajitdev.com/sitemap-blog.xml
-# Sitemap: https://ajitdev.com/sitemap-images.xml
+# Sitemap: https://ajitdev.com/sitemap-videos.xml
 
 
+# ==============================================================================
+# SECTION 12 — HOST DIRECTIVE (Optional - prevents domain hijacking)
+# ==============================================================================
+# Host: https://ajitdev.com
+
+
+# ==============================================================================
+# POST-DEPLOYMENT VALIDATION CHECKLIST
+# ==============================================================================
+#
+# 1. Syntax Validation:
+#    curl -I https://ajitdev.com/robots.txt
+#    Google Search Console > robots.txt Tester
+#
+# 2. Googlebot Rendering Test:
+#    Google Search Console > URL Inspection > Test Live URL
+#    Verify CSS/JS resources are loaded
+#
+# 3. Sitemap Submission:
+#    curl "https://www.google.com/ping?sitemap=https://ajitdev.com/sitemap.xml"
+#    curl "https://www.bing.com/ping?sitemap=https://ajitdev.com/sitemap.xml"
+#
+# 4. Mobile Performance:
+#    PageSpeed Insights: https://pagespeed.web.dev/
+#    Core Web Vitals check in GSC
+#
+# 5. Indexing Monitor:
+#    GSC > Coverage report (check after 48-72 hours)
+#    Track "Crawled - currently not indexed" vs "Indexed"
+#
+# 6. Crawl Stats Review:
+#    GSC > Settings > Crawl Stats
+#    Monitor total crawl requests & KB downloaded
+#
 # ==============================================================================
 # END OF FILE
-# ==============================================================================
-# Post-deploy verification checklist:
-#   [ ] Validate syntax : https://support.google.com/webmasters/answer/6062598
-#   [ ] GSC rendering   : URL Inspection > "Test Live URL" — confirm CSS/JS loads
-#   [ ] Sitemap check   : curl -I https://ajitdev.com/sitemap.xml → HTTP 200
-#   [ ] Bing ping       : curl "https://www.bing.com/ping?sitemap=https://ajitdev.com/sitemap.xml"
-#   [ ] Lighthouse      : npx lighthouse https://ajitdev.com --preset=desktop
-#   [ ] Mobile CWV      : PageSpeed Insights https://pagespeed.web.dev/
-#   [ ] GSC Coverage    : Check indexing report 48h post-deploy
 # ==============================================================================
