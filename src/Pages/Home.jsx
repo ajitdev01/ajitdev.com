@@ -1,478 +1,584 @@
-import { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import {
-  FiCode, FiMail, FiGithub, FiLinkedin, FiArrowRight,
-  FiDatabase, FiServer, FiZap, FiTrendingUp,
-  FiBox, FiGitBranch, FiTerminal, FiAward, FiClock, FiUsers,
-  FiCpu, FiCloud, FiShield, FiLayers
-} from "react-icons/fi";
-import { FaReact, FaNodeJs, FaAws, FaDocker, FaLinux, FaPhp } from "react-icons/fa";
-import { SiMongodb, SiTypescript, SiTailwindcss, SiExpress, SiPrisma, SiRedis, SiNextdotjs, SiMysql } from "react-icons/si";
 
-// Configuration
-const SITE_CONFIG = {
-  name: "Ajit Kumar",
-  fullName: "Ajit Kumar",
-  headline: "Ajit Kumar — Full Stack Developer | Bihar, India",
-  description: "Building scalable web systems with LAMP, MERN, and Next.js. Focused on clean architecture, CI/CD pipelines, and production-ready deployments.",
-  location: { full: "Katihar, Bihar, India", short: "Bihar, India" },
-  roles: { primary: "Full Stack Developer" },
-  contact: {
-    email: "ajitk23192@gmail.com",
-    github: "https://github.com/ajitdev01",
-    linkedin: "https://www.linkedin.com/in/ajitdev01",
-  },
-  education: {
-    degree: "BCA in Cloud & Security",
-    institution: "Amity University Online",
-    training: "Brainzima Innovation Institute",
-    trainingUrl: "https://brainzima.com"
-  }
-};
+// ============================================
+// ICONS (White Theme Friendly)
+// ============================================
+const FiGithub = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>;
+const FiLinkedin = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.222 0 22.225 0z"/></svg>;
+const FiTwitter = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0021.337-11.545c0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>;
+const FiInstagram = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>;
+const FiArrowRight = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>;
+const FiCheckCircle = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const FiBriefcase = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
+const FiAward = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>;
+const FiUsers = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
+const FiCommand = () => <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></svg>;
+const FiCode = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>;
+const FiMail = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 
-// Animations
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.5 } }
-};
-
-const stagger = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-};
-
-const scaleOnHover = {
-  whileHover: { scale: 1.05, y: -5 },
-  transition: { duration: 0.2 }
-};
-
-// Tech Stack Data
-const techCategories = [
-  {
-    name: "LAMP Stack",
-    icon: FaLinux,
-    items: ["Linux", "Apache", "MySQL", "PHP"],
-    gradient: "from-orange-500 to-red-500",
-    color: "orange"
-  },
-  {
-    name: "MERN Stack",
-    icon: FaReact,
-    items: ["MongoDB", "Express", "React", "Node.js"],
-    gradient: "from-blue-500 to-cyan-500",
-    color: "blue"
-  },
-  {
-    name: "Next.js Ecosystem",
-    icon: SiNextdotjs,
-    items: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
-    gradient: "from-gray-700 to-gray-900",
-    color: "gray"
-  },
-  {
-    name: "Cloud & CI/CD",
-    icon: FaAws,
-    items: ["AWS", "Docker", "GitHub Actions", "Vercel"],
-    gradient: "from-purple-500 to-indigo-500",
-    color: "purple"
-  }
-];
-
-// Projects Data
-const featuredProjects = [
-  {
-    title: "Cloud Task Manager",
-    stack: ["React", "Node.js", "MongoDB", "Docker"],
-    description: "Full-stack task management with real-time updates, JWT authentication, and containerized deployment on AWS ECS.",
-    impact: "Reduced task completion time by 40%",
-    gradient: "from-blue-500 to-cyan-500"
-  },
-  {
-    title: "DevOps Dashboard",
-    stack: ["Next.js", "TypeScript", "AWS", "Tailwind"],
-    description: "Monitoring dashboard for CI/CD pipelines with live metrics, status alerts, and automated reporting via GitHub Actions.",
-    impact: "Decreased deployment failures by 65%",
-    gradient: "from-purple-500 to-pink-500"
-  },
-  {
-    title: "E-Commerce API",
-    stack: ["Express", "MongoDB", "Redis", "Stripe"],
-    description: "Scalable payment gateway integration with rate limiting, webhook handlers, and order management for 10k+ concurrent users.",
-    impact: "Processed 5k+ transactions in first month",
-    gradient: "from-orange-500 to-red-500"
-  }
-];
-
-// Workflow Steps
-const workflowSteps = [
-  { icon: FiCode, title: "Clean Code", desc: "Modular, documented, and test-driven" },
-  { icon: FiLayers, title: "Scalable Systems", desc: "Designed for growth and reliability" },
-  { icon: FiGitBranch, title: "CI/CD Pipelines", desc: "Automated testing and deployment" },
-  { icon: FiCloud, title: "Cloud-Ready", desc: "Docker + AWS infrastructure" }
-];
-
-// Components
-const StatCard = ({ stat, index }) => (
-  <motion.div
-    variants={fadeUp}
-    whileHover={{ y: -5, scale: 1.02 }}
-    className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-  >
-    <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`} />
-    <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${stat.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-      <stat.icon className="w-7 h-7 text-white" />
-    </div>
-    <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
-    <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
-  </motion.div>
-);
-
-const TechCard = ({ tech }) => {
-  const colorMap = {
-    orange: "from-orange-500 to-red-500",
-    blue: "from-blue-500 to-cyan-500",
-    gray: "from-gray-700 to-gray-900",
-    purple: "from-purple-500 to-indigo-500"
+// ============================================
+// 3D CODESPACE HERO COMPONENT (White Theme)
+// ============================================
+const CodeSpace3D = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [typedLines, setTypedLines] = useState([]);
+  const [isRunning, setIsRunning] = useState(false);
+  const [output, setOutput] = useState([]);
+  
+  const cardRef = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const rotateX = useTransform(y, [-100, 100], [15, -15]);
+  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+  
+  const handleMouseMove = (e) => {
+    if (isHovered) return;
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (rect) {
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const moveX = e.clientX - centerX;
+      const moveY = e.clientY - centerY;
+      x.set(moveX);
+      y.set(moveY);
+    }
   };
   
+  const codeLines = [
+    { text: "const Success = async (developer) => {", color: "text-indigo-600", delay: 0 },
+    { text: '  await developer.learn("MERN + Next.js + TypeScript");', color: "text-emerald-600", delay: 400 },
+    { text: '  await developer.build("5+ Production Apps");', color: "text-emerald-600", delay: 800 },
+    { text: '  await developer.deploy("Cloud Native Solutions");', color: "text-emerald-600", delay: 1200 },
+    { text: '  return "CAREER_GROWTH 🚀";', color: "text-purple-600", delay: 1600 },
+    { text: "};", color: "text-indigo-600", delay: 1900 },
+    { text: "", color: "", delay: 2100 },
+    { text: "// 2500+ hours of coding", color: "text-gray-400", delay: 2300 },
+    { text: "// 99% client satisfaction", color: "text-gray-400", delay: 2500 },
+  ];
+
+  const terminalLines = [
+    { text: "$ npm run deploy", color: "text-cyan-600", delay: 2800 },
+    { text: "> System Online: 100%", color: "text-emerald-600", delay: 3200 },
+    { text: "> Full Stack Mode Activated", color: "text-emerald-600", delay: 3500 },
+    { text: "> Deploying Projects...", color: "text-blue-600", delay: 3800 },
+    { text: "> Build Complete: 0 Errors ✨", color: "text-emerald-600", delay: 4200 },
+  ];
+
+  useEffect(() => {
+    const timeouts = codeLines.map((line, idx) => {
+      return setTimeout(() => {
+        if (line.text) {
+          setTypedLines(prev => [...prev, line]);
+        }
+      }, line.delay);
+    });
+    
+    const terminalTimeouts = terminalLines.map((line, idx) => {
+      return setTimeout(() => {
+        setOutput(prev => [...prev, line]);
+      }, line.delay);
+    });
+    
+    return () => {
+      timeouts.forEach(t => clearTimeout(t));
+      terminalTimeouts.forEach(t => clearTimeout(t));
+    };
+  }, []);
+
+  const handleRunCode = () => {
+    setIsRunning(true);
+    setOutput([]);
+    setTypedLines([]);
+    
+    const allLines = [...codeLines, ...terminalLines];
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      if (currentIndex < allLines.length) {
+        const line = allLines[currentIndex];
+        if (line.text) {
+          if (currentIndex < codeLines.length) {
+            setTypedLines(prev => [...prev, line]);
+          } else {
+            setOutput(prev => [...prev, line]);
+          }
+        }
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setIsRunning(false);
+      }
+    }, 300);
+  };
+
   return (
     <motion.div
-      variants={fadeUp}
-      whileHover={{ y: -5 }}
-      className="group bg-white rounded-xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300"
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        animate(x, 0, { duration: 0.5 });
+        animate(y, 0, { duration: 0.5 });
+      }}
+      style={{
+        rotateX: isHovered ? 0 : rotateX,
+        rotateY: isHovered ? 0 : rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      animate={isHovered ? { scale: 1.02 } : { scale: 1 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="relative w-full max-w-lg mx-auto lg:mx-0"
     >
-      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${colorMap[tech.color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <tech.icon className="w-6 h-6 text-white" />
+      <div className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 bg-white">
+        {/* Header Bar */}
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+          <span className="w-3 h-3 bg-red-500 rounded-full shadow-sm" />
+          <span className="w-3 h-3 bg-yellow-500 rounded-full shadow-sm" />
+          <span className="w-3 h-3 bg-green-500 rounded-full shadow-sm" />
+          <span className="ml-auto text-xs text-gray-500 font-mono">ajitdev_success.ts</span>
+          <button
+            onClick={handleRunCode}
+            disabled={isRunning}
+            className="ml-2 px-2 py-0.5 text-[10px] font-mono bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded transition-all duration-200 disabled:opacity-50"
+          >
+            {isRunning ? "Running..." : "▶ Run"}
+          </button>
+        </div>
+
+        {/* Code Editor Area */}
+        <div className="p-5 font-mono text-sm space-y-1.5 bg-gray-50/50">
+          {codeLines.map((line, idx) => {
+            const isTyped = typedLines.some(t => t.text === line.text && t.delay === line.delay);
+            return (
+              <div key={idx} className={line.color}>
+                {isTyped ? line.text : (idx === 0 && typedLines.length === 0 ? (
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    {line.text}
+                  </motion.span>
+                ) : null)}
+                {idx === typedLines.length - 1 && typedLines.length < codeLines.length && typedLines.length > 0 && (
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="inline-block w-2 h-4 bg-indigo-500 ml-0.5 align-middle"
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Terminal Area */}
+        <div className="border-t border-gray-200 p-3 text-xs font-mono bg-gray-100/50 space-y-0.5">
+          <div className="text-gray-500 text-[10px] mb-1 flex items-center gap-2">
+            <FiCommand />
+            TERMINAL OUTPUT
+          </div>
+          {output.map((line, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              className={line.color}
+            >
+              {line.text}
+            </motion.div>
+          ))}
+          {output.length === terminalLines.length && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center gap-2 mt-2 pt-1 border-t border-gray-200"
+            >
+              <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-emerald-600 text-[10px] font-medium">Ready for opportunities</span>
+            </motion.div>
+          )}
+          {output.length < terminalLines.length && output.length > 0 && (
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+              className="inline-block w-1.5 h-3 bg-emerald-500 ml-1 align-middle"
+            />
+          )}
+        </div>
       </div>
-      <h3 className="font-bold text-gray-900 mb-3 text-lg">{tech.name}</h3>
-      <div className="flex flex-wrap gap-2">
-        {tech.items.map((item) => (
-          <span key={item} className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs rounded-lg font-medium">
-            {item}
-          </span>
+
+      {/* Glow Effect */}
+      <div className="absolute -inset-4 bg-gradient-to-r from-indigo-200/40 via-purple-200/40 to-pink-200/40 blur-3xl -z-10 rounded-full opacity-50" />
+    </motion.div>
+  );
+};
+
+// ============================================
+// ANIMATION VARIANTS
+// ============================================
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -40 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
+};
+
+// ============================================
+// STATS SECTION
+// ============================================
+const StatsSection = () => {
+  const stats = [
+    { value: "5+", label: "Projects Delivered", icon: FiBriefcase, description: "Production-grade applications" },
+    { value: "1+", label: "Years Experience", icon: FiAward, description: "Full Stack development" },
+    { value: "10+", label: "Happy Clients", icon: FiUsers, description: "Global client base" },
+    { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "On-time delivery" },
+  ];
+
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={sectionRef}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={staggerContainer}
+      className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
+    >
+      {stats.map((stat) => {
+        const Icon = stat.icon;
+        return (
+          <motion.div
+            key={stat.label}
+            variants={fadeUp}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group relative bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all duration-300"
+          >
+            <div className="flex justify-center mb-2">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 group-hover:from-indigo-200 group-hover:to-purple-200 flex items-center justify-center transition-all duration-300">
+                <Icon className="w-5 h-5 text-indigo-600" />
+              </div>
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+            <div className="text-xs text-gray-500 mt-0.5">{stat.label}</div>
+            <div className="text-[10px] text-gray-400 mt-1">{stat.description}</div>
+          </motion.div>
+        );
+      })}
+    </motion.div>
+  );
+};
+
+
+// ============================================
+// FEATURED TECH STACK
+// ============================================
+const FeaturedTech = () => {
+  const techs = [
+    "React", "Next.js", "TypeScript", "Node.js", 
+    "Express", "MongoDB", "Tailwind CSS", "Redux"
+  ];
+
+  return (
+    <motion.div variants={fadeUp} className="mt-8">
+      <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+        {techs.map((tech, idx) => (
+          <motion.span
+            key={tech}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8 + idx * 0.05 }}
+            className="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 border border-gray-200 text-gray-700 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 cursor-default"
+          >
+            {tech}
+          </motion.span>
         ))}
       </div>
     </motion.div>
   );
 };
 
-const ProjectCard = ({ project, index }) => (
-  <motion.div
-    variants={fadeUp}
-    whileHover={{ y: -8 }}
-    className="group bg-white rounded-xl p-6 border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer"
-  >
-    <div className={`w-1 h-12 bg-gradient-to-b ${project.gradient} rounded-full mb-4`} />
-    <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
-    <div className="flex flex-wrap gap-2 mb-3">
-      {project.stack.map((tech) => (
-        <span key={tech} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
-          {tech}
-        </span>
-      ))}
-    </div>
-    <p className="text-gray-600 text-sm leading-relaxed mb-3">{project.description}</p>
-    <div className="flex items-center gap-2 text-emerald-600 text-xs font-medium">
-      <FiTrendingUp className="w-3 h-3" />
-      <span>{project.impact}</span>
-    </div>
-  </motion.div>
-);
 
-const WorkflowCard = ({ step, index }) => (
-  <motion.div
-    variants={fadeUp}
-    whileHover={{ y: -3 }}
-    className="text-center p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-  >
-    <div className="w-14 h-14 mx-auto bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center mb-4 shadow-md">
-      <step.icon className="w-7 h-7 text-white" />
-    </div>
-    <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
-    <p className="text-gray-500 text-sm">{step.desc}</p>
-  </motion.div>
-);
 
-// Main Component
+
+
+// ============================================
+// EDUCATION SECTION
+// ============================================
+const EducationSection = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={staggerContainer}
+      className="py-20 bg-gray-50"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-2 gap-8">
+          <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-5">
+              <FiAward className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
+            <p className="text-gray-800 font-medium">BCA in Cloud & Security</p>
+            <p className="text-gray-500 text-sm mb-3">Amity University Online</p>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Specialized in cloud infrastructure and security fundamentals.
+            </p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
+              <FiTrendingUp className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Practical Training</h3>
+            <p className="text-gray-800 font-medium">
+              <a href="https://brainzima.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
+                Brainzima Innovation Institute
+              </a>
+            </p>
+            <p className="text-gray-500 text-sm mb-3">brainzima.com</p>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Hands-on development training focusing on real-world projects and industry workflows.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+// ============================================
+// CONTACT SECTION
+// ============================================
+
+// Need FiTrendingUp for projects
+const FiTrendingUp = () => <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
+
+// ============================================
+// MAIN HOME COMPONENT
+// ============================================
 const Home = () => {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+  const heroRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { once: true });
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  const allSocialUrls = [
+    "https://github.com/ajitdev01",
+    "https://leetcode.com/ajitdev01",
+    "https://linkedin.com/in/ajitdev01",
+    "https://twitter.com/ajitdev01",
+    "https://instagram.com/ajitdev01",
+    "https://snapchat.com/add/ajitdev01",
+    "https://dev.to/ajitdev01",
+    "https://medium.com/@ajitdev01",
+  ];
 
   return (
     <>
-      <Helmet>
-        <title>{SITE_CONFIG.headline}</title>
-        <meta name="description" content={SITE_CONFIG.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Helmet>
-
       <Header />
+      
+      <main className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white pt-16">
+        {/* Hero Section */}
+        <section
+          ref={heroRef}
+          className="relative min-h-[90vh] flex items-center overflow-hidden"
+        >
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-100/30 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-100/30 rounded-full blur-3xl" />
+            <div className="absolute top-1/3 left-0 w-[300px] h-[300px] bg-pink-100/20 rounded-full blur-3xl" />
+          </div>
 
-      <motion.main style={{ opacity }} className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white pt-20 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Hero Section */}
-          <motion.section
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            style={{ y: heroY }}
-            className="min-h-[85vh] flex items-center mb-16"
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <motion.div variants={fadeUp}>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span className="text-sm font-medium text-gray-700">Available for opportunities</span>
-                  </div>
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Content */}
+              <motion.div
+                variants={fadeLeft}
+                initial="hidden"
+                animate={isHeroInView ? "visible" : "hidden"}
+                className="space-y-6 text-center lg:text-left"
+              >
+                <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 mx-auto lg:mx-0">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  <span className="text-xs font-medium text-indigo-700 tracking-wide">Available for Opportunities</span>
                 </motion.div>
 
-                <motion.h1 variants={fadeUp} className="text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
-                  <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                    Building Scalable
-                  </span>
+                <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                  <span className="text-gray-900">Full Stack</span>
                   <br />
-                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    Web Systems
+                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Engineer
                   </span>
                 </motion.h1>
 
-                <motion.p variants={fadeUp} className="text-lg text-gray-600 leading-relaxed max-w-lg">
-                  I design and develop modern applications with efficient architecture, 
-                  performance-focused workflows, and reliable deployment pipelines.
-                  <span className="block mt-2 text-gray-500 text-base">
-                    Based in <span className="font-medium text-gray-700">{SITE_CONFIG.location.short}</span>
-                  </span>
+                <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                  I build <span className="text-gray-900 font-semibold">production-grade web applications</span> that solve real business problems. 
+                  Specialized in <span className="text-indigo-600 font-medium">MERN Stack</span>, <span className="text-indigo-600 font-medium">Next.js</span>, 
+                  and <span className="text-indigo-600 font-medium">TypeScript</span>.
                 </motion.p>
 
-                <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-                  <Link
-                    to="/projects"
-                    className="group inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 hover:shadow-xl hover:scale-105 transition-all duration-300"
-                  >
-                    <FiCode className="w-5 h-5" />
-                    View Projects
-                    <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-gray-200 rounded-xl font-semibold hover:border-gray-300 hover:shadow-md transition-all duration-300"
+                    className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/25"
                   >
-                    <FiMail className="w-5 h-5" />
-                    Get in Touch
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
+                    <span className="relative z-10 flex items-center gap-2">
+                      Hire Me → Build Scalable Apps
+                      <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/projects"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-gray-700 bg-white border border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200"
+                  >
+                    View Portfolio
+                    <FiArrowRight size={14} />
                   </Link>
                 </motion.div>
 
-                <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4 pt-4">
-                  <div className="flex items-center gap-2">
-                    <a href={SITE_CONFIG.contact.github} target="_blank" rel="noopener noreferrer" 
-                      className="p-2.5 bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-110 transition-all duration-300">
-                      <FiGithub className="w-5 h-5" />
+                <FeaturedTech />
+
+                <motion.div variants={fadeUp} className="flex items-center gap-4 justify-center lg:justify-start pt-2">
+                  <div className="flex -space-x-2">
+                    <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200">
+                      <FiGithub className="w-3.5 h-3.5 text-gray-700" />
                     </a>
-                    <a href={SITE_CONFIG.contact.linkedin} target="_blank" rel="noopener noreferrer"
-                      className="p-2.5 bg-blue-50 rounded-lg hover:bg-blue-100 hover:scale-110 transition-all duration-300">
-                      <FiLinkedin className="w-5 h-5 text-blue-700" />
+                    <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200">
+                      <FiLinkedin className="w-3.5 h-3.5 text-gray-700" />
                     </a>
-                    <a href={`mailto:${SITE_CONFIG.contact.email}`}
-                      className="p-2.5 bg-red-50 rounded-lg hover:bg-red-100 hover:scale-110 transition-all duration-300">
-                      <FiMail className="w-5 h-5 text-red-600" />
+                    <a href="https://leetcode.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200 text-[10px] font-bold text-gray-700">
+                      LC
+                    </a>
+                    <a href="https://dev.to/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200 text-[10px] font-bold text-gray-700">
+                      DEV
                     </a>
                   </div>
-                  <div className="h-6 w-px bg-gray-200" />
-                  <div className="flex gap-2">
-                    {["LAMP", "MERN", "Next.js"].map((badge) => (
-                      <span key={badge} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-mono">
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
+                  <span className="text-xs text-gray-500">
+                    @ajitdev01 everywhere
+                  </span>
                 </motion.div>
+              </motion.div>
+
+              <CodeSpace3D />
+            </div>
+
+            <StatsSection />
+          </div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.8 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-[10px] text-gray-400 uppercase tracking-wider">Scroll</span>
+              <div className="w-5 h-8 border border-gray-300 rounded-full flex justify-center">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="w-1 h-2 bg-indigo-500 rounded-full mt-1"
+                />
               </div>
+            </div>
+          </motion.div>
+        </section>
+        
+        {/* Education Section */}
+        <EducationSection />
 
-              {/* Abstract Visual */}
-              <motion.div variants={fadeUp} className="hidden lg:block relative">
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl animate-pulse" />
-                  <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl border border-gray-200 p-6 shadow-xl">
-                    <div className="grid grid-cols-2 gap-4">
-                      {[
-                        { icon: FaPhp, name: "PHP", color: "text-indigo-500" },
-                        { icon: SiMysql, name: "MySQL", color: "text-blue-500" },
-                        { icon: FaReact, name: "React", color: "text-cyan-500" },
-                        { icon: FaNodeJs, name: "Node.js", color: "text-green-500" },
-                        { icon: SiNextdotjs, name: "Next.js", color: "text-gray-900" },
-                        { icon: FaAws, name: "AWS", color: "text-orange-500" },
-                      ].map((tech, i) => (
-                        <motion.div
-                          key={i}
-                          whileHover={{ scale: 1.05 }}
-                          className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 shadow-sm"
-                        >
-                          <tech.icon className={`w-6 h-6 ${tech.color}`} />
-                          <span className="font-medium text-gray-700 text-sm">{tech.name}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-gray-900 rounded-xl font-mono text-xs">
-                      <div className="text-green-400">$ git push origin main</div>
-                      <div className="text-gray-400">✓ Linting passed (2.1s)</div>
-                      <div className="text-gray-400">✓ Tests passed (4.3s)</div>
-                      <div className="text-blue-400">→ Deployed to production</div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          {/* About Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="mb-24"
-          >
-            <div className="max-w-3xl mx-auto text-center">
-              <motion.div variants={fadeUp} className="inline-block mb-4">
-                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">About</div>
-              </motion.div>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-6">
-                Focused on real-world solutions
-              </motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-600 text-lg leading-relaxed">
-                Focused on creating real-world solutions using LAMP, MERN, and Next.js ecosystems. 
-                Continuously improving through hands-on development, system design, and integrating 
-                CI/CD practices into production-ready environments.
-              </motion.p>
-            </div>
-          </motion.section>
-
-          {/* Tech Stack Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="mb-24"
-          >
-            <div className="text-center mb-12">
-              <motion.div variants={fadeUp} className="inline-block mb-4">
-                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Tech Stack</div>
-              </motion.div>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Modern Development Arsenal</motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-500 text-lg">End-to-end technologies I rely on daily</motion.p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {techCategories.map((tech, i) => <TechCard key={i} tech={tech} />)}
-            </div>
-          </motion.section>
-
-          {/* Projects Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="mb-24"
-          >
-            <div className="text-center mb-12">
-              <motion.div variants={fadeUp} className="inline-block mb-4">
-                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Portfolio</div>
-              </motion.div>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Featured Projects</motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-500 text-lg">Real impact, production deployments</motion.p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {featuredProjects.map((project, i) => <ProjectCard key={i} project={project} index={i} />)}
-            </div>
-            <div className="text-center mt-10">
-              <Link to="/projects" className="inline-flex items-center gap-2 text-gray-700 font-semibold hover:gap-3 transition-all duration-300 group">
-                View all projects <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </motion.section>
-
-          {/* Education & Learning */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="mb-24"
-          >
-            <div className="grid md:grid-cols-2 gap-8">
-              <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center mb-5">
-                  <FiAward className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
-                <p className="text-gray-800 font-medium">{SITE_CONFIG.education.degree}</p>
-                <p className="text-gray-500 text-sm mb-3">{SITE_CONFIG.education.institution}</p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Specialized in cloud infrastructure and security fundamentals.
-                </p>
-              </motion.div>
-
-              <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
-                  <FiTrendingUp className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Practical Training</h3>
-                <p className="text-gray-800 font-medium">
-                  <a href={SITE_CONFIG.education.trainingUrl} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">
-                    Brainzima Innovation Institute
-                  </a>
-                </p>
-                <p className="text-gray-500 text-sm mb-3">brainzima.com</p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Hands-on development training focusing on real-world projects and industry workflows.
-                </p>
-              </motion.div>
-            </div>
-          </motion.section>
-
-          {/* Workflow Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="mb-24"
-          >
-            <div className="text-center mb-12">
-              <motion.div variants={fadeUp} className="inline-block mb-4">
-                <div className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">Approach</div>
-              </motion.div>
-              <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900 mb-3">Development Philosophy</motion.h2>
-              <motion.p variants={fadeUp} className="text-gray-500 text-lg">Clean, scalable, and automated</motion.p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {workflowSteps.map((step, i) => <WorkflowCard key={i} step={step} />)}
-            </div>
-          </motion.section>
-        </div>
-      </motion.main>
+      </main>
 
       <Footer />
+
+      {/* JSON-LD Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Person",
+              "@id": "https://ajitdev.com/#person",
+              "name": "Ajit Kumar",
+              "alternateName": "ajitdev01",
+              "url": "https://ajitdev.com",
+              "email": "ajitk23192@gmail.com",
+              "telephone": "+916205526784",
+              "jobTitle": "Full Stack Engineer",
+              "description": "Professional Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Available for hire.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Katihar",
+                "addressRegion": "Bihar",
+                "addressCountry": "India"
+              },
+              "sameAs": allSocialUrls,
+              "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+              "hasOccupation": {
+                "@type": "Occupation",
+                "name": "Full Stack Engineer",
+                "skills": "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs"
+              }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ajitdev.com/#website",
+              "url": "https://ajitdev.com",
+              "name": "Ajit Kumar - Full Stack Engineer Portfolio",
+              "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript.",
+              "publisher": { "@id": "https://ajitdev.com/#person" }
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://ajitdev.com/#organization",
+              "name": "AjitDev",
+              "alternateName": ["ajitdev01", "Ajit Kumar"],
+              "url": "https://ajitdev.com",
+              "sameAs": allSocialUrls,
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "ajitk23192@gmail.com",
+                "contactType": "professional services"
+              }
+            }
+          ]
+        })}
+      </script>
+
+      {/* Hidden SEO Keywords */}
+      <span className="sr-only" aria-hidden="true">
+        Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio, 
+        JavaScript Developer India, Hire Full Stack Engineer, Full Stack Engineer Katihar Bihar,
+        React Node.js Developer, TypeScript Full Stack, MongoDB Express React Node
+      </span>
     </>
   );
 };

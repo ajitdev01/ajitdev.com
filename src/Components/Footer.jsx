@@ -4,40 +4,53 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   FiHome, FiUser, FiSettings, FiFolder, FiMail,
   FiHeart, FiChevronUp, FiGithub, FiLinkedin,
-  FiShield, FiAward, FiGlobe, FiArrowRight,
+  FiShield, FiAward, FiGlobe, FiArrowRight, FiTwitter, FiInstagram,
 } from "react-icons/fi";
-import { FaWhatsapp, FaGraduationCap, FaDev, FaMedium } from "react-icons/fa";
+import { FaWhatsapp, FaGraduationCap, FaDev, FaMedium, FaSnapchat } from "react-icons/fa";
+import { SiLeetcode } from "react-icons/si";
 
-// ========== BRAND CONFIGURATION ==========
+// ========== BRAND CONFIGURATION (STRICTLY FULL STACK) ==========
 const BRAND_CONFIG = {
   name: "Ajit Kumar",
-  title: "DevOps & Cloud Engineer",
-  description: "Professional DevOps engineer specializing in cloud infrastructure, automation, CI/CD pipelines, and cloud-native solutions. Available for freelance, contract, and full-time opportunities.",
-  shortDescription: "DevOps Engineer from Katihar, Bihar specializing in cloud security, infrastructure automation, and scalable solutions.",
+  username: "ajitdev01",
+  role: "Full Stack Engineer",
+  title: "Full Stack Engineer | MERN • Next.js • TypeScript",
+  description: "Professional Full Stack Engineer specializing in modern web applications, scalable architectures, and end-to-end development. Available for freelance, contract, and full-time opportunities.",
+  shortDescription: "Full Stack Engineer from Katihar, Bihar specializing in MERN Stack, Next.js, TypeScript, and cloud deployment.",
   email: "ajitk23192@gmail.com",
   phone: "+916205526784",
   location: "Katihar, Bihar, India",
-  availability: { title: "Open for Opportunities", subtitle: "DevOps • Cloud • SRE • Full-time & Contract Roles", status: "Available for work" },
+  availability: { 
+    title: "Available for Opportunities", 
+    subtitle: "Full Stack • MERN • Next.js • Full-time & Contract Roles", 
+    status: "Open for Work" 
+  },
   founded: "2023",
   website: "https://ajitdev.com",
 };
 
+// ========== COMPLETE SOCIAL LINKS (SAME USERNAME EVERYWHERE) ==========
 const SOCIAL_LINKS = [
-  { platform: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, ariaLabel: "Visit Ajit Kumar's GitHub profile", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", icon: FiLinkedin, ariaLabel: "Connect with Ajit Kumar on LinkedIn", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, ariaLabel: "Visit Ajit Kumar's GitHub - Full Stack Projects", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, ariaLabel: "Connect with Ajit Kumar on LinkedIn", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiMail , ariaLabel: "View Ajit Kumar's LeetCode profile - DSA & Problem Solving", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Dev.to", url: "https://dev.to/ajitdev01", icon: FaDev, ariaLabel: "Read Ajit Kumar's technical blogs on Dev.to", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Medium", url: "https://medium.com/@ajitdev01", icon: FaMedium, ariaLabel: "Follow Ajit Kumar on Medium", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Twitter", url: "https://twitter.com/ajitdev01", icon: FiTwitter, ariaLabel: "Follow Ajit Kumar on Twitter/X", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Instagram", url: "https://instagram.com/ajitdev01", icon: FiInstagram, ariaLabel: "Follow Ajit Kumar on Instagram", rel: "me noopener noreferrer", profileType: "social" },
+  { platform: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FaSnapchat, ariaLabel: "Add Ajit Kumar on Snapchat", rel: "me noopener noreferrer", profileType: "social" },
   { platform: "Email", url: "mailto:ajitk23192@gmail.com", icon: FiMail, ariaLabel: "Email Ajit Kumar", rel: "noopener noreferrer" },
   { platform: "WhatsApp", url: "https://wa.me/916205526784", icon: FaWhatsapp, ariaLabel: "WhatsApp Ajit Kumar", rel: "noopener noreferrer" },
-  { platform: "Dev.to", url: "https://dev.to/ajitdev01", icon: FaDev, ariaLabel: "Read Ajit Kumar on Dev.to", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "Medium", url: "https://medium.com/@ajitdev01", icon: FaMedium, ariaLabel: "Follow Ajit Kumar on Medium", rel: "me noopener noreferrer", profileType: "professional" },
 ];
 
+// ========== NAVIGATION (STRICTLY FULL STACK FOCUSED) ==========
 const NAV_LINKS = [
-  { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Kumar's DevOps portfolio homepage", title: "Home - DevOps Engineer Portfolio India" },
-  { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Kumar's background and expertise", title: "About Ajit Kumar - DevOps & Cloud Engineer" },
-  { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills and tools", title: "Skills & Expertise - DevOps, Cloud, Kubernetes, AWS" },
-  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Kumar", title: "Projects - DevOps & Cloud Portfolio" },
-  { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications", title: "Education & Certifications - Ajit Kumar" },
-  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for opportunities", title: "Contact Ajit Kumar - DevOps Engineer for Hire" },
+  { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Kumar's Full Stack Portfolio homepage", title: "Home - Full Stack Engineer Portfolio India" },
+  { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Kumar's Full Stack journey and expertise", title: "About Ajit Kumar - MERN & Next.js Full Stack Engineer" },
+  { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills and tools - Full Stack Development", title: "Skills - MERN, Next.js, TypeScript, Full Stack Expertise" },
+  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Kumar - Full Stack Applications", title: "Projects - Full Stack Web Applications Portfolio" },
+  { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications in Computer Science", title: "Education & Certifications - Ajit Kumar" },
+  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for Full Stack opportunities", title: "Contact Ajit Kumar - Hire Full Stack Engineer" },
 ];
 
 const LEGAL_LINKS = [
@@ -46,13 +59,14 @@ const LEGAL_LINKS = [
   { name: "Sitemap", path: "/sitemap.xml", ariaLabel: "Sitemap", external: true },
 ];
 
+// ========== SKILLS CATEGORIZED (FULL STACK FOCUS) ==========
 const TECH_CATEGORIES = [
-  { category: "Cloud", items: ["AWS", "Azure", "GCP", "Terraform", "CloudFormation", "Pulumi"], color: "blue" },
-  { category: "Containers", items: ["Kubernetes", "Docker", "ECS", "EKS", "AKS", "OpenShift"], color: "cyan" },
-  { category: "CI/CD", items: ["Jenkins", "GitHub Actions", "GitLab CI", "ArgoCD", "Ansible", "CircleCI"], color: "violet" },
-  { category: "Monitoring", items: ["Prometheus", "Grafana", "Datadog", "New Relic", "ELK Stack", "Jaeger"], color: "emerald" },
-  { category: "Security", items: ["Vault", "SonarQube", "OWASP", "IAM", "KMS", "WAF"], color: "orange" },
-  { category: "Dev", items: ["React", "Node.js", "Python", "Go", "TypeScript", "REST APIs"], color: "pink" },
+  { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap", "Redux"], color: "blue" },
+  { category: "Backend", items: ["Node.js", "Express.js", "Python", "Java", "C++", "REST APIs"], color: "cyan" },
+  { category: "Database", items: ["MongoDB", "PostgreSQL", "MySQL", "Firebase", "Prisma", "Mongoose"], color: "violet" },
+  { category: "Cloud & DevOps", items: ["Vercel", "Netlify", "AWS", "Docker", "GitHub Actions", "CI/CD"], color: "emerald" },
+  { category: "Tools & Methods", items: ["Git", "GitHub", "Jest", "Postman", "Figma", "Agile"], color: "orange" },
+  { category: "Languages", items: ["JavaScript", "TypeScript", "Python", "Java", "C++", "HTML/CSS"], color: "pink" },
 ];
 
 const TECH_STYLES = {
@@ -72,11 +86,12 @@ const DOT_COLORS = {
 const ALL_TECHS = TECH_CATEGORIES.flatMap(c => c.items.map(item => ({ name: item, color: c.color, category: c.category })));
 const ALL_TECH_NAMES = TECH_CATEGORIES.flatMap(c => c.items);
 
+// ========== SEO KEYWORDS (FULL STACK FOCUSED) ==========
 const HIDDEN_KEYWORDS = [
-  "DevOps engineer India", "Cloud Security Developer India", "DevSecOps portfolio India",
-  "CI/CD engineer portfolio", "Kubernetes expert Bihar", "AWS consultant Katihar",
-  "Terraform specialist India", "Site Reliability Engineer India", "Cloud architect Bihar",
-  "Infrastructure as Code specialist",
+  "Full Stack Developer India", "MERN Stack Developer Portfolio", "Next.js Developer Portfolio",
+  "JavaScript Developer India", "Hire Full Stack Developer", "Full Stack Engineer Katihar Bihar",
+  "React Node.js Developer", "TypeScript Full Stack", "MongoDB Express React Node",
+  "Full Stack Web Development India", "Freelance Full Stack Developer",
 ];
 
 // ========== HOOKS ==========
@@ -162,70 +177,128 @@ const TechBadge = ({ name, color, category }) => (
   </motion.span>
 );
 
-// ========== MAIN FOOTER ==========
+// ========== MAIN FOOTER COMPONENT ==========
 const Footer = () => {
   const { isVisible, scrollToTop } = useScrollToTop();
   const currentYear = new Date().getFullYear();
   const footerRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, margin: "-80px" });
 
-  // ===== STRUCTURED DATA =====
+  // ===== COMPLETE JSON-LD SCHEMAS (FULL STACK FOCUSED) =====
+  const allSocialUrls = SOCIAL_LINKS.map(link => link.url);
+  
   const schemas = [
-    // Person (Improvement 6: hasOccupation)
+    // Person Schema with ALL social links
     {
-      "@context": "https://schema.org", "@type": "Person", "@id": "https://ajitdev.com/#person",
-      name: BRAND_CONFIG.name, url: BRAND_CONFIG.website, email: BRAND_CONFIG.email,
-      telephone: BRAND_CONFIG.phone, jobTitle: BRAND_CONFIG.title, description: BRAND_CONFIG.description,
-      address: { "@type": "PostalAddress", addressLocality: "Katihar", addressRegion: "Bihar", addressCountry: "India" },
-      sameAs: ["https://github.com/ajitdev01", "https://www.linkedin.com/in/ajitdev01/", "https://dev.to/ajitdev01", "https://medium.com/@ajitdev01"],
-      hasOccupation: {
-        "@type": "Occupation", name: "DevOps Engineer",
-        description: "Cloud infrastructure, CI/CD, Kubernetes, DevSecOps",
-        occupationLocation: { "@type": "Country", name: "India" },
-        skills: "AWS, Kubernetes, Terraform, Docker, CI/CD, DevSecOps, Cloud Architecture",
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://ajitdev.com/#person",
+      "name": BRAND_CONFIG.name,
+      "alternateName": BRAND_CONFIG.username,
+      "url": BRAND_CONFIG.website,
+      "email": BRAND_CONFIG.email,
+      "telephone": BRAND_CONFIG.phone,
+      "jobTitle": BRAND_CONFIG.role,
+      "description": BRAND_CONFIG.description,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Katihar",
+        "addressRegion": "Bihar",
+        "addressCountry": "India"
       },
+      "sameAs": allSocialUrls,
+      "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS", "Full Stack Development", "JavaScript", "Python", "Java"],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Full Stack Engineer",
+        "description": "Building end-to-end web applications with modern technologies",
+        "occupationLocation": { "@type": "Country", "name": "India" },
+        "skills": "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs, Git, Vercel, Netlify"
+      }
     },
-    // Website (Improvement 3: speakable)
+    // Website Schema with speakable
     {
-      "@context": "https://schema.org", "@type": "WebSite", "@id": "https://ajitdev.com/#website",
-      name: "Ajit Dev Portfolio - DevOps Engineer India", url: "https://ajitdev.com",
-      description: BRAND_CONFIG.description,
-      speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", "h2", ".hero-description"] },
-      publisher: { "@type": "Person", name: BRAND_CONFIG.name, jobTitle: BRAND_CONFIG.title, email: BRAND_CONFIG.email, address: { "@type": "PostalAddress", addressLocality: "Katihar", addressRegion: "Bihar", addressCountry: "India" } },
-      potentialAction: { "@type": "SearchAction", target: { "@type": "EntryPoint", urlTemplate: "https://ajitdev.com/?s={search_term_string}" }, "query-input": "required name=search_term_string" },
-      inLanguage: ["en-IN", "en-US"], copyrightYear: currentYear,
-      copyrightHolder: { "@type": "Person", name: BRAND_CONFIG.name },
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://ajitdev.com/#website",
+      "name": "Ajit Kumar - Full Stack Engineer Portfolio",
+      "alternateName": "ajitdev01",
+      "url": "https://ajitdev.com",
+      "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Hire for web development projects.",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "h2", ".hero-description"]
+      },
+      "publisher": { "@id": "https://ajitdev.com/#person" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ajitdev.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": ["en-IN", "en-US"],
+      "copyrightYear": currentYear,
+      "copyrightHolder": { "@id": "https://ajitdev.com/#person" }
     },
-    // PersonalBrand / Organization (Improvement 1)
+    // Organization Schema (Personal Brand)
     {
-      "@context": "https://schema.org", "@type": "Organization", "@id": "https://ajitdev.com/#brand",
-      name: "Ajit Dev", alternateName: ["AjitDev", "Ajit Kumar DevOps", "Ajit Dev Portfolio"],
-      url: BRAND_CONFIG.website, description: "Personal brand of Ajit Kumar — DevOps & Cloud Engineer from Bihar, India",
-      founder: { "@type": "Person", "@id": "https://ajitdev.com/#person", name: BRAND_CONFIG.name },
-      foundingDate: BRAND_CONFIG.founded, areaServed: { "@type": "Country", name: "India" },
-      knowsAbout: ["DevOps Engineering", "Cloud Infrastructure", "Kubernetes", "CI/CD Pipelines", "Terraform", "AWS", "DevSecOps", "Site Reliability Engineering"],
-      sameAs: ["https://github.com/ajitdev01", "https://www.linkedin.com/in/ajitdev01/", "https://dev.to/ajitdev01", "https://medium.com/@ajitdev01"],
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://ajitdev.com/#organization",
+      "name": "AjitDev",
+      "alternateName": ["Ajit Kumar", "ajitdev01", "Ajit Dev Portfolio"],
+      "url": BRAND_CONFIG.website,
+      "logo": "https://ajitdev.com/logo.png",
+      "description": "Personal brand of Ajit Kumar — Full Stack Engineer from Bihar, India",
+      "founder": { "@id": "https://ajitdev.com/#person" },
+      "foundingDate": BRAND_CONFIG.founded,
+      "areaServed": { "@type": "Country", "name": "India" },
+      "knowsAbout": ["Full Stack Development", "MERN Stack", "Next.js", "TypeScript", "Web Applications", "API Development", "Cloud Deployment"],
+      "sameAs": allSocialUrls,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": BRAND_CONFIG.email,
+        "telephone": BRAND_CONFIG.phone,
+        "contactType": "professional services",
+        "areaServed": "India",
+        "availableLanguage": ["English", "Hindi"]
+      }
     },
-    // Navigation
+    // SiteNavigationElement Schema
     {
-      "@context": "https://schema.org", "@type": "SiteNavigationElement", "@id": "https://ajitdev.com/#navigation",
-      name: NAV_LINKS.map(l => l.name), description: NAV_LINKS.map(l => l.description),
-      url: NAV_LINKS.map(l => `https://ajitdev.com${l.path}`), about: { "@type": "Person", name: BRAND_CONFIG.name },
+      "@context": "https://schema.org",
+      "@type": "SiteNavigationElement",
+      "@id": "https://ajitdev.com/#navigation",
+      "name": NAV_LINKS.map(l => l.name),
+      "description": NAV_LINKS.map(l => l.description),
+      "url": NAV_LINKS.map(l => `https://ajitdev.com${l.path}`),
+      "about": { "@id": "https://ajitdev.com/#person" }
     },
-    // BreadcrumbList (Improvement 2)
+    // BreadcrumbList Schema
     {
-      "@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://ajitdev.com/#breadcrumb",
-      itemListElement: NAV_LINKS.map((link, i) => ({
-        "@type": "ListItem", position: i + 1, name: link.name,
-        item: { "@type": "WebPage", "@id": `https://ajitdev.com${link.path}`, url: `https://ajitdev.com${link.path}`, name: link.title, description: link.description, isPartOf: { "@id": "https://ajitdev.com/#website" } },
-      })),
-    },
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://ajitdev.com/#breadcrumb",
+      "itemListElement": NAV_LINKS.map((link, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": link.name,
+        "item": {
+          "@type": "WebPage",
+          "@id": `https://ajitdev.com${link.path}`,
+          "url": `https://ajitdev.com${link.path}`,
+          "name": link.title,
+          "description": link.description,
+          "isPartOf": { "@id": "https://ajitdev.com/#website" }
+        }
+      }))
+    }
   ];
 
   const stagger = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
   };
+  
   const slideUp = {
     hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
@@ -238,20 +311,22 @@ const Footer = () => {
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sd) }} />
       ))}
 
-      {/* ===== HIDDEN SEO: keywords + internal link cluster ===== */}
+      {/* ===== HIDDEN SEO KEYWORDS (FULL STACK FOCUSED) ===== */}
       <span className="sr-only" aria-hidden="true">{HIDDEN_KEYWORDS.join(", ")}</span>
+      
+      {/* ===== INTERNAL LINKING CLUSTER (SEO BOOST) ===== */}
       <nav aria-hidden="true" className="sr-only" data-type="internal-semantic-cluster">
-        <Link to="/about">DevOps engineer India profile</Link>
-        <Link to="/projects">Cloud infrastructure portfolio</Link>
-        <Link to="/skills">DevOps skills and technologies</Link>
-        <Link to="/contact">Hire DevOps engineer Katihar Bihar</Link>
-        <Link to="/education">DevOps certifications India</Link>
+        <Link to="/about">Full Stack Engineer India - Professional Journey</Link>
+        <Link to="/projects">MERN Stack Projects Portfolio - Real World Applications</Link>
+        <Link to="/skills">Full Stack Skills - React Node.js TypeScript MongoDB</Link>
+        <Link to="/contact">Hire Full Stack Developer Katihar Bihar - Available for Opportunities</Link>
+        <Link to="/education">Computer Science Education - Full Stack Certifications</Link>
       </nav>
 
       <footer
         ref={footerRef}
         role="contentinfo"
-        aria-label={`${BRAND_CONFIG.name} - DevOps Engineer Portfolio Footer`}
+        aria-label={`${BRAND_CONFIG.name} - Full Stack Engineer Portfolio Footer`}
         itemScope
         itemType="https://schema.org/WPFooter"
         className="relative overflow-hidden"
@@ -259,7 +334,6 @@ const Footer = () => {
       >
         {/* ===== BACKGROUND LAYER ===== */}
         <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
-          {/* Dot grid */}
           <div
             className="absolute inset-0"
             style={{
@@ -267,68 +341,13 @@ const Footer = () => {
               backgroundSize: "28px 28px",
             }}
           />
-          {/* Blobs */}
           <Blob style={{ width: 480, height: 480, bottom: -180, left: -120, background: "radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 70%)", filter: "blur(40px)" }} />
           <Blob style={{ width: 360, height: 360, bottom: -100, right: "18%", background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)", filter: "blur(40px)" }} />
           <Blob style={{ width: 280, height: 280, top: 0, right: 0, background: "radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)", filter: "blur(32px)" }} />
-          {/* Top separator line */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
         </div>
 
-        {/* ===== CTA STRIP ===== */}
-        <div className="relative z-10 border-b border-white/[0.05]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl overflow-hidden px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-5"
-              style={{
-                background: "linear-gradient(135deg, rgba(59,130,246,0.10) 0%, rgba(99,102,241,0.07) 60%, rgba(139,92,246,0.05) 100%)",
-                border: "1px solid rgba(99,102,241,0.18)",
-                backdropFilter: "blur(16px)",
-              }}
-            >
-              {/* Subtle inner shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
-
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-1">
-                  <motion.span
-                    className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"
-                    animate={{ opacity: [1, 0.3, 1], scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <span className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">
-                    {BRAND_CONFIG.availability.status}
-                  </span>
-                </div>
-                <p className="text-white font-semibold text-base sm:text-lg">{BRAND_CONFIG.availability.title}</p>
-                <p className="text-slate-400 text-sm mt-0.5">{BRAND_CONFIG.availability.subtitle}</p>
-              </div>
-
-              <Link
-                to="/contact"
-                className="relative flex-shrink-0 group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white
-                           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#080c14]"
-                style={{
-                  background: "linear-gradient(135deg, #3b82f6, #6366f1)",
-                  boxShadow: "0 0 24px rgba(99,102,241,0.30), 0 4px 12px rgba(0,0,0,0.3)",
-                }}
-              >
-                Get in Touch
-                <motion.span
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <FiArrowRight size={14} />
-                </motion.span>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* ===== MAIN GRID ===== */}
+        {/* ===== MAIN GRID FOOTER CONTENT ===== */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
           <motion.div
             variants={stagger}
@@ -336,10 +355,8 @@ const Footer = () => {
             animate={isInView ? "visible" : "hidden"}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8"
           >
-
-            {/* ===== COL 1: BRAND (lg:4) ===== */}
+            {/* ===== COLUMN 1: BRAND IDENTITY (lg:4) ===== */}
             <motion.div variants={slideUp} className="lg:col-span-4 space-y-5">
-              {/* Monogram + identity */}
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-sm text-white"
@@ -360,12 +377,12 @@ const Footer = () => {
 
               <p className="text-slate-500 text-[13px] leading-relaxed">{BRAND_CONFIG.shortDescription}</p>
 
-              {/* Trust badges */}
+              {/* Trust Badges */}
               <div className="flex flex-wrap gap-2">
                 {[
                   { icon: FiShield, label: "HTTPS Secured", cls: "bg-emerald-500/8 border-emerald-500/18 text-emerald-400" },
-                  { icon: FiAward,  label: "Certified",     cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
-                  { icon: FiGlobe, label: "India",          cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
+                  { icon: FiAward,  label: "Certified Full Stack", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
+                  { icon: FiGlobe, label: "India", cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
                 ].map(({ icon: Icon, label, cls }) => (
                   <motion.span
                     key={label}
@@ -378,7 +395,7 @@ const Footer = () => {
                 ))}
               </div>
 
-              {/* Social icons */}
+              {/* Professional Profiles Section */}
               <div>
                 <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
                   Professional Profiles
@@ -389,11 +406,25 @@ const Footer = () => {
                   aria-label="Professional social media profiles"
                   data-authority="primary-identity"
                 >
-                  {SOCIAL_LINKS.map(link => <SocialIcon key={link.platform} link={link} />)}
+                  {SOCIAL_LINKS.filter(l => l.profileType === "professional").map(link => (
+                    <SocialIcon key={link.platform} link={link} />
+                  ))}
                 </div>
               </div>
 
-              {/* Contact */}
+              {/* Social Profiles Section */}
+              <div>
+                <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
+                  Social Profiles
+                </p>
+                <div className="flex flex-wrap gap-2" role="list" aria-label="Social media profiles">
+                  {SOCIAL_LINKS.filter(l => l.profileType === "social").map(link => (
+                    <SocialIcon key={link.platform} link={link} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Contact Information */}
               <address className="not-italic space-y-2 pt-1">
                 <a
                   href={`mailto:${BRAND_CONFIG.email}`}
@@ -419,7 +450,7 @@ const Footer = () => {
               </address>
             </motion.div>
 
-            {/* ===== COL 2: NAV (lg:2) ===== */}
+            {/* ===== COLUMN 2: NAVIGATION (lg:2) ===== */}
             <motion.div variants={slideUp} className="lg:col-span-2">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
                 Navigation
@@ -431,13 +462,12 @@ const Footer = () => {
               </nav>
             </motion.div>
 
-            {/* ===== COL 3: TECH CLOUD (lg:6) ===== */}
+            {/* ===== COLUMN 3: TECH STACK (lg:6) ===== */}
             <motion.div variants={slideUp} className="lg:col-span-6">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
-                Technologies &amp; Stack
+                Full Stack Technologies & Tools
               </h3>
 
-              {/* Glassmorphism card */}
               <div
                 className="rounded-2xl p-4"
                 style={{
@@ -447,15 +477,15 @@ const Footer = () => {
                 }}
               >
                 <div className="flex flex-wrap gap-1.5">
-                  {ALL_TECHS.slice(0, 18).map(({ name, color, category }) => (
+                  {ALL_TECHS.slice(0, 24).map(({ name, color, category }) => (
                     <TechBadge key={name} name={name} color={color} category={category} />
                   ))}
                   <span className="inline-flex items-center px-2.5 py-[5px] rounded-md text-[11px] text-slate-700 border border-white/[0.05]">
-                    +{ALL_TECH_NAMES.length - 18} more
+                    +{ALL_TECH_NAMES.length - 24}+ more
                   </span>
                 </div>
 
-                {/* Legend */}
+                {/* Category Legend */}
                 <div className="mt-4 pt-3.5 border-t border-white/[0.05] flex flex-wrap gap-x-4 gap-y-1.5">
                   {TECH_CATEGORIES.map(cat => (
                     <span key={cat.category} className="flex items-center gap-1.5 text-slate-600 text-[11px]">
@@ -465,10 +495,22 @@ const Footer = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Live Portfolio Demo Link */}
+              <div className="mt-4">
+                <a
+                  href="https://ajitdev-todoapp.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-400 text-[12px] transition-colors duration-200"
+                >
+                
+                </a>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* ===== GRADIENT DIVIDER ===== */}
+          {/* ===== DIVIDER ===== */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
           {/* ===== BOTTOM BAR ===== */}
@@ -485,7 +527,7 @@ const Footer = () => {
                 {" "}All rights reserved.
               </p>
               <p className="text-slate-800 text-[11px] mt-0.5">
-                DevOps Engineer · Cloud Infrastructure · CI/CD · India
+                Full Stack Engineer · MERN · Next.js · TypeScript · India
               </p>
             </div>
 
@@ -501,26 +543,36 @@ const Footer = () => {
                 </span>
               ))}
               <span className="text-slate-800">·</span>
-              {[
-                { href: "https://github.com/ajitdev01", label: "GitHub" },
-                { href: "https://www.linkedin.com/in/ajitdev01/", label: "LinkedIn" },
-                { href: "https://dev.to/ajitdev01", label: "Dev.to" },
-              ].map((l, i, arr) => (
-                <span key={l.label} className="flex items-center gap-1">
-                  <a href={l.href} rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-400 transition-colors duration-200">{l.label}</a>
-                  {i < arr.length - 1 && <span className="text-slate-800">·</span>}
-                </span>
-              ))}
+              {["GitHub", "LinkedIn", "LeetCode", "Dev.to"].map((label, i, arr) => {
+                const link = SOCIAL_LINKS.find(l => l.platform === label);
+                return link ? (
+                  <span key={label} className="flex items-center gap-1">
+                    <a href={link.url} rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-400 transition-colors duration-200">{label}</a>
+                    {i < arr.length - 1 && <span className="text-slate-800">·</span>}
+                  </span>
+                ) : null;
+              })}
               <span className="text-slate-800">·</span>
               <span className="text-slate-800 flex items-center gap-1">
                 Built with <FiHeart size={9} className="text-red-500/60" /> in India
               </span>
             </div>
           </motion.div>
+
+          {/* ===== BACKLINK ATTRIBUTION (SEO BOOST) ===== */}
+          <div className="mt-4 text-center">
+            <p className="text-slate-800 text-[9px]">
+              Find me on{" "}
+              <a href="https://github.com/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">GitHub</a> ·{" "}
+              <a href="https://leetcode.com/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">LeetCode</a> ·{" "}
+              <a href="https://dev.to/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Dev.to</a> ·{" "}
+              <a href="https://medium.com/@ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Medium</a>
+            </p>
+          </div>
         </div>
       </footer>
 
-      {/* ===== BACK TO TOP ===== */}
+      {/* ===== BACK TO TOP BUTTON ===== */}
       <AnimatePresence>
         {isVisible && (
           <motion.button
