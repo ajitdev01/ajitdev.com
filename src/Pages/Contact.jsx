@@ -99,7 +99,7 @@ const contactInfo = [
     title: "Education",
     content: "BCA — Cloud & Security",
     gradient: "from-purple-500 to-pink-500",
-    description: "Amity University Online • CGPA 3.6+"
+    description: "Amity University Online • CGPA 7.95+"
   },
   {
     icon: FiBriefcase,
