@@ -9,25 +9,20 @@ import {
   FiUserCheck, FiChevronDown, FiChevronUp, FiTerminal, FiGlobe,
   FiLock, FiZap, FiGitPullRequest, FiPackage, FiMonitor, FiTool,
   FiAward, FiBookOpen, FiCompass, FiTarget, FiMapPin, FiBriefcase,
-  FiCalendar, FiStar, FiArrowRight, FiBarChart2, FiActivity
+  FiCalendar, FiStar, FiArrowRight, FiBarChart2, FiActivity, FiSmartphone
 } from "react-icons/fi";
 
-// Simple icon components to replace complex library imports
+// Simple icon components for cloud/devops tools (supporting role)
 const SiAmazonaws = () => <FiCloud className="w-4 h-4" />;
 const SiDocker = () => <FiPackage className="w-4 h-4" />;
-const SiKubernetes = () => <FiCpu className="w-4 h-4" />;
-const SiTerraform = () => <FiLayers className="w-4 h-4" />;
 const SiGithubactions = () => <FiGitBranch className="w-4 h-4" />;
-const SiJenkins = () => <FiTool className="w-4 h-4" />;
-const SiPrometheus = () => <FiActivity className="w-4 h-4" />;
-const SiGrafana = () => <FiBarChart2 className="w-4 h-4" />;
 
 // ========== STRUCTURED DATA ==========
 const skillsForSchema = [
-  "HTML5", "CSS3", "JavaScript (ES6+)", "React.js", "Tailwind CSS", "Node.js", "Express.js",
-  "MongoDB", "MySQL", "AWS EC2", "AWS S3", "AWS IAM", "AWS VPC", "Docker", "Kubernetes",
-  "Terraform", "CI/CD", "GitHub Actions", "Jenkins", "OWASP Top 10", "DevSecOps", "Linux",
-  "TypeScript", "Python", "Java", "C++", "NumPy", "Pandas", "Git"
+  "React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "MySQL", "TypeScript",
+  "JavaScript (ES6+)", "Tailwind CSS", "HTML5", "CSS3", "REST APIs", "JWT",
+  "AWS EC2", "AWS S3", "Docker", "Git", "GitHub Actions", "Data Structures", "Algorithms",
+  "LeetCode", "Problem Solving", "System Design", "Performance Optimization", "SEO"
 ];
 
 const personSchema = {
@@ -35,8 +30,8 @@ const personSchema = {
   "@type": "Person",
   name: "Ajit Kumar",
   url: "https://ajitdev.com",
-  jobTitle: "DevOps Engineer & Full Stack Developer",
-  knowsAbout: skillsForSchema,
+  jobTitle: "Full Stack Engineer",
+      knowsAbout: skillsForSchema,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Katihar",
@@ -45,190 +40,140 @@ const personSchema = {
   },
 };
 
-// ========== SKILL DATA ==========
+// ========== SKILL DATA (FULL STACK + DSA FOCUSED) ==========
 const skillCategories = [
   {
-    title: "Full Stack Development",
-    filter: "FullStack",
+    title: "Frontend Engineering",
+    filter: "Frontend",
     icon: FiCode,
     gradient: "from-blue-500 to-cyan-500",
     color: "text-blue-600",
-    description: "End-to-end application development with modern frameworks",
+    description: "Modern, performant, and accessible UI systems",
+    proficiency: 90,
+    level: "Expert",
+    skills: [
+      { name: "React.js / Next.js", icon: FiCpu, proficiency: 90, level: "Expert", highlight: true },
+      { name: "TypeScript", icon: FiCode, proficiency: 85, level: "Advanced" },
+      { name: "Tailwind CSS / Bootstrap", icon: FiLayers, proficiency: 92, level: "Expert" },
+      { name: "HTML5 / CSS3 / JS (ES6+)", icon: FiGlobe, proficiency: 95, level: "Expert" },
+      { name: "Responsive & Mobile-First", icon: FiSmartphone, proficiency: 90, level: "Expert" },
+      { name: "Component Architecture", icon: FiPackage, proficiency: 88, level: "Advanced" },
+    ],
+  },
+  {
+    title: "Backend & API Development",
+    filter: "Backend",
+    icon: FiServer,
+    gradient: "from-emerald-500 to-teal-500",
+    color: "text-emerald-600",
+    description: "Scalable server-side logic and database design",
     proficiency: 85,
     level: "Advanced",
     skills: [
-      { name: "HTML5 / CSS3", icon: FiGlobe, proficiency: 90, level: "Expert" },
-      { name: "JavaScript (ES6+)", icon: FiCode, proficiency: 85, level: "Advanced" },
-      { name: "React.js / Next.js", icon: FiCpu, proficiency: 85, level: "Advanced" },
-      { name: "Tailwind CSS / Bootstrap", icon: FiLayers, proficiency: 90, level: "Expert" },
-      { name: "Node.js / Express.js", icon: FiServer, proficiency: 82, level: "Advanced" },
-      { name: "MongoDB / MySQL", icon: FiDatabase, proficiency: 80, level: "Advanced" },
-      { name: "MERN / LAMP Stack", icon: FiPackage, proficiency: 85, level: "Advanced" },
+      { name: "Node.js / Express.js", icon: FiServer, proficiency: 88, level: "Advanced" },
+      { name: "RESTful API Design", icon: FiSend, proficiency: 90, level: "Expert" },
+      { name: "JWT / Auth Systems", icon: FiLock, proficiency: 85, level: "Advanced" },
+      { name: "MongoDB (NoSQL)", icon: FiDatabase, proficiency: 87, level: "Advanced" },
+      { name: "MySQL (SQL)", icon: FiDatabase, proficiency: 82, level: "Advanced" },
+      { name: "Middleware & Error Handling", icon: FiGitPullRequest, proficiency: 85, level: "Advanced" },
     ],
   },
   {
-    title: "Programming & DSA",
-    filter: "Programming",
-    icon: FiTerminal,
-    gradient: "from-emerald-500 to-teal-500",
-    color: "text-emerald-600",
-    description: "Strong algorithmic foundation and multi-language proficiency",
-    proficiency: 82,
+    title: "Full Stack Stack Mastery",
+    filter: "FullStack",
+    icon: FiLayers,
+    gradient: "from-purple-500 to-violet-500",
+    color: "text-purple-600",
+    description: "End-to-end application delivery with MERN & LAMP",
+    proficiency: 88,
     level: "Advanced",
     skills: [
-      { name: "C / C++", icon: FiCode, proficiency: 85, level: "Advanced" },
-      { name: "Java", icon: FiCode, proficiency: 80, level: "Advanced" },
-      { name: "Python", icon: FiCode, proficiency: 85, level: "Advanced" },
-      { name: "TypeScript", icon: FiCode, proficiency: 75, level: "Proficient" },
-      { name: "Data Structures & Algorithms", icon: FiBarChart2, proficiency: 82, level: "Advanced", note: "300+ problems solved" },
-      { name: "Python Ecosystem", icon: FiPackage, proficiency: 78, level: "Proficient", note: "NumPy, Pandas, Matplotlib" },
+      { name: "MERN Stack (MongoDB, Express, React, Node)", icon: FiPackage, proficiency: 90, level: "Expert", highlight: true },
+      { name: "LAMP Stack (Linux, Apache, MySQL, PHP)", icon: FiServer, proficiency: 82, level: "Advanced" },
+      { name: "Next.js (SSR/SSG)", icon: FiCpu, proficiency: 88, level: "Advanced", highlight: true },
+      { name: "REST + GraphQL basics", icon: FiGitBranch, proficiency: 75, level: "Proficient" },
+      { name: "Full-stack debugging", icon: FiTool, proficiency: 88, level: "Advanced" },
     ],
   },
   {
-    title: "Linux & Infrastructure",
-    filter: "Linux",
-    icon: FiTerminal,
+    title: "DSA & Problem Solving",
+    filter: "DSA",
+    icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
     color: "text-amber-600",
-    description: "System administration and CLI mastery",
-    proficiency: 78,
-    level: "Proficient",
+    description: "300+ LeetCode problems — clean, optimized solutions",
+    proficiency: 85,
+    level: "Advanced",
+    highlight: true,
     skills: [
-      { name: "Linux System Administration", icon: FiMonitor, proficiency: 80, level: "Proficient" },
-      { name: "CLI & Bash Scripting", icon: FiTerminal, proficiency: 78, level: "Proficient" },
-      { name: "Virtual Machines & Dual Boot", icon: FiPackage, proficiency: 85, level: "Advanced" },
-      { name: "System Monitoring", icon: FiActivity, proficiency: 75, level: "Proficient" },
+      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "300+ solved" },
+      { name: "Recursion & Backtracking", icon: FiActivity, proficiency: 85, level: "Advanced" },
+      { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 78, level: "Proficient", note: "Active growth" },
+      { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 70, level: "Intermediate", note: "Daily practice" },
+      { name: "Time/Space Optimization", icon: FiZap, proficiency: 85, level: "Advanced" },
     ],
   },
   {
-    title: "Cloud & DevOps",
-    filter: "Cloud",
+    title: "Performance & SEO Engineering",
+    filter: "Performance",
+    icon: FiTrendingUp,
+    gradient: "from-rose-500 to-pink-500",
+    color: "text-rose-600",
+    description: "Lightning-fast pages, Core Web Vitals, and structured data",
+    proficiency: 88,
+    level: "Advanced",
+    skills: [
+      { name: "Technical SEO (meta, schema, JSON-LD)", icon: FiGlobe, proficiency: 90, level: "Expert", highlight: true },
+      { name: "Core Web Vitals Optimization", icon: FiActivity, proficiency: 85, level: "Advanced" },
+      { name: "Next.js SSR/SSG", icon: FiCpu, proficiency: 88, level: "Advanced" },
+      { name: "Lazy loading / Code splitting", icon: FiZap, proficiency: 87, level: "Advanced" },
+      { name: "PageSpeed Insights optimization", icon: FiBarChart2, proficiency: 90, level: "Expert" },
+    ],
+  },
+  {
+    title: "Deployment & Workflow (Supporting)",
+    filter: "DevOps",
     icon: FiCloud,
     gradient: "from-indigo-500 to-blue-500",
     color: "text-indigo-600",
-    description: "Cloud infrastructure and deployment automation",
-    proficiency: 72,
+    description: "CI/CD, cloud basics, and clean version control",
+    proficiency: 75,
     level: "Proficient",
     skills: [
-      { name: "AWS (EC2, S3, IAM, VPC)", icon: SiAmazonaws, proficiency: 75, level: "Proficient" },
-      { name: "Docker", icon: SiDocker, proficiency: 72, level: "Proficient" },
-      { name: "Kubernetes", icon: SiKubernetes, proficiency: 65, level: "Intermediate" },
-      { name: "CI/CD (GitHub Actions)", icon: SiGithubactions, proficiency: 70, level: "Proficient" },
-      { name: "Git & GitHub", icon: FiGitBranch, proficiency: 88, level: "Advanced" },
-      { name: "Basic Cloud Concepts", icon: FiCloud, proficiency: 80, level: "Proficient", note: "SaaS, PaaS, IaaS" },
-    ],
-  },
-  {
-    title: "Security (DevSecOps)",
-    filter: "Security",
-    icon: FiShield,
-    gradient: "from-rose-500 to-pink-500",
-    color: "text-rose-600",
-    description: "Security-first mindset and ethical hacking foundation",
-    proficiency: 68,
-    level: "Intermediate",
-    skills: [
-      { name: "Networking Basics", icon: FiGlobe, proficiency: 70, level: "Intermediate" },
-      { name: "Nmap & Scanning", icon: FiActivity, proficiency: 65, level: "Intermediate" },
-      { name: "OWASP Top 10", icon: FiShield, proficiency: 72, level: "Proficient" },
-      { name: "Ethical Hacking Interest", icon: FiLock, proficiency: 70, level: "Learning" },
-      { name: "DevSecOps Mindset", icon: FiShield, proficiency: 68, level: "Intermediate" },
-    ],
-  },
-  {
-    title: "Tools & Workflow",
-    filter: "Tools",
-    icon: FiTool,
-    gradient: "from-purple-500 to-violet-500",
-    color: "text-purple-600",
-    description: "Modern development tools and productivity stack",
-    proficiency: 85,
-    level: "Advanced",
-    skills: [
-      { name: "Git & GitHub", icon: FiGitBranch, proficiency: 88, level: "Advanced" },
-      { name: "Postman / API Testing", icon: FiSend, proficiency: 85, level: "Advanced" },
-      { name: "VS Code", icon: FiCode, proficiency: 90, level: "Expert" },
-      { name: "Docker Desktop", icon: SiDocker, proficiency: 75, level: "Proficient" },
-      { name: "Linux CLI", icon: FiTerminal, proficiency: 80, level: "Proficient" },
+      { name: "Git & GitHub Workflows", icon: FiGitBranch, proficiency: 90, level: "Expert" },
+      { name: "GitHub Actions (CI/CD)", icon: SiGithubactions, proficiency: 72, level: "Proficient" },
+      { name: "AWS (EC2, S3, IAM)", icon: SiAmazonaws, proficiency: 70, level: "Intermediate" },
+      { name: "Vercel / Netlify", icon: FiCloud, proficiency: 88, level: "Advanced" },
+      { name: "Docker basics", icon: SiDocker, proficiency: 65, level: "Intermediate" },
     ],
   },
 ];
 
-const FILTERS = ["All", "FullStack", "Programming", "Linux", "Cloud", "Security", "Tools"];
+const FILTERS = ["All", "Frontend", "Backend", "FullStack", "DSA", "Performance", "DevOps"];
 const filterLabels = {
-  All: "All Categories",
+  All: "All Skills",
+  Frontend: "Frontend",
+  Backend: "Backend",
   FullStack: "Full Stack",
-  Programming: "Programming",
-  Linux: "Linux",
-  Cloud: "Cloud",
-  Security: "Security",
-  Tools: "Tools"
+  DSA: "DSA • 300+ Problems",
+  Performance: "SEO • Performance",
+  DevOps: "Deployment • Workflow"
 };
 
 const stats = [
-  { value: "35+", label: "Total Skills", icon: FiTrendingUp, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600" },
-  { value: "300+", label: "DSA Problems", icon: FiBarChart2, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
-  { value: "10+", label: "Projects", icon: FiPackage, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
-  { value: "2+", label: "Years Coding", icon: FiCalendar, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" },
+  { value: "300+", label: "LeetCode Problems Solved", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
+  { value: "150+", label: "Days Active Streak", icon: FiCalendar, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
+  { value: "15+", label: "Production Projects", icon: FiPackage, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
+  { value: "4+", label: "Tech Stacks Mastered", icon: FiCode, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" },
 ];
 
-// ========== FUTURE ROADMAP DATA ==========
-const roadmapPhases = [
-  {
-    phase: "Immediate Focus",
-    icon: FiZap,
-    gradient: "from-blue-500 to-cyan-500",
-    items: [
-      "Deepen Docker mastery & container orchestration",
-      "Complete AWS Solutions Architect Associate",
-      "Advance DSA to 500+ problems (Graphs, DP)",
-      "Build production-grade MERN + DevOps project"
-    ],
-    timeline: "0-6 months"
-  },
-  {
-    phase: "Core Expansion",
-    icon: FiTrendingUp,
-    gradient: "from-purple-500 to-pink-500",
-    items: [
-      "Kubernetes production-level proficiency",
-      "Terraform Infrastructure as Code",
-      "Jenkins CI/CD pipelines",
-      "System Design & Microservices"
-    ],
-    timeline: "6-12 months"
-  },
-  {
-    phase: "DevSecOps Mastery",
-    icon: FiShield,
-    gradient: "from-rose-500 to-orange-500",
-    items: [
-      "Cloud security (AWS Security Specialty)",
-      "Vulnerability scanning & SAST/DAST",
-      "Secure coding practices",
-      "Penetration testing basics"
-    ],
-    timeline: "12-18 months"
-  },
-  {
-    phase: "Senior Engineer Track",
-    icon: FiAward,
-    gradient: "from-emerald-500 to-teal-500",
-    items: [
-      "Distributed systems architecture",
-      "High-performance backend systems",
-      "Production-grade deployments at scale",
-      "Open source contributions"
-    ],
-    timeline: "18-24 months"
-  }
-];
-
-const certifications = [
-  { name: "AWS Certified Solutions Architect", status: "In Progress", target: "Q3 2025" },
-  { name: "Certified Kubernetes Administrator (CKA)", status: "Planned", target: "Q1 2026" },
-  { name: "Docker Certified Associate", status: "Planned", target: "Q4 2025" },
-  { name: "Certified DevSecOps Professional", status: "Planned", target: "2026" },
+// ========== CERTIFICATION & LEARNING TARGETS ==========
+const nextTargets = [
+  "Complete 500+ LeetCode problems (Graphs, DP mastery)",
+  "Build and deploy a production-scale Next.js + Node.js app",
+  "Master full-stack TypeScript in real-world projects",
+  "AWS Certified Developer Associate",
+  "Contribute to open source React/Next.js libraries"
 ];
 
 // ========== ANIMATION VARIANTS ==========
@@ -240,12 +185,6 @@ const containerVariants = {
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const cardVariants = {
-  hidden: { scale: 0.96, opacity: 0 },
-  visible: { scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  hover: { scale: 1.02, y: -6, transition: { duration: 0.2 } },
 };
 
 // ========== MAIN COMPONENT ==========
@@ -273,36 +212,26 @@ const Skills = () => {
     return () => { document.body.style.overflow = ""; };
   }, [isMobileMenuOpen]);
 
-  const getIconComponent = (skill) => {
-    if (typeof skill.icon === 'function') {
-      return React.createElement(skill.icon, { className: "w-4 h-4 text-gray-600" });
-    }
-    return React.createElement(FiCode, { className: "w-4 h-4 text-gray-600" });
-  };
-
   return (
     <>
       <Helmet>
-        <title>Technical Skills & Roadmap | DevOps Engineer — Ajit Kumar</title>
+        <title>Full Stack Engineer | MERN • Next.js • DSA 300+ | Ajit Kumar</title>
         <meta
           name="description"
-          content="Full Stack Developer & DevOps Engineer from Bihar, India. Skills: MERN, LAMP, AWS, Docker, Kubernetes, DSA (300+ problems), Python, Linux. Future roadmap: DevSecOps, Cloud Security, CKA."
+          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 300+ LeetCode problems solved. Performance-focused, SEO-driven web applications. Based in Bihar, India."
         />
         <link rel="canonical" href="https://ajitdev.com/skills" />
         <meta name="author" content="Ajit Kumar" />
         <meta name="robots" content="index, follow" />
-        <meta name="geo.region" content="IN-BR" />
-        <meta name="geo.placename" content="Katihar, Bihar, India" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Technical Skills & Roadmap — Ajit Kumar" />
-        <meta property="og:description" content="Full Stack + DevOps engineer skills and learning roadmap." />
+        <meta property="og:title" content="Full Stack Engineer — Ajit Kumar" />
+        <meta property="og:description" content="MERN • Next.js • 300+ DSA problems • Performance & SEO focused developer" />
         <meta property="og:url" content="https://ajitdev.com/skills" />
-        <meta property="og:site_name" content="Ajit Kumar Portfolio" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Technical Skills — Ajit Kumar, DevOps Engineer" />
-        <meta name="twitter:description" content="MERN, LAMP, AWS, Docker, Kubernetes, DSA 300+, and DevSecOps roadmap." />
+        <meta name="twitter:title" content="Full Stack Engineer — Ajit Kumar" />
+        <meta name="twitter:description" content="Building scalable, high-performance web applications with modern full stack expertise." />
 
         <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
       </Helmet>
@@ -311,7 +240,6 @@ const Skills = () => {
         style={{ opacity: isLoaded ? 1 : 0, transition: "opacity 0.5s ease" }}
         className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white"
       >
-        {/* Background decoration */}
         <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
@@ -322,32 +250,44 @@ const Skills = () => {
         <main className="flex-grow pt-16 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
 
-            {/* ===== PAGE HEADER ===== */}
+            {/* ===== PROFESSIONAL SUMMARY ===== */}
             <div className="text-center mb-16">
               <div className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40">
                 <FiCode className="text-4xl text-blue-600" />
               </div>
 
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
-                Technical Arsenal
+                Full Stack Engineer
               </h1>
 
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-                Full Stack Development + DevOps + Security — building scalable, secure, and production-ready systems
+                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">300+ DSA problems solved</span>
               </p>
 
               <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full" />
 
-              {/* Location & Role badge */}
-              <div className="flex justify-center gap-3 mt-8">
+              <div className="flex justify-center gap-3 mt-8 flex-wrap">
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm text-gray-700 shadow-sm">
                   <FiMapPin className="w-4 h-4 text-blue-500" />
                   Katihar, Bihar, India
                 </span>
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm text-gray-700 shadow-sm">
                   <FiBriefcase className="w-4 h-4 text-emerald-500" />
-                  Open for DevOps / Full Stack Roles
+                  Full Stack Engineer • Problem Solver
                 </span>
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
+                  <FiBarChart2 className="w-4 h-4" />
+                  LeetCode 300+ • Active Streak
+                </span>
+              </div>
+
+              {/* Professional summary paragraph */}
+              <div className="max-w-3xl mx-auto mt-8 p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
+                <p className="text-gray-700 leading-relaxed">
+                  Full Stack Engineer with <strong className="text-gray-900">production-grade expertise in MERN, LAMP, and Next.js</strong>. 
+                  Proven problem-solving ability with <strong className="text-amber-700">300+ LeetCode problems solved</strong> and a disciplined daily coding streak. 
+                  I build <strong className="text-gray-900">scalable, SEO-optimized, high-performance web applications</strong> with clean architecture and modern best practices.
+                </p>
               </div>
             </div>
 
@@ -400,10 +340,7 @@ const Skills = () => {
             {/* ===== SKILLS GRID ===== */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
               {filteredSkills.map((category) => (
-                <div
-                  key={category.title}
-                  className="relative group"
-                >
+                <div key={category.title} className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur transition duration-500" />
                   <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-8 shadow-md hover:shadow-xl transition-all duration-300">
                     <div className="flex items-start gap-4 mb-8 pb-6 border-b border-gray-100">
@@ -411,13 +348,18 @@ const Skills = () => {
                         <category.icon className="w-7 h-7 text-white" />
                       </div>
                       <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-1">{category.title}</h2>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h2 className="text-xl font-bold text-gray-900 mb-1">{category.title}</h2>
+                          {category.highlight && (
+                            <span className="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">CORE</span>
+                          )}
+                        </div>
                         <p className="text-gray-500 text-sm">{category.description}</p>
                       </div>
                     </div>
 
                     <ul className="space-y-3 mb-8">
-                      {category.skills.map((skill, idx) => (
+                      {category.skills.map((skill) => (
                         <li key={skill.name} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center">
@@ -428,7 +370,10 @@ const Skills = () => {
                               )}
                             </div>
                             <div>
-                              <span className="font-medium text-gray-800 text-sm">{skill.name}</span>
+                              <span className="font-medium text-gray-800 text-sm">
+                                {skill.name}
+                                {skill.highlight && <span className="ml-1 text-blue-500">★</span>}
+                              </span>
                               {skill.note && <span className="text-xs text-gray-400 ml-2">({skill.note})</span>}
                             </div>
                           </div>
@@ -447,7 +392,7 @@ const Skills = () => {
 
                     <div className="pt-5 border-t border-gray-100">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold text-gray-500 uppercase">Overall Proficiency</span>
+                        <span className="text-xs font-semibold text-gray-500 uppercase">Proficiency</span>
                         <div className="flex items-center gap-1.5">
                           <span className={`font-bold text-sm ${category.color}`}>{category.level}</span>
                           <span className="text-xs text-gray-400">({category.proficiency}%)</span>
@@ -470,7 +415,7 @@ const Skills = () => {
               {stats.map((s, i) => (
                 <div
                   key={i}
-                  className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${s.gradient} border border-white/50 shadow-md text-center hover:scale-105 transition-transform duration-300`}
+                  className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${s.gradient} border border-white/50 shadow-md text-center hover:scale-105 transition-transform duration-300 ${s.highlight ? 'ring-2 ring-amber-300/50' : ''}`}
                 >
                   <s.icon className={`absolute top-3 right-3 w-6 h-6 ${s.color} opacity-25`} />
                   <div className="text-3xl font-bold text-gray-900 mb-1">{s.value}</div>
@@ -479,63 +424,44 @@ const Skills = () => {
               ))}
             </div>
 
-            {/* ===== FUTURE ROADMAP SECTION ===== */}
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <div className="inline-flex p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl mb-4">
-                  <FiCompass className="text-3xl text-purple-600" />
-                </div>
-                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">Future Learning Roadmap</h2>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                  BCA (Cloud & Security) + Beyond — my path to becoming a senior DevOps & DevSecOps engineer
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {roadmapPhases.map((phase, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-all hover:-translate-y-2 duration-300"
-                  >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${phase.gradient} flex items-center justify-center mb-4`}>
-                      <phase.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{phase.phase}</h3>
-                    <div className="text-xs text-gray-400 mb-3 flex items-center gap-1">
-                      <FiCalendar className="w-3 h-3" /> {phase.timeline}
-                    </div>
-                    <ul className="space-y-2">
-                      {phase.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <FiCheck className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ===== CERTIFICATIONS & TARGETS ===== */}
+            {/* ===== STRENGTHS & MINDSET SECTION ===== */}
             <div className="mb-20">
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
                   <div className="flex items-center gap-3 mb-6">
-                    <FiAward className="w-8 h-8 text-blue-600" />
-                    <h3 className="text-xl font-bold text-gray-900">Certification Roadmap</h3>
+                    <FiStar className="w-8 h-8 text-amber-500" />
+                    <h3 className="text-xl font-bold text-gray-900">Core Strengths</h3>
                   </div>
-                  <div className="space-y-4">
-                    {certifications.map((cert, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm">
-                        <div>
-                          <p className="font-semibold text-gray-800">{cert.name}</p>
-                          <p className="text-xs text-gray-500">Target: {cert.target}</p>
-                        </div>
-                        <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">{cert.status}</span>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <span className="font-semibold text-gray-800">Full Stack Architecture</span>
+                        <p className="text-sm text-gray-600">End-to-end application design with MERN + LAMP stacks</p>
                       </div>
-                    ))}
-                  </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <span className="font-semibold text-gray-800">DSA & Problem Solving</span>
+                        <p className="text-sm text-gray-600">300+ LeetCode problems — clean, optimized, real-world application</p>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <span className="font-semibold text-gray-800">Performance & SEO</span>
+                        <p className="text-sm text-gray-600">Core Web Vitals, structured data, SSR/SSG optimization</p>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <span className="font-semibold text-gray-800">Consistency × Discipline</span>
+                        <p className="text-sm text-gray-600">Daily coding streak — balancing development, DSA, and continuous learning</p>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
 
                 <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-100">
@@ -544,13 +470,7 @@ const Skills = () => {
                     <h3 className="text-xl font-bold text-gray-900">Next Targets</h3>
                   </div>
                   <ul className="space-y-3">
-                    {[
-                      "Complete AWS Solutions Architect Associate certification",
-                      "Reach 500+ DSA problems (Graphs, Trees, DP mastery)",
-                      "Build and deploy a production-grade MERN + DevOps project",
-                      "Contribute to open source DevOps tooling",
-                      "Master Kubernetes & Terraform for infrastructure automation"
-                    ].map((target, i) => (
+                    {nextTargets.map((target, i) => (
                       <li key={i} className="flex items-start gap-3 p-2">
                         <FiArrowRight className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
                         <span className="text-gray-700">{target}</span>
@@ -561,23 +481,31 @@ const Skills = () => {
               </div>
             </div>
 
-            {/* ===== STRENGTHS & MINDSET ===== */}
+            {/* ===== CAREER POSITIONING STATEMENT ===== */}
             <div className="mb-16">
               <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-10 text-center">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent" />
                 <div className="relative z-10">
                   <div className="flex justify-center gap-2 mb-4">
-                    <FiStar className="w-8 h-8 text-yellow-400" />
-                    <FiStar className="w-8 h-8 text-yellow-400" />
-                    <FiStar className="w-8 h-8 text-yellow-400" />
+                    <FiCode className="w-8 h-8 text-blue-400" />
+                    <FiServer className="w-8 h-8 text-emerald-400" />
+                    <FiDatabase className="w-8 h-8 text-purple-400" />
                   </div>
                   <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-                    Discipline × Consistency × Growth Mindset
+                    Full Stack Engineer — Not Just Code, Production-Ready Solutions
                   </h3>
                   <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-                    Multi-domain learner balancing full-stack development, DevOps, security, and competitive exams.
-                    Every day is a step toward becoming a top-tier DevSecOps engineer.
+                    I bridge the gap between robust backend logic, performant frontend experiences, 
+                    and algorithmic thinking. Every project is an opportunity to build something 
+                    <span className="text-amber-300 font-semibold"> scalable, maintainable, and impactful</span>.
                   </p>
+                  <div className="mt-6 flex justify-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">MERN</span>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">LAMP</span>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">Next.js</span>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">300+ DSA</span>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">SEO Expert</span>
+                  </div>
                 </div>
               </div>
             </div>

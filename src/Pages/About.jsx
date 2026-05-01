@@ -191,7 +191,7 @@ const About = () => {
             </motion.section>
 
             {/* ===== MAIN CONTENT GRID ===== */}
-            <div className="grid lg:grid-cols-3 gap-12 mb-16">
+            <div className="grid lg:grid-cols-3 gap-12 mb-1">
               
               {/* LEFT COLUMN - Profile & Contact */}
               <motion.div

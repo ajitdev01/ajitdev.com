@@ -399,7 +399,7 @@ const Home = () => {
     <>
       <Header />
       
-      <main className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white pt-16">
+      <main className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
         {/* Hero Section */}
         <section
           ref={heroRef}
@@ -500,7 +500,6 @@ const Home = () => {
             className="absolute bottom-8 left-1/2 -translate-x-1/2"
           >
             <div className="flex flex-col items-center gap-2">
-              <span className="text-[10px] text-gray-400 uppercase tracking-wider">Scroll</span>
               <div className="w-5 h-8 border border-gray-300 rounded-full flex justify-center">
                 <motion.div
                   animate={{ y: [0, 12, 0] }}

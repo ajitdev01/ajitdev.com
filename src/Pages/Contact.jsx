@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import emailjs from "emailjs-com";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -8,35 +8,41 @@ import Footer from "../Components/Footer";
 import {
   FiMail, FiMapPin, FiBookOpen, FiBriefcase, FiUser, FiMessageSquare,
   FiSend, FiGithub, FiLinkedin, FiFileText, FiCheck, FiClock, FiInfo,
-  FiTag, FiAlertCircle, FiTwitter, FiGlobe, FiArrowRight,
+  FiTag, FiAlertCircle, FiTwitter, FiGlobe, FiArrowRight, FiStar,
+  FiTrendingUp, FiCode, FiServer, FiCloud, FiShield, FiZap,
+  FiAward, FiTarget, FiCalendar, FiChevronRight, FiFolder
 } from "react-icons/fi";
 
-// ========== STRUCTURED DATA (outside component — static, no re-render cost) ==========
-
+// ========== ENHANCED STRUCTURED DATA ==========
 const contactPageSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Contact Ajit Kumar — DevOps Engineer",
+  name: "Contact Ajit Kumar — Full Stack Engineer",
   url: "https://ajitdev.com/contact",
-  description:
-    "Contact page for Ajit Kumar, a DevOps Engineer and Full Stack Developer from Katihar, Bihar, India, available for remote opportunities worldwide.",
+  description: "Contact page for Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and LAMP stacks. 300+ LeetCode problems solved. Available for remote Full Stack roles worldwide.",
   about: {
     "@type": "Person",
     name: "Ajit Kumar",
-    jobTitle: "DevOps Engineer & Full Stack Developer",
+    jobTitle: "Full Stack Engineer",
     email: "ajitk23192@gmail.com",
     url: "https://ajitdev.com",
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Amity University Online"
+    },
+    knowsAbout: ["MERN Stack", "Next.js", "React", "Node.js", "MongoDB", "TypeScript", "DSA", "LeetCode", "AWS", "Docker"],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Katihar",
       addressRegion: "Bihar",
-      addressCountry: "IN",
+      addressCountry: "IN"
     },
     sameAs: [
       "https://github.com/ajitdev01",
       "https://www.linkedin.com/in/ajitdev01",
-    ],
-  },
+      "https://leetcode.com/ajitdev01"
+    ]
+  }
 };
 
 const faqSchema = {
@@ -45,42 +51,33 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "How can I contact Ajit Kumar?",
+      name: "What technologies does Ajit Kumar specialize in?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can contact Ajit Kumar through the contact form on this page or directly via email at ajitk23192@gmail.com. He typically responds within 24 hours.",
-      },
+        text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack, Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 300+ LeetCode problems solved."
+      }
     },
     {
       "@type": "Question",
-      name: "Is Ajit Kumar available for remote DevOps roles?",
+      name: "Is Ajit Kumar available for Full Stack Engineer roles?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Ajit Kumar is based in Katihar, Bihar, India and is fully available for remote DevOps engineering, cloud infrastructure, CI/CD automation, and full-stack MERN development roles or contracts with teams worldwide.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What kind of projects is Ajit Kumar open to?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ajit Kumar is open to DevOps engineering projects, AWS cloud infrastructure work, Docker and Kubernetes containerization, CI/CD pipeline setup, DevSecOps implementations, and MERN stack full-stack development projects.",
-      },
-    },
-  ],
+        text: "Yes. Ajit is actively seeking Full Stack Engineer roles worldwide, available for remote positions immediately."
+      }
+    }
+  ]
 };
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",    item: "https://ajitdev.com" },
-    { "@type": "ListItem", position: 2, name: "Contact", item: "https://ajitdev.com/contact" },
-  ],
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://ajitdev.com" },
+    { "@type": "ListItem", position: 2, name: "Contact", item: "https://ajitdev.com/contact" }
+  ]
 };
 
-// ========== STATIC DATA ==========
-
+// ========== ENHANCED CONTACT DATA ==========
 const contactInfo = [
   {
     icon: FiMail,
@@ -88,82 +85,103 @@ const contactInfo = [
     content: "ajitk23192@gmail.com",
     link: "mailto:ajitk23192@gmail.com",
     gradient: "from-blue-500 to-cyan-500",
-    description: "Direct communication",
-    itemProp: "email",
+    description: "Direct communication • 24hr response"
   },
   {
     icon: FiMapPin,
     title: "Location",
-    content: "Katihar, Bihar, India · Remote",
+    content: "Katihar, Bihar, India",
     gradient: "from-emerald-500 to-teal-500",
-    description: "Available worldwide",
-    itemProp: "address",
+    description: "Available worldwide • Remote"
   },
   {
     icon: FiBookOpen,
     title: "Education",
     content: "BCA — Cloud & Security",
     gradient: "from-purple-500 to-pink-500",
-    description: "Amity University Online",
-    itemProp: null,
+    description: "Amity University Online • CGPA 3.6+"
   },
   {
     icon: FiBriefcase,
     title: "Status",
     content: "Open to Opportunities",
     gradient: "from-amber-500 to-orange-500",
-    description: "Remote roles & freelance",
-    itemProp: null,
-  },
+    description: "Full Stack Engineer • Remote"
+  }
 ];
 
 const socialLinks = [
-  { icon: FiGithub,   label: "GitHub",    url: "https://github.com/ajitdev01",              gradient: "from-gray-700 to-gray-900",    external: true  },
-  { icon: FiLinkedin, label: "LinkedIn",  url: "https://www.linkedin.com/in/ajitdev01/",     gradient: "from-blue-600 to-indigo-600",   external: true  },
-  { icon: FiTwitter,  label: "Twitter",   url: "https://twitter.com/ajitdev01",              gradient: "from-cyan-500 to-blue-500",     external: true  },
-  { icon: FiMail,     label: "Email",     url: "mailto:ajitk23192@gmail.com",                gradient: "from-rose-500 to-pink-500",     external: false },
-  { icon: FiFileText, label: "Resume",    url: "/resume.pdf",                                gradient: "from-emerald-500 to-teal-500",  external: false },
-  { icon: FiGlobe,    label: "Portfolio", url: "/",                                          gradient: "from-purple-500 to-violet-500", external: false },
+  { icon: FiGithub, label: "GitHub", url: "https://github.com/ajitdev01", gradient: "from-gray-700 to-gray-900", external: true },
+  { icon: FiLinkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", gradient: "from-blue-600 to-indigo-600", external: true },
+  { icon: FiCode, label: "LeetCode", url: "https://leetcode.com/ajitdev01", gradient: "from-amber-500 to-orange-500", external: true },
+  { icon: FiMail, label: "Email", url: "mailto:ajitk23192@gmail.com", gradient: "from-rose-500 to-pink-500", external: false },
+  { icon: FiFileText, label: "Resume", url: "/resume.pdf", gradient: "from-emerald-500 to-teal-500", external: false },
+  { icon: FiGlobe, label: "Portfolio", url: "/", gradient: "from-purple-500 to-violet-500", external: false }
+];
+
+const credibilityStats = [
+  { value: "300+", label: "LeetCode Problems", icon: FiCode, gradient: "from-blue-500 to-cyan-500" },
+  { value: "150+", label: "Day Streak", icon: FiTrendingUp, gradient: "from-emerald-500 to-teal-500" },
+  { value: "15+", label: "GitHub Repos", icon: FiFolder, gradient: "from-purple-500 to-pink-500" },
+  { value: "8", label: "Live Projects", icon: FiZap, gradient: "from-amber-500 to-orange-500" }
+];
+
+const quickResponses = [
+  "Full Stack MERN application development",
+  "Next.js / SEO optimization project",
+  "Technical collaboration / Code review",
+  "Job opportunity / Contract work",
+  "DSA / Problem solving discussion"
 ];
 
 // ========== ANIMATION VARIANTS ==========
-
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
 };
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { y: 30, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const cardVariants = {
+  hidden: { scale: 0.95, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+  hover: { scale: 1.02, y: -6, transition: { duration: 0.2 } }
 };
 
 const modalVariants = {
   hidden: { opacity: 0, scale: 0.92 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, scale: 0.92, transition: { duration: 0.2 } },
+  exit: { opacity: 0, scale: 0.92, transition: { duration: 0.2 } }
 };
 
 // ========== MAIN COMPONENT ==========
-
 const Contact = () => {
-  const [isLoaded, setIsLoaded]             = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isLoading, setIsLoading]           = useState(false);
-  const [error, setError]                   = useState("");
-  const [focusedField, setFocusedField]     = useState(null);
-  const [formData, setFormData]             = useState({
-    name: "", email: "", subject: "", message: "",
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [focusedField, setFocusedField] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "", email: "", subject: "", message: ""
   });
+  const { scrollY } = useScroll();
+  const headerOpacity = useTransform(scrollY, [0, 200], [1, 0.95]);
 
   useEffect(() => {
-    const t = setTimeout(() => setIsLoaded(true), 80);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubjectClick = (subject) => {
+    setFormData(prev => ({ ...prev, subject: `Inquiry about: ${subject}` }));
   };
 
   const handleSubmit = async (e) => {
@@ -176,12 +194,12 @@ const Contact = () => {
         "service_jylezlb",
         "template_l7naq4c",
         {
-          name:      formData.name,
-          email:     formData.email,
-          subject:   formData.subject || "New Message from Portfolio",
-          message:   formData.message,
-          to_email:  "ajitk23192@gmail.com",
-          timestamp: new Date().toLocaleString(),
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || "New Message from Portfolio",
+          message: formData.message,
+          to_email: "ajitk23192@gmail.com",
+          timestamp: new Date().toLocaleString()
         },
         "19sQiv4dP-SrzHK2B"
       );
@@ -202,12 +220,11 @@ const Contact = () => {
 
   return (
     <>
-      {/* ✅ SEO: Full Helmet with all meta + 3 JSON-LD schemas */}
       <Helmet>
-        <title>Contact Ajit Kumar | DevOps Engineer & Full Stack Developer — India</title>
-        <meta
-          name="description"
-          content="Contact Ajit Kumar — DevOps Engineer and Full Stack MERN Developer from Katihar, Bihar, India. Specializing in AWS cloud infrastructure, Docker, Kubernetes, CI/CD automation, and DevSecOps. Available for remote projects worldwide."
+        <title>Contact Full Stack Engineer | MERN • Next.js • DSA 300+ | Ajit Kumar</title>
+        <meta 
+          name="description" 
+          content="Contact Ajit Kumar — Full Stack Engineer specializing in MERN, Next.js, LAMP stacks. 300+ LeetCode problems solved. Available for remote Full Stack roles worldwide."
         />
         <link rel="canonical" href="https://ajitdev.com/contact" />
         <meta name="author" content="Ajit Kumar" />
@@ -215,23 +232,17 @@ const Contact = () => {
         <meta name="geo.region" content="IN-BR" />
         <meta name="geo.placename" content="Katihar, Bihar, India" />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Contact DevOps Engineer Ajit Kumar — India" />
-        <meta property="og:description" content="Reach out for DevOps engineering, AWS cloud, Docker, CI/CD, MERN development, or remote collaboration opportunities." />
+        <meta property="og:title" content="Contact Full Stack Engineer — Ajit Kumar" />
+        <meta property="og:description" content="Full Stack Engineer specializing in MERN, Next.js. 300+ DSA problems solved. Available for remote roles worldwide." />
         <meta property="og:url" content="https://ajitdev.com/contact" />
-        <meta property="og:image" content="https://ajitdev.com/og-image.jpg" />
-        <meta property="og:image:alt" content="Contact Ajit Kumar — DevOps Engineer" />
         <meta property="og:site_name" content="Ajit Kumar Portfolio" />
         <meta property="og:locale" content="en_IN" />
 
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact Ajit Kumar — DevOps Engineer India" />
-        <meta name="twitter:description" content="Remote DevOps Engineer available for cloud, CI/CD, Docker, and MERN stack projects." />
-        <meta name="twitter:image" content="https://ajitdev.com/og-image.jpg" />
+        <meta name="twitter:title" content="Contact Full Stack Engineer — MERN • Next.js • DSA 300+" />
+        <meta name="twitter:description" content="Available for remote Full Stack Engineer roles worldwide." />
 
-        {/* JSON-LD */}
         <script type="application/ld+json">{JSON.stringify(contactPageSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
@@ -241,225 +252,181 @@ const Contact = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen flex flex-col bg-white overflow-hidden"
-        itemScope
-        itemType="https://schema.org/ContactPage"
+        className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden"
       >
-        {/* Background blobs */}
+        {/* Premium Background Blobs */}
         <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/8 rounded-full blur-3xl" />
-          <div className="absolute top-3/4 left-1/2 w-96 h-96 bg-emerald-500/6 rounded-full blur-3xl" />
+          <div className="absolute top-0 -left-40 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-0 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-emerald-500/6 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl" />
         </div>
 
         <Header />
 
-        <main className="flex-grow pt-16 relative z-10" role="main">
+        <main className="flex-grow pt-16 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-
-            {/* ✅ SEO: Hidden topical authority paragraph */}
-            <section className="sr-only" aria-label="Contact overview">
-              <h2>Contact DevOps Engineer Ajit Kumar — Katihar, Bihar, India</h2>
+            
+            {/* Hidden SEO Content */}
+            <section className="sr-only" aria-label="Contact Overview">
+              <h1>Contact Full Stack Engineer — Ajit Kumar | MERN • Next.js • DSA 300+</h1>
               <p>
-                Ajit Kumar is a DevOps Engineer and Full Stack Developer from Katihar, Bihar,
-                India specializing in AWS cloud infrastructure, Docker containerization,
-                Kubernetes orchestration, Terraform Infrastructure as Code, CI/CD automation
-                with GitHub Actions, DevSecOps practices, and MERN stack development. Use this
-                page to connect regarding remote DevOps engineering roles, freelance cloud
-                infrastructure projects, or technical collaboration opportunities worldwide.
+                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack 
+                (MongoDB, Express.js, React.js, Node.js), LAMP Stack, and Next.js. With 300+ LeetCode problems 
+                solved and a 150+ day coding streak, Ajit builds production-grade web applications. 
+                Available for remote Full Stack Engineer roles worldwide.
               </p>
             </section>
 
-            {/* ===== PAGE HEADER ===== */}
+            {/* ===== HERO SECTION ===== */}
             <motion.section
-              variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="text-center mb-16"
-              aria-labelledby="contact-heading"
+              variants={containerVariants}
+              className="text-center mb-20"
             >
-              <motion.div
-                variants={itemVariants}
-                className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40"
-                aria-hidden="true"
-              >
+              <motion.div variants={itemVariants} className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl mb-6">
                 <FiMail className="text-4xl text-blue-600" />
               </motion.div>
 
-              <motion.h1
-                id="contact-heading"
-                variants={itemVariants}
-                className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight"
-                itemProp="name"
-              >
-                Get In Touch
+              <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 tracking-tight">
+                Let's{" "}
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Connect
+                </span>
               </motion.h1>
 
-              {/* ✅ SEO: Keyword-rich hero subtext visible to both users and crawlers */}
-              <motion.p
-                variants={itemVariants}
-                className="text-xl text-gray-600 max-w-2xl mx-auto mb-6"
-                itemProp="description"
-              >
-                Looking for a <strong className="text-gray-800">DevOps Engineer</strong> or{" "}
-                <strong className="text-gray-800">Full Stack MERN Developer</strong>? Let's build
-                secure, cloud-native solutions together.
+              <motion.p variants={itemVariants} className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+                Full Stack Engineer • MERN • Next.js •{" "}
+                <span className="font-semibold text-amber-600">300+ DSA Problems Solved</span>
               </motion.p>
 
-              <motion.div
-                variants={itemVariants}
-                className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full"
-                aria-hidden="true"
-              />
+              <motion.div variants={itemVariants} className="flex justify-center gap-3 flex-wrap mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+                  <FiMapPin className="w-4 h-4" />
+                  Katihar, Bihar, India
+                </span>
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium">
+                  <FiGlobe className="w-4 h-4" />
+                  Available Worldwide • Remote
+                </span>
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-medium">
+                  <FiClock className="w-4 h-4" />
+                  Response: 24 Hours
+                </span>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
             </motion.section>
 
+       
             {/* ===== MAIN GRID ===== */}
-            <div className="grid lg:grid-cols-3 gap-8">
-
-              {/* ===== LEFT: CONTACT INFO ===== */}
+            <div className="grid lg:grid-cols-3 gap-8 mb-10">
+              
+              {/* ===== LEFT: CONTACT INFO PANEL ===== */}
               <motion.aside
-                variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                aria-label="Contact information"
-                itemScope
-                itemType="https://schema.org/Person"
+                variants={containerVariants}
+                className="space-y-6"
               >
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-8 shadow-xl h-full">
-                  <motion.h2
-                    variants={itemVariants}
-                    className="text-2xl font-bold text-gray-900 mb-8"
-                  >
-                    Contact Information
-                  </motion.h2>
-
-                  {/* Contact detail cards */}
-                  <div className="space-y-4 mb-8">
-                    {contactInfo.map((item) => (
+                {/* Contact Cards */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h2>
+                  <div className="space-y-4">
+                    {contactInfo.map((item, idx) => (
                       <motion.div
-                        key={item.title}
+                        key={idx}
                         variants={itemVariants}
-                        className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all"
+                        whileHover={{ x: 4 }}
+                        className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-blue-50/30 transition-all"
                       >
-                        <div className="flex items-start gap-4">
-                          <div
-                            className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0`}
-                            aria-hidden="true"
-                          >
-                            <item.icon className="w-5 h-5 text-white" />
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">
-                              {item.title}
-                            </p>
-                            {item.link ? (
-                              <a
-                                href={item.link}
-                                className="text-gray-900 font-medium hover:text-blue-600 transition-colors"
-                                itemProp={item.itemProp ?? undefined}
-                              >
-                                {item.content}
-                              </a>
-                            ) : (
-                              <p
-                                className="text-gray-900 font-medium"
-                                itemProp={item.itemProp ?? undefined}
-                              >
-                                {item.content}
-                              </p>
-                            )}
-                            <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
-                          </div>
+                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0`}>
+                          <item.icon className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-gray-400 uppercase">{item.title}</p>
+                          {item.link ? (
+                            <a href={item.link} className="text-gray-900 font-medium hover:text-blue-600 transition-colors">
+                              {item.content}
+                            </a>
+                          ) : (
+                            <p className="text-gray-900 font-medium">{item.content}</p>
+                          )}
+                          <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
                         </div>
                       </motion.div>
                     ))}
                   </div>
+                </div>
 
-                  {/* Social links */}
-                  <div className="border-t border-gray-100 pt-6">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                      Connect with me
-                    </h3>
-                    <div className="grid grid-cols-3 gap-3">
-                      {socialLinks.map((s) => (
-                        <motion.a
-                          key={s.label}
-                          variants={itemVariants}
-                          whileHover={{ scale: 1.07, y: -3 }}
-                          whileTap={{ scale: 0.95 }}
-                          href={s.url}
-                          target={s.external ? "_blank" : undefined}
-                          rel={s.external ? "noopener noreferrer" : undefined}
-                          className={`h-14 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all`}
-                          aria-label={`Ajit Kumar ${s.label}`}
-                          itemProp={s.label === "GitHub" || s.label === "LinkedIn" ? "sameAs" : undefined}
-                        >
-                          <s.icon className="w-4 h-4 mb-1" aria-hidden="true" />
-                          <span className="text-xs font-medium">{s.label}</span>
-                        </motion.a>
-                      ))}
-                    </div>
+                {/* Social Links Grid */}
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
+                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Connect Online</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    {socialLinks.map((s, idx) => (
+                      <motion.a
+                        key={idx}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.05, y: -3 }}
+                        href={s.url}
+                        target={s.external ? "_blank" : undefined}
+                        rel={s.external ? "noopener noreferrer" : undefined}
+                        className={`h-16 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all`}
+                        aria-label={`Ajit Kumar ${s.label}`}
+                      >
+                        <s.icon className="w-5 h-5 mb-1" />
+                        <span className="text-xs font-medium">{s.label}</span>
+                      </motion.a>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Direct email CTA */}
-                  <div className="mt-6">
-                    <a
-                      href="mailto:ajitk23192@gmail.com?subject=Portfolio Inquiry&body=Hello Ajit, I came across your portfolio and wanted to connect..."
-                      className="flex items-center justify-center gap-3 w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg group"
-                      aria-label="Send email directly to Ajit Kumar"
-                    >
-                      <FiMail className="w-4 h-4" aria-hidden="true" />
-                      Email Directly
-                      <FiArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-                    </a>
+                {/* Quick Response Ideas */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 shadow-md">
+                  <div className="flex items-center gap-2 mb-4">
+                    <FiZap className="w-5 h-5 text-blue-600" />
+                    <h3 className="font-semibold text-gray-900">Quick Response Ideas</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {quickResponses.map((response, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSubjectClick(response)}
+                        className="px-3 py-1.5 bg-white/80 text-gray-700 rounded-lg text-xs font-medium hover:bg-blue-100 hover:text-blue-700 transition-colors"
+                      >
+                        {response}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </motion.aside>
 
-              {/* ===== RIGHT: FORM + INFO ===== */}
-              <div className="lg:col-span-2 space-y-8">
-
-                {/* Contact Form */}
+              {/* ===== RIGHT: CONTACT FORM ===== */}
+              <div className="lg:col-span-2">
                 <motion.div
-                  variants={containerVariants}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
+                  variants={containerVariants}
                   className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-8 shadow-xl"
                 >
-                  <motion.h2
-                    variants={itemVariants}
-                    className="text-2xl font-bold text-gray-900 mb-1"
-                  >
-                    Send me a message
-                  </motion.h2>
-                  <motion.p
-                    variants={itemVariants}
-                    className="text-gray-500 mb-8"
-                  >
-                    I'll get back to you within 24 hours.
-                  </motion.p>
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h2>
+                    <p className="text-gray-500">Fill out the form below and I'll get back to you within 24 hours.</p>
+                    <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mt-3 rounded-full" />
+                  </div>
 
-                  {/* ✅ ACCESSIBILITY: role + aria-label on form */}
-                  <form
-                    onSubmit={handleSubmit}
-                    className="space-y-6"
-                    role="form"
-                    aria-label="Contact form to reach Ajit Kumar"
-                    noValidate
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Name */}
+                      {/* Name Field */}
                       <motion.div variants={itemVariants} className="space-y-2">
                         <label htmlFor="name" className="block text-sm font-semibold text-gray-700">
-                          Your Name <span className="text-red-500" aria-hidden="true">*</span>
+                          Full Name <span className="text-red-500">*</span>
                         </label>
                         <div className="relative group">
-                          <FiUser
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4"
-                            aria-hidden="true"
-                          />
+                          <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4" />
                           <input
                             id="name"
                             type="text"
@@ -471,28 +438,23 @@ const Contact = () => {
                             required
                             minLength={2}
                             placeholder="John Doe"
-                            autoComplete="name"
-                            aria-required="true"
-                            className="w-full pl-11 pr-4 py-3.5 h-12 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                           />
                           {focusedField === "name" && formData.name && (
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full" aria-hidden="true" />
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full" />
                           )}
                         </div>
                       </motion.div>
 
-                      {/* Email */}
+                      {/* Email Field */}
                       <motion.div variants={itemVariants} className="space-y-2">
-                        <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-700">
-                          Your Email <span className="text-red-500" aria-hidden="true">*</span>
+                        <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
+                          Email Address <span className="text-red-500">*</span>
                         </label>
                         <div className="relative group">
-                          <FiMail
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4"
-                            aria-hidden="true"
-                          />
+                          <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4" />
                           <input
-                            id="contact-email"
+                            id="email"
                             type="email"
                             name="email"
                             value={formData.email}
@@ -501,168 +463,154 @@ const Contact = () => {
                             onBlur={() => setFocusedField(null)}
                             required
                             placeholder="john@example.com"
-                            autoComplete="email"
-                            aria-required="true"
-                            className="w-full pl-11 pr-4 py-3.5 h-12 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                           />
                           {focusedField === "email" && formData.email && (
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full" aria-hidden="true" />
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full" />
                           )}
                         </div>
                       </motion.div>
                     </div>
 
-                    {/* Subject */}
+                    {/* Subject Field */}
                     <motion.div variants={itemVariants} className="space-y-2">
                       <label htmlFor="subject" className="block text-sm font-semibold text-gray-700">
                         Subject
                       </label>
                       <div className="relative group">
-                        <FiTag
-                          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4"
-                          aria-hidden="true"
-                        />
+                        <FiTag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4" />
                         <input
                           id="subject"
                           type="text"
                           name="subject"
                           value={formData.subject}
                           onChange={handleInputChange}
-                          onFocus={() => setFocusedField("subject")}
-                          onBlur={() => setFocusedField(null)}
-                          placeholder="DevOps project inquiry or collaboration"
-                          className="w-full pl-11 pr-4 py-3.5 h-12 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                          placeholder="e.g., Full Stack Project Inquiry, Job Opportunity, Collaboration"
+                          className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                         />
                       </div>
                     </motion.div>
 
-                    {/* Message */}
+                    {/* Message Field */}
                     <motion.div variants={itemVariants} className="space-y-2">
                       <label htmlFor="message" className="block text-sm font-semibold text-gray-700">
-                        Your Message <span className="text-red-500" aria-hidden="true">*</span>
+                        Message <span className="text-red-500">*</span>
                       </label>
                       <div className="relative group">
-                        <FiMessageSquare
-                          className="absolute left-4 top-4 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4"
-                          aria-hidden="true"
-                        />
+                        <FiMessageSquare className="absolute left-4 top-4 text-gray-400 group-focus-within:text-blue-500 transition-colors w-4 h-4" />
                         <textarea
                           id="message"
                           name="message"
                           value={formData.message}
                           onChange={handleInputChange}
-                          onFocus={() => setFocusedField("message")}
-                          onBlur={() => setFocusedField(null)}
-                          rows={5}
+                          rows={6}
                           required
                           minLength={10}
-                          maxLength={500}
-                          placeholder="Hello, I'd like to discuss a DevOps project..."
-                          aria-required="true"
+                          maxLength={1000}
+                          placeholder="Tell me about your project, opportunity, or what you'd like to discuss..."
                           className="w-full pl-11 pr-4 py-4 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"
                         />
-                        <div className="absolute bottom-3 right-3 text-xs text-gray-400" aria-live="polite">
-                          {formData.message.length}/500
+                        <div className="absolute bottom-3 right-3 text-xs text-gray-400">
+                          {formData.message.length}/1000
                         </div>
                       </div>
                     </motion.div>
 
-                    {/* Error message */}
-                    {error && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="p-5 bg-red-50 border border-red-200 rounded-xl"
-                        role="alert"
-                      >
-                        <div className="flex items-start gap-3">
-                          <FiAlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                          <div>
-                            <p className="text-red-700 font-medium text-sm">{error}</p>
-                            <a
-                              href="mailto:ajitk23192@gmail.com"
-                              className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-700 text-sm mt-2"
-                            >
-                              <FiMail className="w-3.5 h-3.5" aria-hidden="true" />
-                              Email me directly instead
-                            </a>
+                    {/* Error Message */}
+                    <AnimatePresence>
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          className="p-4 bg-red-50 border border-red-200 rounded-xl"
+                        >
+                          <div className="flex items-start gap-3">
+                            <FiAlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <p className="text-red-700 text-sm">{error}</p>
+                              <a href="mailto:ajitk23192@gmail.com" className="inline-flex items-center gap-1 text-blue-600 text-sm mt-2 hover:underline">
+                                <FiMail className="w-3.5 h-3.5" />
+                                Email me directly instead
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                    {/* Submit button */}
+                    {/* Submit Button */}
                     <motion.button
                       variants={itemVariants}
                       type="submit"
                       disabled={isLoading}
                       whileHover={{ scale: isLoading ? 1 : 1.02 }}
                       whileTap={{ scale: isLoading ? 1 : 0.98 }}
-                      className="w-full h-13 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed group"
-                      aria-label={isLoading ? "Sending message..." : "Send message to Ajit Kumar"}
+                      className="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed group"
                     >
                       <div className="flex items-center justify-center gap-3">
                         {isLoading ? (
                           <>
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
-                            <span>Sending...</span>
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Sending message...</span>
                           </>
                         ) : (
                           <>
-                            <FiSend className="w-5 h-5" aria-hidden="true" />
+                            <FiSend className="w-5 h-5" />
                             <span>Send Message</span>
-                            <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                            <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </>
                         )}
                       </div>
                     </motion.button>
 
                     <p className="text-center text-xs text-gray-400">
-                      <span className="text-green-500 mr-1" aria-hidden="true">✓</span>
-                      Powered by EmailJS · Secure &amp; reliable
+                      <span className="text-green-500 mr-1">✓</span>
+                      Your message is secure and will be sent directly to my email.
                     </p>
                   </form>
                 </motion.div>
 
-                {/* What happens next */}
+                {/* What Happens Next */}
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
                   variants={itemVariants}
-                  className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-8 border border-blue-100 shadow-lg"
+                  className="mt-6 bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-6 border border-blue-100 shadow-md"
                 >
-                  <div className="flex items-start gap-6">
-                    <div
-                      className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0"
-                      aria-hidden="true"
-                    >
-                      <FiInfo className="w-6 h-6 text-blue-600" />
+                  <div className="flex items-start gap-5">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FiInfo className="w-5 h-5 text-blue-600" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900 mb-3">
-                        What happens next?
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed mb-5">
-                        I typically respond within <strong>24 hours</strong>. For urgent
-                        inquiries please mention it in your message. I'm open to discussing
-                        DevOps engineering roles, cloud infrastructure projects, CI/CD
-                        automation, and full-stack MERN development — remote, worldwide.
-                      </p>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                          <FiClock className="w-5 h-5 text-blue-500 flex-shrink-0" aria-hidden="true" />
+                      <h3 className="font-bold text-gray-900 mb-2">What happens after you reach out?</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                            <span className="text-blue-600 font-bold text-sm">1</span>
+                          </div>
                           <div>
-                            <p className="font-semibold text-gray-900 text-sm">Response Time</p>
-                            <p className="text-xs text-gray-500">Within 24 hours</p>
+                            <p className="font-semibold text-gray-800 text-sm">Acknowledgment</p>
+                            <p className="text-xs text-gray-500">Auto-reply within minutes</p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                          <FiCheck className="w-5 h-5 text-emerald-500 flex-shrink-0" aria-hidden="true" />
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                            <span className="text-blue-600 font-bold text-sm">2</span>
+                          </div>
                           <div>
-                            <p className="font-semibold text-gray-900 text-sm">Open For</p>
-                            <p className="text-xs text-gray-500">Remote DevOps · Freelance</p>
+                            <p className="font-semibold text-gray-800 text-sm">Review</p>
+                            <p className="text-xs text-gray-500">I read your message within 24hr</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                            <span className="text-blue-600 font-bold text-sm">3</span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-800 text-sm">Response</p>
+                            <p className="text-xs text-gray-500">Personal reply within 24 hours</p>
                           </div>
                         </div>
                       </div>
@@ -672,14 +620,17 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* ✅ SEO: Hidden internal nav */}
-            <nav className="sr-only" aria-label="Site navigation">
+      
+            {/* ===== HIDDEN INTERNAL LINKS (SEO) ===== */}
+            <nav className="sr-only" aria-label="Site Navigation">
               <ul>
-                <li><a href="/">Home — DevOps Engineer Katihar Bihar India</a></li>
-                <li><a href="/about">About Ajit Kumar — DevSecOps Engineer</a></li>
-                <li><a href="/skills">Skills — AWS Docker Kubernetes Terraform CI/CD</a></li>
-                <li><a href="/projects">DevOps & Full Stack Projects Portfolio</a></li>
-                <li><a href="/contact">Contact — Hire Remote DevOps Engineer India</a></li>
+                <li><a href="/">Home — Full Stack Engineer Portfolio</a></li>
+                <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 300+</a></li>
+                <li><a href="/projects">Full Stack Projects — Production Portfolio</a></li>
+                <li><a href="/education">Education — BCA Cloud & Security</a></li>
+                <li><a href="/contact">Contact — Hire Full Stack Engineer</a></li>
+                <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
+                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 300+ Problems</a></li>
               </ul>
             </nav>
 
@@ -695,12 +646,8 @@ const Contact = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
               onClick={() => setShowSuccessModal(false)}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Message sent successfully"
             >
               <motion.div
                 variants={modalVariants}
@@ -710,56 +657,52 @@ const Contact = () => {
                 className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Success icon */}
-                <div className="flex justify-center mb-7">
+                <div className="flex justify-center mb-6">
                   <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center shadow-lg">
-                      <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md">
+                    <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
+                      <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.15, type: "spring" }}
                         >
-                          <FiCheck className="w-7 h-7 text-white" aria-hidden="true" />
+                          <FiCheck className="w-7 h-7 text-white" />
                         </motion.div>
                       </div>
                     </div>
-                    <div className="absolute inset-0 rounded-full border-4 border-green-200 animate-ping opacity-20" aria-hidden="true" />
                   </div>
                 </div>
 
-                <div className="text-center mb-7">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    Message Sent!
-                  </h2>
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Message Sent! ✨</h2>
                   <p className="text-gray-500">
-                    Thank you for reaching out. I'll get back to you within 24 hours.
+                    Thanks for reaching out. I've received your message and will get back to you within 24 hours.
                   </p>
                 </div>
 
-                <div className="bg-blue-50 rounded-xl p-4 mb-7 flex items-center gap-4">
-                  <FiClock className="w-5 h-5 text-blue-600 flex-shrink-0" aria-hidden="true" />
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">Expected Response</p>
-                    <p className="text-xs text-gray-500">Within 24 hours</p>
+                <div className="bg-blue-50 rounded-xl p-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <FiClock className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">What happens next?</p>
+                      <p className="text-xs text-gray-600">I'll review your message and respond personally as soon as possible.</p>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                  <button
                     onClick={() => setShowSuccessModal(false)}
-                    className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md"
+                    className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all"
                   >
                     Close
-                  </motion.button>
+                  </button>
                   <Link
                     to="/projects"
                     onClick={() => setShowSuccessModal(false)}
-                    className="flex-1 h-12 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all flex items-center justify-center"
+                    className="flex-1 py-3 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all text-center"
                   >
-                    View Projects
+                    View My Work
                   </Link>
                 </div>
               </motion.div>
