@@ -86,7 +86,7 @@ const faqSchema = {
       name: "What full stack technologies does Ajit Kumar work with?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Ajit works extensively with MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack (Linux, Apache, MySQL, PHP), and Next.js for SEO-optimized applications. He has 300+ LeetCode problems solved and builds production-grade applications."
+        text: "Ajit works extensively with MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack (Linux, Apache, MySQL, PHP), and Next.js for SEO-optimized applications. He has 400+ LeetCode problems solved and builds production-grade applications."
       }
     },
     {
@@ -200,7 +200,7 @@ const selfLearning = [
   {
     icon: FiLayers,
     title: "Data Structures & Algorithms",
-    description: "Mastering core DSA concepts with C++ implementations, LeetCode practice (300+ problems), and competitive programming.",
+    description: "Mastering core DSA concepts with C++ implementations, LeetCode practice (400+ problems), and competitive programming.",
     progress: 82,
     gradient: "from-indigo-500/15 to-blue-500/15",
     highlight: true
@@ -366,9 +366,9 @@ const Education = () => {
     <>
       <Helmet>
         <title>BCA Cloud & Security | Full Stack Engineer Education — Ajit Kumar</title>
-        <meta 
-          name="description" 
-          content="Ajit Kumar's BCA in Cloud & Security at Amity University Online, specializing in Full Stack Development (MERN, Next.js), AWS Cloud, DevOps, and Cybersecurity. 300+ DSA problems solved, production-grade projects."
+        <meta
+          name="description"
+          content="Ajit Kumar's BCA in Cloud & Security at Amity University Online, specializing in Full Stack Development (MERN, Next.js), AWS Cloud, DevOps, and Cybersecurity. 400+ DSA problems solved, production-grade projects."
         />
         <link rel="canonical" href="https://ajitdev.com/education" />
         <meta name="author" content="Ajit Kumar" />
@@ -387,7 +387,7 @@ const Education = () => {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BCA Cloud & Security — Full Stack Engineer Education" />
-        <meta name="twitter:description" content="Specializing in MERN Stack, AWS Cloud, DevOps, and Cybersecurity with 300+ DSA problems solved." />
+        <meta name="twitter:description" content="Specializing in MERN Stack, AWS Cloud, DevOps, and Cybersecurity with 400+ DSA problems solved." />
 
         {/* Structured Data */}
         <script type="application/ld+json">{JSON.stringify(educationSchema)}</script>
@@ -414,15 +414,15 @@ const Education = () => {
 
         <main className="flex-grow pt-16 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            
+
             {/* Hidden SEO Content */}
             <section className="sr-only" aria-label="Education Overview">
               <h1>Full Stack Engineer Education — BCA Cloud & Security Specialization</h1>
               <p>
-                Ajit Kumar is pursuing a Bachelor of Computer Applications with specialization in Cloud Computing and Security 
-                at Amity University Online. This program integrates full-stack development (MERN, Next.js, LAMP), AWS cloud 
-                infrastructure, DevOps automation, Docker containerization, CI/CD pipelines, cybersecurity principles, 
-                and Linux system administration. With 300+ LeetCode problems solved and production-grade projects including 
+                Ajit Kumar is pursuing a Bachelor of Computer Applications with specialization in Cloud Computing and Security
+                at Amity University Online. This program integrates full-stack development (MERN, Next.js, LAMP), AWS cloud
+                infrastructure, DevOps automation, Docker containerization, CI/CD pipelines, cybersecurity principles,
+                and Linux system administration. With 400+ LeetCode problems solved and production-grade projects including
                 an IRCTC clone and 45+ lecture MERN repository, Ajit demonstrates real-world engineering capability.
               </p>
             </section>
@@ -567,7 +567,7 @@ const Education = () => {
                     <div className="flex-grow">
                       <h2 className="text-3xl font-bold text-gray-900 mb-2">BCA — Cloud & Security</h2>
                       <p className="text-gray-600 mb-4">Bachelor of Computer Applications · Specialization</p>
-                      
+
                       {/* Institutions */}
                       <div className="flex flex-wrap gap-4 mb-6">
                         <a href="https://amityonline.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition">
@@ -594,7 +594,7 @@ const Education = () => {
                       <p className="text-gray-700 leading-relaxed">
                         A specialized undergraduate program combining <strong className="text-gray-900">full-stack development (MERN, Next.js, LAMP)</strong>,{" "}
                         <strong className="text-gray-900">cloud computing (AWS)</strong>, <strong className="text-gray-900">cybersecurity</strong>, and{" "}
-                        <strong className="text-gray-900">DevOps automation</strong>. The curriculum covers production-grade application development, 
+                        <strong className="text-gray-900">DevOps automation</strong>. The curriculum covers production-grade application development,
                         containerization with Docker, CI/CD pipelines, and Linux system administration — building toward real-world engineering roles.
                       </p>
                     </div>
@@ -798,7 +798,7 @@ const Education = () => {
               <div className="relative">
                 {/* Timeline line - desktop */}
                 <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-emerald-500 hidden lg:block" />
-                
+
                 <div className="space-y-8">
                   {timelineData.map((item, index) => (
                     <motion.div
@@ -808,7 +808,7 @@ const Education = () => {
                     >
                       {/* Desktop timeline dot */}
                       <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-4 border-blue-500 rounded-full z-10 hidden lg:block" />
-                      
+
                       {/* Card */}
                       <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
                         <div className={`p-6 rounded-2xl ${item.bgGradient} border border-white/50 shadow-md hover:shadow-lg transition-all`}>
@@ -832,7 +832,7 @@ const Education = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="hidden lg:block lg:w-2/12" />
                     </motion.div>
                   ))}
@@ -840,20 +840,20 @@ const Education = () => {
               </div>
             </motion.section>
 
-           
 
-          
+
+
 
             {/* ===== HIDDEN INTERNAL LINKS (SEO) ===== */}
             <nav className="sr-only" aria-label="Site Navigation">
               <ul>
                 <li><a href="/">Home — Full Stack Engineer Portfolio</a></li>
-                <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 300+</a></li>
+                <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 400+</a></li>
                 <li><a href="/projects">Full Stack Projects — Production Portfolio</a></li>
                 <li><a href="/education">Education — BCA Cloud & Security</a></li>
                 <li><a href="/contact">Hire Full Stack Engineer</a></li>
                 <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 300+ Problems</a></li>
+                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
               </ul>
             </nav>
 

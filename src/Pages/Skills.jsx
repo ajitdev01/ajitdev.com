@@ -31,7 +31,7 @@ const personSchema = {
   name: "Ajit Kumar",
   url: "https://ajitdev.com",
   jobTitle: "Full Stack Engineer",
-      knowsAbout: skillsForSchema,
+  knowsAbout: skillsForSchema,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Katihar",
@@ -101,12 +101,12 @@ const skillCategories = [
     icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
     color: "text-amber-600",
-    description: "300+ LeetCode problems — clean, optimized solutions",
+    description: "400+ LeetCode problems — clean, optimized solutions",
     proficiency: 85,
     level: "Advanced",
     highlight: true,
     skills: [
-      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "300+ solved" },
+      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "400+ solved" },
       { name: "Recursion & Backtracking", icon: FiActivity, proficiency: 85, level: "Advanced" },
       { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 78, level: "Proficient", note: "Active growth" },
       { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 70, level: "Intermediate", note: "Daily practice" },
@@ -155,13 +155,13 @@ const filterLabels = {
   Frontend: "Frontend",
   Backend: "Backend",
   FullStack: "Full Stack",
-  DSA: "DSA • 300+ Problems",
+  DSA: "DSA • 400+ Problems",
   Performance: "SEO • Performance",
   DevOps: "Deployment • Workflow"
 };
 
 const stats = [
-  { value: "300+", label: "LeetCode Problems Solved", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
+  { value: "400+", label: "LeetCode Problems Solved", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
   { value: "150+", label: "Days Active Streak", icon: FiCalendar, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
   { value: "15+", label: "Production Projects", icon: FiPackage, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
   { value: "4+", label: "Tech Stacks Mastered", icon: FiCode, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" },
@@ -215,10 +215,10 @@ const Skills = () => {
   return (
     <>
       <Helmet>
-        <title>Full Stack Engineer | MERN • Next.js • DSA 300+ | Ajit Kumar</title>
+        <title>Full Stack Engineer | MERN • Next.js • DSA 400+ | Ajit Kumar</title>
         <meta
           name="description"
-          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 300+ LeetCode problems solved. Performance-focused, SEO-driven web applications. Based in Bihar, India."
+          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 400+ LeetCode problems solved. Performance-focused, SEO-driven web applications. Based in Bihar, India."
         />
         <link rel="canonical" href="https://ajitdev.com/skills" />
         <meta name="author" content="Ajit Kumar" />
@@ -226,7 +226,7 @@ const Skills = () => {
 
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Full Stack Engineer — Ajit Kumar" />
-        <meta property="og:description" content="MERN • Next.js • 300+ DSA problems • Performance & SEO focused developer" />
+        <meta property="og:description" content="MERN • Next.js • 400+ DSA problems • Performance & SEO focused developer" />
         <meta property="og:url" content="https://ajitdev.com/skills" />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -261,7 +261,7 @@ const Skills = () => {
               </h1>
 
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">300+ DSA problems solved</span>
+                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">400+ DSA problems solved</span>
               </p>
 
               <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full" />
@@ -277,15 +277,15 @@ const Skills = () => {
                 </span>
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
                   <FiBarChart2 className="w-4 h-4" />
-                  LeetCode 300+ • Active Streak
+                  LeetCode 400+ • Active Streak
                 </span>
               </div>
 
               {/* Professional summary paragraph */}
               <div className="max-w-3xl mx-auto mt-8 p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
                 <p className="text-gray-700 leading-relaxed">
-                  Full Stack Engineer with <strong className="text-gray-900">production-grade expertise in MERN, LAMP, and Next.js</strong>. 
-                  Proven problem-solving ability with <strong className="text-amber-700">300+ LeetCode problems solved</strong> and a disciplined daily coding streak. 
+                  Full Stack Engineer with <strong className="text-gray-900">production-grade expertise in MERN, LAMP, and Next.js</strong>.
+                  Proven problem-solving ability with <strong className="text-amber-700">400+ LeetCode problems solved</strong> and a disciplined daily coding streak.
                   I build <strong className="text-gray-900">scalable, SEO-optimized, high-performance web applications</strong> with clean architecture and modern best practices.
                 </p>
               </div>
@@ -310,9 +310,8 @@ const Skills = () => {
                       <button
                         key={f}
                         onClick={() => { setActiveCategory(f); setIsMobileMenuOpen(false); }}
-                        className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                          activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md" : "bg-gray-100 text-gray-700"
-                        }`}
+                        className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md" : "bg-gray-100 text-gray-700"
+                          }`}
                       >
                         {filterLabels[f]}
                       </button>
@@ -328,9 +327,8 @@ const Skills = () => {
                 <button
                   key={f}
                   onClick={() => setActiveCategory(f)}
-                  className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${
-                    activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                  className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
                 >
                   {filterLabels[f]}
                 </button>
@@ -444,7 +442,7 @@ const Skills = () => {
                       <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
                       <div>
                         <span className="font-semibold text-gray-800">DSA & Problem Solving</span>
-                        <p className="text-sm text-gray-600">300+ LeetCode problems — clean, optimized, real-world application</p>
+                        <p className="text-sm text-gray-600">400+ LeetCode problems — clean, optimized, real-world application</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
@@ -495,15 +493,15 @@ const Skills = () => {
                     Full Stack Engineer — Not Just Code, Production-Ready Solutions
                   </h3>
                   <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-                    I bridge the gap between robust backend logic, performant frontend experiences, 
-                    and algorithmic thinking. Every project is an opportunity to build something 
+                    I bridge the gap between robust backend logic, performant frontend experiences,
+                    and algorithmic thinking. Every project is an opportunity to build something
                     <span className="text-amber-300 font-semibold"> scalable, maintainable, and impactful</span>.
                   </p>
                   <div className="mt-6 flex justify-center gap-2 flex-wrap">
                     <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">MERN</span>
                     <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">LAMP</span>
                     <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">Next.js</span>
-                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">300+ DSA</span>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">400+ DSA</span>
                     <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">SEO Expert</span>
                   </div>
                 </div>

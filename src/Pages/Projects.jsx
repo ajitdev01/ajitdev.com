@@ -74,8 +74,8 @@ const projects = [
   {
     id: 4,
     title: "DSA Journey Repository",
-    description: "300+ optimized Data Structures & Algorithms solutions with detailed time/space complexity analysis. Daily practice following NeetCode roadmap — Arrays, Trees, Graphs, Recursion, and Dynamic Programming.",
-    shortDescription: "300+ LeetCode solutions • Complexity analysis • Daily streak",
+    description: "400+ optimized Data Structures & Algorithms solutions with detailed time/space complexity analysis. Daily practice following NeetCode roadmap — Arrays, Trees, Graphs, Recursion, and Dynamic Programming.",
+    shortDescription: "400+ LeetCode solutions • Complexity analysis • Daily streak",
     tech: ["C++", "DSA", "STL", "LeetCode", "NeetCode", "VS Code"],
     category: "DSA",
     subcategory: "Problem Solving",
@@ -83,7 +83,7 @@ const projects = [
     liveDemo: "#",
     icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
-    features: ["300+ Solutions", "Complexity Analysis", "Clean Code", "STL Usage", "Pattern Problems", "Competitive Programming", "Weekly Contests"],
+    features: ["400+ Solutions", "Complexity Analysis", "Clean Code", "STL Usage", "Pattern Problems", "Competitive Programming", "Weekly Contests"],
     complexity: "Intermediate",
     stars: 82,
     lastUpdated: "4 days ago",
@@ -182,7 +182,7 @@ const filterCategories = [
 
 // ========== STATS (DSA + Full Stack Focus) ==========
 const stats = [
-  { value: "300+", label: "LeetCode Problems", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
+  { value: "400+", label: "LeetCode Problems", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
   { value: "150+", label: "Day Streak", icon: FiTrendingUp, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
   { value: "8", label: "Live Projects", icon: FiFolder, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
   { value: "45+", label: "Lectures Created", icon: FiBook, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" }
@@ -191,7 +191,7 @@ const stats = [
 // ========== PORTFOLIO HIGHLIGHTS ==========
 const highlights = [
   { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: FiDatabase, gradient: "from-blue-500/15 to-cyan-500/15" },
-  { title: "DSA Problem Solving", description: "300+ LeetCode solutions", count: 1, icon: FiBarChart2, gradient: "from-amber-500/15 to-orange-500/15", highlight: true },
+  { title: "DSA Problem Solving", description: "400+ LeetCode solutions", count: 1, icon: FiBarChart2, gradient: "from-amber-500/15 to-orange-500/15", highlight: true },
   { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: FiGlobe, gradient: "from-rose-500/15 to-pink-500/15" },
   { title: "Production Mindset", description: "Real-world scalable apps", count: 8, icon: FiZap, gradient: "from-emerald-500/15 to-teal-500/15" }
 ];
@@ -210,7 +210,7 @@ const projectListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Full Stack Engineer Portfolio — Ajit Kumar",
-  description: "Production-grade MERN, LAMP, Next.js projects with 300+ DSA problems solved. Full Stack Developer portfolio from India.",
+  description: "Production-grade MERN, LAMP, Next.js projects with 400+ DSA problems solved. Full Stack Developer portfolio from India.",
   url: "https://ajitdev.com/projects",
   numberOfItems: projects.length,
   itemListElement: projects.map((p, idx) => ({
@@ -270,18 +270,18 @@ const Projects = () => {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") return projects;
-    return projects.filter(p => 
-      p.category === activeFilter || 
+    return projects.filter(p =>
+      p.category === activeFilter ||
       p.subcategory === activeFilter ||
       p.tech.includes(activeFilter)
     );
   }, [activeFilter]);
 
-  const filtersWithCounts = useMemo(() => 
+  const filtersWithCounts = useMemo(() =>
     filterCategories.map(f => ({
       ...f,
-      count: f.id === "All" 
-        ? projects.length 
+      count: f.id === "All"
+        ? projects.length
         : projects.filter(p => p.category === f.id || p.subcategory === f.id).length
     })), []
   );
@@ -289,30 +289,30 @@ const Projects = () => {
   return (
     <>
       <Helmet>
-        <title>Full Stack Engineer Portfolio | MERN • Next.js • 300+ DSA | Ajit Kumar</title>
-        <meta 
-          name="description" 
-          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 300+ LeetCode problems solved. Production-grade projects: IRCTC clone, E-commerce platform, SEO-optimized apps. Based in India, available worldwide."
+        <title>Full Stack Engineer Portfolio | MERN • Next.js • 400+ DSA | Ajit Kumar</title>
+        <meta
+          name="description"
+          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 400+ LeetCode problems solved. Production-grade projects: IRCTC clone, E-commerce platform, SEO-optimized apps. Based in India, available worldwide."
         />
         <link rel="canonical" href="https://ajitdev.com/projects" />
         <meta name="author" content="Ajit Kumar" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
         <meta name="geo.region" content="IN-BR" />
         <meta name="geo.placename" content="Katihar, Bihar, India" />
-        
+
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Full Stack Engineer Portfolio — Ajit Kumar" />
-        <meta property="og:description" content="MERN, LAMP, Next.js projects with 300+ DSA problems solved. Production-ready full stack developer from India." />
+        <meta property="og:description" content="MERN, LAMP, Next.js projects with 400+ DSA problems solved. Production-ready full stack developer from India." />
         <meta property="og:url" content="https://ajitdev.com/projects" />
         <meta property="og:site_name" content="Ajit Kumar Portfolio" />
         <meta property="og:locale" content="en_IN" />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Full Stack Engineer — MERN • Next.js • DSA 300+" />
+        <meta name="twitter:title" content="Full Stack Engineer — MERN • Next.js • DSA 400+" />
         <meta name="twitter:description" content="Production-grade full stack applications and DSA portfolio" />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json">{JSON.stringify(projectListSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
@@ -335,15 +335,15 @@ const Projects = () => {
 
         <main className="flex-grow pt-16 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            
+
             {/* === HIDDEN SEO CONTENT (Crawlable, invisible) === */}
             <section className="sr-only" aria-label="Full Stack Engineer Portfolio Overview">
               <h1>Full Stack Engineer Portfolio — Ajit Kumar</h1>
               <p>
-                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in 
-                MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack (Linux, Apache, MySQL, PHP), 
-                and Next.js for SEO-optimized applications. With 300+ LeetCode problems solved and 
-                production-grade projects including IRCTC Railway System Clone, BiKart E-commerce Platform, 
+                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in
+                MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack (Linux, Apache, MySQL, PHP),
+                and Next.js for SEO-optimized applications. With 400+ LeetCode problems solved and
+                production-grade projects including IRCTC Railway System Clone, BiKart E-commerce Platform,
                 and a 45+ lecture MERN learning repository, Ajit demonstrates real-world engineering capability.
                 Available for remote Full Stack Engineer roles worldwide.
               </p>
@@ -365,7 +365,7 @@ const Projects = () => {
               </motion.h1>
 
               <motion.p variants={itemVariants} className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">300+ DSA problems solved</span>
+                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">400+ DSA problems solved</span>
               </motion.p>
 
               <motion.div variants={itemVariants} className="flex justify-center gap-3 mt-6 flex-wrap">
@@ -379,7 +379,7 @@ const Projects = () => {
                 </span>
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
                   <FiBarChart2 className="w-4 h-4" />
-                  LeetCode 300+ • 150 Day Streak
+                  LeetCode 400+ • 150 Day Streak
                 </span>
               </motion.div>
 
@@ -413,11 +413,10 @@ const Projects = () => {
                         <button
                           key={f.id}
                           onClick={() => { setActiveFilter(f.id); setIsMobileMenuOpen(false); }}
-                          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                            activeFilter === f.id
-                              ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-                              : "bg-gray-100 text-gray-700"
-                          }`}
+                          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeFilter === f.id
+                            ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
+                            : "bg-gray-100 text-gray-700"
+                            }`}
                         >
                           {f.label} ({f.count})
                         </button>
@@ -442,11 +441,10 @@ const Projects = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setActiveFilter(f.id)}
-                  className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${
-                    activeFilter === f.id
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                  className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeFilter === f.id
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
                 >
                   {f.label} <span className="text-xs opacity-70">({f.count})</span>
                 </motion.button>
@@ -473,7 +471,7 @@ const Projects = () => {
                     className="relative group"
                   >
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur transition duration-500" />
-                    
+
                     <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                       {/* Header gradient */}
                       <div className={`relative h-36 bg-gradient-to-r ${project.gradient} overflow-hidden flex-shrink-0`}>
@@ -647,22 +645,73 @@ const Projects = () => {
               className="mb-16"
             >
               <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 p-10 text-center border border-amber-200">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.15),transparent_40%)]" />
+
                 <div className="relative z-10">
-                  <div className="inline-flex p-4 bg-amber-100 rounded-2xl mb-4">
+                  <div className="inline-flex p-4 bg-amber-100 rounded-2xl mb-5">
                     <FiBarChart2 className="text-3xl text-amber-600" />
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-                    Discipline × Consistency × Growth Mindset
+
+                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    400+ Problems Solved
                   </h3>
-                  <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                    300+ LeetCode problems solved • 150+ day active streak • Daily DSA practice via NeetCode roadmap
+
+                  <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Consistently improving problem-solving skills through daily DSA practice,
+                    maintaining a <span className="font-semibold text-amber-600">150+ day coding streak</span>,
+                    and solving challenges across multiple domains on LeetCode.
                   </p>
-                  <div className="mt-6 flex justify-center gap-2 flex-wrap">
-                    <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">Arrays & Hashing ✅</span>
-                    <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">Recursion ✅</span>
-                    <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">Trees 🔄</span>
-                    <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">Graphs 🔄</span>
-                    <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">DP 📈</span>
+
+                  <div className="mt-8 flex flex-wrap justify-center gap-3">
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Arrays & Strings
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Hash Tables
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Binary Search
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Two Pointers
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Dynamic Programming
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Backtracking
+                    </span>
+
+                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                      Problem Solving
+                    </span>
+                  </div>
+
+                  <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div className="bg-white/70 rounded-2xl p-4">
+                      <h4 className="text-2xl font-bold text-amber-600">407+</h4>
+                      <p className="text-sm text-gray-600">Problems Solved</p>
+                    </div>
+
+                    <div className="bg-white/70 rounded-2xl p-4">
+                      <h4 className="text-2xl font-bold text-amber-600">155</h4>
+                      <p className="text-sm text-gray-600">Day Streak</p>
+                    </div>
+
+                    <div className="bg-white/70 rounded-2xl p-4">
+                      <h4 className="text-2xl font-bold text-amber-600">62</h4>
+                      <p className="text-sm text-gray-600">Hard Problems</p>
+                    </div>
+
+                    <div className="bg-white/70 rounded-2xl p-4">
+                      <h4 className="text-2xl font-bold text-amber-600">1480</h4>
+                      <p className="text-sm text-gray-600">Contest Rating</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -676,7 +725,7 @@ const Projects = () => {
                 <li><a href="/projects">Full Stack Portfolio — 8 Production Projects</a></li>
                 <li><a href="/contact">Hire Full Stack Engineer — Contact</a></li>
                 <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 300+ Problems</a></li>
+                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
               </ul>
             </nav>
 

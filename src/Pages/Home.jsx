@@ -57,7 +57,7 @@ const CodeSpace3D = () => {
     { text: '  return "CAREER_GROWTH 🚀";', color: "text-purple-600", delay: 1600 },
     { text: "};", color: "text-indigo-600", delay: 1900 },
     { text: "", color: "", delay: 2100 },
-    { text: "// 2500+ hours of coding", color: "text-gray-400", delay: 2300 },
+    { text: "// 3000+ hours of coding", color: "text-gray-400", delay: 2300 },
     { text: "// 99% client satisfaction", color: "text-gray-400", delay: 2500 },
   ];
 
