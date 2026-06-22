@@ -24,8 +24,30 @@ const skillsForSchema = [
   "LeetCode", "Problem Solving", "System Design", "Performance Optimization", "SEO"
 ];
 
+interface Skill {
+  name: string;
+  icon: React.ComponentType<any>;
+  proficiency: number;
+  level: string;
+  highlight?: boolean;
+  note?: string;
+}
+
+interface SkillCategory {
+  title: string;
+  filter: string;
+  icon: React.ComponentType<any>;
+  gradient: string;
+  color: string;
+  description: string;
+  proficiency: number;
+  level: string;
+  highlight?: boolean;
+  skills: Skill[];
+}
+
 // ========== SKILL DATA (FULL STACK + DSA FOCUSED) ==========
-const skillCategories = [
+const skillCategories: SkillCategory[] = [
   {
     title: "Frontend Engineering",
     filter: "Frontend",
