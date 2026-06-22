@@ -1,0 +1,69 @@
+---
+title: "Kubernetes CI/CD: Optimizing GitHub Actions and Container Security Scanning"
+description: "A comprehensive guide on building secure Docker containers, scanning for image vulnerabilities, and deploying automatically to Kubernetes clusters using GitHub Actions."
+date: "2026-06-18"
+category: "DevOps"
+tags: ["DevOps", "Kubernetes", "Docker", "GitHub Actions", "Security"]
+faq:
+  - question: "What is a multi-stage Docker build?"
+    answer: "A multi-stage Docker build uses multiple FROM statements in a single Dockerfile, allowing you to compile resources in an builder stage and copy only the final assets to the production layer to keep images small and secure."
+  - question: "Why is image vulnerability scanning important?"
+    answer: "Scanning images with tools like Trivy or Snyk identifies outdated OS libraries and application dependencies containing CVE vulnerabilities before they are deployed to staging or production."
+  - question: "How do you automate Kubernetes deployments in CI/CD?"
+    answer: "By using kubectl or Helm inside GitHub Actions pipelines with access tokens/IAM roles that authorize updating deployment manifests in target clusters."
+---
+
+Modern DevOps workflows require rapid compilation and deployment cycles without compromising application security. Integrating automated static scanning and vulnerability checkers directly into GitHub Actions ensures that only verified, secure code enters production.
+
+## 1. Multi-Stage Docker Builds
+
+By segregating compile environments from target deployment layers, we minimize the attack surface of containerized applications.
+
+```dockerfile
+# Build Stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production Stage
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+## 2. GitHub Actions Deployment Pipeline
+
+Using GitHub Actions, we orchestrate:
+1. Static analysis checks (`eslint`).
+2. Vulnerability image check (`Trivy`).
+3. Build & push to Registry (Docker Hub or AWS ECR).
+4. Apply Kubernetes deployment rollout:
+
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker Image
+        run: docker build -t ajitdev01/nextjs-portfolio:latest .
+      - name: Run Trivy Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ajitdev01/nextjs-portfolio:latest'
+          exit-code: '1'
+          severity: 'CRITICAL'
+      - name: Deploy to K8s
+        run: |
+          kubectl apply -f k8s/deployment.yml
+          kubectl rollout status deployment/nextjs-portfolio
+```

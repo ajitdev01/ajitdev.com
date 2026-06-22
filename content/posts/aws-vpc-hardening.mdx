@@ -1,0 +1,69 @@
+---
+title: "AWS VPC Security Hardening: Network Isolation & IAM Best Practices"
+description: "A production-grade playbook for isolating AWS cloud resources, designing subnets, configuring NACLs/Security Groups, and enforcing least privilege IAM controls."
+date: "2026-06-20"
+category: "AWS"
+tags: ["AWS", "VPC", "Cloud Security", "DevOps", "Terraform"]
+faq:
+  - question: "What is the difference between a Security Group and a Network ACL?"
+    answer: "Security Groups are stateful firewalls operating at the instance/resource level, whereas Network ACLs are stateless firewalls operating at the subnet level."
+  - question: "Why is a public subnet called public in AWS?"
+    answer: "A subnet is considered public if its route table includes an active route to an Internet Gateway (IGW)."
+  - question: "How does VPC Peering work?"
+    answer: "VPC Peering creates a private network connection between two VPCs, routing traffic securely using private IP addresses."
+---
+
+AWS Virtual Private Cloud (VPC) represents the foundation of your network security boundary in the cloud. Unsecured or default configurations leave database ports exposed and allow unrestricted ingress paths. In this engineering guide, we walk through the steps required to secure your cloud perimeter.
+
+## 1. Multi-Tier Subnet Architecture
+
+An enterprise-ready VPC should segregate workloads into three distinct tiers:
+
+1. **Public Subnet Tier**: Holds internet-facing resources (ALBs, NAT Gateways).
+2. **Private App Subnet Tier**: Holds application services (Next.js backends, container runtimes).
+3. **Isolated Database Subnet Tier**: Completely cut off from the internet, containing databases (MongoDB, PostgreSQL) and cash nodes.
+
+```
+                  ┌───────────────────────┐
+                  │   Internet Gateway    │
+                  └───────────┬───────────┘
+                              │
+            ┌─────────────────▼─────────────────┐
+            │   Public Subnets (ALB, NAT GW)    │
+            └─────────────────┬─────────────────┘
+                              │ NAT Routed
+            ┌─────────────────▼─────────────────┐
+            │   Private App Subnets (Express)   │
+            └─────────────────┬─────────────────┘
+                              │ Internal Only
+            ┌─────────────────▼─────────────────┐
+            │  Isolated DB Subnets (MongoDB)   │
+            └───────────────────────────────────┘
+```
+
+## 2. Stateless vs Stateful Rules
+
+We configure:
+* **NACLs** on subnet borders to block known bad IPs or restrict CIDR blocks.
+* **Security Groups** to enforce tight microsegmentation between specific resource groups.
+
+## 3. Terraform Code Snippet
+
+Here is how we define the private VPC setup with Terraform:
+
+```hcl
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.0.0"
+
+  name = "ajitdev-prod-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["us-east-1a", "us-east-1b"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+}
+```
