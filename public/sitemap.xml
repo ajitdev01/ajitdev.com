@@ -2,12 +2,12 @@
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
   xsi:schemaLocation="
     http://www.sitemaps.org/schemas/sitemap/0.9
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
-    http://www.google.com/schemas/sitemap-image/1.1
-    http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+    http://www.w3.org/1999/xhtml
+    https://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd">
 
   <!-- ====================================================== -->
   <!-- HOMEPAGE — Primary landing page for Full Stack Engineer -->
@@ -15,14 +15,13 @@
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://ajitdev.com/"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+      href="https://ajitdev.com/"/>
   </url>
 
   <!-- ====================================================== -->
@@ -31,31 +30,42 @@
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/projects</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- ====================================================== -->
+  <!-- SKILLS PAGE — Technical stack (MERN, Next.js, TS)     -->
+  <!-- Priority: 0.85 | Change: Monthly (skills update)      -->
+  <!-- ====================================================== -->
+  <url>
+    <loc>https://ajitdev.com/skills</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ====================================================== -->
   <!-- ABOUT PAGE — Full Stack Engineer background & journey -->
-  <!-- Priority: 0.8 | Change: Yearly (static content)       -->
+  <!-- Priority: 0.8 | Change: Monthly (evergreen)           -->
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/about</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- ====================================================== -->
-  <!-- SKILLS PAGE — Technical stack (MERN, Next.js, TS)     -->
-  <!-- Priority: 0.7 | Change: Monthly (skills update)       -->
+  <!-- EDUCATION PAGE — Cloud & Security academic timeline   -->
+  <!-- Priority: 0.75 | Change: Monthly (progress updates)   -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/skills</loc>
-    <lastmod>2026-04-30</lastmod>
+    <loc>https://ajitdev.com/education</loc>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
 
   <!-- ====================================================== -->
@@ -64,8 +74,8 @@
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/contact</loc>
-    <lastmod>2026-04-30</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
@@ -75,18 +85,29 @@
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/resume.pdf</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- ====================================================== -->
-  <!-- PRIVACY POLICY — Legal compliance & trust signal      -->
+  <!-- PRIVACY POLICY — Legal compliance & GDPR trust signal -->
   <!-- Priority: 0.3 | Change: Yearly (rare changes)         -->
   <!-- ====================================================== -->
   <url>
     <loc>https://ajitdev.com/privacy</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ====================================================== -->
+  <!-- TERMS OF SERVICE — Usage terms & consulting agreements -->
+  <!-- Priority: 0.3 | Change: Yearly (rare changes)         -->
+  <!-- ====================================================== -->
+  <url>
+    <loc>https://ajitdev.com/terms</loc>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

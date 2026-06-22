@@ -288,12 +288,12 @@ const Education = () => {
               <FiBook className="text-4xl text-blue-600" />
             </motion.div>
 
-            <h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 tracking-tight">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 tracking-tight">
               Education &{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 Learning Journey
               </span>
-            </h1>
+            </motion.h1>
 
             <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-4">
               BCA — Cloud & Security Specialization
