@@ -1,23 +1,6 @@
-import { Helmet } from "react-helmet-async";
+'use client';
+
 import { motion } from "framer-motion";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
-
-/* 
-███████ SUPER ELITE SEO VERSION ███████
-
-✔ Multi-Entity JSON-LD (Person + WebPage + Organization)
-✔ Breadcrumb structured data
-✔ FAQ schema for rich snippets
-✔ Natural keyword density (DevOps, Cloud Security, India)
-✔ Semantic HTML5 with accessibility
-✔ Internal linking strategy
-✔ Mobile-optimized typography
-✔ Trust badges & visual hierarchy
-✔ Last updated with ISO date
-✔ Print-friendly CSS
-
-*/
 
 // ========== ADVANCED STRUCTURED DATA ==========
 const structuredData = {
@@ -151,68 +134,11 @@ const Privacy = () => {
 
   return (
     <>
-      {/* ███████ ADVANCED HEAD META TAGS ███████ */}
-      <Helmet>
-        {/* Primary Meta Tags */}
-        <title>Privacy Policy | Ajit Dev — DevOps Engineer Portfolio India</title>
-        <meta 
-          name="title" 
-          content="Privacy Policy | Ajit Dev — DevOps & Cloud Security Portfolio India" 
-        />
-        <meta 
-          name="description" 
-          content="🔒 Complete privacy policy for Ajit Dev's DevOps engineer portfolio. Learn how your data is protected when contacting a cloud security developer from Katihar, Bihar, India. GDPR-ready transparency." 
-        />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://ajitdev.com/privacy" />
-        
-        {/* Robots Control */}
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ajitdev.com/privacy" />
-        <meta property="og:title" content="Privacy Policy | Ajit Dev — DevOps Engineer Portfolio" />
-        <meta property="og:description" content="Transparent privacy practices for India-based DevOps engineer portfolio. Your data security matters." />
-        <meta property="og:image" content="https://ajitdev.com/og-privacy.jpg" />
-        <meta property="og:image:alt" content="Ajit Dev Privacy Policy - DevOps Engineer India" />
-        <meta property="og:site_name" content="Ajit Dev Portfolio" />
-        <meta property="og:locale" content="en_IN" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://ajitdev.com/privacy" />
-        <meta name="twitter:title" content="Privacy Policy | Ajit Dev — DevOps Engineer India" />
-        <meta name="twitter:description" content="Privacy-first approach for cloud security portfolio. No data selling. Full transparency." />
-        <meta name="twitter:image" content="https://ajitdev.com/twitter-privacy.jpg" />
-        <meta name="twitter:creator" content="@ajitdev" />
-        
-        {/* Geo Tags (India specific) */}
-        <meta name="geo.region" content="IN-BR" />
-        <meta name="geo.placename" content="Katihar, Bihar" />
-        <meta name="geo.position" content="25.5392;87.5714" />
-        <meta name="ICBM" content="25.5392, 87.5714" />
-        
-        {/* Additional SEO Meta */}
-        <meta name="author" content="Ajit Kumar" />
-        <meta name="copyright" content={`${new Date().getFullYear()} Ajit Dev`} />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="rating" content="General" />
-        
-        {/* JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        
-        {/* Alternate Languages */}
-        <link rel="alternate" href="https://ajitdev.com/privacy" hreflang="en-in" />
-        <link rel="alternate" href="https://ajitdev.com/privacy" hreflang="en-us" />
-        <link rel="alternate" href="https://ajitdev.com/privacy" hreflang="x-default" />
-      </Helmet>
-
-      <Header />
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       {/* ███████ MAIN CONTENT - SEMANTIC HTML5 ███████ */}
       <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-24 pb-20">
@@ -272,7 +198,7 @@ const Privacy = () => {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="prose prose-lg max-w-none"
+            className="prose prose-lg max-w-none text-gray-700"
           >
             {/* Section 1: Introduction */}
             <motion.section variants={fadeInUp} className="mb-12">
@@ -381,12 +307,12 @@ const Privacy = () => {
                       <td className="p-3">Name, email, message</td>
                     </tr>
                     <tr className="border-b bg-gray-50">
-                      <td className="p-3 font-medium">Vercel/GitHub Pages</td>
+                      <td className="p-3 font-medium text-gray-900 font-mono">Vercel/GitHub Pages</td>
                       <td className="p-3">Hosting</td>
                       <td className="p-3">Server logs (temporary)</td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-medium">GitHub/LinkedIn</td>
+                      <td className="p-3 font-medium text-gray-900 font-mono">GitHub/LinkedIn</td>
                       <td className="p-3">External profile links</td>
                       <td className="p-3">Referral information</td>
                     </tr>
@@ -521,7 +447,7 @@ const Privacy = () => {
                 <li>Improved security practices</li>
               </ul>
               <p className="mt-4">
-                Check the "Last Updated" date for the latest version.
+                Check the &quot;Last Updated&quot; date for the latest version.
               </p>
             </motion.section>
           </motion.div>
@@ -557,8 +483,6 @@ const Privacy = () => {
 
         </article>
       </main>
-
-      <Footer />
     </>
   );
 };

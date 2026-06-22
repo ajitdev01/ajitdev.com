@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ============================================
@@ -11,7 +14,6 @@ const FiSettings = () => <svg className="w-5 h-5" fill="none" stroke="currentCol
 const FiFolder = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>;
 const FiMail = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 const FiCode = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>;
-const FiSend = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>;
 const FiMenu = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>;
 const FiX = () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>;
 const FiChevronRight = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>;
@@ -57,10 +59,10 @@ const useScrollDetection = (threshold = 10) => {
   return scrolled;
 };
 
-const useClickOutside = (ref, callback) => {
+const useClickOutside = (ref: React.RefObject<HTMLElement | null>, callback: () => void) => {
   useEffect(() => {
-    const handleClick = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) callback();
+    const handleClick = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) callback();
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
@@ -70,38 +72,46 @@ const useClickOutside = (ref, callback) => {
 // ============================================
 // 4. MEMOIZED COMPONENTS
 // ============================================
-const DesktopNavItem = memo(({ item }) => (
-  <NavLink
-    to={item.path}
-    aria-label={item.ariaLabel}
-    title={item.title}
-    className={({ isActive }) => `
-      relative inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md
-      transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-      ${isActive 
-        ? "text-blue-600 bg-blue-50" 
-        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-      }
-    `}
-  >
-    <span className="w-5 h-5" aria-hidden="true"><item.icon /></span>
-    <span>{item.name}</span>
-    {({ isActive }) => isActive && (
-      <motion.span
-        layoutId="activeNavIndicator"
-        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
-      />
-    )}
-  </NavLink>
-));
+const DesktopNavItem = memo(({ item }: { item: typeof NAV_ITEMS[number] }) => {
+  const pathname = usePathname();
+  const isActive = pathname === item.path;
+  const Icon = item.icon;
+
+  return (
+    <Link
+      href={item.path}
+      aria-label={item.ariaLabel}
+      title={item.title}
+      className={`
+        relative inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md
+        transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        ${isActive
+          ? "text-blue-600 bg-blue-50"
+          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+        }
+      `}
+    >
+      <span className="w-5 h-5" aria-hidden="true"><Icon /></span>
+      <span>{item.name}</span>
+      {isActive && (
+        <motion.span
+          layoutId="activeNavIndicator"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+        />
+      )}
+    </Link>
+  );
+});
 DesktopNavItem.displayName = 'DesktopNavItem';
 
-const MobileNavItem = memo(({ item, onClick }) => {
-  const location = useLocation();
-  const isActive = location.pathname === item.path;
+const MobileNavItem = memo(({ item, onClick }: { item: typeof NAV_ITEMS[number]; onClick: () => void }) => {
+  const pathname = usePathname();
+  const isActive = pathname === item.path;
+  const Icon = item.icon;
+
   return (
-    <NavLink
-      to={item.path}
+    <Link
+      href={item.path}
       onClick={onClick}
       aria-label={item.ariaLabel}
       title={item.title}
@@ -115,7 +125,7 @@ const MobileNavItem = memo(({ item, onClick }) => {
       `}
     >
       <span className="flex items-center gap-3">
-        <span className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`} aria-hidden="true"><item.icon /></span>
+        <span className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`} aria-hidden="true"><Icon /></span>
         <span>{item.name}</span>
       </span>
       <motion.span
@@ -125,26 +135,26 @@ const MobileNavItem = memo(({ item, onClick }) => {
       >
         <FiChevronRight />
       </motion.span>
-    </NavLink>
+    </Link>
   );
 });
 MobileNavItem.displayName = 'MobileNavItem';
 
 // ============================================
-// 5. MAIN HEADER COMPONENT (with full SEO)
+// 5. MAIN HEADER COMPONENT
 // ============================================
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const scrolled = useScrollDetection(10);
-  const menuRef = useRef(null);
-  const location = useLocation();
-  const menuButtonRef = useRef(null);
+  const menuRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Close menu on route change & escape key
-  useEffect(() => setIsMenuOpen(false), [location]);
+  useEffect(() => setIsMenuOpen(false), [pathname]);
   useClickOutside(menuRef, () => setIsMenuOpen(false));
 
-  const handleKeyDown = useCallback((e) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape" && isMenuOpen) {
       setIsMenuOpen(false);
       menuButtonRef.current?.focus();
@@ -163,13 +173,9 @@ const Header = () => {
     return () => { document.body.style.overflow = ""; };
   }, [isMenuOpen]);
 
-  // Generate full URL for schema (update with your actual domain)
-  const siteUrl = "https://ajitdev.com";
-  const currentUrl = `${siteUrl}${location.pathname}`;
-
   return (
     <>
-      {/* ========== 1. SKIP TO CONTENT LINK (Accessibility + SEO) ========== */}
+      {/* Skip to content link (Accessibility) */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-600 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-blue-500"
@@ -177,7 +183,7 @@ const Header = () => {
         Skip to main content
       </a>
 
-      {/* ========== 2. DESKTOP & MOBILE HEADER ========== */}
+      {/* Desktop & Mobile Header */}
       <header
         ref={menuRef}
         className={`
@@ -192,7 +198,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo + Brand */}
             <Link
-              to="/"
+              href="/"
               className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
               aria-label={`${BRAND_INFO.name} - ${BRAND_INFO.description}`}
             >
@@ -203,7 +209,7 @@ const Header = () => {
                 <span className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                   {BRAND_INFO.name}
                 </span>
-                <span className="text-xs text-gray-600 font-medium">
+                <span className="text-xs text-gray-600 font-medium hidden sm:block">
                   {BRAND_INFO.title}
                 </span>
               </div>
@@ -214,8 +220,6 @@ const Header = () => {
               {NAV_ITEMS.map((item) => (
                 <DesktopNavItem key={item.path} item={item} />
               ))}
-              {/* CTA Button */}
-             
             </nav>
 
             {/* Mobile Menu Button */}
@@ -250,10 +254,7 @@ const Header = () => {
                   {NAV_ITEMS.map((item) => (
                     <MobileNavItem key={item.path} item={item} onClick={() => setIsMenuOpen(false)} />
                   ))}
-                  {/* Mobile CTA */}
-                  <div className="pt-4 mt-4 border-t border-gray-200">
-                   
-                  </div>
+                  <div className="pt-4 mt-4 border-t border-gray-200" />
                 </div>
               </div>
             </motion.div>
@@ -264,81 +265,14 @@ const Header = () => {
       {/* Spacer for fixed header */}
       <div className="h-16" aria-hidden="true" />
 
-      {/* ========== 3. SEO: Hidden Navigation for Crawlers ========== */}
+      {/* Hidden Navigation for Crawlers */}
       <nav className="sr-only" aria-label="SEO navigation structure" itemScope itemType="https://schema.org/SiteNavigationElement">
         <ul>
           {NAV_ITEMS.map((item) => (
-            <li key={item.path} itemProp="name"><Link to={item.path} itemProp="url">{item.name}</Link></li>
+            <li key={item.path} itemProp="name"><Link href={item.path} itemProp="url">{item.name}</Link></li>
           ))}
         </ul>
       </nav>
-
-      {/* ========== 4. JSON-LD SCHEMA MARKUP (CRITICAL FOR SEO) ========== */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Person",
-              "@id": `${siteUrl}/#person`,
-              "name": "Ajit Kumar",
-              "url": siteUrl,
-              "sameAs": [
-                "https://github.com/ajitdev01",
-                "https://leetcode.com/ajitdev01",
-                "https://linkedin.com/in/ajitdev01",
-                "https://twitter.com/ajitdev01",
-                "https://instagram.com/ajitdev01",
-                "https://snapchat.com/add/ajitdev01"
-              ],
-              "jobTitle": "Full Stack Engineer",
-              "description": BRAND_INFO.description,
-              "image": `${siteUrl}/profile-image.jpg`,
-              "email": "contact@ajitdev.com",
-              "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "Tailwind CSS", "Cloud Deployment", "Full Stack Development"]
-            },
-            {
-              "@type": "WebSite",
-              "@id": `${siteUrl}/#website`,
-              "url": siteUrl,
-              "name": "Ajit Kumar - Full Stack Engineer Portfolio",
-              "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript. Hire for web development projects.",
-              "publisher": { "@id": `${siteUrl}/#person` },
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": `${siteUrl}/search?q={search_term_string}`,
-                "query-input": "required name=search_term_string"
-              }
-            },
-            {
-              "@type": "BreadcrumbList",
-              "@id": `${currentUrl}#breadcrumb`,
-              "itemListElement": NAV_ITEMS.map((item, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "name": item.name,
-                "item": `${siteUrl}${item.path}`
-              }))
-            }
-          ]
-        })}
-      </script>
-
-      {/* ========== 5. ADDITIONAL SEO META TAGS (Injected into <head> ideally, but here for completeness) ========== */}
-      {/* These would typically go in index.html or Helmet component. Adding as comments for reference. */}
-      
-        <title>Ajit Kumar | Full Stack Engineer – MERN, Next.js, TypeScript</title>
-        <meta name="description" content="Hire Ajit Kumar, a premium Full Stack Developer from India. Expert in MERN, Next.js, TypeScript, and cloud deployment. View portfolio and projects." />
-        <meta property="og:title" content="Ajit Kumar | Full Stack Engineer Portfolio" />
-        <meta property="og:description" content="Professional full stack developer specializing in modern web apps. Available for hire." />
-        <meta property="og:image" content="https://ajitdev.com/og-image.jpg" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ajit Kumar - Full Stack Developer" />
-        <meta name="twitter:description" content="MERN, Next.js, TypeScript expert. Check out my projects and hire me." />
-        <link rel="canonical" href="https://ajitdev.com" />
-        <meta name="keywords" content="Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio, JavaScript Developer India, Hire Full Stack Developer" />
-     
     </>
   );
 };

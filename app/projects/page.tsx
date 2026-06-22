@@ -1,8 +1,7 @@
+'use client';
+
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet-async";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 import {
   FiCode, FiGithub, FiExternalLink, FiStar, FiTrendingUp,
   FiFolder, FiSend, FiBook, FiDatabase, FiCloud, FiServer,
@@ -196,45 +195,6 @@ const highlights = [
   { title: "Production Mindset", description: "Real-world scalable apps", count: 8, icon: FiZap, gradient: "from-emerald-500/15 to-teal-500/15" }
 ];
 
-// ========== STRUCTURED DATA (SEO) ==========
-const projectsForSchema = projects.map(p => ({
-  "@type": "SoftwareSourceCode",
-  name: p.title,
-  description: p.description,
-  programmingLanguage: p.tech.join(", "),
-  codeRepository: p.github,
-  author: { "@type": "Person", name: "Ajit Kumar", url: "https://ajitdev.com" }
-}));
-
-const projectListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Full Stack Engineer Portfolio — Ajit Kumar",
-  description: "Production-grade MERN, LAMP, Next.js projects with 400+ DSA problems solved. Full Stack Developer portfolio from India.",
-  url: "https://ajitdev.com/projects",
-  numberOfItems: projects.length,
-  itemListElement: projects.map((p, idx) => ({
-    "@type": "ListItem",
-    position: idx + 1,
-    item: {
-      "@type": "SoftwareSourceCode",
-      name: p.title,
-      description: p.description,
-      programmingLanguage: p.tech.join(", "),
-      codeRepository: p.github
-    }
-  }))
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://ajitdev.com" },
-    { "@type": "ListItem", position: 2, name: "Projects", item: "https://ajitdev.com/projects" }
-  ]
-};
-
 // ========== ANIMATION VARIANTS ==========
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -287,181 +247,137 @@ const Projects = () => {
   );
 
   return (
-    <>
-      <Helmet>
-        <title>Full Stack Engineer Portfolio | MERN • Next.js • 400+ DSA | Ajit Kumar</title>
-        <meta
-          name="description"
-          content="Full Stack Engineer specializing in MERN, LAMP, Next.js. 400+ LeetCode problems solved. Production-grade projects: IRCTC clone, E-commerce platform, SEO-optimized apps. Based in India, available worldwide."
-        />
-        <link rel="canonical" href="https://ajitdev.com/projects" />
-        <meta name="author" content="Ajit Kumar" />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-        <meta name="geo.region" content="IN-BR" />
-        <meta name="geo.placename" content="Katihar, Bihar, India" />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isLoaded ? 1 : 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white overflow-hidden"
+    >
+      {/* Background decoration */}
+      <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-3/4 left-1/2 w-96 h-96 bg-emerald-500/4 rounded-full blur-3xl" />
+      </div>
 
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Full Stack Engineer Portfolio — Ajit Kumar" />
-        <meta property="og:description" content="MERN, LAMP, Next.js projects with 400+ DSA problems solved. Production-ready full stack developer from India." />
-        <meta property="og:url" content="https://ajitdev.com/projects" />
-        <meta property="og:site_name" content="Ajit Kumar Portfolio" />
-        <meta property="og:locale" content="en_IN" />
+      <main className="flex-grow pt-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Full Stack Engineer — MERN • Next.js • DSA 400+" />
-        <meta name="twitter:description" content="Production-grade full stack applications and DSA portfolio" />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">{JSON.stringify(projectListSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-      </Helmet>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white overflow-hidden"
-      >
-        {/* Background decoration */}
-        <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-          <div className="absolute top-3/4 left-1/2 w-96 h-96 bg-emerald-500/4 rounded-full blur-3xl" />
-        </div>
-
-        <Header />
-
-        <main className="flex-grow pt-16 relative z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-
-            {/* === HIDDEN SEO CONTENT (Crawlable, invisible) === */}
-            <section className="sr-only" aria-label="Full Stack Engineer Portfolio Overview">
-              <h1>Full Stack Engineer Portfolio — Ajit Kumar</h1>
-              <p>
-                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in
-                MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack (Linux, Apache, MySQL, PHP),
-                and Next.js for SEO-optimized applications. With 400+ LeetCode problems solved and
-                production-grade projects including IRCTC Railway System Clone, BiKart E-commerce Platform,
-                and a 45+ lecture MERN learning repository, Ajit demonstrates real-world engineering capability.
-                Available for remote Full Stack Engineer roles worldwide.
-              </p>
-            </section>
-
-            {/* === PAGE HEADER === */}
-            <motion.section
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="text-center mb-16"
-            >
-              <motion.div variants={itemVariants} className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40">
-                <FiFolder className="text-4xl text-blue-600" />
-              </motion.div>
-
-              <motion.h1 variants={itemVariants} className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
-                Full Stack Engineer
-              </motion.h1>
-
-              <motion.p variants={itemVariants} className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-                MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">400+ DSA problems solved</span>
-              </motion.p>
-
-              <motion.div variants={itemVariants} className="flex justify-center gap-3 mt-6 flex-wrap">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm">
-                  <FiMapPin className="w-4 h-4 text-blue-500" />
-                  Katihar, Bihar, India
-                </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm">
-                  <FiBriefcase className="w-4 h-4 text-emerald-500" />
-                  Full Stack Engineer • Problem Solver
-                </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
-                  <FiBarChart2 className="w-4 h-4" />
-                  LeetCode 400+ • 150 Day Streak
-                </span>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto mt-8 rounded-full" />
-            </motion.section>
-
-            {/* === MOBILE FILTER BUTTON === */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50"
-              aria-label={isMobileMenuOpen ? "Close filter" : "Open project filter"}
-            >
-              {isMobileMenuOpen ? <FiChevronDown className="w-5 h-5" /> : <FiChevronUp className="w-5 h-5" />}
-            </button>
-
-            {/* === MOBILE FILTER MENU === */}
-            <AnimatePresence>
-              {isMobileMenuOpen && (
-                <motion.div
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "100%" }}
-                  transition={{ type: "spring", damping: 28, stiffness: 300 }}
-                  className="lg:hidden fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-40 rounded-t-2xl"
-                  style={{ maxHeight: "60vh", overflowY: "auto" }}
-                >
-                  <div className="p-6 space-y-5">
-                    <h2 className="text-xl font-bold text-gray-900">Filter Projects</h2>
-                    <div className="flex flex-wrap gap-3">
-                      {filtersWithCounts.map(f => (
-                        <button
-                          key={f.id}
-                          onClick={() => { setActiveFilter(f.id); setIsMobileMenuOpen(false); }}
-                          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeFilter === f.id
-                            ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-                            : "bg-gray-100 text-gray-700"
-                            }`}
-                        >
-                          {f.label} ({f.count})
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* === DESKTOP FILTER BAR === */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="hidden lg:flex flex-wrap justify-center gap-3 mb-16 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/60 shadow-md"
-            >
-              {filtersWithCounts.map(f => (
-                <motion.button
-                  key={f.id}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setActiveFilter(f.id)}
-                  className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeFilter === f.id
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                >
-                  {f.label} <span className="text-xs opacity-70">({f.count})</span>
-                </motion.button>
-              ))}
+          {/* === PAGE HEADER === */}
+          <motion.section
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center mb-16"
+          >
+            <motion.div variants={itemVariants} className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40">
+              <FiFolder className="text-4xl text-blue-600" />
             </motion.div>
 
-            {/* === PROJECTS GRID === */}
-            <motion.div
-              layout
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 mb-16"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredProjects.map(project => (
+            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
+              Projects Portfolio
+            </h1>
+
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
+              MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">400+ DSA problems solved</span>
+            </p>
+
+            <div className="flex justify-center gap-3 mt-6 flex-wrap">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm">
+                <FiMapPin className="w-4 h-4 text-blue-500" />
+                Katihar, Bihar, India
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm">
+                <FiBriefcase className="w-4 h-4 text-emerald-500" />
+                Full Stack Engineer • Problem Solver
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
+                <FiBarChart2 className="w-4 h-4" />
+                LeetCode 400+ • 150 Day Streak
+              </span>
+            </div>
+
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto mt-8 rounded-full" />
+          </motion.section>
+
+          {/* === MOBILE FILTER BUTTON === */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50"
+            aria-label={isMobileMenuOpen ? "Close filter" : "Open project filter"}
+          >
+            {isMobileMenuOpen ? <FiChevronDown className="w-5 h-5" /> : <FiChevronUp className="w-5 h-5" />}
+          </button>
+
+          {/* === MOBILE FILTER MENU === */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ type: "spring", damping: 28, stiffness: 300 }}
+                className="lg:hidden fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-40 rounded-t-2xl"
+                style={{ maxHeight: "60vh", overflowY: "auto" }}
+              >
+                <div className="p-6 space-y-5">
+                  <h2 className="text-xl font-bold text-gray-900">Filter Projects</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {filtersWithCounts.map(f => (
+                      <button
+                        key={f.id}
+                        onClick={() => { setActiveFilter(f.id); setIsMobileMenuOpen(false); }}
+                        className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeFilter === f.id
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
+                          : "bg-gray-100 text-gray-700"
+                          }`}
+                      >
+                        {f.label} ({f.count})
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* === DESKTOP FILTER BAR === */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="hidden lg:flex flex-wrap justify-center gap-3 mb-16 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/60 shadow-md"
+          >
+            {filtersWithCounts.map(f => (
+              <motion.button
+                key={f.id}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActiveFilter(f.id)}
+                className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeFilter === f.id
+                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+              >
+                {f.label} <span className="text-xs opacity-70">({f.count})</span>
+              </motion.button>
+            ))}
+          </motion.div>
+
+          {/* === PROJECTS GRID === */}
+          <motion.div
+            layout
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 mb-16"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map(project => {
+                const ProjectIcon = project.icon;
+                return (
                   <motion.article
                     key={project.id}
                     layout
@@ -477,7 +393,7 @@ const Projects = () => {
                       <div className={`relative h-36 bg-gradient-to-r ${project.gradient} overflow-hidden flex-shrink-0`}>
                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <project.icon className="w-12 h-12 text-white/90" />
+                          <ProjectIcon className="w-12 h-12 text-white/90" />
                         </div>
                         <div className="absolute top-3 left-3 flex flex-col gap-1">
                           <span className="px-2.5 py-1 rounded-full text-xs font-semibold text-white bg-black/40 backdrop-blur-sm">
@@ -565,52 +481,55 @@ const Projects = () => {
                       </div>
                     </div>
                   </motion.article>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
 
-            {/* === STATS SECTION === */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="mb-20"
-            >
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-10 shadow-2xl">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10" />
-                <div className="relative">
-                  <div className="text-center mb-8">
-                    <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">Engineering Credentials</h2>
-                    <p className="text-gray-300">Proof of consistency, discipline, and real-world impact</p>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {stats.map((stat, idx) => (
-                      <motion.div key={idx} variants={itemVariants} className="text-center">
-                        <div className={`text-3xl lg:text-4xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-                        <div className="text-gray-300 text-sm">{stat.label}</div>
-                      </motion.div>
-                    ))}
-                  </div>
+          {/* === STATS SECTION === */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-10 shadow-2xl">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10" />
+              <div className="relative">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">Engineering Credentials</h2>
+                  <p className="text-gray-300">Proof of consistency, discipline, and real-world impact</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {stats.map((stat, idx) => (
+                    <motion.div key={idx} variants={itemVariants} className="text-center">
+                      <div className={`text-3xl lg:text-4xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
+                      <div className="text-gray-300 text-sm">{stat.label}</div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
-            </motion.section>
+            </div>
+          </motion.section>
 
-            {/* === PORTFOLIO HIGHLIGHTS === */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="mb-20"
-            >
-              <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-10 border border-blue-100 shadow-lg">
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-3">Portfolio Highlights</h2>
-                  <p className="text-gray-500 max-w-xl mx-auto">Specialized expertise across multiple domains</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                  {highlights.map((h, idx) => (
+          {/* === PORTFOLIO HIGHLIGHTS === */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-10 border border-blue-100 shadow-lg">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">Portfolio Highlights</h2>
+                <p className="text-gray-500 max-w-xl mx-auto">Specialized expertise across multiple domains</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {highlights.map((h, idx) => {
+                  const HighlightIcon = h.icon;
+                  return (
                     <motion.div
                       key={idx}
                       variants={itemVariants}
@@ -619,7 +538,7 @@ const Projects = () => {
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 bg-white/80 rounded-xl flex items-center justify-center">
-                          <h.icon className="w-5 h-5 text-blue-600" />
+                          <HighlightIcon className="w-5 h-5 text-blue-600" />
                         </div>
                         <div>
                           <p className="font-bold text-gray-900 text-sm">{h.title}</p>
@@ -631,110 +550,108 @@ const Projects = () => {
                         <span className="text-gray-500 text-sm ml-1">projects</span>
                       </div>
                     </motion.div>
-                  ))}
+                  );
+                })}
+              </div>
+            </div>
+          </motion.section>
+
+          {/* === DSA + CONSISTENCY SECTION === */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="mb-16"
+          >
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 p-10 text-center border border-amber-200">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.15),transparent_40%)]" />
+
+              <div className="relative z-10">
+                <div className="inline-flex p-4 bg-amber-100 rounded-2xl mb-5">
+                  <FiBarChart2 className="text-3xl text-amber-600" />
+                </div>
+
+                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                  400+ Problems Solved
+                </h3>
+
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                  Consistently improving problem-solving skills through daily DSA practice,
+                  maintaining a <span className="font-semibold text-amber-600">150+ day coding streak</span>,
+                  and solving challenges across multiple domains on LeetCode.
+                </p>
+
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Arrays & Strings
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Hash Tables
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Binary Search
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Two Pointers
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Dynamic Programming
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Backtracking
+                  </span>
+
+                  <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
+                    Problem Solving
+                  </span>
+                </div>
+
+                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                  <div className="bg-white/70 rounded-2xl p-4">
+                    <h4 className="text-2xl font-bold text-amber-600">407+</h4>
+                    <p className="text-sm text-gray-600">Problems Solved</p>
+                  </div>
+
+                  <div className="bg-white/70 rounded-2xl p-4">
+                    <h4 className="text-2xl font-bold text-amber-600">155</h4>
+                    <p className="text-sm text-gray-600">Day Streak</p>
+                  </div>
+
+                  <div className="bg-white/70 rounded-2xl p-4">
+                    <h4 className="text-2xl font-bold text-amber-600">62</h4>
+                    <p className="text-sm text-gray-600">Hard Problems</p>
+                  </div>
+
+                  <div className="bg-white/70 rounded-2xl p-4">
+                    <h4 className="text-2xl font-bold text-amber-600">1480</h4>
+                    <p className="text-sm text-gray-600">Contest Rating</p>
+                  </div>
                 </div>
               </div>
-            </motion.section>
+            </div>
+          </motion.section>
 
-            {/* === DSA + CONSISTENCY SECTION === */}
-            <motion.section
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="mb-16"
-            >
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 p-10 text-center border border-amber-200">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.15),transparent_40%)]" />
+          {/* === HIDDEN INTERNAL LINKS (SEO) === */}
+          <nav className="sr-only" aria-label="Site navigation">
+            <ul>
+              <li><a href="/">Home — Full Stack Engineer</a></li>
+              <li><a href="/skills">Technical Skills — MERN • LAMP • Next.js • DSA</a></li>
+              <li><a href="/projects">Full Stack Portfolio — 8 Production Projects</a></li>
+              <li><a href="/contact">Hire Full Stack Engineer — Contact</a></li>
+              <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
+              <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
+            </ul>
+          </nav>
 
-                <div className="relative z-10">
-                  <div className="inline-flex p-4 bg-amber-100 rounded-2xl mb-5">
-                    <FiBarChart2 className="text-3xl text-amber-600" />
-                  </div>
-
-                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    400+ Problems Solved
-                  </h3>
-
-                  <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Consistently improving problem-solving skills through daily DSA practice,
-                    maintaining a <span className="font-semibold text-amber-600">150+ day coding streak</span>,
-                    and solving challenges across multiple domains on LeetCode.
-                  </p>
-
-                  <div className="mt-8 flex flex-wrap justify-center gap-3">
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Arrays & Strings
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Hash Tables
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Binary Search
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Two Pointers
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Dynamic Programming
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Backtracking
-                    </span>
-
-                    <span className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      Problem Solving
-                    </span>
-                  </div>
-
-                  <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                    <div className="bg-white/70 rounded-2xl p-4">
-                      <h4 className="text-2xl font-bold text-amber-600">407+</h4>
-                      <p className="text-sm text-gray-600">Problems Solved</p>
-                    </div>
-
-                    <div className="bg-white/70 rounded-2xl p-4">
-                      <h4 className="text-2xl font-bold text-amber-600">155</h4>
-                      <p className="text-sm text-gray-600">Day Streak</p>
-                    </div>
-
-                    <div className="bg-white/70 rounded-2xl p-4">
-                      <h4 className="text-2xl font-bold text-amber-600">62</h4>
-                      <p className="text-sm text-gray-600">Hard Problems</p>
-                    </div>
-
-                    <div className="bg-white/70 rounded-2xl p-4">
-                      <h4 className="text-2xl font-bold text-amber-600">1480</h4>
-                      <p className="text-sm text-gray-600">Contest Rating</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* === HIDDEN INTERNAL LINKS (SEO) === */}
-            <nav className="sr-only" aria-label="Site navigation">
-              <ul>
-                <li><a href="/">Home — Full Stack Engineer</a></li>
-                <li><a href="/skills">Technical Skills — MERN • LAMP • Next.js • DSA</a></li>
-                <li><a href="/projects">Full Stack Portfolio — 8 Production Projects</a></li>
-                <li><a href="/contact">Hire Full Stack Engineer — Contact</a></li>
-                <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
-              </ul>
-            </nav>
-
-          </div>
-        </main>
-
-        <Footer />
-      </motion.div>
-    </>
+        </div>
+      </main>
+    </motion.div>
   );
 };
 

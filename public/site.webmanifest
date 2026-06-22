@@ -1,0 +1,21 @@
+{
+  "name": "Ajit Dev Portfolio",
+  "short_name": "Ajit Dev",
+  "description": "DevOps, DevSecOps & Cloud Security developer portfolio by Ajit Dev.",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#080c14",
+  "background_color": "#080c14",
+  "display": "standalone",
+  "start_url": "/"
+}

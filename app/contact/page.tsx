@@ -1,83 +1,16 @@
+'use client';
+
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import emailjs from "emailjs-com";
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   FiMail, FiMapPin, FiBookOpen, FiBriefcase, FiUser, FiMessageSquare,
-  FiSend, FiGithub, FiLinkedin, FiFileText, FiCheck, FiClock, FiInfo,
-  FiTag, FiAlertCircle, FiTwitter, FiGlobe, FiArrowRight, FiStar,
-  FiTrendingUp, FiCode, FiServer, FiCloud, FiShield, FiZap,
-  FiAward, FiTarget, FiCalendar, FiChevronRight, FiFolder
+  FiSend, FiGithub, FiLinkedin, FiFileText, FiClock, FiInfo,
+  FiTag, FiAlertCircle, FiGlobe, FiArrowRight,
+  FiTrendingUp, FiCode, FiZap, FiFolder
 } from "react-icons/fi";
 
-// ========== ENHANCED STRUCTURED DATA ==========
-const contactPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  name: "Contact Ajit Kumar — Full Stack Engineer",
-  url: "https://ajitdev.com/contact",
-  description: "Contact page for Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and LAMP stacks. 300+ LeetCode problems solved. Available for remote Full Stack roles worldwide.",
-  about: {
-    "@type": "Person",
-    name: "Ajit Kumar",
-    jobTitle: "Full Stack Engineer",
-    email: "ajitk23192@gmail.com",
-    url: "https://ajitdev.com",
-    alumniOf: {
-      "@type": "CollegeOrUniversity",
-      name: "Amity University Online"
-    },
-    knowsAbout: ["MERN Stack", "Next.js", "React", "Node.js", "MongoDB", "TypeScript", "DSA", "LeetCode", "AWS", "Docker"],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Katihar",
-      addressRegion: "Bihar",
-      addressCountry: "IN"
-    },
-    sameAs: [
-      "https://github.com/ajitdev01",
-      "https://www.linkedin.com/in/ajitdev01",
-      "https://leetcode.com/ajitdev01"
-    ]
-  }
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "What technologies does Ajit Kumar specialize in?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), LAMP Stack, Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 300+ LeetCode problems solved."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "Is Ajit Kumar available for Full Stack Engineer roles?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Ajit is actively seeking Full Stack Engineer roles worldwide, available for remote positions immediately."
-      }
-    }
-  ]
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://ajitdev.com" },
-    { "@type": "ListItem", position: 2, name: "Contact", item: "https://ajitdev.com/contact" }
-  ]
-};
-
-// ========== ENHANCED CONTACT DATA ==========
+// ========== CONTACT DATA ==========
 const contactInfo = [
   {
     icon: FiMail,
@@ -91,6 +24,7 @@ const contactInfo = [
     icon: FiMapPin,
     title: "Location",
     content: "Katihar, Bihar, India",
+    link: null,
     gradient: "from-emerald-500 to-teal-500",
     description: "Available worldwide • Remote"
   },
@@ -98,6 +32,7 @@ const contactInfo = [
     icon: FiBookOpen,
     title: "Education",
     content: "BCA — Cloud & Security",
+    link: null,
     gradient: "from-purple-500 to-pink-500",
     description: "Amity University Online • CGPA 7.95+"
   },
@@ -105,6 +40,7 @@ const contactInfo = [
     icon: FiBriefcase,
     title: "Status",
     content: "Open to Opportunities",
+    link: null,
     gradient: "from-amber-500 to-orange-500",
     description: "Full Stack Engineer • Remote"
   }
@@ -115,7 +51,7 @@ const socialLinks = [
   { icon: FiLinkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", gradient: "from-blue-600 to-indigo-600", external: true },
   { icon: FiCode, label: "LeetCode", url: "https://leetcode.com/ajitdev01", gradient: "from-amber-500 to-orange-500", external: true },
   { icon: FiMail, label: "Email", url: "mailto:ajitk23192@gmail.com", gradient: "from-rose-500 to-pink-500", external: false },
-  { icon: FiFileText, label: "Resume", url: "/resume.pdf", gradient: "from-emerald-500 to-teal-500", external: false },
+  { icon: FiFileText, label: "Resume", url: "/resume.pdf", gradient: "from-emerald-500 to-teal-500", external: true },
   { icon: FiGlobe, label: "Portfolio", url: "/", gradient: "from-purple-500 to-violet-500", external: false }
 ];
 
@@ -145,51 +81,40 @@ const itemVariants = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const cardVariants = {
-  hidden: { scale: 0.95, opacity: 0 },
-  visible: { scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  hover: { scale: 1.02, y: -6, transition: { duration: 0.2 } }
-};
-
-const modalVariants = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, scale: 0.92, transition: { duration: 0.2 } }
-};
-
 // ========== MAIN COMPONENT ==========
-const Contact = () => {
+export default function ContactPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [focusedField, setFocusedField] = useState(null);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "", email: "", subject: "", message: ""
   });
-  const { scrollY } = useScroll();
-  const headerOpacity = useTransform(scrollY, [0, 200], [1, 0.95]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubjectClick = (subject) => {
+  const handleSubjectClick = (subject: string) => {
     setFormData(prev => ({ ...prev, subject: `Inquiry about: ${subject}` }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
+      // Dynamic import of emailjs to avoid SSR issues
+      const emailjs = (await import("emailjs-com")).default;
+
       const result = await emailjs.send(
         "service_jylezlb",
         "template_l7naq4c",
@@ -220,33 +145,53 @@ const Contact = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Contact Full Stack Engineer | MERN • Next.js • DSA 300+ | Ajit Kumar</title>
-        <meta 
-          name="description" 
-          content="Contact Ajit Kumar — Full Stack Engineer specializing in MERN, Next.js, LAMP stacks. 300+ LeetCode problems solved. Available for remote Full Stack roles worldwide."
-        />
-        <link rel="canonical" href="https://ajitdev.com/contact" />
-        <meta name="author" content="Ajit Kumar" />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-        <meta name="geo.region" content="IN-BR" />
-        <meta name="geo.placename" content="Katihar, Bihar, India" />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Contact Full Stack Engineer — Ajit Kumar" />
-        <meta property="og:description" content="Full Stack Engineer specializing in MERN, Next.js. 300+ DSA problems solved. Available for remote roles worldwide." />
-        <meta property="og:url" content="https://ajitdev.com/contact" />
-        <meta property="og:site_name" content="Ajit Kumar Portfolio" />
-        <meta property="og:locale" content="en_IN" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact Full Stack Engineer — MERN • Next.js • DSA 300+" />
-        <meta name="twitter:description" content="Available for remote Full Stack Engineer roles worldwide." />
-
-        <script type="application/ld+json">{JSON.stringify(contactPageSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-      </Helmet>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "Contact Ajit Kumar — Full Stack Engineer",
+            url: "https://ajitdev.com/contact",
+            description: "Contact page for Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and LAMP stacks.",
+            about: {
+              "@type": "Person",
+              name: "Ajit Kumar",
+              jobTitle: "Full Stack Engineer",
+              email: "ajitk23192@gmail.com",
+              url: "https://ajitdev.com",
+            }
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What technologies does Ajit Kumar specialize in?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 300+ LeetCode problems solved."
+                }
+              },
+              {
+                "@type": "Question",
+                name: "Is Ajit Kumar available for Full Stack Engineer roles?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes. Ajit is actively seeking Full Stack Engineer roles worldwide, available for remote positions immediately."
+                }
+              }
+            ]
+          }),
+        }}
+      />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -254,7 +199,7 @@ const Contact = () => {
         transition={{ duration: 0.5 }}
         className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden"
       >
-        {/* Premium Background Blobs */}
+        {/* Background Blobs */}
         <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 -left-40 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
           <div className="absolute top-1/3 right-0 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl" />
@@ -262,18 +207,15 @@ const Contact = () => {
           <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl" />
         </div>
 
-        <Header />
-
-        <main className="flex-grow pt-16 relative z-10">
+        <main className="flex-grow pt-4 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            
+
             {/* Hidden SEO Content */}
             <section className="sr-only" aria-label="Contact Overview">
               <h1>Contact Full Stack Engineer — Ajit Kumar | MERN • Next.js • DSA 300+</h1>
               <p>
-                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack 
-                (MongoDB, Express.js, React.js, Node.js), LAMP Stack, and Next.js. With 300+ LeetCode problems 
-                solved and a 150+ day coding streak, Ajit builds production-grade web applications. 
+                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack,
+                Next.js. With 300+ LeetCode problems solved and a 150+ day coding streak.
                 Available for remote Full Stack Engineer roles worldwide.
               </p>
             </section>
@@ -290,7 +232,7 @@ const Contact = () => {
               </motion.div>
 
               <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 tracking-tight">
-                Let's{" "}
+                Let&apos;s{" "}
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Connect
                 </span>
@@ -319,10 +261,9 @@ const Contact = () => {
               <motion.div variants={itemVariants} className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
             </motion.section>
 
-       
             {/* ===== MAIN GRID ===== */}
             <div className="grid lg:grid-cols-3 gap-8 mb-10">
-              
+
               {/* ===== LEFT: CONTACT INFO PANEL ===== */}
               <motion.aside
                 initial="hidden"
@@ -335,29 +276,32 @@ const Contact = () => {
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
                   <h2 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h2>
                   <div className="space-y-4">
-                    {contactInfo.map((item, idx) => (
-                      <motion.div
-                        key={idx}
-                        variants={itemVariants}
-                        whileHover={{ x: 4 }}
-                        className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-blue-50/30 transition-all"
-                      >
-                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0`}>
-                          <item.icon className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold text-gray-400 uppercase">{item.title}</p>
-                          {item.link ? (
-                            <a href={item.link} className="text-gray-900 font-medium hover:text-blue-600 transition-colors">
-                              {item.content}
-                            </a>
-                          ) : (
-                            <p className="text-gray-900 font-medium">{item.content}</p>
-                          )}
-                          <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                    {contactInfo.map((item, idx) => {
+                      const IconComp = item.icon;
+                      return (
+                        <motion.div
+                          key={idx}
+                          variants={itemVariants}
+                          whileHover={{ x: 4 }}
+                          className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-blue-50/30 transition-all"
+                        >
+                          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0`}>
+                            <IconComp className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold text-gray-400 uppercase">{item.title}</p>
+                            {item.link ? (
+                              <a href={item.link} className="text-gray-900 font-medium hover:text-blue-600 transition-colors">
+                                {item.content}
+                              </a>
+                            ) : (
+                              <p className="text-gray-900 font-medium">{item.content}</p>
+                            )}
+                            <p className="text-xs text-gray-400 mt-0.5">{item.description}</p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -365,21 +309,24 @@ const Contact = () => {
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
                   <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Connect Online</h3>
                   <div className="grid grid-cols-3 gap-3">
-                    {socialLinks.map((s, idx) => (
-                      <motion.a
-                        key={idx}
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        href={s.url}
-                        target={s.external ? "_blank" : undefined}
-                        rel={s.external ? "noopener noreferrer" : undefined}
-                        className={`h-16 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all`}
-                        aria-label={`Ajit Kumar ${s.label}`}
-                      >
-                        <s.icon className="w-5 h-5 mb-1" />
-                        <span className="text-xs font-medium">{s.label}</span>
-                      </motion.a>
-                    ))}
+                    {socialLinks.map((s, idx) => {
+                      const SIcon = s.icon;
+                      return (
+                        <motion.a
+                          key={idx}
+                          variants={itemVariants}
+                          whileHover={{ scale: 1.05, y: -3 }}
+                          href={s.url}
+                          target={s.external ? "_blank" : undefined}
+                          rel={s.external ? "noopener noreferrer" : undefined}
+                          className={`h-16 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all`}
+                          aria-label={`Ajit Kumar ${s.label}`}
+                        >
+                          <SIcon className="w-5 h-5 mb-1" />
+                          <span className="text-xs font-medium">{s.label}</span>
+                        </motion.a>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -414,7 +361,7 @@ const Contact = () => {
                 >
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h2>
-                    <p className="text-gray-500">Fill out the form below and I'll get back to you within 24 hours.</p>
+                    <p className="text-gray-500">Fill out the form below and I&apos;ll get back to you within 24 hours.</p>
                     <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mt-3 rounded-full" />
                   </div>
 
@@ -586,33 +533,21 @@ const Contact = () => {
                     <div className="flex-1">
                       <h3 className="font-bold text-gray-900 mb-2">What happens after you reach out?</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                            <span className="text-blue-600 font-bold text-sm">1</span>
+                        {[
+                          { num: "1", title: "Acknowledgment", desc: "Auto-reply within minutes" },
+                          { num: "2", title: "Review", desc: "I read your message within 24hr" },
+                          { num: "3", title: "Response", desc: "Personal reply within 24 hours" },
+                        ].map((step) => (
+                          <div key={step.num} className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                              <span className="text-blue-600 font-bold text-sm">{step.num}</span>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-800 text-sm">{step.title}</p>
+                              <p className="text-xs text-gray-500">{step.desc}</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-semibold text-gray-800 text-sm">Acknowledgment</p>
-                            <p className="text-xs text-gray-500">Auto-reply within minutes</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                            <span className="text-blue-600 font-bold text-sm">2</span>
-                          </div>
-                          <div>
-                            <p className="font-semibold text-gray-800 text-sm">Review</p>
-                            <p className="text-xs text-gray-500">I read your message within 24hr</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                            <span className="text-blue-600 font-bold text-sm">3</span>
-                          </div>
-                          <div>
-                            <p className="font-semibold text-gray-800 text-sm">Response</p>
-                            <p className="text-xs text-gray-500">Personal reply within 24 hours</p>
-                          </div>
-                        </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -620,98 +555,55 @@ const Contact = () => {
               </div>
             </div>
 
-      
-            {/* ===== HIDDEN INTERNAL LINKS (SEO) ===== */}
+            {/* Hidden Internal Links (SEO) */}
             <nav className="sr-only" aria-label="Site Navigation">
               <ul>
-                <li><a href="/">Home — Full Stack Engineer Portfolio</a></li>
-                <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 300+</a></li>
-                <li><a href="/projects">Full Stack Projects — Production Portfolio</a></li>
-                <li><a href="/education">Education — BCA Cloud & Security</a></li>
-                <li><a href="/contact">Contact — Hire Full Stack Engineer</a></li>
-                <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-                <li><a href="https://leetcode.com/ajitdev01">LeetCode — 300+ Problems</a></li>
+                <li><Link href="/">Home — Full Stack Engineer Portfolio</Link></li>
+                <li><Link href="/skills">Technical Skills — MERN • Next.js • DSA 300+</Link></li>
+                <li><Link href="/projects">Full Stack Projects — Production Portfolio</Link></li>
+                <li><Link href="/about">About Ajit Kumar — Full Stack Engineer</Link></li>
               </ul>
             </nav>
-
           </div>
         </main>
-
-        <Footer />
-
-        {/* ===== SUCCESS MODAL ===== */}
-        <AnimatePresence>
-          {showSuccessModal && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-              onClick={() => setShowSuccessModal(false)}
-            >
-              <motion.div
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex justify-center mb-6">
-                  <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
-                      <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: 0.15, type: "spring" }}
-                        >
-                          <FiCheck className="w-7 h-7 text-white" />
-                        </motion.div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Message Sent! ✨</h2>
-                  <p className="text-gray-500">
-                    Thanks for reaching out. I've received your message and will get back to you within 24 hours.
-                  </p>
-                </div>
-
-                <div className="bg-blue-50 rounded-xl p-4 mb-6">
-                  <div className="flex items-center gap-3">
-                    <FiClock className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">What happens next?</p>
-                      <p className="text-xs text-gray-600">I'll review your message and respond personally as soon as possible.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => setShowSuccessModal(false)}
-                    className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all"
-                  >
-                    Close
-                  </button>
-                  <Link
-                    to="/projects"
-                    onClick={() => setShowSuccessModal(false)}
-                    className="flex-1 py-3 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all text-center"
-                  >
-                    View My Work
-                  </Link>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.div>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {showSuccessModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+            onClick={() => setShowSuccessModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center"
+            >
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+              <p className="text-gray-600 mb-6">
+                Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+              </p>
+              <button
+                onClick={() => setShowSuccessModal(false)}
+                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all"
+              >
+                Got it!
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
-};
-
-export default Contact;
+}

@@ -1,54 +1,49 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+'use client';
+
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 
 // ============================================
 // ICONS (White Theme Friendly)
 // ============================================
 const FiGithub = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>;
 const FiLinkedin = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.222 0 22.225 0z"/></svg>;
-const FiTwitter = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0021.337-11.545c0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>;
-const FiInstagram = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>;
 const FiArrowRight = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>;
 const FiCheckCircle = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
 const FiBriefcase = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 const FiAward = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>;
 const FiUsers = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
 const FiCommand = () => <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></svg>;
-const FiCode = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>;
-const FiMail = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
+const FiTrendingUp = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
 
 // ============================================
 // 3D CODESPACE HERO COMPONENT (White Theme)
 // ============================================
 const CodeSpace3D = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [typedLines, setTypedLines] = useState([]);
+  const [typedLines, setTypedLines] = useState<Array<{ text: string; color: string; delay: number }>>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [output, setOutput] = useState([]);
-  
-  const cardRef = useRef(null);
+  const [output, setOutput] = useState<Array<{ text: string; color: string; delay: number }>>([]);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  
+
   const rotateX = useTransform(y, [-100, 100], [15, -15]);
   const rotateY = useTransform(x, [-100, 100], [-15, 15]);
-  
-  const handleMouseMove = (e) => {
+
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (isHovered) return;
     const rect = cardRef.current?.getBoundingClientRect();
     if (rect) {
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const moveX = e.clientX - centerX;
-      const moveY = e.clientY - centerY;
-      x.set(moveX);
-      y.set(moveY);
+      x.set(e.clientX - centerX);
+      y.set(e.clientY - centerY);
     }
   };
-  
+
   const codeLines = [
     { text: "const Success = async (developer) => {", color: "text-indigo-600", delay: 0 },
     { text: '  await developer.learn("MERN + Next.js + TypeScript");', color: "text-emerald-600", delay: 400 },
@@ -70,34 +65,35 @@ const CodeSpace3D = () => {
   ];
 
   useEffect(() => {
-    const timeouts = codeLines.map((line, idx) => {
+    const timeouts = codeLines.map((line) => {
       return setTimeout(() => {
         if (line.text) {
           setTypedLines(prev => [...prev, line]);
         }
       }, line.delay);
     });
-    
-    const terminalTimeouts = terminalLines.map((line, idx) => {
+
+    const terminalTimeouts = terminalLines.map((line) => {
       return setTimeout(() => {
         setOutput(prev => [...prev, line]);
       }, line.delay);
     });
-    
+
     return () => {
       timeouts.forEach(t => clearTimeout(t));
       terminalTimeouts.forEach(t => clearTimeout(t));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRunCode = () => {
     setIsRunning(true);
     setOutput([]);
     setTypedLines([]);
-    
+
     const allLines = [...codeLines, ...terminalLines];
     let currentIndex = 0;
-    
+
     const interval = setInterval(() => {
       if (currentIndex < allLines.length) {
         const line = allLines[currentIndex];
@@ -252,7 +248,7 @@ const StatsSection = () => {
     { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "On-time delivery" },
   ];
 
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
@@ -274,7 +270,7 @@ const StatsSection = () => {
           >
             <div className="flex justify-center mb-2">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 group-hover:from-indigo-200 group-hover:to-purple-200 flex items-center justify-center transition-all duration-300">
-                <Icon className="w-5 h-5 text-indigo-600" />
+                <Icon />
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
@@ -287,13 +283,12 @@ const StatsSection = () => {
   );
 };
 
-
 // ============================================
 // FEATURED TECH STACK
 // ============================================
 const FeaturedTech = () => {
   const techs = [
-    "React", "Next.js", "TypeScript", "Node.js", 
+    "React", "Next.js", "TypeScript", "Node.js",
     "Express", "MongoDB", "Tailwind CSS", "Redux"
   ];
 
@@ -316,15 +311,11 @@ const FeaturedTech = () => {
   );
 };
 
-
-
-
-
 // ============================================
 // EDUCATION SECTION
 // ============================================
 const EducationSection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
@@ -339,7 +330,7 @@ const EducationSection = () => {
         <div className="grid md:grid-cols-2 gap-8">
           <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-5">
-              <FiAward className="w-6 h-6 text-white" />
+              <FiAward />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
             <p className="text-gray-800 font-medium">BCA in Cloud & Security</p>
@@ -351,7 +342,7 @@ const EducationSection = () => {
 
           <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
-              <FiTrendingUp className="w-6 h-6 text-white" />
+              <FiTrendingUp />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Practical Training</h3>
             <p className="text-gray-800 font-medium">
@@ -371,17 +362,10 @@ const EducationSection = () => {
 };
 
 // ============================================
-// CONTACT SECTION
-// ============================================
-
-// Need FiTrendingUp for projects
-const FiTrendingUp = () => <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
-
-// ============================================
 // MAIN HOME COMPONENT
 // ============================================
-const Home = () => {
-  const heroRef = useRef(null);
+export default function HomePage() {
+  const heroRef = useRef<HTMLElement>(null);
   const isHeroInView = useInView(heroRef, { once: true });
 
   const allSocialUrls = [
@@ -397,9 +381,64 @@ const Home = () => {
 
   return (
     <>
-      <Header />
-      
-      <main className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Person",
+                "@id": "https://ajitdev.com/#person",
+                name: "Ajit Kumar",
+                alternateName: "ajitdev01",
+                url: "https://ajitdev.com",
+                email: "ajitk23192@gmail.com",
+                telephone: "+916205526784",
+                jobTitle: "Full Stack Engineer",
+                description: "Professional Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Available for hire.",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Katihar",
+                  addressRegion: "Bihar",
+                  addressCountry: "India",
+                },
+                sameAs: allSocialUrls,
+                knowsAbout: ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+                hasOccupation: {
+                  "@type": "Occupation",
+                  name: "Full Stack Engineer",
+                  skills: "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs",
+                },
+              },
+              {
+                "@type": "WebSite",
+                "@id": "https://ajitdev.com/#website",
+                url: "https://ajitdev.com",
+                name: "Ajit Kumar - Full Stack Engineer Portfolio",
+                description: "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript.",
+                publisher: { "@id": "https://ajitdev.com/#person" },
+              },
+              {
+                "@type": "Organization",
+                "@id": "https://ajitdev.com/#organization",
+                name: "AjitDev",
+                alternateName: ["ajitdev01", "Ajit Kumar"],
+                url: "https://ajitdev.com",
+                sameAs: allSocialUrls,
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  email: "ajitk23192@gmail.com",
+                  contactType: "professional services",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
         {/* Hero Section */}
         <section
           ref={heroRef}
@@ -437,29 +476,29 @@ const Home = () => {
                 </motion.h1>
 
                 <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  I build <span className="text-gray-900 font-semibold">production-grade web applications</span> that solve real business problems. 
-                  Specialized in <span className="text-indigo-600 font-medium">MERN Stack</span>, <span className="text-indigo-600 font-medium">Next.js</span>, 
+                  I build <span className="text-gray-900 font-semibold">production-grade web applications</span> that solve real business problems.
+                  Specialized in <span className="text-indigo-600 font-medium">MERN Stack</span>, <span className="text-indigo-600 font-medium">Next.js</span>,
                   and <span className="text-indigo-600 font-medium">TypeScript</span>.
                 </motion.p>
 
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
                   <Link
-                    to="/contact"
+                    href="/contact"
                     className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/25"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
                     <span className="relative z-10 flex items-center gap-2">
                       Hire Me → Build Scalable Apps
-                      <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                      <FiArrowRight />
                     </span>
                   </Link>
 
                   <Link
-                    to="/projects"
+                    href="/projects"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-gray-700 bg-white border border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200"
                   >
                     View Portfolio
-                    <FiArrowRight size={14} />
+                    <FiArrowRight />
                   </Link>
                 </motion.div>
 
@@ -468,10 +507,10 @@ const Home = () => {
                 <motion.div variants={fadeUp} className="flex items-center gap-4 justify-center lg:justify-start pt-2">
                   <div className="flex -space-x-2">
                     <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200">
-                      <FiGithub className="w-3.5 h-3.5 text-gray-700" />
+                      <FiGithub />
                     </a>
                     <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200">
-                      <FiLinkedin className="w-3.5 h-3.5 text-gray-700" />
+                      <FiLinkedin />
                     </a>
                     <a href="https://leetcode.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center hover:bg-indigo-100 transition-colors duration-200 text-[10px] font-bold text-gray-700">
                       LC
@@ -510,76 +549,17 @@ const Home = () => {
             </div>
           </motion.div>
         </section>
-        
+
         {/* Education Section */}
         <EducationSection />
-
-      </main>
-
-      <Footer />
-
-      {/* JSON-LD Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Person",
-              "@id": "https://ajitdev.com/#person",
-              "name": "Ajit Kumar",
-              "alternateName": "ajitdev01",
-              "url": "https://ajitdev.com",
-              "email": "ajitk23192@gmail.com",
-              "telephone": "+916205526784",
-              "jobTitle": "Full Stack Engineer",
-              "description": "Professional Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Available for hire.",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Katihar",
-                "addressRegion": "Bihar",
-                "addressCountry": "India"
-              },
-              "sameAs": allSocialUrls,
-              "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
-              "hasOccupation": {
-                "@type": "Occupation",
-                "name": "Full Stack Engineer",
-                "skills": "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs"
-              }
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://ajitdev.com/#website",
-              "url": "https://ajitdev.com",
-              "name": "Ajit Kumar - Full Stack Engineer Portfolio",
-              "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript.",
-              "publisher": { "@id": "https://ajitdev.com/#person" }
-            },
-            {
-              "@type": "Organization",
-              "@id": "https://ajitdev.com/#organization",
-              "name": "AjitDev",
-              "alternateName": ["ajitdev01", "Ajit Kumar"],
-              "url": "https://ajitdev.com",
-              "sameAs": allSocialUrls,
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "ajitk23192@gmail.com",
-                "contactType": "professional services"
-              }
-            }
-          ]
-        })}
-      </script>
+      </div>
 
       {/* Hidden SEO Keywords */}
       <span className="sr-only" aria-hidden="true">
-        Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio, 
+        Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio,
         JavaScript Developer India, Hire Full Stack Engineer, Full Stack Engineer Katihar Bihar,
         React Node.js Developer, TypeScript Full Stack, MongoDB Express React Node
       </span>
     </>
   );
-};
-
-export default Home;
+}

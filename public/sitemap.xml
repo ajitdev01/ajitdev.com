@@ -30,7 +30,7 @@
   <!-- Priority: 0.9 | Change: Weekly (new projects added)   -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/projects/</loc>
+    <loc>https://ajitdev.com/projects</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -41,7 +41,7 @@
   <!-- Priority: 0.8 | Change: Yearly (static content)       -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/about/</loc>
+    <loc>https://ajitdev.com/about</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -52,7 +52,7 @@
   <!-- Priority: 0.7 | Change: Monthly (skills update)       -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/skills/</loc>
+    <loc>https://ajitdev.com/skills</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -63,7 +63,7 @@
   <!-- Priority: 0.6 | Change: Yearly (stable)               -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/contact/</loc>
+    <loc>https://ajitdev.com/contact</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -85,7 +85,7 @@
   <!-- Priority: 0.3 | Change: Yearly (rare changes)         -->
   <!-- ====================================================== -->
   <url>
-    <loc>https://ajitdev.com/privacy/</loc>
+    <loc>https://ajitdev.com/privacy</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

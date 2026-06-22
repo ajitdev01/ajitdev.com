@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
+'use client';
+
+import Link from 'next/link';
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   FiHome, FiUser, FiSettings, FiFolder, FiMail,
   FiHeart, FiChevronUp, FiGithub, FiLinkedin,
-  FiShield, FiAward, FiGlobe, FiArrowRight, FiTwitter, FiInstagram,
+  FiShield, FiAward, FiGlobe, FiTwitter, FiInstagram,
 } from "react-icons/fi";
 import { FaWhatsapp, FaGraduationCap, FaDev, FaMedium, FaSnapchat } from "react-icons/fa";
-import { SiLeetcode } from "react-icons/si";
 
-// ========== BRAND CONFIGURATION (STRICTLY FULL STACK) ==========
+// ========== BRAND CONFIGURATION ==========
 const BRAND_CONFIG = {
   name: "Ajit Kumar",
   username: "ajitdev01",
@@ -20,20 +21,20 @@ const BRAND_CONFIG = {
   email: "ajitk23192@gmail.com",
   phone: "+916205526784",
   location: "Katihar, Bihar, India",
-  availability: { 
-    title: "Available for Opportunities", 
-    subtitle: "Full Stack • MERN • Next.js • Full-time & Contract Roles", 
-    status: "Open for Work" 
+  availability: {
+    title: "Available for Opportunities",
+    subtitle: "Full Stack • MERN • Next.js • Full-time & Contract Roles",
+    status: "Open for Work"
   },
   founded: "2023",
   website: "https://ajitdev.com",
 };
 
-// ========== COMPLETE SOCIAL LINKS (SAME USERNAME EVERYWHERE) ==========
+// ========== SOCIAL LINKS ==========
 const SOCIAL_LINKS = [
   { platform: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, ariaLabel: "Visit Ajit Kumar's GitHub - Full Stack Projects", rel: "me noopener noreferrer", profileType: "professional" },
   { platform: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, ariaLabel: "Connect with Ajit Kumar on LinkedIn", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiMail , ariaLabel: "View Ajit Kumar's LeetCode profile - DSA & Problem Solving", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiMail, ariaLabel: "View Ajit Kumar's LeetCode profile - DSA & Problem Solving", rel: "me noopener noreferrer", profileType: "professional" },
   { platform: "Dev.to", url: "https://dev.to/ajitdev01", icon: FaDev, ariaLabel: "Read Ajit Kumar's technical blogs on Dev.to", rel: "me noopener noreferrer", profileType: "professional" },
   { platform: "Medium", url: "https://medium.com/@ajitdev01", icon: FaMedium, ariaLabel: "Follow Ajit Kumar on Medium", rel: "me noopener noreferrer", profileType: "professional" },
   { platform: "Twitter", url: "https://twitter.com/ajitdev01", icon: FiTwitter, ariaLabel: "Follow Ajit Kumar on Twitter/X", rel: "me noopener noreferrer", profileType: "professional" },
@@ -43,7 +44,7 @@ const SOCIAL_LINKS = [
   { platform: "WhatsApp", url: "https://wa.me/916205526784", icon: FaWhatsapp, ariaLabel: "WhatsApp Ajit Kumar", rel: "noopener noreferrer" },
 ];
 
-// ========== NAVIGATION (STRICTLY FULL STACK FOCUSED) ==========
+// ========== NAVIGATION ==========
 const NAV_LINKS = [
   { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Kumar's Full Stack Portfolio homepage", title: "Home - Full Stack Engineer Portfolio India" },
   { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Kumar's Full Stack journey and expertise", title: "About Ajit Kumar - MERN & Next.js Full Stack Engineer" },
@@ -59,7 +60,7 @@ const LEGAL_LINKS = [
   { name: "Sitemap", path: "/sitemap.xml", ariaLabel: "Sitemap", external: true },
 ];
 
-// ========== SKILLS CATEGORIZED (FULL STACK FOCUS) ==========
+// ========== SKILLS CATEGORIZED ==========
 const TECH_CATEGORIES = [
   { category: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap", "Redux"], color: "blue" },
   { category: "Backend", items: ["Node.js", "Express.js", "Python", "Java", "C++", "REST APIs"], color: "cyan" },
@@ -69,7 +70,7 @@ const TECH_CATEGORIES = [
   { category: "Languages", items: ["JavaScript", "TypeScript", "Python", "Java", "C++", "HTML/CSS"], color: "pink" },
 ];
 
-const TECH_STYLES = {
+const TECH_STYLES: Record<string, string> = {
   blue:    "bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20 hover:border-blue-400/50 hover:shadow-blue-500/10",
   cyan:    "bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:shadow-cyan-500/10",
   violet:  "bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20 hover:border-violet-400/50 hover:shadow-violet-500/10",
@@ -78,7 +79,7 @@ const TECH_STYLES = {
   pink:    "bg-pink-500/10 text-pink-400 border-pink-500/20 hover:bg-pink-500/20 hover:border-pink-400/50 hover:shadow-pink-500/10",
 };
 
-const DOT_COLORS = {
+const DOT_COLORS: Record<string, string> = {
   blue: "bg-blue-400", cyan: "bg-cyan-400", violet: "bg-violet-400",
   emerald: "bg-emerald-400", orange: "bg-orange-400", pink: "bg-pink-400",
 };
@@ -86,7 +87,7 @@ const DOT_COLORS = {
 const ALL_TECHS = TECH_CATEGORIES.flatMap(c => c.items.map(item => ({ name: item, color: c.color, category: c.category })));
 const ALL_TECH_NAMES = TECH_CATEGORIES.flatMap(c => c.items);
 
-// ========== SEO KEYWORDS (FULL STACK FOCUSED) ==========
+// ========== SEO KEYWORDS ==========
 const HIDDEN_KEYWORDS = [
   "Full Stack Developer India", "MERN Stack Developer Portfolio", "Next.js Developer Portfolio",
   "JavaScript Developer India", "Hire Full Stack Developer", "Full Stack Engineer Katihar Bihar",
@@ -108,7 +109,7 @@ const useScrollToTop = () => {
 // ========== SUB-COMPONENTS ==========
 
 /** Animated background blob */
-const Blob = ({ style }) => (
+const Blob = ({ style }: { style: React.CSSProperties }) => (
   <motion.div
     className="absolute rounded-full pointer-events-none"
     style={style}
@@ -118,7 +119,7 @@ const Blob = ({ style }) => (
 );
 
 /** Social icon button */
-const SocialIcon = ({ link }) => {
+const SocialIcon = ({ link }: { link: typeof SOCIAL_LINKS[number] }) => {
   const Icon = link.icon;
   return (
     <motion.a
@@ -143,12 +144,12 @@ const SocialIcon = ({ link }) => {
 };
 
 /** Nav link with animated underline */
-const NavItem = ({ link }) => {
+const NavItem = ({ link }: { link: typeof NAV_LINKS[number] }) => {
   const Icon = link.icon;
   return (
     <li>
       <Link
-        to={link.path}
+        href={link.path}
         title={link.title}
         aria-label={link.description}
         className="group flex items-center gap-2.5 text-slate-500 hover:text-slate-100 text-sm py-1.5 transition-colors duration-200 focus:outline-none focus:text-white"
@@ -166,7 +167,7 @@ const NavItem = ({ link }) => {
 };
 
 /** Technology badge */
-const TechBadge = ({ name, color, category }) => (
+const TechBadge = ({ name, color, category }: { name: string; color: string; category: string }) => (
   <motion.span
     whileHover={{ scale: 1.06, y: -1 }}
     className={`inline-flex items-center px-2.5 py-[5px] rounded-md text-[11px] font-medium border cursor-default transition-all duration-200 hover:shadow-md ${TECH_STYLES[color]}`}
@@ -181,14 +182,13 @@ const TechBadge = ({ name, color, category }) => (
 const Footer = () => {
   const { isVisible, scrollToTop } = useScrollToTop();
   const currentYear = new Date().getFullYear();
-  const footerRef = useRef(null);
+  const footerRef = useRef<HTMLElement>(null);
   const isInView = useInView(footerRef, { once: true, margin: "-80px" });
 
-  // ===== COMPLETE JSON-LD SCHEMAS (FULL STACK FOCUSED) =====
+  // JSON-LD SCHEMAS
   const allSocialUrls = SOCIAL_LINKS.map(link => link.url);
-  
+
   const schemas = [
-    // Person Schema with ALL social links
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -216,7 +216,6 @@ const Footer = () => {
         "skills": "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs, Git, Vercel, Netlify"
       }
     },
-    // Website Schema with speakable
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -225,21 +224,11 @@ const Footer = () => {
       "alternateName": "ajitdev01",
       "url": "https://ajitdev.com",
       "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Hire for web development projects.",
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", "h2", ".hero-description"]
-      },
       "publisher": { "@id": "https://ajitdev.com/#person" },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://ajitdev.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
       "inLanguage": ["en-IN", "en-US"],
       "copyrightYear": currentYear,
       "copyrightHolder": { "@id": "https://ajitdev.com/#person" }
     },
-    // Organization Schema (Personal Brand)
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -263,7 +252,6 @@ const Footer = () => {
         "availableLanguage": ["English", "Hindi"]
       }
     },
-    // SiteNavigationElement Schema
     {
       "@context": "https://schema.org",
       "@type": "SiteNavigationElement",
@@ -273,7 +261,6 @@ const Footer = () => {
       "url": NAV_LINKS.map(l => `https://ajitdev.com${l.path}`),
       "about": { "@id": "https://ajitdev.com/#person" }
     },
-    // BreadcrumbList Schema
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -298,7 +285,7 @@ const Footer = () => {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
   };
-  
+
   const slideUp = {
     hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
@@ -306,21 +293,21 @@ const Footer = () => {
 
   return (
     <>
-      {/* ===== ALL JSON-LD SCHEMAS ===== */}
+      {/* JSON-LD SCHEMAS */}
       {schemas.map((sd, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sd) }} />
       ))}
 
-      {/* ===== HIDDEN SEO KEYWORDS (FULL STACK FOCUSED) ===== */}
+      {/* HIDDEN SEO KEYWORDS */}
       <span className="sr-only" aria-hidden="true">{HIDDEN_KEYWORDS.join(", ")}</span>
-      
-      {/* ===== INTERNAL LINKING CLUSTER (SEO BOOST) ===== */}
+
+      {/* INTERNAL LINKING CLUSTER */}
       <nav aria-hidden="true" className="sr-only" data-type="internal-semantic-cluster">
-        <Link to="/about">Full Stack Engineer India - Professional Journey</Link>
-        <Link to="/projects">MERN Stack Projects Portfolio - Real World Applications</Link>
-        <Link to="/skills">Full Stack Skills - React Node.js TypeScript MongoDB</Link>
-        <Link to="/contact">Hire Full Stack Developer Katihar Bihar - Available for Opportunities</Link>
-        <Link to="/education">Computer Science Education - Full Stack Certifications</Link>
+        <Link href="/about">Full Stack Engineer India - Professional Journey</Link>
+        <Link href="/projects">MERN Stack Projects Portfolio - Real World Applications</Link>
+        <Link href="/skills">Full Stack Skills - React Node.js TypeScript MongoDB</Link>
+        <Link href="/contact">Hire Full Stack Developer Katihar Bihar - Available for Opportunities</Link>
+        <Link href="/education">Computer Science Education - Full Stack Certifications</Link>
       </nav>
 
       <footer
@@ -332,7 +319,7 @@ const Footer = () => {
         className="relative overflow-hidden"
         style={{ background: "#080c14", fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}
       >
-        {/* ===== BACKGROUND LAYER ===== */}
+        {/* BACKGROUND LAYER */}
         <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
           <div
             className="absolute inset-0"
@@ -347,7 +334,7 @@ const Footer = () => {
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
         </div>
 
-        {/* ===== MAIN GRID FOOTER CONTENT ===== */}
+        {/* MAIN GRID FOOTER CONTENT */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
           <motion.div
             variants={stagger}
@@ -355,7 +342,7 @@ const Footer = () => {
             animate={isInView ? "visible" : "hidden"}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8"
           >
-            {/* ===== COLUMN 1: BRAND IDENTITY (lg:4) ===== */}
+            {/* COLUMN 1: BRAND IDENTITY */}
             <motion.div variants={slideUp} className="lg:col-span-4 space-y-5">
               <div className="flex items-center gap-3">
                 <div
@@ -381,7 +368,7 @@ const Footer = () => {
               <div className="flex flex-wrap gap-2">
                 {[
                   { icon: FiShield, label: "HTTPS Secured", cls: "bg-emerald-500/8 border-emerald-500/18 text-emerald-400" },
-                  { icon: FiAward,  label: "Certified Full Stack", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
+                  { icon: FiAward, label: "Certified Full Stack", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
                   { icon: FiGlobe, label: "India", cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
                 ].map(({ icon: Icon, label, cls }) => (
                   <motion.span
@@ -395,7 +382,7 @@ const Footer = () => {
                 ))}
               </div>
 
-              {/* Professional Profiles Section */}
+              {/* Professional Profiles */}
               <div>
                 <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
                   Professional Profiles
@@ -412,7 +399,7 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Social Profiles Section */}
+              {/* Social Profiles */}
               <div>
                 <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
                   Social Profiles
@@ -450,7 +437,7 @@ const Footer = () => {
               </address>
             </motion.div>
 
-            {/* ===== COLUMN 2: NAVIGATION (lg:2) ===== */}
+            {/* COLUMN 2: NAVIGATION */}
             <motion.div variants={slideUp} className="lg:col-span-2">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
                 Navigation
@@ -462,7 +449,7 @@ const Footer = () => {
               </nav>
             </motion.div>
 
-            {/* ===== COLUMN 3: TECH STACK (lg:6) ===== */}
+            {/* COLUMN 3: TECH STACK */}
             <motion.div variants={slideUp} className="lg:col-span-6">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
                 Full Stack Technologies & Tools
@@ -495,25 +482,13 @@ const Footer = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Live Portfolio Demo Link */}
-              <div className="mt-4">
-                <a
-                  href="https://ajitdev-todoapp.netlify.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-400 text-[12px] transition-colors duration-200"
-                >
-                
-                </a>
-              </div>
             </motion.div>
           </motion.div>
 
-          {/* ===== DIVIDER ===== */}
+          {/* DIVIDER */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
-          {/* ===== BOTTOM BAR ===== */}
+          {/* BOTTOM BAR */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
@@ -537,7 +512,7 @@ const Footer = () => {
                   {link.external ? (
                     <a href={link.path} aria-label={link.ariaLabel} rel="noopener noreferrer" className="text-slate-700 hover:text-slate-400 transition-colors duration-200">{link.name}</a>
                   ) : (
-                    <Link to={link.path} aria-label={link.ariaLabel} className="text-slate-700 hover:text-slate-400 transition-colors duration-200">{link.name}</Link>
+                    <Link href={link.path} aria-label={link.ariaLabel} className="text-slate-700 hover:text-slate-400 transition-colors duration-200">{link.name}</Link>
                   )}
                   {i < LEGAL_LINKS.length - 1 && <span className="text-slate-800">·</span>}
                 </span>
@@ -559,7 +534,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* ===== BACKLINK ATTRIBUTION (SEO BOOST) ===== */}
+          {/* BACKLINK ATTRIBUTION */}
           <div className="mt-4 text-center">
             <p className="text-slate-800 text-[9px]">
               Find me on{" "}
@@ -572,7 +547,7 @@ const Footer = () => {
         </div>
       </footer>
 
-      {/* ===== BACK TO TOP BUTTON ===== */}
+      {/* BACK TO TOP BUTTON */}
       <AnimatePresence>
         {isVisible && (
           <motion.button

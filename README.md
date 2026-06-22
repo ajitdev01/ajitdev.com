@@ -1,146 +1,36 @@
-# ajitdev.com — Personal Portfolio Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-> 🌐 **Live Site:** [ajitdev.com](https://www.ajitdev.com)
+## Getting Started
 
-A modern, animated personal portfolio website for **Ajit Kumar** — DevOps, DevSecOps & Cloud Security Engineer. Built with React + Vite, featuring smooth animations, a responsive layout, contact form integration, and SEO optimization.
+First, run the development server:
 
----
-
-## 🖥️ Preview
-
-Visit the live site → **[www.ajitdev.com](https://www.ajitdev.com)**
-
----
-
-## ✨ Features
-
-- ⚡ Blazing fast — powered by **Vite**
-- 🎨 Fully responsive design with **Tailwind CSS**
-- 🎞️ Smooth page & element animations via **Framer Motion**
-- 🧭 Client-side routing with **React Router DOM**
-- 📬 Contact form with **EmailJS** (no backend needed)
-- 🪖 SEO & meta tags via **React Helmet Async**
-- 🔒 Form validation with **Zod**
-- 🧩 Rich icon library via **React Icons** + **FontAwesome**
-- 📱 Mobile-first layout
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | React 18 |
-| Build Tool | Vite |
-| Styling | Tailwind CSS |
-| Animation | Framer Motion |
-| Routing | React Router DOM |
-| Icons | React Icons, FontAwesome |
-| Email | EmailJS |
-| Validation | Zod |
-| SEO | React Helmet Async |
-| Linting | ESLint |
-
----
-
-## 📁 Project Structure
-
-```
-ajitdev.com/
-│
-├── public/               # Static assets (favicon, images)
-│
-├── src/
-│   ├── Components/       # Reusable UI components (Navbar, Footer, etc.)
-│   ├── Pages/            # Route-level page components
-│   ├── App.jsx           # Root component with routing
-│   └── main.jsx          # Entry point
-│
-├── index.html
-├── vite.config.js
-├── tailwind.config.js
-└── package.json
-```
-
----
-
-## 🚀 Getting Started
-
-**Clone the repository**
-```bash
-git clone https://github.com/ajitdev01/ajitdev.com.git
-cd ajitdev.com
-```
-
-**Install dependencies**
-```bash
-npm install
-```
-
-**Start development server**
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-**Build for production**
-```bash
-npm run build
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**Preview production build**
-```bash
-npm run preview
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-> The dev server runs at `http://localhost:5173` by default.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## 📬 Contact Form Setup (EmailJS)
+To learn more about Next.js, take a look at the following resources:
 
-This project uses [EmailJS](https://www.emailjs.com/) to send emails directly from the frontend — no backend server required.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-To configure it:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-1. Create a free account at [emailjs.com](https://www.emailjs.com/)
-2. Set up a **Service**, **Template**, and get your **Public Key**
-3. Create a `.env` file in the root:
+## Deploy on Vercel
 
-```env
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-> ⚠️ Never commit your `.env` file — add it to `.gitignore`
-
----
-
-## 🌍 Deployment
-
-This site can be deployed to any static hosting platform:
-
-| Platform | How |
-|---|---|
-| **Vercel** | Connect GitHub repo → auto deploy on push |
-| **Netlify** | Drag & drop `dist/` or connect repo |
-| **GitHub Pages** | Use `vite-plugin-gh-pages` |
-
-Build output goes to the `dist/` folder after `npm run build`.
-
----
-
-## 👤 About
-
-**Ajit Kumar** is a DevOps, DevSecOps & Cloud Security Engineer based in India, passionate about building secure, scalable infrastructure and modern web experiences.
-
-- 🌐 Website: [ajitdev.com](https://www.ajitdev.com)
-- 💼 GitHub: [@ajitdev01](https://github.com/ajitdev01)
-
----
-
-## 📄 License
-
-This project is open source. Feel free to take inspiration — just don't copy it wholesale.
-
-⭐ Star this repo if you found it helpful!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
