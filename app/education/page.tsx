@@ -211,7 +211,7 @@ const academicStats = [
   { value: "4", label: "Certifications", icon: FiAward, gradient: "from-amber-500 to-orange-500" }
 ];
 
-const statusStyles = {
+const statusStyles: Record<string, string> = {
   Completed: "bg-green-100 text-green-700 border-green-200",
   Learning: "bg-blue-100 text-blue-700 border-blue-200",
   Advanced: "bg-purple-100 text-purple-700 border-purple-200",
