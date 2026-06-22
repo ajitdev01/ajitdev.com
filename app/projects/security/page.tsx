@@ -1,7 +1,8 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Shield, Lock, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, Shield, Lock, ExternalLink } from "lucide-react";
+import { FiGithub as Github } from "react-icons/fi";
 import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
