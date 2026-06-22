@@ -124,22 +124,23 @@ const DesktopNavItem = memo(({ item }: { item: typeof NAV_ITEMS[number] }) => {
       aria-label={item.ariaLabel}
       title={item.title}
       className={`
-        relative inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md
-        transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        relative inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full
+        transition-colors duration-200 outline-none
         ${isActive 
-          ? "text-blue-600 bg-blue-50" 
-          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+          ? "text-blue-600" 
+          : "text-gray-600 hover:text-blue-600"
         }
       `}
     >
-      <span className="w-5 h-5" aria-hidden="true"><Icon /></span>
-      <span>{item.name}</span>
       {isActive && (
         <motion.span
-          layoutId="activeNavIndicator"
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+          layoutId="activeNavBg"
+          className="absolute inset-0 bg-blue-50/70 rounded-full -z-10"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       )}
+      <span className="w-4 h-4 flex items-center justify-center" aria-hidden="true"><Icon /></span>
+      <span>{item.name}</span>
     </Link>
   );
 });
@@ -158,7 +159,7 @@ const MobileNavItem = memo(({ item, onClick }: { item: typeof NAV_ITEMS[number];
       title={item.title}
       className={`
         flex items-center justify-between w-full px-4 py-3 text-base rounded-lg
-        transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500
+        transition-colors duration-200 outline-none
         ${isActive
           ? "text-blue-600 bg-blue-50 font-medium"
           : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
@@ -231,19 +232,20 @@ const Header = () => {
       <header
         ref={menuRef}
         className={`
-          fixed top-0 left-0 w-full z-50 transition-all duration-300
+          fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300
+          rounded-2xl
           ${scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-sm"
-            : "bg-white"
+            ? "bg-white/80 backdrop-blur-md shadow-md"
+            : "bg-white/50 backdrop-blur-xs shadow-xs"
           }
         `}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo + Brand */}
             <Link
               href="/"
-              className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+              className="flex items-center gap-3 group outline-none rounded-lg"
               aria-label={`${BRAND_INFO.name} - ${BRAND_INFO.description}`}
             >
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
@@ -260,7 +262,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-3" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-1 bg-gray-50/60 p-1 rounded-full" aria-label="Main navigation">
               {NAV_ITEMS.map((item) => (
                 <DesktopNavItem key={item.path} item={item} />
               ))}
@@ -270,7 +272,7 @@ const Header = () => {
             <button
               ref={menuButtonRef}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors outline-none"
               aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
@@ -285,20 +287,19 @@ const Header = () => {
           {isMenuOpen && (
             <motion.div
               id="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-x-0 top-16 bg-white border-t border-gray-200 shadow-xl overflow-hidden"
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.15 }}
+              className="lg:hidden fixed inset-x-4 top-[5.25rem] bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden z-50"
               role="navigation"
               aria-label="Mobile navigation"
             >
-              <div className="max-h-[calc(100vh-4rem)] overflow-y-auto">
-                <div className="px-4 py-6 space-y-1">
+              <div className="max-h-[calc(100vh-6rem)] overflow-y-auto">
+                <div className="px-4 py-4 space-y-1">
                   {NAV_ITEMS.map((item) => (
                     <MobileNavItem key={item.path} item={item} onClick={() => setIsMenuOpen(false)} />
                   ))}
-                  <div className="pt-4 mt-4 border-t border-gray-200" />
                 </div>
               </div>
             </motion.div>
@@ -307,7 +308,7 @@ const Header = () => {
       </header>
 
       {/* Spacer for fixed header */}
-      <div className="h-16" aria-hidden="true" />
+      <div className="h-24" aria-hidden="true" />
 
       {/* Hidden Navigation for Crawlers */}
       <nav className="sr-only" aria-label="SEO navigation structure" itemScope itemType="https://schema.org/SiteNavigationElement">
