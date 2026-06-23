@@ -32,7 +32,8 @@ const CATEGORIES = [
   { key: "terraform", name: "Terraform", tags: ["Terraform", "IaC", "AWS", "Infrastructure", "Automation"] },
   { key: "linux", name: "Linux", tags: ["Linux", "Bash", "Shell Scripting", "SysAdmin", "Security", "Server"] },
   { key: "dsa", name: "DSA", tags: ["DSA", "LeetCode", "Algorithms", "Data Structures", "C++", "Optimization"] },
-  { key: "system-design", name: "System Design", tags: ["System Design", "Distributed Systems", "Scaling", "Database", "HLD", "LLD"] }
+  { key: "system-design", name: "System Design", tags: ["System Design", "Distributed Systems", "Scaling", "Database", "HLD", "LLD"] },
+  { key: "cloud-security", name: "Cloud Security", tags: ["Cloud Security", "DevSecOps", "AWS Security", "IAM", "VPC", "Zero Trust", "Vulnerability Scanning"] }
 ];
 
 // Hub configs for inlined route setup

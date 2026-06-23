@@ -12,7 +12,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const CATEGORIES = ["devops", "aws", "docker", "kubernetes", "terraform", "linux", "react", "nextjs", "system-design", "dsa"];
+const CATEGORIES = ["devops", "aws", "docker", "kubernetes", "terraform", "linux", "react", "nextjs", "system-design", "dsa", "mern", "lamp", "cloud-security"];
 
 const CATEGORY_MAP: Record<string, { title: string; desc: string }> = {
   devops: {
@@ -54,6 +54,18 @@ const CATEGORY_MAP: Record<string, { title: string; desc: string }> = {
   dsa: {
     title: "Data Structures & Competitive Programming Solutions",
     desc: "Solved algorithm problems from LeetCode. Analysis of arrays, trees, heaps, dynamic programming, and complexity benchmarks.",
+  },
+  mern: {
+    title: "MERN Stack Engineering & Secure APIs",
+    desc: "Full-stack development using MongoDB, Express, React, and Node.js. Learn JWT authentication, secure database design, and scaling guidelines.",
+  },
+  lamp: {
+    title: "LAMP Stack Enterprise Web Platforms",
+    desc: "Relational backend engineering using Linux, Apache, MySQL, and PHP. Hardening database queries, session controls, and Apache virtual hosts.",
+  },
+  "cloud-security": {
+    title: "Cloud Security, Compliance & DevSecOps",
+    desc: "Harden cloud infrastructure and pipelines. Zero-trust networks, IAM role permissions boundary policies, and automated security scans.",
   },
 };
 
