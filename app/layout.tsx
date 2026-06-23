@@ -157,6 +157,13 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* Cloudflare Web Analytics */}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "3011d7a1a53748ac8d82869375ddcf22"}'
+          strategy="afterInteractive"
+        />
+
         {/* Google Knowledge Graph (Unified Closed Entity Graph) */}
         <script
           type="application/ld+json"
