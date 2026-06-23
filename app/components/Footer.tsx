@@ -496,9 +496,6 @@ const Footer = () => {
               </div>
             </motion.div>
           </motion.div>
-
-         
-
           {/* DIVIDER */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
