@@ -53,7 +53,7 @@ export default function BlogArchivePage() {
         "name": "Can I request a custom guide or collaboration?",
         "answer": {
           "@type": "Answer",
-          "text": "Yes! Reach out via the /contact page or email ajitk23192@gmail.com for writing collaborations, custom playbooks, or contracts.",
+          "text": "Yes! Reach out via the /contact page or email support@ajitdev.com or ajitk23192@gmail.com for writing collaborations, custom playbooks, or contracts.",
         },
       },
     ],

@@ -10,7 +10,7 @@ export const BRAND = {
   name: "Ajit Dev",
   alternateName: ["Ajit Kumar", "AjitDev01"],
   username: "ajitdev01",
-  email: "ajitk23192@gmail.com",
+  email: "support@ajitdev.com",
   phone: "+916205526784",
   website: SITE_URL,
   location: "Katihar, Bihar, India",

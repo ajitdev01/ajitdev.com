@@ -60,7 +60,7 @@ const structuredData = {
         "name": "AjitDev Technologies",
         "description": "DevOps consulting and cloud infrastructure solutions",
         "foundingDate": "2023",
-        "email": "ajitk23192@gmail.com",
+        "email": ["support@ajitdev.com", "ajitk23192@gmail.com"],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Katihar",
@@ -649,9 +649,13 @@ const Terms = () => {
                     <p className="text-gray-600 mt-2">Katihar, Bihar, India</p>
 
                     <div className="mt-6 space-y-2">
-                      <p className="flex items-center">
+                      <p className="flex items-center flex-wrap gap-y-1">
                         <span className="text-blue-600 w-6">📧</span>
-                        <a href="mailto:ajitk23192@gmail.com" className="text-blue-600 hover:underline ml-2">
+                        <a href="mailto:support@ajitdev.com" className="text-blue-600 hover:underline ml-2">
+                          support@ajitdev.com
+                        </a>
+                        <span className="text-gray-400 mx-2">/</span>
+                        <a href="mailto:ajitk23192@gmail.com" className="text-blue-600 hover:underline">
                           ajitk23192@gmail.com
                         </a>
                       </p>

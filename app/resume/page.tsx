@@ -42,7 +42,7 @@ export default function ResumePage() {
         "name": "How can I contact Ajit Kumar?",
         "answer": {
           "@type": "Answer",
-          "text": "Please submit inquiries via the /contact page or email ajitk23192@gmail.com directly."
+          "text": "Please submit inquiries via the /contact page or email support@ajitdev.com or ajitk23192@gmail.com directly."
         }
       }
     ]

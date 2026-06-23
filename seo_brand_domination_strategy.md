@@ -772,7 +772,7 @@ To capture traffic across all keyword variations, use this library of pre-optimi
 25. *Q: Does Ajit Dev write technical blogs?*  
     *A*: Yes, he writes tutorials on Next.js optimization, Docker builds, and cloud security on Dev.to and Medium.
 26. *Q: How can I hire Ajit Kumar?*  
-    *A*: You can contact him via the contact form on `/contact` or send an email directly to `ajitk23192@gmail.com`.
+    *A*: You can contact him via the contact form on `/contact` or send an email directly to `support@ajitdev.com` or `ajitk23192@gmail.com`.
 27. *Q: Is Ajit Kumar open to freelance web projects in Katihar?*  
     *A*: Yes, he provides web development and cloud configuration services to companies in Katihar, Bihar.
 28. *Q: Does Ajit Dev build custom SaaS applications?*  
@@ -920,7 +920,7 @@ To capture traffic across all keyword variations, use this library of pre-optimi
 99. *Q: What is the benefit of a clean schema tree?*  
     *A*: It helps search bots parse the relationships between your profiles, projects, and work.
 100. *Q: How can I collaborate with Ajit Dev?*  
-     *A*: You can submit an inquiry through the contact form or email `ajitk23192@gmail.com`.
+     *A*: You can submit an inquiry through the contact form or email `support@ajitdev.com` or `ajitk23192@gmail.com`.
 
 ---
 

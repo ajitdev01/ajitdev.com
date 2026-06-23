@@ -18,7 +18,7 @@ const BRAND_CONFIG = {
   title: "Full Stack Developer | DevOps • Cloud Security",
   description: "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux, Cloud Security, Cyber Security, and System Design.",
   shortDescription: "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.",
-  email: "ajitk23192@gmail.com",
+  email: "support@ajitdev.com",
   phone: "+916205526784",
   location: "Katihar, Bihar, India",
   availability: {
@@ -45,7 +45,7 @@ const SOCIAL_LINKS = [
   { platform: "Facebook", url: "https://facebook.com/ajitdev01", icon: FiGlobe, ariaLabel: "Follow Ajit Dev on Facebook", rel: "me noopener noreferrer", profileType: "social" },
   { platform: "Telegram", url: "https://t.me/ajitdev01", icon: FiGlobe, ariaLabel: "Message Ajit Dev on Telegram", rel: "me noopener noreferrer", profileType: "social" },
   { platform: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FaSnapchat, ariaLabel: "Add Ajit Dev on Snapchat", rel: "me noopener noreferrer", profileType: "social" },
-  { platform: "Email", url: "mailto:ajitk23192@gmail.com", icon: FiMail, ariaLabel: "Email Ajit Dev", rel: "noopener noreferrer" },
+  { platform: "Email", url: "mailto:support@ajitdev.com", icon: FiMail, ariaLabel: "Email Ajit Dev", rel: "noopener noreferrer" },
   { platform: "WhatsApp", url: "https://wa.me/916205526784", icon: FaWhatsapp, ariaLabel: "WhatsApp Ajit Dev", rel: "noopener noreferrer" },
 ];
 
@@ -432,6 +432,16 @@ const Footer = () => {
                   <FiMail size={12} className="text-blue-400/80 flex-shrink-0" />
                   <span className="relative">
                     {BRAND_CONFIG.email}
+                    <span className="absolute -bottom-px left-0 w-0 h-px bg-blue-400/60 group-hover:w-full transition-all duration-300 ease-out" />
+                  </span>
+                </a>
+                <a
+                  href="mailto:ajitk23192@gmail.com"
+                  className="group flex items-center gap-2 text-slate-500 hover:text-slate-200 text-[12px] transition-colors duration-200"
+                >
+                  <FiMail size={12} className="text-blue-400/80 flex-shrink-0" />
+                  <span className="relative">
+                    ajitk23192@gmail.com
                     <span className="absolute -bottom-px left-0 w-0 h-px bg-blue-400/60 group-hover:w-full transition-all duration-300 ease-out" />
                   </span>
                 </a>

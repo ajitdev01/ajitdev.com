@@ -576,7 +576,7 @@ const PAGES = {
       </div>
     `,
     faq: [
-      { q: "How can I hire Ajit Dev?", a: "Submit an inquiry on `/contact` or email ajitk23192@gmail.com to request his services." }
+      { q: "How can I hire Ajit Dev?", a: "Submit an inquiry on `/contact` or email support@ajitdev.com or ajitk23192@gmail.com to request his services." }
     ]
   },
   uses: {

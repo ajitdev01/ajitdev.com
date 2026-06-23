@@ -14,10 +14,18 @@ import {
 const contactInfo = [
   {
     icon: FiMail,
-    title: "Email",
+    title: "Primary Email",
+    content: "support@ajitdev.com",
+    link: "mailto:support@ajitdev.com",
+    gradient: "from-blue-500 to-cyan-500",
+    description: "Business & support queries"
+  },
+  {
+    icon: FiMail,
+    title: "Personal Email",
     content: "ajitk23192@gmail.com",
     link: "mailto:ajitk23192@gmail.com",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-indigo-500 to-blue-500",
     description: "Direct communication • 24hr response"
   },
   {
@@ -50,7 +58,8 @@ const socialLinks = [
   { icon: FiGithub, label: "GitHub", url: "https://github.com/ajitdev01", gradient: "from-gray-700 to-gray-900", external: true },
   { icon: FiLinkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", gradient: "from-blue-600 to-indigo-600", external: true },
   { icon: FiCode, label: "LeetCode", url: "https://leetcode.com/ajitdev01", gradient: "from-amber-500 to-orange-500", external: true },
-  { icon: FiMail, label: "Email", url: "mailto:ajitk23192@gmail.com", gradient: "from-rose-500 to-pink-500", external: false },
+  { icon: FiMail, label: "Support", url: "mailto:support@ajitdev.com", gradient: "from-rose-500 to-pink-500", external: false },
+  { icon: FiMail, label: "Personal", url: "mailto:ajitk23192@gmail.com", gradient: "from-indigo-500 to-blue-500", external: false },
   { icon: FiFileText, label: "Resume", url: "/resume.pdf", gradient: "from-emerald-500 to-teal-500", external: true },
   { icon: FiGlobe, label: "Portfolio", url: "/", gradient: "from-purple-500 to-violet-500", external: false }
 ];
@@ -159,7 +168,7 @@ export default function ContactPage() {
               "@type": "Person",
               name: "Ajit Kumar",
               jobTitle: "Full Stack Engineer",
-              email: "ajitk23192@gmail.com",
+              email: ["support@ajitdev.com", "ajitk23192@gmail.com"],
               url: "https://ajitdev.com",
             }
           }),
@@ -476,7 +485,7 @@ export default function ContactPage() {
                             <FiAlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                             <div>
                               <p className="text-red-700 text-sm">{error}</p>
-                              <a href="mailto:ajitk23192@gmail.com" className="inline-flex items-center gap-1 text-blue-600 text-sm mt-2 hover:underline">
+                              <a href="mailto:support@ajitdev.com" className="inline-flex items-center gap-1 text-blue-600 text-sm mt-2 hover:underline">
                                 <FiMail className="w-3.5 h-3.5" />
                                 Email me directly instead
                               </a>

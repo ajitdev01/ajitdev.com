@@ -52,7 +52,8 @@ const professionalProfiles = [
 
 // ========== CONTACT DETAILS ==========
 const contactDetails = [
-  { icon: FiMail, label: "Email", value: "ajitk23192@gmail.com", href: "mailto:ajitk23192@gmail.com" },
+  { icon: FiMail, label: "Support Email", value: "support@ajitdev.com", href: "mailto:support@ajitdev.com" },
+  { icon: FiMail, label: "Personal Email", value: "ajitk23192@gmail.com", href: "mailto:ajitk23192@gmail.com" },
   { icon: FiMapPin, label: "Location", value: "Katihar, Bihar, India", href: null },
   { icon: FiBriefcase, label: "Role", value: "Full Stack Developer & DevOps Engineer", href: null },
   { icon: FiAward, label: "Experience", value: "Building scalable web applications", href: null },

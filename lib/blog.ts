@@ -65,7 +65,7 @@ const PAGES_CONFIG: Record<string, any> = {
     roadmap: ["BCA Cloud & Security", "Brainzima Full Stack", "AWS Cloud Practitioner", "DevOps Systems Specialist"],
     resources: ["Download PDF Copy", "LinkedIn Profile", "GitHub Repositories"],
     notes: "Specializing in next-generation web architectures, automated security pipelines (DevSecOps), and low-level algorithms optimization.",
-    faq: [{ q: "How can I contact Ajit Kumar?", a: "Please submit inquiries via the /contact page or email ajitk23192@gmail.com directly." }],
+    faq: [{ q: "How can I contact Ajit Kumar?", a: "Please submit inquiries via the /contact page or email support@ajitdev.com or ajitk23192@gmail.com directly." }],
     related: [
       { name: "LeetCode Profile", url: "/leetcode" },
       { name: "About Me", url: "/about" },

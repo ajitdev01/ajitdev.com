@@ -354,7 +354,7 @@ const Header = () => {
                 "jobTitle": ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
                 "description": BRAND_INFO.description,
                 "image": `${siteUrl}/logo.png`,
-                "email": "ajitk23192@gmail.com",
+                "email": ["support@ajitdev.com", "ajitk23192@gmail.com"],
                 "address": {
                   "@type": "PostalAddress",
                   "addressLocality": "Katihar",

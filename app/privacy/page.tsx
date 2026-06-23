@@ -41,7 +41,7 @@ const structuredData = {
         "name": "AjitDev Technologies",
         "description": "Independent DevOps consulting and cloud solutions"
       },
-      "email": "ajitk23192@gmail.com",
+      "email": ["support@ajitdev.com", "ajitk23192@gmail.com"],
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Katihar",
@@ -241,7 +241,7 @@ const Privacy = () => {
                 </li>
                 <li>
                   <strong>Direct Email:</strong> Communications sent to 
-                  <code className="bg-gray-100 px-2 py-1 rounded">ajitk23192@gmail.com</code>
+                  <code className="bg-gray-100 px-2 py-1 rounded">support@ajitdev.com</code> or <code className="bg-gray-100 px-2 py-1 rounded">ajitk23192@gmail.com</code>
                 </li>
               </ul>
 
@@ -420,6 +420,9 @@ const Privacy = () => {
                 <p className="text-gray-600">Katihar, Bihar, India</p>
                 <p className="mt-4">
                   <strong>Email:</strong>{' '}
+                  <a href="mailto:support@ajitdev.com" className="text-blue-600 hover:underline">
+                    support@ajitdev.com
+                  </a> or{' '}
                   <a href="mailto:ajitk23192@gmail.com" className="text-blue-600 hover:underline">
                     ajitk23192@gmail.com
                   </a>

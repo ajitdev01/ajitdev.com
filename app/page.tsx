@@ -399,7 +399,7 @@ export default function HomePage() {
                 name: "Ajit Dev",
                 alternateName: ["Ajit Kumar", "AjitDev01"],
                 url: "https://ajitdev.com",
-                email: "ajitk23192@gmail.com",
+                email: "support@ajitdev.com",
                 telephone: "+916205526784",
                 jobTitle: ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
                 description: "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Available for hire.",
@@ -434,7 +434,7 @@ export default function HomePage() {
                 sameAs: allSocialUrls,
                 contactPoint: {
                   "@type": "ContactPoint",
-                  email: "ajitk23192@gmail.com",
+                  email: "support@ajitdev.com",
                   contactType: "professional services",
                 },
               },
