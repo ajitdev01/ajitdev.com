@@ -12,18 +12,18 @@ import { FaWhatsapp, FaGraduationCap, FaDev, FaMedium, FaSnapchat } from "react-
 
 // ========== BRAND CONFIGURATION ==========
 const BRAND_CONFIG = {
-  name: "Ajit Kumar",
+  name: "Ajit Dev",
   username: "ajitdev01",
-  role: "Full Stack Engineer",
-  title: "Full Stack Engineer | MERN • Next.js • TypeScript",
-  description: "Professional Full Stack Engineer specializing in modern web applications, scalable architectures, and end-to-end development. Available for freelance, contract, and full-time opportunities.",
-  shortDescription: "Full Stack Engineer from Katihar, Bihar specializing in MERN Stack, Next.js, TypeScript, and cloud deployment.",
+  role: "Full Stack Developer",
+  title: "Full Stack Developer | DevOps • Cloud Security",
+  description: "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux, Cloud Security, Cyber Security, and System Design.",
+  shortDescription: "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.",
   email: "ajitk23192@gmail.com",
   phone: "+916205526784",
   location: "Katihar, Bihar, India",
   availability: {
     title: "Available for Opportunities",
-    subtitle: "Full Stack • MERN • Next.js • Full-time & Contract Roles",
+    subtitle: "Full Stack • DevOps • Cloud Security • Full-time & Contract Roles",
     status: "Open for Work"
   },
   founded: "2023",
@@ -32,26 +32,31 @@ const BRAND_CONFIG = {
 
 // ========== SOCIAL LINKS ==========
 const SOCIAL_LINKS = [
-  { platform: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, ariaLabel: "Visit Ajit Kumar's GitHub - Full Stack Projects", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, ariaLabel: "Connect with Ajit Kumar on LinkedIn", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiMail, ariaLabel: "View Ajit Kumar's LeetCode profile - DSA & Problem Solving", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "Dev.to", url: "https://dev.to/ajitdev01", icon: FaDev, ariaLabel: "Read Ajit Kumar's technical blogs on Dev.to", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "Medium", url: "https://medium.com/@ajitdev01", icon: FaMedium, ariaLabel: "Follow Ajit Kumar on Medium", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "Twitter", url: "https://twitter.com/ajitdev01", icon: FiTwitter, ariaLabel: "Follow Ajit Kumar on Twitter/X", rel: "me noopener noreferrer", profileType: "professional" },
-  { platform: "Instagram", url: "https://instagram.com/ajitdev01", icon: FiInstagram, ariaLabel: "Follow Ajit Kumar on Instagram", rel: "me noopener noreferrer", profileType: "social" },
-  { platform: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FaSnapchat, ariaLabel: "Add Ajit Kumar on Snapchat", rel: "me noopener noreferrer", profileType: "social" },
-  { platform: "Email", url: "mailto:ajitk23192@gmail.com", icon: FiMail, ariaLabel: "Email Ajit Kumar", rel: "noopener noreferrer" },
-  { platform: "WhatsApp", url: "https://wa.me/916205526784", icon: FaWhatsapp, ariaLabel: "WhatsApp Ajit Kumar", rel: "noopener noreferrer" },
+  { platform: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, ariaLabel: "Visit Ajit Dev's GitHub - Full Stack & DevOps Projects", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, ariaLabel: "Connect with Ajit Dev on LinkedIn", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiMail, ariaLabel: "View Ajit Dev's LeetCode profile - DSA & Problem Solving", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Codeforces", url: "https://codeforces.com/profile/ajitdev01", icon: FiMail, ariaLabel: "View Ajit Dev's Codeforces profile", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Dev.to", url: "https://dev.to/ajitdev01", icon: FaDev, ariaLabel: "Read Ajit Dev's technical blogs on Dev.to", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Medium", url: "https://medium.com/@ajitdev01", icon: FaMedium, ariaLabel: "Follow Ajit Dev on Medium", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Hashnode", url: "https://hashnode.com/@ajitdev01", icon: FiGlobe, ariaLabel: "Follow Ajit Dev on Hashnode", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "YouTube", url: "https://youtube.com/@ajitdev01", icon: FiGlobe, ariaLabel: "Subscribe to Ajit Dev on YouTube", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Twitter", url: "https://twitter.com/ajitdev01", icon: FiTwitter, ariaLabel: "Follow Ajit Dev on Twitter/X", rel: "me noopener noreferrer", profileType: "professional" },
+  { platform: "Instagram", url: "https://instagram.com/ajitdev01", icon: FiInstagram, ariaLabel: "Follow Ajit Dev on Instagram", rel: "me noopener noreferrer", profileType: "social" },
+  { platform: "Facebook", url: "https://facebook.com/ajitdev01", icon: FiGlobe, ariaLabel: "Follow Ajit Dev on Facebook", rel: "me noopener noreferrer", profileType: "social" },
+  { platform: "Telegram", url: "https://t.me/ajitdev01", icon: FiGlobe, ariaLabel: "Message Ajit Dev on Telegram", rel: "me noopener noreferrer", profileType: "social" },
+  { platform: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FaSnapchat, ariaLabel: "Add Ajit Dev on Snapchat", rel: "me noopener noreferrer", profileType: "social" },
+  { platform: "Email", url: "mailto:ajitk23192@gmail.com", icon: FiMail, ariaLabel: "Email Ajit Dev", rel: "noopener noreferrer" },
+  { platform: "WhatsApp", url: "https://wa.me/916205526784", icon: FaWhatsapp, ariaLabel: "WhatsApp Ajit Dev", rel: "noopener noreferrer" },
 ];
 
 // ========== NAVIGATION ==========
 const NAV_LINKS = [
-  { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Kumar's Full Stack Portfolio homepage", title: "Home - Full Stack Engineer Portfolio India" },
-  { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Kumar's Full Stack journey and expertise", title: "About Ajit Kumar - MERN & Next.js Full Stack Engineer" },
-  { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills and tools - Full Stack Development", title: "Skills - MERN, Next.js, TypeScript, Full Stack Expertise" },
-  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Kumar - Full Stack Applications", title: "Projects - Full Stack Web Applications Portfolio" },
-  { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications in Computer Science", title: "Education & Certifications - Ajit Kumar" },
-  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for Full Stack opportunities", title: "Contact Ajit Kumar - Hire Full Stack Engineer" },
+  { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Dev's Full Stack & DevOps Portfolio homepage", title: "Home - Full Stack Developer & DevOps Engineer Portfolio" },
+  { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Dev's Full Stack & DevOps journey", title: "About Ajit Dev - Full Stack Developer & DevOps Engineer" },
+  { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills - Full Stack Development, DevOps & Cloud Security", title: "Skills - MERN, Next.js, DevOps, AWS, Cloud Security" },
+  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Dev - Full Stack & DevOps Applications", title: "Projects - Full Stack & DevOps Applications Portfolio" },
+  { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications in Computer Science", title: "Education & Certifications - Ajit Dev" },
+  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for Full Stack & DevOps opportunities", title: "Contact Ajit Dev - Hire Full Stack Developer & DevOps Engineer" },
 ];
 
 const LEGAL_LINKS = [
@@ -89,10 +94,12 @@ const ALL_TECH_NAMES = TECH_CATEGORIES.flatMap(c => c.items);
 
 // ========== SEO KEYWORDS ==========
 const HIDDEN_KEYWORDS = [
+  "Ajit Dev", "Ajit Kumar", "AjitDev01", "Ajit Dev Portfolio",
   "Full Stack Developer India", "MERN Stack Developer Portfolio", "Next.js Developer Portfolio",
-  "JavaScript Developer India", "Hire Full Stack Developer", "Full Stack Engineer Katihar Bihar",
+  "DevOps Engineer India", "Cloud Security Engineer", "DevSecOps Engineer",
+  "Hire Full Stack Developer", "Full Stack Developer Katihar Bihar",
+  "Katihar Developer", "Bihar Full Stack Developer", "India DevOps Engineer",
   "React Node.js Developer", "TypeScript Full Stack", "MongoDB Express React Node",
-  "Full Stack Web Development India", "Freelance Full Stack Developer",
 ];
 
 // ========== HOOKS ==========
@@ -194,11 +201,11 @@ const Footer = () => {
       "@type": "Person",
       "@id": "https://ajitdev.com/#person",
       "name": BRAND_CONFIG.name,
-      "alternateName": BRAND_CONFIG.username,
+      "alternateName": ["Ajit Kumar", "AjitDev01"],
       "url": BRAND_CONFIG.website,
       "email": BRAND_CONFIG.email,
       "telephone": BRAND_CONFIG.phone,
-      "jobTitle": BRAND_CONFIG.role,
+      "jobTitle": ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
       "description": BRAND_CONFIG.description,
       "address": {
         "@type": "PostalAddress",
@@ -207,7 +214,7 @@ const Footer = () => {
         "addressCountry": "India"
       },
       "sameAs": allSocialUrls,
-      "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS", "Full Stack Development", "JavaScript", "Python", "Java"],
+      "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "DevOps", "Cloud Security", "AWS", "Docker", "Kubernetes", "Terraform", "Linux", "CI/CD", "System Design"],
       "hasOccupation": {
         "@type": "Occupation",
         "name": "Full Stack Engineer",
@@ -234,14 +241,14 @@ const Footer = () => {
       "@type": "Organization",
       "@id": "https://ajitdev.com/#organization",
       "name": "AjitDev",
-      "alternateName": ["Ajit Kumar", "ajitdev01", "Ajit Dev Portfolio"],
+      "alternateName": ["Ajit Kumar", "ajitdev01", "Ajit Dev Portfolio", "Ajit Dev DevOps"],
       "url": BRAND_CONFIG.website,
       "logo": "https://ajitdev.com/logo.png",
       "description": "Personal brand of Ajit Kumar — Full Stack Engineer from Bihar, India",
       "founder": { "@id": "https://ajitdev.com/#person" },
       "foundingDate": BRAND_CONFIG.founded,
       "areaServed": { "@type": "Country", "name": "India" },
-      "knowsAbout": ["Full Stack Development", "MERN Stack", "Next.js", "TypeScript", "Web Applications", "API Development", "Cloud Deployment"],
+      "knowsAbout": ["Full Stack Development", "MERN Stack", "Next.js", "TypeScript", "DevOps", "Cloud Security", "AWS", "Docker", "Kubernetes", "Web Applications", "API Development", "Cloud Deployment"],
       "sameAs": allSocialUrls,
       "contactPoint": {
         "@type": "ContactPoint",
@@ -303,17 +310,22 @@ const Footer = () => {
 
       {/* INTERNAL LINKING CLUSTER */}
       <nav aria-hidden="true" className="sr-only" data-type="internal-semantic-cluster">
-        <Link href="/about">Full Stack Engineer India - Professional Journey</Link>
-        <Link href="/projects">MERN Stack Projects Portfolio - Real World Applications</Link>
-        <Link href="/skills">Full Stack Skills - React Node.js TypeScript MongoDB</Link>
-        <Link href="/contact">Hire Full Stack Developer Katihar Bihar - Available for Opportunities</Link>
-        <Link href="/education">Computer Science Education - Full Stack Certifications</Link>
+        <Link href="/about">Ajit Dev - Full Stack Developer & DevOps Engineer Journey</Link>
+        <Link href="/projects">MERN Stack & DevOps Projects Portfolio</Link>
+        <Link href="/skills">Full Stack Skills - React Node.js TypeScript DevOps AWS</Link>
+        <Link href="/contact">Hire Full Stack Developer & DevOps Engineer Katihar Bihar</Link>
+        <Link href="/education">Computer Science Education - Full Stack & DevOps Certifications</Link>
+        <Link href="/resume">Ajit Dev Resume - Full Stack Coder & DevOps CV</Link>
+        <Link href="/case-studies">Software Engineering Architecture Case Studies</Link>
+        <Link href="/dsa">Data Structures & Algorithms DSA Hub LeetCode</Link>
+        <Link href="/system-design">High & Low Level System Design Hub</Link>
+        <Link href="/devops">DevOps CI/CD Pipelines & Cloud Automation Hub</Link>
       </nav>
 
       <footer
         ref={footerRef}
         role="contentinfo"
-        aria-label={`${BRAND_CONFIG.name} - Full Stack Engineer Portfolio Footer`}
+        aria-label={`${BRAND_CONFIG.name} (ajitdev01) - Full Stack Developer & DevOps Engineer Portfolio Footer`}
         itemScope
         itemType="https://schema.org/WPFooter"
         className="relative overflow-hidden"
@@ -368,8 +380,8 @@ const Footer = () => {
               <div className="flex flex-wrap gap-2">
                 {[
                   { icon: FiShield, label: "HTTPS Secured", cls: "bg-emerald-500/8 border-emerald-500/18 text-emerald-400" },
-                  { icon: FiAward, label: "Certified Full Stack", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
-                  { icon: FiGlobe, label: "India", cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
+                  { icon: FiAward, label: "Full Stack & DevOps", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
+                  { icon: FiGlobe, label: "Katihar, India", cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
                 ].map(({ icon: Icon, label, cls }) => (
                   <motion.span
                     key={label}
@@ -485,6 +497,20 @@ const Footer = () => {
             </motion.div>
           </motion.div>
 
+          {/* FOOTER SEO BLOCK */}
+          <div className="mt-10 rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.018)", border: "1px solid rgba(255,255,255,0.055)" }}>
+            <p className="text-slate-600 text-[12px] leading-relaxed text-center">
+              <strong className="text-slate-400">Ajit Dev</strong> is a <strong className="text-slate-500">Full Stack Developer</strong>, <strong className="text-slate-500">DevOps Engineer</strong>, and <strong className="text-slate-500">Cloud Security Enthusiast</strong> from <strong className="text-slate-500">Katihar, Bihar, India</strong>. Specializing in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux, Cloud Security, Cyber Security, and System Design. Connect with <strong className="text-slate-400">Ajit Dev (ajitdev01)</strong> on{" "}
+              <a href="https://github.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">GitHub</a>,{" "}
+              <a href="https://linkedin.com/in/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">LinkedIn</a>,{" "}
+              <a href="https://leetcode.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">LeetCode</a>,{" "}
+              <a href="https://codeforces.com/profile/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Codeforces</a>,{" "}
+              <a href="https://instagram.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Instagram</a>,{" "}
+              <a href="https://t.me/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Telegram</a>,{" "}
+              <a href="https://facebook.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Facebook</a>, and other platforms.
+            </p>
+          </div>
+
           {/* DIVIDER */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
@@ -502,7 +528,7 @@ const Footer = () => {
                 {" "}All rights reserved.
               </p>
               <p className="text-slate-800 text-[11px] mt-0.5">
-                Full Stack Engineer · MERN · Next.js · TypeScript · India
+                Full Stack Developer · DevOps Engineer · Cloud Security · MERN · Next.js · India
               </p>
             </div>
 
@@ -537,11 +563,14 @@ const Footer = () => {
           {/* BACKLINK ATTRIBUTION */}
           <div className="mt-4 text-center">
             <p className="text-slate-800 text-[9px]">
-              Find me on{" "}
+              Find Ajit Dev (ajitdev01) on{" "}
               <a href="https://github.com/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">GitHub</a> ·{" "}
               <a href="https://leetcode.com/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">LeetCode</a> ·{" "}
+              <a href="https://codeforces.com/profile/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Codeforces</a> ·{" "}
               <a href="https://dev.to/ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Dev.to</a> ·{" "}
-              <a href="https://medium.com/@ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Medium</a>
+              <a href="https://medium.com/@ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Medium</a> ·{" "}
+              <a href="https://hashnode.com/@ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">Hashnode</a> ·{" "}
+              <a href="https://youtube.com/@ajitdev01" rel="me noopener noreferrer" className="text-slate-700 hover:text-slate-500">YouTube</a>
             </p>
           </div>
         </div>

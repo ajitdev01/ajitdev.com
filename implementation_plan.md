@@ -1,65 +1,58 @@
-# Implementation Plan: SEO-First Portfolio Master Build
+# Implementation Plan: Non-Destructive SEO & Authority Expansion
 
-Transform the portfolio into a production-ready, SEO-first Next.js 15+ portfolio according to the master prompt, covering all 25 subpage paths, MDX blogging system, schema automation, and performance optimizations.
+This plan outlines the design and steps to transform `ajitdev.com` into a high-authority technical hub. We will introduce new authority pages, nested DSA, DevOps, and System Design hubs, project case studies, and a scalable blog architecture.
 
----
-
-## User Action Required
-
-> [!IMPORTANT]
-> **Manual Command Execution**: Because of security policy restrictions on writing to the IDE environment's internal directories, I cannot execute terminal commands (like package installation or builds) on your behalf.
-> **You will need to execute the package installation commands and verification builds manually in your terminal when prompted.**
-
----
-
-## Open Questions
-
-> [!WARNING]
-> 1. **MDX Blog Content**: Do you have pre-written blog posts you'd like to use? If not, we will create 3 high-quality initial placeholder MDX posts under `content/posts/` to verify sitemap registration, syntax highlighting, reading time, and categories.
-> 2. **GitHub and LeetCode usernames**: We will default to using `ajitdev01` (your GitHub) and `ajitdev01` (LeetCode) for statistics cards. Please let us know if they differ.
+All changes are non-destructive and will not affect existing UI styling, routes, or files.
 
 ---
 
 ## Proposed Changes
 
-We will build the portfolio codebase step-by-step.
+### 1. Route Generation Script
+We will create a Node.js script `setup-all-routes.js` that programmatically constructs the following directories and page definitions:
 
-### 1. Project Dependencies
-You will need to run the following installation command in your terminal:
-```bash
-npm install next-mdx-remote reading-time gray-matter remark-gfm rehype-slug rehype-autolink-headings rehype-pretty-code lucide-react clsx tailwind-merge @vercel/analytics @vercel/speed-insights
-```
+*   **Case Studies**: `/case-studies` (hub) and its nested routes:
+    *   `/case-studies/portfolio`
+    *   `/case-studies/qr-menu-saas`
+    *   `/case-studies/weather-app`
+    *   `/case-studies/library-management-system`
+*   **Authority Pages**:
+    *   `/lamp-stack`, `/mern-stack`, `/react`, `/nextjs`, `/javascript`, `/typescript`, `/nodejs`, `/php`, `/mysql`, `/mongodb`, `/linux`, `/aws`, `/docker`, `/kubernetes`, `/terraform`, `/github-actions`, `/ci-cd`, `/devops`, `/devsecops`, `/cloud-security`, `/cyber-security`, `/system-design`, `/hld`, `/lld`, `/dsa`, `/leetcode`.
+*   **DSA Hub Subpages**:
+    *   `/dsa/arrays`, `/dsa/strings`, `/dsa/hashing`, `/dsa/linked-list`, `/dsa/stack`, `/dsa/queue`, `/dsa/binary-search`, `/dsa/trees`, `/dsa/bst`, `/dsa/heap`, `/dsa/graph`, `/dsa/backtracking`, `/dsa/greedy`, `/dsa/dynamic-programming`.
+*   **System Design Hub Subpages**:
+    *   `/system-design/load-balancer`, `/system-design/cache`, `/system-design/database-scaling`, `/system-design/microservices`, `/system-design/message-queues`, `/system-design/cdn`, `/system-design/design-whatsapp`, `/system-design/design-youtube`, `/system-design/design-netflix`, `/system-design/design-uber`.
+*   **DevOps Hub Subpages**:
+    *   `/devops/docker`, `/devops/kubernetes`, `/devops/terraform`, `/devops/github-actions`, `/devops/cicd`, `/devops/aws`, `/devops/linux`.
 
-### 2. File and Directory Structure
-We will create and update the following pages and directories:
+### 2. Layout Structure & Elements for Generated Pages
+Each page generated will contain:
+- **Interactive Breadcrumbs** showing current depth.
+- **Section Elements**: Introduction, Roadmap, Learning Resources, Notes, Related Projects/Blogs/Case Studies, and FAQ.
+- **Micro-Animations**: Clean transitions using `framer-motion`.
+- **Entity Signals**: Rotating personal branding keywords in the text.
+- **Contextual Linking**: Automatically injects a minimum of 10 contextual internal links to other hubs, case-studies, and home/about/contact pages.
+- **JSON-LD Schema**:
+  - `BreadcrumbList` schema.
+  - `FAQPage` schema based on localized questions.
+  - Page-specific schema (e.g. `TechArticle` or `Course`).
 
-*   **Shared Components**:
-    *   [NEW] `app/components/MDXComponents.tsx`: Styled MDX custom elements with syntax highlighting.
-    *   [NEW] `app/components/JSONLD.tsx`: Helper component to inject dynamic schema graphs.
-    *   [NEW] `app/components/BlogSearch.tsx`: Search and category filter component.
-*   **Routing Architecture**:
-    *   `app/blog/page.tsx` & `app/blog/[slug]/page.tsx`: Dynamic MDX blog archive and reader.
-    *   `app/resume/page.tsx`: Interactive resume view and download page.
-    *   `app/leetcode/page.tsx`: Badges, stats, and achievements integration.
-    *   **Topic Subpages** (`/dsa`, `/system-design`, `/devops`, `/cloud`, `/cloud-security`, `/cyber-security`, `/docker`, `/kubernetes`, `/terraform`, `/aws`, `/open-source`): Clean, animated cards and guides.
-    *   **Resource & General Pages** (`/certificates`, `/achievements`, `/uses`, `/now`, `/resources`, `/roadmaps`, `/case-studies`): Portfolio details.
-*   **Global Enhancements**:
-    *   `app/layout.tsx`: Inject Google Knowledge Graph JSON-LD schema (Person, WebSite, Breadcrumbs), Vercel Analytics, and Speed Insights.
-    *   `app/page.tsx`: Homepage optimization with dynamic cards, regional keywords, and recent blogs.
-
-### 3. Blog System Configuration
-We will set up `content/posts/` and parse files using `gray-matter` and `next-mdx-remote` synchronously on the server for maximum Lighthouse speed.
+### 3. Blog Engine Updates
+*   **[MODIFY] [blog.ts](file:///c:/Users/ajit%20kumar/Desktop/ajitdev.com/lib/blog.ts)**: Expand loader to fetch both `.mdx` files and entries from `content/posts-metadata.json`.
+*   **[NEW] [posts-metadata.json](file:///c:/Users/ajit%20kumar/Desktop/ajitdev.com/content/posts-metadata.json)**: Seed file mapping metadata for the categories (1,200 total metadata nodes across 12 target technologies).
+*   **[MODIFY] [page.tsx](file:///c:/Users/ajit%20kumar/Desktop/ajitdev.com/app/blog/[slug]/page.tsx)**:
+    *   Display Table of Contents (TOC) for blog posts.
+    *   Incorporate Related Posts section at the bottom.
+    *   Support rendering JSON-based dynamic articles.
+*   **[MODIFY] [sitemap.ts](file:///c:/Users/ajit%20kumar/Desktop/ajitdev.com/app/sitemap.ts)**: Dynamically include all generated authority pages, DSA subpages, DevOps subpages, System Design subpages, Case Studies, and blog posts.
 
 ---
 
 ## Verification Plan
 
 ### Automated Verification
-1. Run local build to verify zero compile/type check errors:
-   ```bash
-   npm run build
-   ```
+- Run a verification build to check that there are zero typescript or build errors. (Please run `npm run build` manually in your terminal when prompted).
 
 ### Manual Verification
-1. Visit `http://localhost:3000/sitemap.xml` and verify all new 25 routes are correctly generated and listed.
-2. Validate JSON-LD schemas using Google Rich Results / Schema Markup Validator.
+- Verify `http://localhost:3000/sitemap.xml` contains all generated URLs.
+- Inspect the generated pages and check JSON-LD schemas in the browser DOM.

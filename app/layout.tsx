@@ -19,12 +19,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ajit Dev — DevOps & Cloud Security Engineer | India",
+  title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security | Katihar, India",
   description:
-    "Ajit Dev is a DevOps, DevSecOps & Cloud Security developer from Katihar, India. Expert in CI/CD, Docker, Linux, MERN, LAMP & security automation. Explore projects.",
+    "Ajit Dev (ajitdev01) is a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Expert in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux & System Design.",
   authors: [{ name: "Ajit Dev", url: "https://ajitdev.com" }],
   creator: "Ajit Dev",
   metadataBase: new URL("https://ajitdev.com"),
+  keywords: ["Ajit Dev", "Ajit Kumar", "AjitDev01", "Full Stack Developer", "DevOps Engineer", "Cloud Security", "MERN Stack", "Next.js", "React", "Katihar", "Bihar", "India"],
   alternates: {
     canonical: "https://ajitdev.com/",
     languages: {
@@ -45,15 +46,15 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: "https://ajitdev.com/",
     siteName: "Ajit Dev Portfolio",
-    title: "Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer",
+    title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security",
     description:
-      "DevOps, DevSecOps & Cloud Security portfolio by Ajit Dev. CI/CD pipelines, Docker, Linux, MERN, LAMP, and security automation projects from Katihar, India.",
+      "Full Stack Developer, DevOps Engineer & Cloud Security portfolio by Ajit Dev (ajitdev01). Next.js, React, MERN Stack, AWS, Docker, Kubernetes projects from Katihar, Bihar, India.",
     images: [
       {
         url: "https://ajitdev.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ajit Dev — DevOps & Cloud Security Developer Portfolio",
+        alt: "Ajit Dev — Full Stack Developer & DevOps Engineer Portfolio",
         type: "image/png",
       },
     ],
@@ -62,9 +63,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ajitdev01",
     creator: "@ajitdev01",
-    title: "Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer",
+    title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security",
     description:
-      "DevOps, DevSecOps, Cloud Security & Cybersecurity developer portfolio. CI/CD, Docker, Linux, MERN, LAMP and security automation from Katihar, India.",
+      "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast. Next.js, React, MERN Stack, AWS, Docker, Kubernetes from Katihar, Bihar, India.",
     images: ["https://ajitdev.com/og-image.png"],
   },
   robots: {
@@ -99,6 +100,11 @@ export default function RootLayout({
         <link rel="me" href="https://github.com/ajitdev01" />
         <link rel="me" href="https://linkedin.com/in/ajitdev01" />
         <link rel="me" href="https://twitter.com/ajitdev01" />
+        <link rel="me" href="https://facebook.com/ajitdev01" />
+        <link rel="me" href="https://t.me/ajitdev01" />
+        <link rel="me" href="https://youtube.com/@ajitdev01" />
+        <link rel="me" href="https://hashnode.com/@ajitdev01" />
+        <link rel="me" href="https://codeforces.com/profile/ajitdev01" />
         <link rel="me" href="https://www.brainzima.com/" />
 
         {/* Preconnect & prefetch rules */}
@@ -162,7 +168,7 @@ export default function RootLayout({
                   "@type": "Person",
                   "@id": "https://ajitdev.com/#person",
                   "name": "Ajit Dev",
-                  "alternateName": ["ajitdev", "ajitdev01", "Ajit Dev DevOps"],
+                  "alternateName": ["Ajit Kumar", "AjitDev01", "ajitdev01"],
                   "url": "https://ajitdev.com",
                   "mainEntityOfPage": {
                     "@id": "https://ajitdev.com/#profilepage"
@@ -176,12 +182,12 @@ export default function RootLayout({
                     "caption": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer"
                   },
                   "jobTitle": [
+                    "Full Stack Developer",
                     "DevOps Engineer",
-                    "DevSecOps Engineer",
-                    "Cloud Security Developer",
-                    "Cybersecurity Developer"
+                    "Cloud Security Enthusiast",
+                    "DevSecOps Engineer"
                   ],
-                  "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in cloud computing, CI/CD automation, security engineering, Linux, Docker, MERN Stack and LAMP Stack development.",
+                  "description": "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer, Cloud Security and Cybersecurity Enthusiast from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in Next.js, React, MERN Stack, cloud computing, CI/CD automation, security engineering, Linux, Docker, AWS, Kubernetes, Terraform.",
                   "gender": "Male",
                   "nationality": "Indian",
                   "address": {
@@ -280,7 +286,15 @@ export default function RootLayout({
                     "https://linkedin.com/in/ajitdev01",
                     "https://twitter.com/ajitdev01",
                     "https://facebook.com/ajitdev01",
-                    "https://instagram.com/ajitdev01"
+                    "https://instagram.com/ajitdev01",
+                    "https://t.me/ajitdev01",
+                    "https://snapchat.com/add/ajitdev01",
+                    "https://leetcode.com/ajitdev01",
+                    "https://codeforces.com/profile/ajitdev01",
+                    "https://youtube.com/@ajitdev01",
+                    "https://medium.com/@ajitdev01",
+                    "https://hashnode.com/@ajitdev01",
+                    "https://dev.to/ajitdev01"
                   ]
                 },
                 {
@@ -357,7 +371,7 @@ export default function RootLayout({
                     "width": 1200,
                     "height": 630
                   },
-                  "keywords": "DevOps Engineer India, DevSecOps Engineer, Cloud Security Developer, Cybersecurity Portfolio India, Ajit Dev, Docker, Linux, CI/CD, MERN Stack, LAMP Stack, Katihar Bihar Developer"
+                  "keywords": "Ajit Dev, AjitDev01, Full Stack Developer India, DevOps Engineer India, Cloud Security Developer, MERN Stack, Next.js, React, Katihar Bihar Developer, AWS, Docker, Kubernetes"
                 },
                 {
                   "@type": "WebSite",

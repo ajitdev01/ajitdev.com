@@ -640,14 +640,24 @@ const Projects = () => {
           {/* === HIDDEN INTERNAL LINKS (SEO) === */}
           <nav className="sr-only" aria-label="Site navigation">
             <ul>
-              <li><a href="/">Home — Full Stack Engineer</a></li>
-              <li><a href="/skills">Technical Skills — MERN • LAMP • Next.js • DSA</a></li>
-              <li><a href="/projects">Full Stack Portfolio — 8 Production Projects</a></li>
-              <li><a href="/contact">Hire Full Stack Engineer — Contact</a></li>
-              <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-              <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
+              <li><a href="/">Ajit Dev — Full Stack Developer & DevOps Engineer Home</a></li>
+              <li><a href="/skills">Technical Skills — MERN • DevOps • AWS • Cloud Security</a></li>
+              <li><a href="/projects">Ajit Dev Projects — Full Stack & DevOps Portfolio</a></li>
+              <li><a href="/contact">Hire Ajit Dev — Full Stack Developer & DevOps Engineer</a></li>
+              <li><a href="https://github.com/ajitdev01">GitHub — Ajit Dev Code Portfolio</a></li>
+              <li><a href="https://leetcode.com/ajitdev01">LeetCode — Ajit Dev 400+ Problems</a></li>
             </ul>
           </nav>
+
+          {/* Hidden SEO Keywords */}
+          <span className="sr-only" aria-hidden="true">
+            Ajit Dev Projects, Ajit Dev GitHub, Ajit Dev Portfolio,
+            Ajit Dev, Ajit Kumar, AjitDev01, Next.js Developer,
+            MERN Stack Developer, Full Stack Projects Portfolio,
+            Katihar Developer, Katihar Full Stack Developer,
+            India Full Stack Developer, India DevOps Engineer,
+            Bihar Software Engineer, DevOps Projects Portfolio
+          </span>
 
         </div>
       </main>

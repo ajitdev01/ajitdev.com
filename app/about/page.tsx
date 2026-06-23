@@ -37,16 +37,24 @@ const skills = [
 const professionalProfiles = [
   { name: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, username: "ajitdev01" },
   { name: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiCode, username: "ajitdev01" },
+  { name: "Codeforces", url: "https://codeforces.com/profile/ajitdev01", icon: FiCode, username: "ajitdev01" },
   { name: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, username: "ajitdev01" },
   { name: "Dev.to", url: "https://dev.to/ajitdev01", icon: FiBookOpen, username: "ajitdev01" },
   { name: "Medium", url: "https://medium.com/@ajitdev01", icon: FiBookOpen, username: "@ajitdev01" },
+  { name: "Hashnode", url: "https://hashnode.com/@ajitdev01", icon: FiBookOpen, username: "@ajitdev01" },
+  { name: "YouTube", url: "https://youtube.com/@ajitdev01", icon: FiExternalLink, username: "@ajitdev01" },
+  { name: "Twitter/X", url: "https://twitter.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
+  { name: "Instagram", url: "https://instagram.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
+  { name: "Facebook", url: "https://facebook.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
+  { name: "Telegram", url: "https://t.me/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
+  { name: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
 ];
 
 // ========== CONTACT DETAILS ==========
 const contactDetails = [
   { icon: FiMail, label: "Email", value: "ajitk23192@gmail.com", href: "mailto:ajitk23192@gmail.com" },
   { icon: FiMapPin, label: "Location", value: "Katihar, Bihar, India", href: null },
-  { icon: FiBriefcase, label: "Role", value: "Full Stack Engineer", href: null },
+  { icon: FiBriefcase, label: "Role", value: "Full Stack Developer & DevOps Engineer", href: null },
   { icon: FiAward, label: "Experience", value: "Building scalable web applications", href: null },
 ];
 
@@ -85,10 +93,17 @@ const About = () => {
 
             <motion.h1
               variants={fadeInUp}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2"
             >
-              Ajit Kumar
+              Ajit Dev
             </motion.h1>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-sm text-gray-500 font-medium mb-4"
+            >
+              (ajitdev01)
+            </motion.p>
 
             <motion.div
               variants={fadeInUp}
@@ -100,10 +115,10 @@ const About = () => {
               className="text-xl text-gray-600 max-w-2xl mx-auto"
             >
               <span className="font-semibold text-gray-900">
-                Full Stack Engineer
+                Full Stack Developer · DevOps Engineer
               </span>
               <br />
-              MERN Stack · Next.js · TypeScript
+              MERN Stack · Next.js · AWS · Cloud Security
             </motion.p>
           </motion.section>
 
@@ -172,11 +187,13 @@ const About = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
-                    I&apos;m <strong className="text-gray-900">Ajit Kumar</strong>, a <strong>Full Stack Engineer</strong> from{" "}
+                    I&apos;m <strong className="text-gray-900">Ajit Dev</strong> (ajitdev01), a <strong>Full Stack Developer</strong> and <strong>DevOps Engineer</strong> from{" "}
                     <strong>Katihar, Bihar, India</strong>. I specialize in building{" "}
                     <strong>production-grade web applications</strong> using the{" "}
                     <strong>MERN Stack</strong> (MongoDB, Express, React, Node.js),{" "}
-                    <strong>Next.js</strong>, and <strong>TypeScript</strong>.
+                    <strong>Next.js</strong>, and <strong>TypeScript</strong>. I also work with{" "}
+                    <strong>AWS, Docker, Kubernetes, Terraform</strong> and focus on{" "}
+                    <strong>Cloud Security</strong> and <strong>DevOps</strong> practices.
                   </p>
                   <p>
                     My focus is on writing clean, maintainable code and creating scalable
@@ -275,19 +292,23 @@ const About = () => {
           {/* ===== HIDDEN SEO NAVIGATION ===== */}
           <nav className="sr-only" aria-label="SEO navigation">
             <ul>
-              <li><Link href="/">Full Stack Developer India — Home</Link></li>
-              <li><Link href="/about">About Ajit Kumar — Full Stack Engineer</Link></li>
-              <li><Link href="/projects">MERN Stack Projects Portfolio</Link></li>
-              <li><Link href="/skills">Full Stack Skills — React Node.js MongoDB</Link></li>
-              <li><Link href="/contact">Hire Full Stack Developer — Contact</Link></li>
+              <li><Link href="/">Ajit Dev - Full Stack Developer & DevOps Engineer — Home</Link></li>
+              <li><Link href="/about">About Ajit Dev (ajitdev01) — Full Stack Developer & DevOps Engineer</Link></li>
+              <li><Link href="/projects">Ajit Dev Projects - MERN Stack & DevOps Portfolio</Link></li>
+              <li><Link href="/skills">Full Stack & DevOps Skills — React Node.js AWS Docker</Link></li>
+              <li><Link href="/contact">Hire Ajit Dev - Full Stack Developer & DevOps Engineer</Link></li>
             </ul>
           </nav>
 
           {/* Hidden SEO Keywords */}
           <span className="sr-only" aria-hidden="true">
+            Ajit Dev, Ajit Kumar, AjitDev01, Ajit Dev Portfolio, Ajit Dev Developer, Ajit Dev Engineer,
             Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio,
-            JavaScript Developer India, Hire Full Stack Engineer, Full Stack Engineer Katihar Bihar,
-            React Node.js Developer, TypeScript Full Stack, MongoDB Express React Node
+            DevOps Engineer India, Cloud Security Engineer, DevSecOps Engineer,
+            Katihar Developer, Katihar Full Stack Developer, Katihar Software Engineer, Katihar DevOps Engineer,
+            Bihar Developer, Bihar Full Stack Developer, Bihar Software Engineer, Bihar DevOps Engineer,
+            India Full Stack Developer, India DevOps Engineer, India Next.js Developer,
+            Hire Full Stack Developer, Full Stack Developer Katihar Bihar
           </span>
 
         </div>

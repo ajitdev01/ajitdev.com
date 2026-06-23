@@ -1,65 +1,41 @@
-# Next.js 15+ SEO-First Portfolio Overhaul Walkthrough
+# Master Build Walkthrough: Non-Destructive SEO & Authority Expansion
 
-We transformed the developer portfolio (`ajitdev.com`) into a production-grade, search-optimized technical system.
-
----
-
-## 1. Files & Components Implemented
-
-We created/modified the following architecture:
-
-### Global Core & Analytics
-*   **`app/layout.tsx`**: Injected `@vercel/analytics` and `@vercel/speed-insights`, structured preconnect/prefetch rules, and local icons.
-*   **`app/page.tsx`**: Updated the primary H1 to exactly target key search terms (*Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar*).
-*   **`app/sitemap.ts`**: Set up dynamic XML sitemap indices containing all static and dynamic paths.
-*   **`app/robots.ts`**: Directed bots to index core routes and map resources.
-*   **`app/feed.xml/route.ts`**: Set up a dynamic RSS Feed serving post updates in XML.
-
-### Dynamic MDX Blog Engine
-*   **`lib/blog.ts`**: Parser utility using `gray-matter` and `reading-time` to feed server rendering pipelines.
-*   **`content/posts/`**: Written 3 standard technical guides covering VPC hardening, container pipelines, and PageSpeed metrics with embedded FAQ lists.
-*   **`app/components/`**:
-    *   `JSONLD.tsx`: Injects dynamic structured JSON-LD schemas.
-    *   `MDXComponents.tsx`: Visual layout definitions for parsed headings, lists, blockquotes, and code blocks.
-    *   `BlogSearch.tsx`: Instant category filter and text matching widget.
-*   **`app/blog/`**:
-    *   `page.tsx`: Dynamically renders post cards and filters.
-    *   `[slug]/page.tsx`: Renders full MDX articles with high-priority performance schemas.
-    *   `[category]/page.tsx` & static routes (`/blog/devops`, `/blog/aws`): Custom targeted landing archives.
-
-### Project Showcases
-*   **`app/projects/`**: Subcategory pages matching target keyword queries:
-    *   `full-stack/page.tsx`: lists React/Express/PHP platforms.
-    *   `devops/page.tsx`: lists GitHub Actions and scripting repositories.
-    *   `cloud/page.tsx`: lists AWS VPC and Serverless API architectures.
-    *   `security/page.tsx`: lists DevSecOps scanners and OWASP audits.
+We successfully transformed the portfolio (`ajitdev.com`) into a high-authority technical and educational hub. All improvements were done non-destructively, preserving existing styling, folders, files, and portfolio layout assets.
 
 ---
 
-## 2. Dynamic Setup Script (`setup-pages.js`)
+## 1. System Components Implemented
 
-To initialize all 24 remaining website paths, we built a single unified node script [setup-pages.js](file:///c:/Users/ajit%20kumar/Desktop/ajitdev.com/setup-pages.js) in the project root. Running it will instantly write page definitions for:
-*   Competitive Profiles: `/leetcode`, `/resume`, `/uses`, `/now`
-*   Subject Guides: `/dsa`, `/system-design`, `/devops`, `/devsecops`, `/cloud`, `/aws`, `/docker`, `/kubernetes`, `/terraform`, `/linux`, `/cloud-security`, `/cyber-security`
-*   Reference Materials: `/resources`, `/roadmaps`, `/tools`, `/open-source`, `/case-studies`, `/achievements`, `/certificates`, `/changelog`
+### Dynamic Routing Setup
+- **Authority Pages (26)**: Created standalone pages for topics like LAMP, MERN, React, NextJS, JS, TS, NodeJS, PHP, MySQL, MongoDB, AWS, Docker, Kubernetes, Terraform, Git, Linux, and DevSecOps.
+- **Nested DSA Hub (15)**: Created `/dsa` and subdirectories (`arrays`, `strings`, `linked-list`, `stack`, `queue`, `trees`, `bst`, `heap`, `graph`, `dynamic-programming`, etc.) integrating progress tracking cards and LeetCode performance statistics (430+ problems solved).
+- **Nested System Design Hub (11)**: Created `/system-design` and nested subpages (`load-balancer`, `cache`, `database-scaling`, `microservices`, `message-queues`, `cdn`, and message blueprints) presenting high-level and low-level specifications, tradeoffs, and diagram mockups.
+- **Nested DevOps Hub (9)**: Created `/devops` and nested subpages (`docker`, `kubernetes`, `terraform`, `github-actions`, `cicd`, `aws`, `linux`) listing command sheets, pipeline specs, and build guides.
+- **Nested Case Studies (5)**: Created `/case-studies` and detailed write-ups (`portfolio`, `qr-menu-saas`, `weather-app`, `library-management-system`) with full project post-mortems (Goals, Solution, DB Design, Security Audits, CI/CD, and lessons learned).
 
-Each generated folder contains local page routes configured with tailored canonical targets, custom descriptions, custom breadcrumbs lists, and FAQ JSON-LD graphs.
+### MDX Blog & Hybrid Database
+- **Metadata Database**: Generated `content/posts-metadata.json` mapping 1,200 SEO-friendly articles across all 12 key technology topics.
+- **Unified Loader**: Upgraded `lib/blog.ts` to seamlessly parse physical MDX files from `content/posts/` and fallback to metadata-driven summaries for placeholder posts, avoiding compile-time performance blocks.
+- **Reading Panel**: Enhanced `app/blog/[slug]/page.tsx` with:
+  1. An automated Table of Contents (TOC) parsing headings from MDX text.
+  2. A Related Articles card deck at the bottom.
+  3. Dynamic Breadcrumbs and FAQPage JSON-LD schemas.
+
+### Internal Linking & Crawlability
+- **Link Equity Distribution**: Appended all new hubs (`/resume`, `/case-studies`, `/dsa`, `/system-design`, `/devops`) to the footer's semantic link cluster.
+- **Dynamic Sitemap**: Modified `app/sitemap.ts` to index all 70+ new static paths and 1,200 blog posts safely wrapped inside a try-catch block to prevent build-time 500 crashes.
 
 ---
 
-## 3. How to Verify & Launch
+## 2. How to Verify & Launch
 
-Run the following commands in your project terminal:
+Since the route generator runs conditionally inside the server pipeline, the pages were automatically generated on dev server compilation.
 
-1.  **Generate the 24 subpages:**
-    ```bash
-    node setup-pages.js
-    ```
-2.  **Verify compilation & pre-render generation:**
-    ```bash
-    npm run build
-    ```
-3.  **Start development server:**
-    ```bash
-    npm run dev
-    ```
+To verify:
+1. Start the server (already running or `npm run dev`).
+2. Visit `http://localhost:3000/sitemap.xml` to inspect all generated entries.
+3. Validate pages in the browser (e.g., `/dsa/arrays`, `/system-design/load-balancer`, `/case-studies/qr-menu-saas`).
+4. Build the bundle to verify zero compiler errors:
+   ```bash
+   npm run build
+   ```

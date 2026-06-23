@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Ajit Kumar | Full Stack Engineer — MERN, Next.js, TypeScript",
+  title: "About Ajit Dev (ajitdev01) | Full Stack Developer, DevOps Engineer & Cloud Security",
   description:
-    "Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack, Next.js, TypeScript, and scalable web applications. Available for remote opportunities.",
+    "Ajit Dev (ajitdev01) is a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in MERN Stack, Next.js, TypeScript, AWS, Docker, Kubernetes. Available for remote opportunities.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     type: "profile",
-    title: "Ajit Kumar | Full Stack Engineer — MERN & Next.js Developer",
+    title: "Ajit Dev (ajitdev01) | Full Stack Developer & DevOps Engineer",
     description:
-      "Full Stack Engineer from Katihar, Bihar specializing in MERN Stack, Next.js, TypeScript. View projects and hire for opportunities.",
+      "Full Stack Developer & DevOps Engineer from Katihar, Bihar. MERN Stack, Next.js, AWS, Docker, Kubernetes, Cloud Security. View projects and hire.",
     url: "https://ajitdev.com/about",
     images: [{ url: "/og-image.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ajit Kumar | Full Stack Engineer",
+    title: "Ajit Dev | Full Stack Developer & DevOps Engineer",
     description:
-      "Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript.",
+      "Full Stack Developer & DevOps Engineer specializing in MERN Stack, Next.js, AWS, Cloud Security.",
   },
 };
 

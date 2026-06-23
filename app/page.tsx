@@ -370,13 +370,18 @@ export default function HomePage() {
 
   const allSocialUrls = [
     "https://github.com/ajitdev01",
-    "https://leetcode.com/ajitdev01",
     "https://linkedin.com/in/ajitdev01",
-    "https://twitter.com/ajitdev01",
     "https://instagram.com/ajitdev01",
+    "https://facebook.com/ajitdev01",
+    "https://t.me/ajitdev01",
     "https://snapchat.com/add/ajitdev01",
-    "https://dev.to/ajitdev01",
+    "https://leetcode.com/ajitdev01",
+    "https://codeforces.com/profile/ajitdev01",
+    "https://twitter.com/ajitdev01",
+    "https://youtube.com/@ajitdev01",
     "https://medium.com/@ajitdev01",
+    "https://hashnode.com/@ajitdev01",
+    "https://dev.to/ajitdev01",
   ];
 
   return (
@@ -391,13 +396,13 @@ export default function HomePage() {
               {
                 "@type": "Person",
                 "@id": "https://ajitdev.com/#person",
-                name: "Ajit Kumar",
-                alternateName: "ajitdev01",
+                name: "Ajit Dev",
+                alternateName: ["Ajit Kumar", "AjitDev01"],
                 url: "https://ajitdev.com",
                 email: "ajitk23192@gmail.com",
                 telephone: "+916205526784",
-                jobTitle: "Full Stack Engineer",
-                description: "Professional Full Stack Engineer specializing in MERN Stack, Next.js, and TypeScript. Available for hire.",
+                jobTitle: ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
+                description: "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Available for hire.",
                 address: {
                   "@type": "PostalAddress",
                   addressLocality: "Katihar",
@@ -405,26 +410,26 @@ export default function HomePage() {
                   addressCountry: "India",
                 },
                 sameAs: allSocialUrls,
-                knowsAbout: ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+                knowsAbout: ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "DevOps", "Cloud Security", "AWS", "Docker", "Kubernetes", "Terraform", "Linux", "CI/CD", "System Design"],
                 hasOccupation: {
                   "@type": "Occupation",
-                  name: "Full Stack Engineer",
-                  skills: "React, Next.js, Node.js, Express, MongoDB, TypeScript, Tailwind CSS, REST APIs",
+                  name: "Full Stack Developer",
+                  skills: "React, Next.js, Node.js, Express, MongoDB, TypeScript, AWS, Docker, Kubernetes, Terraform, CI/CD",
                 },
               },
               {
                 "@type": "WebSite",
                 "@id": "https://ajitdev.com/#website",
                 url: "https://ajitdev.com",
-                name: "Ajit Kumar - Full Stack Engineer Portfolio",
-                description: "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript.",
+                name: "Ajit Dev — Full Stack Developer & DevOps Engineer Portfolio",
+                description: "Portfolio of Ajit Dev (ajitdev01), a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.",
                 publisher: { "@id": "https://ajitdev.com/#person" },
               },
               {
                 "@type": "Organization",
                 "@id": "https://ajitdev.com/#organization",
                 name: "AjitDev",
-                alternateName: ["ajitdev01", "Ajit Kumar"],
+                alternateName: ["ajitdev01", "Ajit Kumar", "Ajit Dev Portfolio"],
                 url: "https://ajitdev.com",
                 sameAs: allSocialUrls,
                 contactPoint: {
@@ -552,8 +557,12 @@ export default function HomePage() {
 
       {/* Hidden SEO Keywords */}
       <span className="sr-only" aria-hidden="true">
+        Ajit Dev, Ajit Kumar, AjitDev01, Ajit Dev Portfolio, Ajit Dev Developer,
         Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio,
-        JavaScript Developer India, Hire Full Stack Engineer, Full Stack Engineer Katihar Bihar,
+        DevOps Engineer India, Cloud Security Engineer, DevSecOps Engineer,
+        Katihar Developer, Katihar Full Stack Developer, Katihar Software Engineer,
+        Bihar Developer, Bihar Full Stack Developer, Bihar DevOps Engineer,
+        India Full Stack Developer, India DevOps Engineer, India Next.js Developer,
         React Node.js Developer, TypeScript Full Stack, MongoDB Express React Node
       </span>
     </>

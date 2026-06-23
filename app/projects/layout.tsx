@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects | Full Stack Web Applications Portfolio",
+  title: "Projects | Ajit Dev — Full Stack & DevOps Applications Portfolio",
   description:
-    "Full Stack web application projects by Ajit Kumar. MERN Stack, Next.js, TypeScript — real-world applications with live demos.",
+    "Full Stack and DevOps projects by Ajit Dev (ajitdev01). MERN Stack, Next.js, TypeScript, AWS, Docker, Kubernetes — real-world applications with live demos.",
   alternates: {
     canonical: "/projects",
   },

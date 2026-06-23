@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft, Calendar, Clock, Tag, BookOpen } from "lucide-react";
-import { getPostBySlug, getPostSlugs, getPostsByCategory } from "@/lib/blog";
+import { getPostBySlug, getPostSlugs, getPostsByCategory, getAllPosts } from "@/lib/blog";
 import { MDXComponents } from "@/app/components/MDXComponents";
 import JSONLD from "@/app/components/JSONLD";
 
@@ -293,6 +293,26 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
     "keywords": post.tags.join(", "),
   };
 
+  // Automated TOC Parser
+  const headingRegex = /^(##|###)\s+(.+)$/gm;
+  const headings: { text: string; id: string; level: number }[] = [];
+  let match;
+  while ((match = headingRegex.exec(post.content)) !== null) {
+    const level = match[1].length; // 2 for h2, 3 for h3
+    const text = match[2].trim();
+    const id = text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+    headings.push({ text, id, level });
+  }
+
+  // Related Posts logic
+  const allPosts = getAllPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug && (p.category === post.category || p.tags.some((t) => post.tags.includes(t))))
+    .slice(0, 3);
+
   return (
     <>
       <JSONLD schema={breadcrumbSchema} />
@@ -315,7 +335,7 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
       )}
 
       <article className="py-16 md:py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-8 group"
@@ -324,47 +344,149 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
             Back to Blog Archive
           </Link>
 
-          <header className="mb-10 pb-8 border-b border-gray-100">
-            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-4">
-              <span className="bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
-                {post.category}
-              </span>
-              <span className="flex items-center gap-1.5 text-gray-400">
-                <Calendar className="w-4 h-4" />
-                {post.date}
-              </span>
-              <span className="flex items-center gap-1.5 text-gray-400">
-                <Clock className="w-4 h-4" />
-                {post.readingTime}
-              </span>
+          <div className="grid lg:grid-cols-4 gap-12">
+            {/* TOC SIDEBAR */}
+            {headings.length > 0 ? (
+              <aside className="hidden lg:block lg:col-span-1">
+                <div className="sticky top-28 p-6 bg-gray-50/50 border border-gray-200/60 rounded-2xl shadow-sm">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-indigo-500" /> Table of Contents
+                  </h4>
+                  <nav className="space-y-2.5">
+                    {headings.map((h) => (
+                      <a
+                        key={h.id}
+                        href={`#${h.id}`}
+                        className={`block text-xs text-gray-500 hover:text-indigo-600 transition-colors font-semibold ${
+                          h.level === 3 ? "pl-4 text-gray-400 border-l border-gray-100" : ""
+                        }`}
+                      >
+                        {h.text}
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+              </aside>
+            ) : (
+              <div className="hidden lg:block lg:col-span-1" />
+            )}
+
+            {/* MAIN ARTICLE BODY */}
+            <div className={`col-span-1 lg:col-span-3 ${headings.length === 0 ? "lg:col-span-4 max-w-4xl mx-auto" : ""}`}>
+              <header className="mb-10 pb-8 border-b border-gray-100">
+                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-4">
+                  <span className="bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
+                    {post.category}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-gray-400">
+                    <Calendar className="w-4 h-4" />
+                    {post.date}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-gray-400">
+                    <Clock className="w-4 h-4" />
+                    {post.readingTime}
+                  </span>
+                </div>
+
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight mb-6">
+                  {post.title}
+                </h1>
+
+                <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                  {post.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-lg"
+                    >
+                      <Tag className="w-3 h-3 text-gray-400" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </header>
+
+              <div className="prose prose-indigo max-w-none">
+                <MDXRemote source={post.content} components={MDXComponents} />
+              </div>
+
+              {/* AUTHOR BIO SECTION */}
+              <div className="mt-16 pt-8 border-t border-gray-100">
+                <div className="flex items-start gap-5 p-6 bg-gray-50 rounded-2xl border border-gray-200">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                    AD
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">
+                      Ajit Dev <span className="text-gray-500 text-sm font-normal">(ajitdev01)</span>
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3 leading-relaxed">
+                      Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.
+                      Specializing in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, and System Design.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        { name: "GitHub", url: "https://github.com/ajitdev01" },
+                        { name: "LinkedIn", url: "https://linkedin.com/in/ajitdev01" },
+                        { name: "LeetCode", url: "https://leetcode.com/ajitdev01" },
+                        { name: "Twitter/X", url: "https://twitter.com/ajitdev01" },
+                        { name: "Dev.to", url: "https://dev.to/ajitdev01" },
+                      ].map((link) => (
+                        <a
+                          key={link.name}
+                          href={link.url}
+                          target="_blank"
+                          rel="me noopener noreferrer"
+                          className="text-xs text-indigo-600 hover:text-indigo-800 font-semibold transition-colors"
+                        >
+                          {link.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RELATED POSTS SECTION */}
+              {relatedPosts.length > 0 && (
+                <div className="mt-20 pt-10 border-t border-gray-200">
+                  <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Related Articles
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {relatedPosts.map((rp) => (
+                      <div
+                        key={rp.slug}
+                        className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                      >
+                        <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                          {rp.category}
+                        </span>
+                        <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                          <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                        </h4>
+                        <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                          {rp.description}
+                        </p>
+                        <Link
+                          href={`/blog/${rp.slug}`}
+                          className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                        >
+                          Read Article →
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight mb-6">
-              {post.title}
-            </h1>
-
-            <p className="text-gray-600 text-lg leading-relaxed font-medium">
-              {post.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mt-6">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-lg"
-                >
-                  <Tag className="w-3 h-3 text-gray-400" />
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </header>
-
-          <div className="prose prose-indigo max-w-none">
-            <MDXRemote source={post.content} components={MDXComponents} />
           </div>
         </div>
       </article>
     </>
   );
 }
+

@@ -64,18 +64,18 @@ const FaGraduationCap = () => (
 // 2. CONFIGURATION (SEO-Optimized)
 // ============================================
 const NAV_ITEMS = [
-  { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "Ajit Kumar - Full Stack Engineer Portfolio" },
-  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Kumar's journey", title: "About Ajit Kumar - MERN Stack Developer" },
-  { name: "Skills", path: "/skills", icon: FiSettings, ariaLabel: "View technical skills and stack", title: "Skills - Full Stack & Cloud Expertise" },
-  { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects - Real-World Applications Built" },
+  { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "Ajit Dev - Full Stack Developer & DevOps Engineer Portfolio" },
+  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Dev's journey", title: "About Ajit Dev - Full Stack Developer & DevOps Engineer" },
+  { name: "Skills", path: "/skills", icon: FiSettings, ariaLabel: "View technical skills and stack", title: "Skills - Full Stack, DevOps & Cloud Security" },
+  { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects - Real-World Applications by Ajit Dev" },
   { name: "Education", path: "/education", icon: FaGraduationCap, ariaLabel: "Education & certifications", title: "Education - CS & Certifications" },
-  { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch", title: "Contact Ajit Kumar - Hire Full Stack Developer" },
+  { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch", title: "Contact Ajit Dev - Hire Full Stack Developer" },
 ];
 
 const BRAND_INFO = {
-  name: "Ajit Kumar",
-  title: "Full Stack Engineer | MERN • Next.js • TypeScript",
-  description: "Professional full stack developer specializing in modern web applications, cloud deployment, and scalable systems.",
+  name: "Ajit Dev",
+  title: "Full Stack Developer | DevOps • Cloud Security",
+  description: "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in MERN Stack, Next.js, AWS, Docker, Kubernetes.",
 };
 
 // ============================================
@@ -333,28 +333,42 @@ const Header = () => {
               {
                 "@type": "Person",
                 "@id": `${siteUrl}/#person`,
-                "name": "Ajit Kumar",
+                "name": "Ajit Dev",
+                "alternateName": ["Ajit Kumar", "AjitDev01"],
                 "url": siteUrl,
                 "sameAs": [
                   "https://github.com/ajitdev01",
-                  "https://leetcode.com/ajitdev01",
                   "https://linkedin.com/in/ajitdev01",
-                  "https://twitter.com/ajitdev01",
                   "https://instagram.com/ajitdev01",
-                  "https://snapchat.com/add/ajitdev01"
+                  "https://facebook.com/ajitdev01",
+                  "https://t.me/ajitdev01",
+                  "https://snapchat.com/add/ajitdev01",
+                  "https://leetcode.com/ajitdev01",
+                  "https://codeforces.com/profile/ajitdev01",
+                  "https://twitter.com/ajitdev01",
+                  "https://youtube.com/@ajitdev01",
+                  "https://medium.com/@ajitdev01",
+                  "https://hashnode.com/@ajitdev01",
+                  "https://dev.to/ajitdev01"
                 ],
-                "jobTitle": "Full Stack Engineer",
+                "jobTitle": ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
                 "description": BRAND_INFO.description,
                 "image": `${siteUrl}/logo.png`,
-                "email": "contact@ajitdev.com",
-                "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "Tailwind CSS", "Cloud Deployment", "Full Stack Development"]
+                "email": "ajitk23192@gmail.com",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Katihar",
+                  "addressRegion": "Bihar",
+                  "addressCountry": "India"
+                },
+                "knowsAbout": ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "DevOps", "Cloud Security", "AWS", "Docker", "Kubernetes", "Terraform", "Linux", "CI/CD", "System Design"]
               },
               {
                 "@type": "WebSite",
                 "@id": `${siteUrl}/#website`,
                 "url": siteUrl,
-                "name": "Ajit Kumar - Full Stack Engineer Portfolio",
-                "description": "Professional portfolio of Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and TypeScript. Hire for web development projects.",
+                "name": "Ajit Dev — Full Stack Developer & DevOps Engineer Portfolio",
+                "description": "Portfolio of Ajit Dev (ajitdev01), a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.",
                 "publisher": { "@id": `${siteUrl}/#person` },
                 "potentialAction": {
                   "@type": "SearchAction",
