@@ -497,19 +497,7 @@ const Footer = () => {
             </motion.div>
           </motion.div>
 
-          {/* FOOTER SEO BLOCK */}
-          <div className="mt-10 rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.018)", border: "1px solid rgba(255,255,255,0.055)" }}>
-            <p className="text-slate-600 text-[12px] leading-relaxed text-center">
-              <strong className="text-slate-400">Ajit Dev</strong> is a <strong className="text-slate-500">Full Stack Developer</strong>, <strong className="text-slate-500">DevOps Engineer</strong>, and <strong className="text-slate-500">Cloud Security Enthusiast</strong> from <strong className="text-slate-500">Katihar, Bihar, India</strong>. Specializing in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux, Cloud Security, Cyber Security, and System Design. Connect with <strong className="text-slate-400">Ajit Dev (ajitdev01)</strong> on{" "}
-              <a href="https://github.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">GitHub</a>,{" "}
-              <a href="https://linkedin.com/in/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">LinkedIn</a>,{" "}
-              <a href="https://leetcode.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">LeetCode</a>,{" "}
-              <a href="https://codeforces.com/profile/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Codeforces</a>,{" "}
-              <a href="https://instagram.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Instagram</a>,{" "}
-              <a href="https://t.me/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Telegram</a>,{" "}
-              <a href="https://facebook.com/ajitdev01" rel="me noopener noreferrer" className="text-blue-400/80 hover:text-blue-300 transition-colors">Facebook</a>, and other platforms.
-            </p>
-          </div>
+         
 
           {/* DIVIDER */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
