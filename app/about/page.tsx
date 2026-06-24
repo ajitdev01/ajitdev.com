@@ -235,27 +235,35 @@ const About = () => {
                     );
                   })}
                 </div>
-              </motion.div>
-
-              {/* Education & Training */}
-              <motion.div variants={fadeInUp} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+              </motion.div>              {/* Education & Training */}
+              <motion.div variants={fadeInUp} className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Education & Training</h2>
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div>
-                    <p className="font-semibold text-gray-800">BCA — Cloud & Security</p>
-                    <p className="text-sm text-gray-600">Amity University Online · 2025</p>
+                    <p className="font-bold text-slate-800">BCA — Cloud & Security</p>
+                    <p className="text-xs text-indigo-600 font-semibold mb-1">Amity University Online</p>
+                    <p className="text-xs text-gray-500">Duration: 2025 – 2027 · Currently Enrolled</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-gray-800">Practical Training</p>
-                    <p className="text-sm text-gray-600">Brainzima Innovation Institute</p>
+                  <div className="border-t border-slate-200/60 pt-4">
+                    <p className="font-bold text-slate-800">Practical Software Training</p>
+                    <p className="text-xs text-emerald-600 font-semibold mb-1">Brainzima Innovation Institute</p>
+                    <p className="text-xs text-gray-500">ISO Certified Training · Katihar, Bihar</p>
                     <a
-                      href="https://brainzima.com"
+                      href="https://www.brainzima.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 mt-1"
+                      className="text-xs text-indigo-600 hover:underline inline-flex items-center gap-1 mt-1.5"
                     >
-                      visit brainzima.com <FiExternalLink className="w-3 h-3" />
+                      Visit brainzima.com <FiExternalLink className="w-3 h-3" />
                     </a>
+                  </div>
+                  <div className="border-t border-slate-200/60 pt-3">
+                    <Link
+                      href="/education"
+                      className="text-xs font-bold text-indigo-600 hover:underline inline-flex items-center gap-1"
+                    >
+                      View Detailed Syllabus & Badges →
+                    </Link>
                   </div>
                 </div>
               </motion.div>

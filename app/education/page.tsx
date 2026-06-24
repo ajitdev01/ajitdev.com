@@ -1,14 +1,46 @@
 'use client';
 
-import { useState, useEffect, useMemo } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FiBook, FiCloud, FiShield, FiCode, FiTarget, FiTool,
-  FiBriefcase, FiSend, FiChevronDown, FiChevronUp,
+  FiBriefcase, FiChevronDown, FiChevronUp,
   FiTrendingUp, FiLayers, FiCpu, FiGitBranch, FiDatabase,
   FiZap, FiAward, FiClock, FiTerminal, FiCheckCircle,
-  FiArrowRight, FiStar, FiGlobe, FiLock, FiServer
+  FiArrowRight, FiStar, FiExternalLink, FiMapPin
 } from "react-icons/fi";
+
+// ========== CUSTOM SVG INSTITUTION LOGOS ==========
+const AmityLogo = () => (
+  <svg
+    className="w-14 h-14 text-blue-600 drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+    viewBox="0 0 64 64"
+    fill="none"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" d="M32 4L8 14v16c0 14.4 10.2 27.8 24 30 13.8-2.2 24-15.6 24-30V14L32 4z" />
+    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M18 20l14-6 14 6v10c0 9-6 17-14 19-8-2-14-10-14-19V20z" />
+    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M24 28h16M24 34h16M32 22v18" />
+  </svg>
+);
+
+const BrainzimaLogo = () => (
+  <svg
+    className="w-14 h-14 text-purple-600 drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+    viewBox="0 0 64 64"
+    fill="none"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <rect strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" x="6" y="10" width="52" height="44" rx="8" />
+    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M6 22h52" />
+    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M22 34l-6 6 6 6M42 34l6 6-6 6M34 32l-4 14" />
+    <circle cx="16" cy="16" r="2" fill="currentColor" />
+    <circle cx="24" cy="16" r="2" fill="currentColor" />
+    <circle cx="32" cy="16" r="2" fill="currentColor" />
+  </svg>
+);
 
 // ========== ENHANCED DATA ==========
 const focusAreas = [
@@ -195,15 +227,6 @@ const timelineData = [
   }
 ];
 
-const keyLearningAreas = [
-  { icon: FiCloud, text: "Cloud Computing", color: "text-blue-600", bg: "bg-blue-50" },
-  { icon: FiShield, text: "Cybersecurity", color: "text-emerald-600", bg: "bg-emerald-50" },
-  { icon: FiCode, text: "Full Stack Dev", color: "text-purple-600", bg: "bg-purple-50" },
-  { icon: FiGitBranch, text: "DevOps Concepts", color: "text-amber-600", bg: "bg-amber-50" },
-  { icon: FiDatabase, text: "Database Design", color: "text-cyan-600", bg: "bg-cyan-50" },
-  { icon: FiServer, text: "Cloud Native", color: "text-indigo-600", bg: "bg-indigo-50" }
-];
-
 const academicStats = [
   { value: "7.95+", label: "Current CGPA", icon: FiTrendingUp, gradient: "from-blue-500 to-cyan-500" },
   { value: "6", label: "Semesters", icon: FiBook, gradient: "from-emerald-500 to-teal-500" },
@@ -232,7 +255,7 @@ const itemVariants = {
 const cardVariants = {
   hidden: { scale: 0.95, opacity: 0 },
   visible: { scale: 1, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } },
-  hover: { scale: 1.02, y: -6, transition: { duration: 0.2 } }
+  hover: { scale: 1.015, y: -4, transition: { duration: 0.25, ease: "easeOut" as const } }
 };
 
 const statCardVariants = {
@@ -282,7 +305,7 @@ const Education = () => {
             initial="hidden"
             animate="visible"
             variants={containerVariants}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
             <motion.div variants={itemVariants} className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl mb-6">
               <FiBook className="text-4xl text-blue-600" />
@@ -295,22 +318,22 @@ const Education = () => {
               </span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-4">
-              BCA — Cloud & Security Specialization
+            <motion.p variants={itemVariants} className="text-xl text-gray-650 mb-6">
+              Academic Theory & Practical Engineering Stack
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex justify-center gap-3 flex-wrap mb-6">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-full text-sm font-medium">
                 <FiClock className="w-4 h-4" />
                 2025 – 2027
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full text-sm font-medium">
                 <FiStar className="w-4 h-4" />
                 CGPA: 7.95+
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-700 border border-purple-100 rounded-full text-sm font-medium">
                 <FiCode className="w-4 h-4" />
-                Full Stack Focus
+                Full Stack & Cloud Focus
               </span>
             </motion.div>
 
@@ -320,10 +343,10 @@ const Education = () => {
           {/* ===== MOBILE FAB ===== */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50"
+            className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50 hover:scale-105 active:scale-95 transition-transform"
             aria-label="Navigation menu"
           >
-            {isMobileMenuOpen ? <FiChevronDown className="w-5 h-5" /> : <FiChevronUp className="w-5 h-5" />}
+            {isMobileMenuOpen ? <FiChevronDown className="w-6 h-6" /> : <FiChevronUp className="w-6 h-6" />}
           </button>
 
           {/* ===== MOBILE MENU ===== */}
@@ -341,12 +364,11 @@ const Education = () => {
                   <h2 className="text-xl font-bold text-gray-900">Quick Navigation</h2>
                   <div className="grid grid-cols-3 gap-3">
                     {[
-                      { icon: FiBook, label: "Program", section: "program" },
+                      { icon: FiBook, label: "Program", section: "education-institutes" },
                       { icon: FiTarget, label: "Focus", section: "focus-areas" },
                       { icon: FiAward, label: "Certs", section: "certifications" },
-                      { icon: FiTrendingUp, label: "Timeline", section: "timeline" },
                       { icon: FiLayers, label: "Learning", section: "self-learning" },
-                      { icon: FiCode, label: "Skills", section: "skills" }
+                      { icon: FiTrendingUp, label: "Timeline", section: "timeline" }
                     ].map((item) => (
                       <button
                         key={item.section}
@@ -369,7 +391,7 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-16"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
               {academicStats.map((stat, idx) => {
@@ -379,10 +401,10 @@ const Education = () => {
                     key={idx}
                     variants={statCardVariants}
                     whileHover="hover"
-                    className="relative overflow-hidden rounded-2xl bg-white p-6 text-center shadow-lg border border-gray-100"
+                    className="relative overflow-hidden rounded-2xl bg-white p-6 text-center shadow-lg border border-gray-100 transition-all"
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-5`} />
-                    <StatIcon className={`w-8 h-8 mx-auto mb-2 text-blue-600`} />
+                    <StatIcon className="w-8 h-8 mx-auto mb-2 text-blue-600" />
                     <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
                     <div className="text-xs text-gray-500">{stat.label}</div>
                   </motion.div>
@@ -391,142 +413,109 @@ const Education = () => {
             </div>
           </motion.section>
 
-          {/* ===== MAIN PROGRAM CARD ===== */}
-          <motion.section
-            id="program"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-[1px] shadow-2xl">
-              <div className="relative rounded-3xl bg-white p-8 lg:p-12">
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-                  {/* Left: Icon & Duration */}
-                  <div className="flex-shrink-0 text-center lg:text-left">
-                    <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center shadow-lg mx-auto lg:mx-0">
-                      <FiBook className="w-14 h-14 text-blue-600" />
-                    </div>
-                    <div className="mt-5">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full text-sm font-semibold">
-                        <FiClock className="w-3.5 h-3.5" />
-                        2025 – 2027
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right: Content */}
-                  <div className="flex-grow">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">BCA — Cloud & Security</h2>
-                    <p className="text-gray-600 mb-4">Bachelor of Computer Applications · Specialization</p>
-
-                    {/* Institutions */}
-                    <div className="flex flex-wrap gap-4 mb-6">
-                      <a href="https://amityonline.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition">
-                        🎓 Amity University Online
-                      </a>
-                      <a href="https://brainzima.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-100 transition">
-                        ⚡ Brainzima — Practical Training
-                      </a>
-                      <a href="https://rexvel.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-medium hover:bg-emerald-100 transition">
-                        🏢 Rexvel — Industry Exposure
-                      </a>
-                    </div>
-
-                    {/* Key Learning Areas */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
-                      {keyLearningAreas.map((item) => {
-                        const AreaIcon = item.icon;
-                        return (
-                          <div key={item.text} className={`p-3 rounded-xl ${item.bg} border border-white/60 text-center`}>
-                            <AreaIcon className={`w-5 h-5 ${item.color} mx-auto mb-1`} />
-                            <span className="text-xs font-medium text-gray-700">{item.text}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <p className="text-gray-700 leading-relaxed">
-                      A specialized undergraduate program combining <strong className="text-gray-900">full-stack development (MERN, Next.js, LAMP)</strong>,{" "}
-                      <strong className="text-gray-900">cloud computing (AWS)</strong>, <strong className="text-gray-900">cybersecurity</strong>, and{" "}
-                      <strong className="text-gray-900">DevOps automation</strong>. The curriculum covers production-grade application development,
-                      containerization with Docker, CI/CD pipelines, and Linux system administration — building toward real-world engineering roles.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.section>
-
-          {/* ===== EDUCATION & INSTITUTE ===== */}
+          {/* ===== REDESIGNED TWO-COLUMN EDUCATION CARD SECTION ===== */}
           <motion.section
             id="education-institutes"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-20 scroll-mt-24"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
-                <span>🎓</span> Education & Institute
+                <span>🎓</span> Academic & Professional Training
               </h2>
-              <p className="text-gray-500 max-w-2xl mx-auto">
-                Academic credentials and professional coding training
+              <p className="text-gray-550 max-w-2xl mx-auto">
+                Theoretical foundation paired with rigorous hands-on technical competencies.
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Split 2-Column Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+
               {/* Amity Card */}
-              <motion.div
+              <motion.article
                 variants={cardVariants}
                 whileHover="hover"
-                className="relative group rounded-3xl bg-white p-8 shadow-xl border border-gray-100 overflow-hidden flex flex-col justify-between"
+                className="group relative rounded-3xl bg-white p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+                {/* Visual Glow Backdrop */}
+                <div className="absolute top-0 right-0 w-44 h-44 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+
                 <div>
-                  <div className="flex items-start justify-between gap-4 mb-6">
+                  {/* Card Header */}
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="p-3 bg-blue-50 rounded-2xl border border-blue-100">
+                      <AmityLogo />
+                    </div>
                     <div>
-                      <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-2">
-                        Degree Program
+                      <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-1">
+                        Academic Degree
                       </span>
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        🎓 Bachelor of Computer Applications (BCA)
+                      <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+                        Bachelor of Computer Applications (BCA)
                       </h3>
-                      <p className="text-blue-600 font-semibold mt-1">
-                        Amity University Online, Uttar Pradesh
+                      <a
+                        href="https://amityonline.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-blue-600 font-semibold mt-1.5 hover:underline group/link"
+                        aria-label="Visit Amity University Online website"
+                      >
+                        Amity University Online
+                        <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Badges Row */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold rounded-lg flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      Currently Enrolled
+                    </span>
+                    <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
+                      Cloud & Security
+                    </span>
+                    <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-100 text-xs font-semibold rounded-lg">
+                      Academic Baseline
+                    </span>
+                  </div>
+
+                  {/* Metadata Fields */}
+                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <div>
+                      <p className="text-gray-400 font-medium">Duration</p>
+                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
+                        <FiClock className="text-blue-500" /> 2025 – 2027
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 font-medium">Specialization</p>
+                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
+                        <FiShield className="text-emerald-500" /> Cloud & Security
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-8">
-                    <div className="flex items-center gap-3 text-gray-700">
-                      <FiLayers className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <div>
-                        <strong className="text-gray-900">Specialization:</strong> Cloud & Security
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-700">
-                      <FiClock className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <div>
-                        <strong className="text-gray-900">Duration:</strong> 2025 – 2027
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-700">
-                      <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-emerald-500 text-lg">🟢</span>
-                      <div>
-                        <strong className="text-gray-900">Status:</strong> Currently Enrolled
-                      </div>
-                    </div>
+                  {/* Highlights Box */}
+                  <div className="bg-blue-50/40 border-l-4 border-blue-500 p-4 rounded-r-xl mb-6">
+                    <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-1">
+                      Academic Highlights
+                    </h4>
+                    <p className="text-sm text-slate-700 leading-relaxed">
+                      Maintaining a solid baseline in software engineering patterns, algorithmic logic, cryptographic protocols, and core networking architectures.
+                    </p>
                   </div>
 
+                  {/* Core Study Subjects */}
                   <div>
                     <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                      <FiBook className="text-blue-500" /> Areas of Study
+                      <FiBook className="text-blue-500" /> Key Areas of Study
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {[
                         "Cloud Computing & Security",
                         "Data Structures & Algorithms",
@@ -537,102 +526,118 @@ const Education = () => {
                         "Network Security & Cryptography",
                         "Web Technologies"
                       ].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
-                          <FiCheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                          <span>{item}</span>
+                        <div key={item} className="flex items-center gap-2.5 text-sm text-slate-700 bg-slate-50/50 p-2 rounded-xl border border-slate-100/60 hover:border-blue-500/25 transition-all">
+                          <FiCheckCircle className="w-4.5 h-4.5 text-emerald-500 flex-shrink-0" />
+                          <span className="font-medium">{item}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
 
               {/* Brainzima Card */}
-              <motion.div
+              <motion.article
                 variants={cardVariants}
                 whileHover="hover"
-                className="relative group rounded-3xl bg-white p-8 shadow-xl border border-gray-100 overflow-hidden flex flex-col justify-between"
+                className="group relative rounded-3xl bg-white p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl pointer-events-none" />
+                {/* Visual Glow Backdrop */}
+                <div className="absolute top-0 right-0 w-44 h-44 bg-purple-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+
                 <div>
-                  <div className="flex items-start justify-between gap-4 mb-6">
+                  {/* Card Header */}
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="p-3 bg-purple-50 rounded-2xl border border-purple-100">
+                      <BrainzimaLogo />
+                    </div>
                     <div>
-                      <span className="inline-block px-3 py-1 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full mb-2">
+                      <span className="inline-block px-3 py-1 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full mb-1">
                         Professional Training
                       </span>
-                      <h3 className="text-2xl font-bold text-gray-900">
-                        🏫 Brainzima Innovation Institute
+                      <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+                        Full Stack Software Development
                       </h3>
-                      <p className="text-purple-600 font-semibold mt-1">
-                        Katihar, Bihar – 854105
+                      <a
+                        href="https://www.brainzima.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-purple-600 font-semibold mt-1.5 hover:underline group/link"
+                        aria-label="Visit Brainzima Innovation Institute website"
+                      >
+                        Brainzima Innovation Institute
+                        <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Badges Row */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-100 text-xs font-semibold rounded-lg flex items-center gap-1">
+                      🏅 ISO Certified
+                    </span>
+                    <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-100 text-xs font-semibold rounded-lg flex items-center gap-1">
+                      ⭐ 5.0 Google Rating
+                    </span>
+                    <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
+                      1200+ Trained
+                    </span>
+                  </div>
+
+                  {/* Metadata Fields */}
+                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <div>
+                      <p className="text-gray-400 font-medium">Location</p>
+                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
+                        <FiMapPin className="text-purple-500" /> Katihar, Bihar
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 font-medium">Employment Prep</p>
+                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
+                        <FiBriefcase className="text-amber-500" /> Placement Support
                       </p>
                     </div>
                   </div>
 
-                  {/* Highlights Grid */}
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                      <span className="text-base flex-shrink-0">🏅</span>
-                      <span className="text-xs font-medium">ISO Certified</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                      <span className="text-base flex-shrink-0">👨‍🎓</span>
-                      <span className="text-xs font-medium">1200+ Trained</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                      <span className="text-base flex-shrink-0">⭐</span>
-                      <span className="text-xs font-medium">5.0 Google Rating</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                      <span className="text-base flex-shrink-0">💼</span>
-                      <span className="text-xs font-medium">100% Placement</span>
-                    </div>
+                  {/* Highlights Box */}
+                  <div className="bg-purple-50/40 border-l-4 border-purple-500 p-4 rounded-r-xl mb-6">
+                    <h4 className="text-xs font-bold text-purple-800 uppercase tracking-wider mb-1">
+                      Training Highlights
+                    </h4>
+                    <p className="text-sm text-slate-700 leading-relaxed">
+                      Rigorous practical training focused on real-world web applications, backend security API design, database normalization, and version control workflows.
+                    </p>
                   </div>
 
-                  <div className="space-y-3 mb-8">
-                    <div className="flex items-center gap-3 text-gray-700">
-                      <FiCode className="w-5 h-5 text-purple-500 flex-shrink-0" />
-                      <div>
-                        <strong className="text-gray-900">Training:</strong> Web Dev, Python, DCA, ADCA
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-700">
-                      <FiSend className="w-5 h-5 text-purple-500 flex-shrink-0" />
-                      <div>
-                        <strong className="text-gray-900">Contact:</strong> <a href="tel:+917979864304" className="hover:underline text-purple-600">+91-7979864304</a>
-                      </div>
-                    </div>
-                  </div>
-
+                  {/* Highlights List */}
                   <div>
                     <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                      <FiAward className="text-purple-500" /> Professional Skills
+                      <FiAward className="text-purple-500" /> Core Competencies & Skills
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {[
-                        "Full Stack Web Development",
-                        "React.js & Next.js",
-                        "PHP & MySQL",
-                        "JavaScript Development",
-                        "Git & GitHub",
-                        "Real-World Projects"
+                        "Full Stack Development",
+                        "Web Development Training",
+                        "Python Programming",
+                        "Real-World Projects",
+                        "Git Version Control",
+                        "Placement Assistance",
+                        "Career Guidance",
+                        "Industry Best Practices"
                       ].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
-                          <FiCheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                          <span>{item}</span>
+                        <div key={item} className="flex items-center gap-2.5 text-sm text-slate-700 bg-slate-50/50 p-2 rounded-xl border border-slate-100/60 hover:border-purple-500/25 transition-all">
+                          <FiCheckCircle className="w-4.5 h-4.5 text-emerald-500 flex-shrink-0" />
+                          <span className="font-medium">{item}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-auto border-t border-gray-100 pt-4 text-center">
-                  <p className="text-xs text-gray-500 italic">
-                    "Proud to be trained at one of Katihar's leading technology institutes."
-                  </p>
-                </div>
-              </motion.div>
+              </motion.article>
             </div>
+
+
           </motion.section>
 
           {/* ===== FOCUS AREAS ===== */}
@@ -642,11 +647,11 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-20 scroll-mt-24"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-3">Technical Focus Areas</h2>
-              <p className="text-gray-500 max-w-2xl mx-auto">
+              <p className="text-gray-550 max-w-2xl mx-auto">
                 Specialized learning paths combining academic theory with production-grade implementation
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
@@ -660,23 +665,25 @@ const Education = () => {
                     key={idx}
                     variants={cardVariants}
                     whileHover="hover"
-                    className="relative group"
+                    className="relative group h-full"
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-20 blur transition duration-500" />
-                    <div className="relative bg-white rounded-2xl border border-gray-200 p-6 shadow-md hover:shadow-xl transition-all h-full">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-4`}>
-                        <AreaIcon className="w-6 h-6 text-white" />
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">{area.title}</h3>
-                      <p className="text-gray-500 text-sm mb-4">{area.description}</p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {area.skills.map((skill) => (
-                          <span key={skill} className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur transition duration-500" />
+                    <div className="relative bg-white rounded-2xl border border-slate-200 p-6 shadow-md hover:shadow-xl transition-all h-full flex flex-col justify-between">
                       <div>
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-4`}>
+                          <AreaIcon className="w-6 h-6 text-white" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">{area.title}</h3>
+                        <p className="text-gray-500 text-sm mb-4">{area.description}</p>
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {area.skills.map((skill) => (
+                            <span key={skill} className="px-2 py-0.5 bg-gray-100 text-gray-650 rounded text-xs font-semibold">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-auto">
                         <div className="flex justify-between text-xs mb-1">
                           <span className="text-gray-500">Proficiency</span>
                           <span className="font-semibold text-gray-900">{area.progress}%</span>
@@ -705,11 +712,11 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-20 scroll-mt-24"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-3">Certifications & Credentials</h2>
-              <p className="text-gray-500 max-w-2xl mx-auto">
+              <p className="text-gray-550 max-w-2xl mx-auto">
                 Industry-recognized certifications validating technical expertise
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
@@ -723,26 +730,26 @@ const Education = () => {
                     key={idx}
                     variants={cardVariants}
                     whileHover={{ y: -4 }}
-                    className="rounded-2xl p-6 bg-white border border-gray-200 shadow-md hover:shadow-xl transition-all"
+                    className="rounded-2xl p-6 bg-white border border-slate-200 shadow-md hover:shadow-xl transition-all"
                   >
                     <div className="flex items-center gap-3 mb-4">
                       <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cert.gradientBar.split(' ')[0]} flex items-center justify-center`}>
                         <CertIcon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900 text-sm">{cert.title}</h3>
-                        <p className="text-gray-400 text-xs">{cert.issuer}</p>
+                        <h3 className="font-bold text-gray-900 text-sm leading-tight">{cert.title}</h3>
+                        <p className="text-gray-450 text-xs mt-0.5">{cert.issuer}</p>
                       </div>
                     </div>
                     <div className="flex justify-between items-center mb-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${statusStyles[cert.status] || "bg-gray-100 text-gray-700"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${statusStyles[cert.status] || "bg-gray-100 text-gray-700"}`}>
                         {cert.status}
                       </span>
                       <span className="text-xs text-gray-400">{cert.timeline}</span>
                     </div>
                     <div>
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-500">Progress</span>
+                        <span className="text-gray-550">Progress</span>
                         <span className="font-semibold text-gray-900">{cert.progress}%</span>
                       </div>
                       <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
@@ -768,11 +775,11 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-20 scroll-mt-24"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-3">Self-Learning & Continuous Growth</h2>
-              <p className="text-gray-500 max-w-2xl mx-auto">
+              <p className="text-gray-550 max-w-2xl mx-auto">
                 Beyond the curriculum — daily discipline and skill expansion
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
@@ -786,7 +793,10 @@ const Education = () => {
                     key={idx}
                     variants={cardVariants}
                     whileHover={{ y: -4 }}
-                    className={`rounded-2xl p-6 border ${item.highlight ? 'border-amber-200 bg-gradient-to-br from-amber-50/50 to-white' : 'border-gray-200 bg-white'} shadow-md hover:shadow-xl transition-all`}
+                    className={`rounded-2xl p-6 border ${item.highlight
+                        ? 'border-amber-250 bg-gradient-to-br from-amber-50/30 to-white'
+                        : 'border-slate-205 bg-white'
+                      } shadow-md hover:shadow-xl transition-all`}
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-100 to-indigo-100 flex items-center justify-center">
@@ -801,7 +811,7 @@ const Education = () => {
                     <div>
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-gray-400">Progress</span>
-                        <span className="font-semibold text-gray-700">{item.progress}%</span>
+                        <span className="font-semibold text-gray-750">{item.progress}%</span>
                       </div>
                       <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                         <motion.div
@@ -826,11 +836,11 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
-            className="mb-20"
+            className="mb-20 scroll-mt-24"
           >
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-3">Academic Timeline</h2>
-              <p className="text-gray-500 max-w-2xl mx-auto">
+              <p className="text-gray-550 max-w-2xl mx-auto">
                 Semester-by-semester progression and skill development
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
@@ -854,9 +864,9 @@ const Education = () => {
 
                       {/* Card */}
                       <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
-                        <div className={`p-6 rounded-2xl ${item.bgGradient} border border-white/50 shadow-md hover:shadow-lg transition-all`}>
+                        <div className={`p-6 rounded-2xl bg-white border border-slate-200 shadow-md hover:shadow-lg transition-all`}>
                           <div className={`flex items-center gap-4 mb-3 ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}>
-                            <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 rounded-xl bg-slate-50 shadow-sm flex items-center justify-center flex-shrink-0">
                               <SemIcon className="w-5 h-5 text-blue-600" />
                             </div>
                             <div>
@@ -865,10 +875,10 @@ const Education = () => {
                             </div>
                           </div>
                           <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                          <p className="text-gray-500 text-sm mb-3">{item.description}</p>
+                          <p className="text-gray-550 text-sm mb-3">{item.description}</p>
                           <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? 'lg:justify-end' : ''}`}>
                             {item.skills.slice(0, 3).map((skill) => (
-                              <span key={skill} className="px-2 py-0.5 bg-white/60 text-gray-600 rounded-lg text-xs">
+                              <span key={skill} className="px-2.5 py-0.5 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold">
                                 {skill}
                               </span>
                             ))}

@@ -324,36 +324,89 @@ const EducationSection = () => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
-      className="py-20 bg-gray-50"
+      className="py-20 bg-slate-50 border-t border-b border-slate-100 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-3">
+            Education & Practical Training
+          </h2>
+          <p className="text-slate-550 max-w-xl mx-auto text-sm leading-relaxed">
+            Strong theoretical baseline combined with focused industry training and full stack execution.
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 gap-8">
-          <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-5">
-              <FiAward />
+          {/* Card 1: Amity */}
+          <motion.div 
+            variants={fadeUp} 
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white mb-5 shadow-md">
+                <FiAward />
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">
+                  Cloud & Security Specialization
+                </span>
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">
+                  Currently Enrolled
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
+                Bachelor of Computer Applications (BCA)
+              </h3>
+              <p className="text-indigo-600 font-semibold text-sm mb-4">
+                Amity University Online
+              </p>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                Specialized program focused on secure system architectures, cloud deployment models, Linux environments, database performance, and cryptosystem fundamentals.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
-            <p className="text-gray-800 font-medium">BCA in Cloud & Security</p>
-            <p className="text-gray-500 text-sm mb-3">Amity University Online</p>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Specialized in cloud infrastructure and security fundamentals.
-            </p>
+            <Link 
+              href="/education" 
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:underline mt-auto group/link"
+            >
+              Explore Coursework & Timeline
+              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+            </Link>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
-              <FiTrendingUp />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Practical Training</h3>
-            <p className="text-gray-800 font-medium">
-              <a href="https://brainzima.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
+          {/* Card 2: Brainzima */}
+          <motion.div 
+            variants={fadeUp} 
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white mb-5 shadow-md">
+                <FiTrendingUp />
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded">
+                  ISO Certified
+                </span>
+                <span className="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded">
+                  ⭐ 5.0 Google Rating
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
+                Practical Software Training
+              </h3>
+              <p className="text-emerald-600 font-semibold text-sm mb-4">
                 Brainzima Innovation Institute
-              </a>
-            </p>
-            <p className="text-gray-500 text-sm mb-3">brainzima.com</p>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Hands-on development training focusing on real-world projects and industry workflows.
-            </p>
+              </p>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                Hands-on professional software engineering training based in Katihar, Bihar. Core training features full stack development frameworks, Python scripting, and Git-driven real projects.
+              </p>
+            </div>
+            <Link 
+              href="/education" 
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline mt-auto group/link"
+            >
+              View Practical Competency & Badges
+              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+            </Link>
           </motion.div>
         </div>
       </div>
