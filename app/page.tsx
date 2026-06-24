@@ -7,15 +7,15 @@ import { motion, useInView, useMotionValue, useTransform, animate } from "framer
 // ============================================
 // ICONS (White Theme Friendly)
 // ============================================
-const FiGithub = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg>;
-const FiLinkedin = () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.222 0 22.225 0z" /></svg>;
-const FiArrowRight = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>;
-const FiCheckCircle = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const FiBriefcase = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
-const FiAward = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>;
-const FiUsers = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
-const FiCommand = () => <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></svg>;
-const FiTrendingUp = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
+const FiGithub = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg>;
+const FiLinkedin = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.222 0 22.225 0z" /></svg>;
+const FiArrowRight = ({ className }: { className?: string }) => <svg className={className || "w-4 h-4"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>;
+const FiCheckCircle = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const FiBriefcase = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
+const FiAward = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>;
+const FiUsers = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
+const FiCommand = ({ className }: { className?: string }) => <svg className={className || "w-3.5 h-3.5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></svg>;
+const FiTrendingUp = ({ className }: { className?: string }) => <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
 
 // ============================================
 // 3D CODESPACE HERO COMPONENT (White Theme)
@@ -311,8 +311,7 @@ const FeaturedTech = () => {
   );
 };
 
-// ============================================
-// EDUCATION SECTION
+// =======================================// EDUCATION SECTION
 // ============================================
 const EducationSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -324,33 +323,36 @@ const EducationSection = () => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
-      className="py-20 bg-slate-50 border-t border-b border-slate-100 transition-colors duration-300"
+      className="py-20 bg-slate-50 border-t border-b border-slate-200/65 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">
-            Education & Practical Training
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-blue-100">
+            <FiAward className="w-3.5 h-3.5" /> Learning & Exposure
+          </span>
+          <h2 className="text-3xl font-extrabold text-slate-900 mb-3">
+            Education & Industry Exposure
           </h2>
-          <p className="text-slate-550 max-w-xl mx-auto text-sm leading-relaxed">
-            Strong theoretical baseline combined with focused industry training and full stack execution.
+          <p className="text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed">
+            Theoretical baseline, professional engineering training, and real-world project delivery exposure.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Card 1: Amity */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Card 1: Amity BCA */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white mb-5 shadow-md">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center text-white mb-5 shadow-sm">
                 <FiAward />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">
-                  Cloud & Security Specialization
+                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
+                  Cloud & Security
                 </span>
-                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
                   Currently Enrolled
                 </span>
               </div>
@@ -361,7 +363,7 @@ const EducationSection = () => {
                 Amity University Online
               </p>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                Specialized program focused on secure system architectures, cloud deployment models, Linux environments, database performance, and cryptosystem fundamentals.
+                Academic program covering secure system designs, operating systems (Linux), databases, cloud security, and algorithmic logic.
               </p>
             </div>
             <Link 
@@ -376,35 +378,71 @@ const EducationSection = () => {
           {/* Card 2: Brainzima */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white mb-5 shadow-md">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white mb-5 shadow-sm">
                 <FiTrendingUp />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded">
+                <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded border border-purple-100/50">
                   ISO Certified
                 </span>
-                <span className="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded">
-                  ⭐ 5.0 Google Rating
+                <span className="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded border border-amber-100/50">
+                  Full Stack
                 </span>
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-1">
                 Practical Software Training
               </h3>
-              <p className="text-emerald-600 font-semibold text-sm mb-4">
+              <p className="text-purple-600 font-semibold text-sm mb-4">
                 Brainzima Innovation Institute
               </p>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                Hands-on professional software engineering training based in Katihar, Bihar. Core training features full stack development frameworks, Python scripting, and Git-driven real projects.
+                Hands-on developer training specializing in python scripting, version control, API architecture, React/Next.js and MERN Stack.
+              </p>
+            </div>
+            <Link 
+              href="/education" 
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline mt-auto group/link"
+            >
+              View Practical Competency & Badges
+              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+            </Link>
+          </motion.div>
+
+          {/* Card 3: Rexvel */}
+          <motion.div 
+            variants={fadeUp} 
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white mb-5 shadow-sm">
+                <FiBriefcase />
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
+                  Industry Exposure
+                </span>
+                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
+                  Real-World Projects
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
+                Project Exposure & SDLC
+              </h3>
+              <p className="text-emerald-600 font-semibold text-sm mb-4">
+                Rexvel
+              </p>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                Understanding client-focused requirements, team collaboration, versioning pipelines, and professional web development workflows.
               </p>
             </div>
             <Link 
               href="/education" 
               className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline mt-auto group/link"
             >
-              View Practical Competency & Badges
+              Explore Industry Experience
               <span className="transition-transform group-hover/link:translate-x-1">→</span>
             </Link>
           </motion.div>

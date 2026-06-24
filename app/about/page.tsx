@@ -235,34 +235,37 @@ const About = () => {
                     );
                   })}
                 </div>
-              </motion.div>              {/* Education & Training */}
-              <motion.div variants={fadeInUp} className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Education & Training</h2>
+              </motion.div>
+              {/* Education & Training */}
+              <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Education & Training</h2>
                 <div className="space-y-5">
                   <div>
-                    <p className="font-bold text-slate-800">BCA — Cloud & Security</p>
-                    <p className="text-xs text-indigo-600 font-semibold mb-1">Amity University Online</p>
-                    <p className="text-xs text-gray-500">Duration: 2025 – 2027 · Currently Enrolled</p>
+                    <p className="font-bold text-slate-850">BCA — Cloud & Security</p>
+                    <p className="text-xs text-indigo-600 font-semibold mb-0.5">Amity University Online</p>
+                    <p className="text-xs text-slate-500">Duration: 2025 – 2027 · Currently Enrolled</p>
                   </div>
-                  <div className="border-t border-slate-200/60 pt-4">
-                    <p className="font-bold text-slate-800">Practical Software Training</p>
-                    <p className="text-xs text-emerald-600 font-semibold mb-1">Brainzima Innovation Institute</p>
-                    <p className="text-xs text-gray-500">ISO Certified Training · Katihar, Bihar</p>
-                    <a
-                      href="https://www.brainzima.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-indigo-600 hover:underline inline-flex items-center gap-1 mt-1.5"
-                    >
-                      Visit brainzima.com <FiExternalLink className="w-3 h-3" />
-                    </a>
+                  <div className="border-t border-slate-100 pt-4">
+                    <p className="font-bold text-slate-850">Practical Software Training</p>
+                    <p className="text-xs text-emerald-600 font-semibold mb-0.5">Brainzima Innovation Institute</p>
+                    <p className="text-xs text-slate-500">ISO Certified Training · Katihar, Bihar</p>
                   </div>
-                  <div className="border-t border-slate-200/60 pt-3">
+                  <div className="border-t border-slate-100 pt-4">
+                    <p className="font-bold text-slate-850">Project Exposure & Workflows</p>
+                    <p className="text-xs text-blue-600 font-semibold mb-0.5">Rexvel</p>
+                    <p className="text-xs text-slate-500">Real-World Project Exposure & SDLC</p>
+                  </div>
+                  <div className="border-t border-slate-100 pt-4">
+                    <p className="font-bold text-slate-855">Self-Directed Technical Growth</p>
+                    <p className="text-xs text-amber-600 font-semibold mb-0.5">Continuous Self-Learning</p>
+                    <p className="text-xs text-slate-500">400+ LeetCode Problems · Systems & Cloud Fundamentals</p>
+                  </div>
+                  <div className="border-t border-slate-100 pt-3">
                     <Link
                       href="/education"
                       className="text-xs font-bold text-indigo-600 hover:underline inline-flex items-center gap-1"
                     >
-                      View Detailed Syllabus & Badges →
+                      View Detailed Timelines & Exposure →
                     </Link>
                   </div>
                 </div>

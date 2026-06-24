@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FiBook, FiCloud, FiShield, FiCode, FiTarget, FiTool,
   FiBriefcase, FiChevronDown, FiChevronUp,
-  FiTrendingUp, FiLayers, FiCpu, FiGitBranch, FiDatabase,
+  FiTrendingUp, FiLayers, FiCpu, FiGitBranch,
   FiZap, FiAward, FiClock, FiTerminal, FiCheckCircle,
-  FiArrowRight, FiStar, FiExternalLink, FiMapPin
+  FiStar, FiExternalLink, FiMapPin
 } from "react-icons/fi";
 
 // ========== CUSTOM SVG INSTITUTION LOGOS ==========
@@ -193,7 +193,7 @@ const timelineData = [
     skills: ["OOP Principles", "Data Structures", "React Basics", "REST Concepts"],
     icon: FiCpu,
     gradient: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-500/10 to-pink-500/10"
+    bgGradient: "from-purple-500/10 to-purple-500/10"
   },
   {
     semester: "Semester 4",
@@ -213,7 +213,7 @@ const timelineData = [
     skills: ["Cloud Security", "Docker/K8s", "Project Management", "Advanced DevOps"],
     icon: FiShield,
     gradient: "from-rose-500 to-red-500",
-    bgGradient: "from-rose-500/10 to-red-500/10"
+    bgGradient: "from-rose-500/10 to-rose-500/10"
   },
   {
     semester: "Semester 6",
@@ -287,8 +287,54 @@ const Education = () => {
   return (
     <div
       style={{ opacity: isLoaded ? 1 : 0, transition: "opacity 0.5s ease" }}
-      className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden"
+      className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden font-sans"
     >
+      {/* JSON-LD Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "EducationalOccupationalCredential",
+                "@id": "https://ajitdev.com/education/#bca",
+                "name": "Bachelor of Computer Applications (BCA)",
+                "credentialCategory": "degree",
+                "educationalLevel": "Bachelor",
+                "about": {
+                  "@type": "Thing",
+                  "name": "Cloud & Security"
+                },
+                "recognizedBy": {
+                  "@type": "EducationalOrganization",
+                  "name": "Amity University Online",
+                  "url": "https://amityonline.com"
+                }
+              },
+              {
+                "@type": "Course",
+                "@id": "https://ajitdev.com/education/#brainzima",
+                "name": "Full Stack Software Development",
+                "description": "ISO Certified training program in web development and full stack.",
+                "provider": {
+                  "@type": "EducationalOrganization",
+                  "name": "Brainzima Innovation Institute",
+                  "url": "https://www.brainzima.com"
+                }
+              },
+              {
+                "@type": "Organization",
+                "@id": "https://rexvel.com",
+                "name": "Rexvel",
+                "url": "https://rexvel.com",
+                "description": "Project Exposure & Real-World Development Experience"
+              }
+            ]
+          })
+        }}
+      />
+
       {/* Premium Background Blobs */}
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 -left-40 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
@@ -318,7 +364,7 @@ const Education = () => {
               </span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-xl text-gray-650 mb-6">
+            <motion.p variants={itemVariants} className="text-xl text-gray-650 mb-6 font-medium">
               Academic Theory & Practical Engineering Stack
             </motion.p>
 
@@ -362,13 +408,13 @@ const Education = () => {
               >
                 <div className="p-6 space-y-5">
                   <h2 className="text-xl font-bold text-gray-900">Quick Navigation</h2>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {[
-                      { icon: FiBook, label: "Program", section: "education-institutes" },
-                      { icon: FiTarget, label: "Focus", section: "focus-areas" },
-                      { icon: FiAward, label: "Certs", section: "certifications" },
-                      { icon: FiLayers, label: "Learning", section: "self-learning" },
-                      { icon: FiTrendingUp, label: "Timeline", section: "timeline" }
+                      { icon: FiBook, label: "Timeline Journey", section: "education-timeline" },
+                      { icon: FiTarget, label: "Focus Areas", section: "focus-areas" },
+                      { icon: FiAward, label: "Certifications", section: "certifications" },
+                      { icon: FiLayers, label: "Self-Learning", section: "self-learning" },
+                      { icon: FiTrendingUp, label: "Semester Timeline", section: "timeline" }
                     ].map((item) => (
                       <button
                         key={item.section}
@@ -376,7 +422,7 @@ const Education = () => {
                         className="flex flex-col items-center gap-2 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                       >
                         <item.icon className="w-5 h-5 text-blue-600" />
-                        <span className="text-xs font-medium text-gray-700">{item.label}</span>
+                        <span className="text-xs font-medium text-gray-700 text-center">{item.label}</span>
                       </button>
                     ))}
                   </div>
@@ -391,7 +437,7 @@ const Education = () => {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={containerVariants}
-            className="mb-16"
+            className="mb-20"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
               {academicStats.map((stat, idx) => {
@@ -413,231 +459,411 @@ const Education = () => {
             </div>
           </motion.section>
 
-          {/* ===== REDESIGNED TWO-COLUMN EDUCATION CARD SECTION ===== */}
+          {/* ===== 4-MILESTONE VERTICAL TIMELINE SECTION ===== */}
           <motion.section
-            id="education-institutes"
+            id="education-timeline"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
-            className="mb-20 scroll-mt-24"
+            className="mb-24 scroll-mt-24"
           >
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
-                <span>🎓</span> Academic & Professional Training
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <span>🎓</span> Academic & Professional timeline
               </h2>
               <p className="text-gray-550 max-w-2xl mx-auto">
-                Theoretical foundation paired with rigorous hands-on technical competencies.
+                Guided learning path representing academic milestones, professional training, industry workflows, and self-learning achievements.
               </p>
               <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
             </div>
 
-            {/* Split 2-Column Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Timeline Layout */}
+            <div className="relative">
+              {/* Center Line for Timelines (Desktop Only) */}
+              <div className="absolute left-6 lg:left-1/2 top-4 bottom-4 w-0.5 bg-blue-100/80 -translate-x-1/2" />
 
-              {/* Amity Card */}
-              <motion.article
-                variants={cardVariants}
-                whileHover="hover"
-                className="group relative rounded-3xl bg-white p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
-              >
-                {/* Visual Glow Backdrop */}
-                <div className="absolute top-0 right-0 w-44 h-44 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+              <div className="space-y-16">
 
-                <div>
-                  {/* Card Header */}
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 bg-blue-50 rounded-2xl border border-blue-100">
-                      <AmityLogo />
-                    </div>
-                    <div>
-                      <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-1">
-                        Academic Degree
-                      </span>
-                      <h3 className="text-2xl font-bold text-slate-900 leading-tight">
-                        Bachelor of Computer Applications (BCA)
-                      </h3>
-                      <a
-                        href="https://amityonline.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-blue-600 font-semibold mt-1.5 hover:underline group/link"
-                        aria-label="Visit Amity University Online website"
-                      >
-                        Amity University Online
-                        <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                      </a>
-                    </div>
+                {/* Milestone 1: Academic Journey */}
+                <div className="relative flex flex-col lg:flex-row items-start lg:items-center">
+                  {/* Dot */}
+                  <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-blue-500 shadow-sm flex items-center justify-center z-20">
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping absolute" />
+                    <div className="w-3 h-3 rounded-full bg-blue-500" />
                   </div>
 
-                  {/* Badges Row */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold rounded-lg flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Currently Enrolled
-                    </span>
-                    <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
-                      Cloud & Security
-                    </span>
-                    <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-100 text-xs font-semibold rounded-lg">
-                      Academic Baseline
-                    </span>
-                  </div>
-
-                  {/* Metadata Fields */}
-                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <div>
-                      <p className="text-gray-400 font-medium">Duration</p>
-                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
-                        <FiClock className="text-blue-500" /> 2025 – 2027
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 font-medium">Specialization</p>
-                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
-                        <FiShield className="text-emerald-500" /> Cloud & Security
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Highlights Box */}
-                  <div className="bg-blue-50/40 border-l-4 border-blue-500 p-4 rounded-r-xl mb-6">
-                    <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-1">
-                      Academic Highlights
-                    </h4>
-                    <p className="text-sm text-slate-700 leading-relaxed">
-                      Maintaining a solid baseline in software engineering patterns, algorithmic logic, cryptographic protocols, and core networking architectures.
-                    </p>
-                  </div>
-
-                  {/* Core Study Subjects */}
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                      <FiBook className="text-blue-500" /> Key Areas of Study
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {[
-                        "Cloud Computing & Security",
-                        "Data Structures & Algorithms",
-                        "Database Management Systems",
-                        "Software Engineering",
-                        "Operating Systems (Linux)",
-                        "Computer Networks",
-                        "Network Security & Cryptography",
-                        "Web Technologies"
-                      ].map((item) => (
-                        <div key={item} className="flex items-center gap-2.5 text-sm text-slate-700 bg-slate-50/50 p-2 rounded-xl border border-slate-100/60 hover:border-blue-500/25 transition-all">
-                          <FiCheckCircle className="w-4.5 h-4.5 text-emerald-500 flex-shrink-0" />
-                          <span className="font-medium">{item}</span>
+                  {/* Card (Left Aligned on Desktop) */}
+                  <div className="w-full lg:w-[calc(50%-2.5rem)] pl-16 lg:pl-0 lg:mr-auto text-left">
+                    <motion.article
+                      variants={cardVariants}
+                      whileHover="hover"
+                      className="group relative rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
+                    >
+                      <div className="absolute top-0 right-0 w-44 h-44 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div>
+                        {/* Header */}
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="p-3 bg-blue-50 rounded-2xl border border-blue-100 flex-shrink-0">
+                            <AmityLogo />
+                          </div>
+                          <div>
+                            <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-1">
+                              Academic Degree
+                            </span>
+                            <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                              Bachelor of Computer Applications (BCA)
+                            </h3>
+                            <a
+                              href="https://amityonline.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-blue-600 font-semibold mt-1.5 hover:underline group/link"
+                              aria-label="Visit Amity University Online website"
+                            >
+                              Amity University Online
+                              <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                            </a>
+                          </div>
                         </div>
-                      ))}
-                    </div>
+
+                        {/* Badges */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold rounded-lg flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            Currently Enrolled
+                          </span>
+                          <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
+                            Cloud & Security
+                          </span>
+                          <span className="px-2.5 py-1 bg-slate-50 text-slate-600 border border-slate-200 text-xs font-semibold rounded-lg">
+                            <FiClock className="w-3.5 h-3.5 inline mr-1" /> 2025 – 2027
+                          </span>
+                        </div>
+
+                        {/* Highlights */}
+                        <div className="bg-blue-50/40 border-l-4 border-blue-500 p-4 rounded-r-xl mb-6">
+                          <h4 className="text-xs font-bold text-blue-800 uppercase tracking-wider mb-1">
+                            Academic Highlights
+                          </h4>
+                          <ul className="text-xs md:text-sm text-slate-700 space-y-1.5 list-disc pl-4">
+                            <li>Cloud & Security Specialization coursework</li>
+                            <li>Practical Software Development project implementation</li>
+                            <li>Secure Computing & Threat Modeling concepts</li>
+                            <li>Relational Database Design & Normalization</li>
+                            <li>Linux OS Administration Fundamentals</li>
+                          </ul>
+                        </div>
+
+                        {/* Subjects */}
+                        <div>
+                          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <FiBook className="text-blue-500" /> Key Areas of Study
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {[
+                              "Cloud Computing", "Cloud Security", "Data Structures & Algorithms",
+                              "Software Engineering", "Database Management Systems", "Operating Systems",
+                              "Computer Networks", "Network Security", "Cryptography", "Web Technologies"
+                            ].map((item) => (
+                              <span key={item} className="px-2.5 py-1 bg-slate-50 text-slate-650 border border-slate-200/60 text-xs font-medium rounded-lg hover:bg-blue-50 hover:text-blue-700 hover:border-blue-100 transition-colors cursor-default">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.article>
                   </div>
                 </div>
-              </motion.article>
 
-              {/* Brainzima Card */}
-              <motion.article
-                variants={cardVariants}
-                whileHover="hover"
-                className="group relative rounded-3xl bg-white p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
-              >
-                {/* Visual Glow Backdrop */}
-                <div className="absolute top-0 right-0 w-44 h-44 bg-purple-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
-
-                <div>
-                  {/* Card Header */}
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 bg-purple-50 rounded-2xl border border-purple-100">
-                      <BrainzimaLogo />
-                    </div>
-                    <div>
-                      <span className="inline-block px-3 py-1 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full mb-1">
-                        Professional Training
-                      </span>
-                      <h3 className="text-2xl font-bold text-slate-900 leading-tight">
-                        Full Stack Software Development
-                      </h3>
-                      <a
-                        href="https://www.brainzima.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-purple-600 font-semibold mt-1.5 hover:underline group/link"
-                        aria-label="Visit Brainzima Innovation Institute website"
-                      >
-                        Brainzima Innovation Institute
-                        <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                      </a>
-                    </div>
+                {/* Milestone 2: Professional Training */}
+                <div className="relative flex flex-col lg:flex-row items-start lg:items-center">
+                  {/* Dot */}
+                  <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-purple-500 shadow-sm flex items-center justify-center z-20">
+                    <div className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping absolute" />
+                    <div className="w-3 h-3 rounded-full bg-purple-500" />
                   </div>
 
-                  {/* Badges Row */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-100 text-xs font-semibold rounded-lg flex items-center gap-1">
-                      🏅 ISO Certified
-                    </span>
-                    <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-100 text-xs font-semibold rounded-lg flex items-center gap-1">
-                      ⭐ 5.0 Google Rating
-                    </span>
-                    <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
-                      1200+ Trained
-                    </span>
-                  </div>
-
-                  {/* Metadata Fields */}
-                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <div>
-                      <p className="text-gray-400 font-medium">Location</p>
-                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
-                        <FiMapPin className="text-purple-500" /> Katihar, Bihar
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 font-medium">Employment Prep</p>
-                      <p className="text-slate-800 font-bold flex items-center gap-1.5 mt-0.5">
-                        <FiBriefcase className="text-amber-500" /> Placement Support
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Highlights Box */}
-                  <div className="bg-purple-50/40 border-l-4 border-purple-500 p-4 rounded-r-xl mb-6">
-                    <h4 className="text-xs font-bold text-purple-800 uppercase tracking-wider mb-1">
-                      Training Highlights
-                    </h4>
-                    <p className="text-sm text-slate-700 leading-relaxed">
-                      Rigorous practical training focused on real-world web applications, backend security API design, database normalization, and version control workflows.
-                    </p>
-                  </div>
-
-                  {/* Highlights List */}
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                      <FiAward className="text-purple-500" /> Core Competencies & Skills
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {[
-                        "Full Stack Development",
-                        "Web Development Training",
-                        "Python Programming",
-                        "Real-World Projects",
-                        "Git Version Control",
-                        "Placement Assistance",
-                        "Career Guidance",
-                        "Industry Best Practices"
-                      ].map((item) => (
-                        <div key={item} className="flex items-center gap-2.5 text-sm text-slate-700 bg-slate-50/50 p-2 rounded-xl border border-slate-100/60 hover:border-purple-500/25 transition-all">
-                          <FiCheckCircle className="w-4.5 h-4.5 text-emerald-500 flex-shrink-0" />
-                          <span className="font-medium">{item}</span>
+                  {/* Card (Right Aligned on Desktop) */}
+                  <div className="w-full lg:w-[calc(50%-2.5rem)] pl-16 lg:pl-0 lg:ml-auto text-left">
+                    <motion.article
+                      variants={cardVariants}
+                      whileHover="hover"
+                      className="group relative rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
+                    >
+                      <div className="absolute top-0 right-0 w-44 h-44 bg-purple-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div>
+                        {/* Header */}
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="p-3 bg-purple-50 rounded-2xl border border-purple-100 flex-shrink-0">
+                            <BrainzimaLogo />
+                          </div>
+                          <div>
+                            <span className="inline-block px-3 py-1 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full mb-1">
+                              Professional Training
+                            </span>
+                            <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                              Full Stack Software Development
+                            </h3>
+                            <a
+                              href="https://www.brainzima.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-purple-600 font-semibold mt-1.5 hover:underline group/link"
+                              aria-label="Visit Brainzima Innovation Institute website"
+                            >
+                              Brainzima Innovation Institute
+                              <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                            </a>
+                          </div>
                         </div>
-                      ))}
-                    </div>
+
+                        {/* Badges */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-100 text-xs font-semibold rounded-lg">
+                            🏅 ISO Certified
+                          </span>
+                          <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-100 text-xs font-semibold rounded-lg">
+                            ⭐ 5.0 Google Rating
+                          </span>
+                          <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold rounded-lg">
+                            Placement Assistance
+                          </span>
+                        </div>
+
+                        {/* Highlights */}
+                        <div className="bg-purple-50/40 border-l-4 border-purple-500 p-4 rounded-r-xl mb-6">
+                          <h4 className="text-xs font-bold text-purple-800 uppercase tracking-wider mb-1">
+                            Training Highlights
+                          </h4>
+                          <ul className="text-xs md:text-sm text-slate-700 space-y-1.5 list-disc pl-4">
+                            <li>ISO Certified training platform</li>
+                            <li>1200+ Students trained across software programs</li>
+                            <li>Placement Assistance and active resume preparation sessions</li>
+                            <li>Project-Based learning focusing on production deployment</li>
+                          </ul>
+                        </div>
+
+                        {/* Skills grid */}
+                        <div>
+                          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <FiAward className="text-purple-500" /> Core Competencies & Skills
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {[
+                              "HTML5", "CSS3", "JavaScript", "React.js", "Next.js", "PHP", "MySQL", "Git", "GitHub"
+                            ].map((item) => (
+                              <span key={item} className="px-2.5 py-1 bg-slate-50 text-slate-655 border border-slate-200/60 text-xs font-semibold rounded-lg hover:bg-purple-50 hover:text-purple-700 hover:border-purple-100 transition-colors cursor-default">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.article>
                   </div>
                 </div>
-              </motion.article>
+
+                {/* Milestone 3: Industry Exposure */}
+                <div className="relative flex flex-col lg:flex-row items-start lg:items-center">
+                  {/* Dot */}
+                  <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-emerald-500 shadow-sm flex items-center justify-center z-20">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping absolute" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                  </div>
+
+                  {/* Card (Left Aligned on Desktop) */}
+                  <div className="w-full lg:w-[calc(50%-2.5rem)] pl-16 lg:pl-0 lg:mr-auto text-left">
+                    <motion.article
+                      variants={cardVariants}
+                      whileHover="hover"
+                      className="group relative rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
+                    >
+                      <div className="absolute top-0 right-0 w-44 h-44 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div>
+                        {/* Header */}
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-100 flex-shrink-0">
+                            <svg className="w-14 h-14 text-emerald-600 drop-shadow-sm transition-transform duration-300 group-hover:scale-105" viewBox="0 0 64 64" fill="none" stroke="currentColor" aria-hidden="true">
+                              <path strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" d="M12 44L32 12l20 32H12z" />
+                              <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" d="M24 28h16" />
+                            </svg>
+                          </div>
+                          <div>
+                            <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full mb-1">
+                              Industry Exposure
+                            </span>
+                            <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                              Industry Experience & Project Exposure
+                            </h3>
+                            <a
+                              href="https://rexvel.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold mt-1.5 hover:underline group/link"
+                              aria-label="Visit Rexvel website"
+                            >
+                              Rexvel
+                              <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* Badges */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold rounded-lg">
+                            Project Exposure
+                          </span>
+                          <span className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 text-xs font-semibold rounded-lg">
+                            Real-World Workflows
+                          </span>
+                        </div>
+
+                        {/* Highlights Grid */}
+                        <div>
+                          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <FiBriefcase className="text-emerald-500" /> Key Exposure Areas
+                          </h4>
+                          <div className="grid grid-cols-1 gap-3">
+                            {[
+                              { title: "Professional Development Workflow", desc: "Insight into version control workflows, pull request reviews, and team branching models." },
+                              { title: "Client-Oriented Development", desc: "Understanding the lifecycle of capturing requirements and aligning implementation to design constraints." },
+                              { title: "Website Development Lifecycle", desc: "Experience in project structuring, setup, build pipelines, and production release concepts." },
+                              { title: "Production Deployment Concepts", desc: "Awareness of continuous deployment, server environments, and optimization rules." },
+                              { title: "Project Planning & Software Delivery", desc: "Understanding agile planning, milestone timelines, and iterative delivery schedules." },
+                              { title: "Real-World Problem Solving", desc: "Resolving performance bottlenecks, debug cycles, and cross-browser responsive layouts." }
+                            ].map((item) => (
+                              <div key={item.title} className="p-3.5 bg-slate-50/60 rounded-xl border border-slate-100/70 hover:border-emerald-500/20 transition-colors">
+                                <h5 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                  {item.title}
+                                </h5>
+                                <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.desc}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.article>
+                  </div>
+                </div>
+
+                {/* Milestone 4: Self-Learning Journey */}
+                <div className="relative flex flex-col lg:flex-row items-start lg:items-center">
+                  {/* Dot */}
+                  <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-amber-500 shadow-sm flex items-center justify-center z-20">
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping absolute" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500" />
+                  </div>
+
+                  {/* Card (Right Aligned on Desktop) */}
+                  <div className="w-full lg:w-[calc(50%-2.5rem)] pl-16 lg:pl-0 lg:ml-auto text-left">
+                    <motion.article
+                      variants={cardVariants}
+                      whileHover="hover"
+                      className="group relative rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-slate-200/80 overflow-hidden flex flex-col justify-between"
+                    >
+                      <div className="absolute top-0 right-0 w-44 h-44 bg-amber-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div>
+                        {/* Header */}
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="p-3 bg-amber-50 rounded-2xl border border-amber-100 flex-shrink-0">
+                            <svg className="w-14 h-14 text-amber-500 drop-shadow-sm transition-transform duration-300 group-hover:scale-105" viewBox="0 0 64 64" fill="none" stroke="currentColor" aria-hidden="true">
+                              <path strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" d="M32 6v40M32 6l-8 8M32 6l8 8" />
+                              <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M12 46h40v12H12V46z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <span className="inline-block px-3 py-1 bg-amber-50 text-amber-600 text-xs font-semibold rounded-full mb-1">
+                              Self-Directed Growth
+                            </span>
+                            <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                              Continuous Learning & Technical Growth
+                            </h3>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-100 mt-1">
+                              Continuous Learning Badge
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-sm text-slate-650 leading-relaxed mb-6 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                          A passionate self-learner continuously improving software engineering skills through practical projects, technical documentation, problem-solving, and modern development practices.
+                        </p>
+
+                        {/* Growth Statistics */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <div className="text-xl font-extrabold text-blue-600">400+ Solved</div>
+                            <div className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">LeetCode Problems</div>
+                          </div>
+                          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <div className="text-xl font-extrabold text-purple-600">5+ Apps</div>
+                            <div className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">Production Projects</div>
+                          </div>
+                          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <div className="text-xl font-extrabold text-emerald-600">3000+ Hrs</div>
+                            <div className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">Practical Coding</div>
+                          </div>
+                          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <div className="text-xl font-extrabold text-amber-600">5.0 Star</div>
+                            <div className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">Project Ratings</div>
+                          </div>
+                        </div>
+
+                        {/* Technology Badges & Learning Areas */}
+                        <div className="border-t border-slate-100 pt-5 space-y-4">
+                          <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">Core Learning Areas</h4>
+                          
+                          <div>
+                            <p className="text-[11px] font-bold text-blue-700 uppercase mb-1">Data Structures & Algorithms</p>
+                            <div className="flex flex-wrap gap-1">
+                              {["Arrays", "Strings", "Hashing", "Linked Lists", "Stack", "Queue", "Binary Search", "Recursion", "Backtracking", "Trees", "Graphs", "Dynamic Programming"].map((item) => (
+                                <span key={item} className="px-2 py-0.5 bg-blue-50/50 text-blue-700 border border-blue-100/50 text-[10px] font-semibold rounded">{item}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-[11px] font-bold text-purple-700 uppercase mb-1">Software Engineering</p>
+                            <div className="flex flex-wrap gap-1">
+                              {["System Design Fundamentals", "Object-Oriented Programming", "Design Patterns", "REST API Architecture", "Scalable Application Design"].map((item) => (
+                                <span key={item} className="px-2 py-0.5 bg-purple-50/50 text-purple-700 border border-purple-100/50 text-[10px] font-semibold rounded">{item}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-[11px] font-bold text-emerald-700 uppercase mb-1">Cloud & DevOps</p>
+                            <div className="flex flex-wrap gap-1">
+                              {["AWS", "Docker", "Kubernetes", "CI/CD", "Linux"].map((item) => (
+                                <span key={item} className="px-2 py-0.5 bg-emerald-50/50 text-emerald-700 border border-emerald-100/50 text-[10px] font-semibold rounded">{item}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-[11px] font-bold text-amber-700 uppercase mb-1">Modern Development</p>
+                            <div className="flex flex-wrap gap-1">
+                              {["React", "Next.js", "TypeScript", "Backend Development", "Database Optimization"].map((item) => (
+                                <span key={item} className="px-2 py-0.5 bg-amber-50/50 text-amber-700 border border-amber-100/50 text-[10px] font-semibold rounded">{item}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </motion.article>
+                  </div>
+                </div>
+
+              </div>
             </div>
-
-
           </motion.section>
 
           {/* ===== FOCUS AREAS ===== */}
@@ -674,10 +900,10 @@ const Education = () => {
                           <AreaIcon className="w-6 h-6 text-white" />
                         </div>
                         <h3 className="text-lg font-bold text-gray-900 mb-2">{area.title}</h3>
-                        <p className="text-gray-500 text-sm mb-4">{area.description}</p>
+                        <p className="text-gray-550 text-sm mb-4">{area.description}</p>
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {area.skills.map((skill) => (
-                            <span key={skill} className="px-2 py-0.5 bg-gray-100 text-gray-650 rounded text-xs font-semibold">
+                            <span key={skill} className="px-2 py-0.5 bg-gray-105 text-gray-600 border border-gray-200/50 rounded text-xs font-semibold">
                               {skill}
                             </span>
                           ))}
@@ -795,7 +1021,7 @@ const Education = () => {
                     whileHover={{ y: -4 }}
                     className={`rounded-2xl p-6 border ${item.highlight
                         ? 'border-amber-250 bg-gradient-to-br from-amber-50/30 to-white'
-                        : 'border-slate-205 bg-white'
+                        : 'border-slate-200 bg-white'
                       } shadow-md hover:shadow-xl transition-all`}
                   >
                     <div className="flex items-center gap-3 mb-3">
@@ -807,7 +1033,7 @@ const Education = () => {
                         <span className="px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-bold">★ CORE</span>
                       )}
                     </div>
-                    <p className="text-gray-500 text-xs mb-4">{item.description}</p>
+                    <p className="text-gray-550 text-xs mb-4">{item.description}</p>
                     <div>
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-gray-400">Progress</span>
