@@ -16,6 +16,7 @@ const inter = Inter({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -107,12 +108,9 @@ export default function RootLayout({
         <link rel="me" href="https://codeforces.com/profile/ajitdev01" />
         <link rel="me" href="https://www.brainzima.com/" />
 
-        {/* Preconnect & prefetch rules */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS prefetch for third-party domains */}
         <link rel="dns-prefetch" href="https://www.youtube.com" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
-        <link rel="preload" as="image" href="https://ajitdev.com/og-image.png" fetchPriority="high" />
 
         {/* Favicon indicators pointing to existing logo.png */}
         <link rel="icon" type="image/png" href="/logo.png" />
@@ -134,7 +132,7 @@ export default function RootLayout({
         </noscript>
 
         {/* Microsoft Clarity Script */}
-        <Script id="clarity-script" strategy="afterInteractive">
+        <Script id="clarity-script" strategy="lazyOnload">
           {`
             (function (c, l, a, r, i, t, y) {
               c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
@@ -147,9 +145,9 @@ export default function RootLayout({
         {/* Google Analytics (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-648KHZ7K6T"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
@@ -162,7 +160,7 @@ export default function RootLayout({
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "3011d7a1a53748ac8d82869375ddcf22"}'
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         {/* Google Knowledge Graph (Unified Closed Entity Graph) */}

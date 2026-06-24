@@ -1,7 +1,12 @@
-'use client';
+import { Metadata } from "next";
 
-import { motion } from "framer-motion";
-
+export const metadata: Metadata = {
+  title: "Terms of Service | Ajit Dev — DevOps Engineer Portfolio",
+  description: "Complete terms and conditions for Ajit Dev's DevOps engineer portfolio. Covers intellectual property, acceptable use, liability, and legal compliance.",
+  alternates: {
+    canonical: "https://ajitdev.com/terms",
+  },
+};
 // ========== ENTERPRISE STRUCTURED DATA ==========
 const structuredData = {
   "@context": "https://schema.org",
@@ -203,29 +208,11 @@ const structuredData = {
   ]
 };
 
-// ========== ANIMATION VARIANTS ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const }
-  }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-};
+// ========== ANIMATION CLASSES (CSS-only, no JS) ==========
+const fadeInClass = "animate-[fadeInUp_0.6s_ease-out_both]";
 
 // ========== TERMS PAGE COMPONENT ==========
-const Terms = () => {
+export default function Terms() {
   const currentYear = new Date().getFullYear();
   const lastModified = "February 22, 2026";
 
@@ -244,10 +231,7 @@ const Terms = () => {
         <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Breadcrumb Navigation */}
-          <motion.nav
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+          <nav
             aria-label="Breadcrumb"
             className="mb-10"
           >
@@ -266,16 +250,13 @@ const Terms = () => {
                 Terms of Service
               </li>
             </ol>
-          </motion.nav>
+          </nav>
 
           {/* Hero Section with Trust Indicators */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+          <div
             className="mb-16"
           >
-            <motion.div variants={fadeInUp} className="text-center">
+            <div className="text-center">
               {/* Trust Badge Collection */}
               <div className="flex flex-wrap justify-center gap-3 mb-6">
                 <span className="inline-flex items-center bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full text-sm font-medium">
@@ -304,8 +285,7 @@ const Terms = () => {
               </p>
 
               {/* Quick Summary Card */}
-              <motion.div
-                variants={fadeInUp}
+              <div
                 className="mt-10 max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm"
               >
                 <div className="flex items-start">
@@ -334,21 +314,18 @@ const Terms = () => {
                     </ul>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </div>
 
           {/* ███████████████████████████ */}
           {/* TERMS CONTENT - LEGAL SEO  */}
           {/* ███████████████████████████ */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+          <div
             className="space-y-12"
           >
             {/* Section 1: Acceptance */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">1</span>
                 Acceptance of Terms
@@ -365,10 +342,10 @@ const Terms = () => {
                   These terms govern your use of all content, project demonstrations, and communication channels.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 2: Website Purpose */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">2</span>
                 Website Purpose & Use
@@ -388,10 +365,10 @@ const Terms = () => {
                   The content is for informational purposes only and does not constitute professional advice or an offer of employment.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 3: Intellectual Property */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">3</span>
                 Intellectual Property Rights
@@ -422,10 +399,10 @@ const Terms = () => {
                   Always verify individual repository licensing.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 4: Acceptable Use Policy */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">4</span>
                 Acceptable Use Policy
@@ -484,10 +461,10 @@ const Terms = () => {
                   </ul>
                 </div>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 5: Freelance & Consulting Terms */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">5</span>
                 Freelance & Consulting Services
@@ -521,10 +498,10 @@ const Terms = () => {
                   Formal contracts are executed separately.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 6: Third-Party Links */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">6</span>
                 Third-Party Links & Services
@@ -565,10 +542,10 @@ const Terms = () => {
                 I am not responsible for the content or practices of external websites.
                 Your interactions with these platforms are governed by their respective terms.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 7: Limitation of Liability */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">7</span>
                 Limitation of Liability
@@ -590,10 +567,10 @@ const Terms = () => {
                   Some jurisdictions may not allow certain liability limitations, so this may not apply to you.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 8: Indemnification */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">8</span>
                 Indemnification
@@ -602,10 +579,10 @@ const Terms = () => {
                 You agree to indemnify and hold harmless Ajit Kumar from any claims, damages, or expenses
                 arising from your violation of these Terms or your use of this Website.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 9: Governing Law */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">9</span>
                 Governing Law & Jurisdiction
@@ -617,10 +594,10 @@ const Terms = () => {
                   <p className="mt-2 text-gray-700">Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>Katihar, Bihar, India</strong>.</p>
                 </div>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 10: Changes to Terms */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">10</span>
                 Changes to Terms
@@ -632,10 +609,10 @@ const Terms = () => {
               <div className="mt-4 text-sm text-gray-600">
                 <strong>Current version:</strong> 2.1 | <strong>Last modified:</strong> {lastModified}
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 11: Contact Information */}
-            <motion.section variants={fadeInUp} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
                 <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">11</span>
                 Contact Information
@@ -689,14 +666,11 @@ const Terms = () => {
                   </div>
                 </div>
               </address>
-            </motion.section>
-          </motion.div>
+            </section>
+          </div>
 
           {/* FAQ Section (Rendered for Users) */}
-          <motion.section
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
+          <section
             className="mt-16"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -719,13 +693,10 @@ const Terms = () => {
                 <p className="mt-4 text-gray-700">You&apos;ll receive a confirmation email, and I&apos;ll respond within 24-48 hours. No automated marketing, just professional communication.</p>
               </details>
             </div>
-          </motion.section>
+          </section>
 
           {/* Trust Seals Footer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+          <div
             className="mt-20 text-center border-t border-gray-200 pt-10"
           >
             <p className="text-sm text-gray-500 mb-6">Trusted by recruiters and clients worldwide</p>
@@ -739,12 +710,10 @@ const Terms = () => {
             <p className="text-xs text-gray-400 mt-8">
               © {currentYear} Ajit Kumar. All rights reserved. These terms are legally binding.
             </p>
-          </motion.div>
+          </div>
 
         </article>
       </main>
     </>
   );
-};
-
-export default Terms;
+}

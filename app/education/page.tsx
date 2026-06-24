@@ -459,6 +459,182 @@ const Education = () => {
             </div>
           </motion.section>
 
+          {/* ===== EDUCATION & INSTITUTE ===== */}
+          <motion.section
+            id="education-institutes"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
+                <span>🎓</span> Education & Institute
+              </h2>
+              <p className="text-gray-500 max-w-2xl mx-auto">
+                Academic credentials and professional coding training
+              </p>
+              <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-4 rounded-full" />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Amity Card */}
+              <motion.div
+                variants={cardVariants}
+                whileHover="hover"
+                className="relative group rounded-3xl bg-white p-8 shadow-xl border border-gray-100 overflow-hidden flex flex-col justify-between"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+                <div>
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                    <div>
+                      <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full mb-2">
+                        Degree Program
+                      </span>
+                      <h3 className="text-2xl font-bold text-gray-900">
+                        🎓 Bachelor of Computer Applications (BCA)
+                      </h3>
+                      <p className="text-blue-600 font-semibold mt-1">
+                        Amity University Online, Uttar Pradesh
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <FiLayers className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <div>
+                        <strong className="text-gray-900">Specialization:</strong> Cloud & Security
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <FiClock className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <div>
+                        <strong className="text-gray-900">Duration:</strong> 2025 – 2027
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-emerald-500 text-lg">🟢</span>
+                      <div>
+                        <strong className="text-gray-900">Status:</strong> Currently Enrolled
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <FiBook className="text-blue-500" /> Areas of Study
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        "Cloud Computing & Security",
+                        "Data Structures & Algorithms",
+                        "Database Management Systems",
+                        "Software Engineering",
+                        "Operating Systems (Linux)",
+                        "Computer Networks",
+                        "Network Security & Cryptography",
+                        "Web Technologies"
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
+                          <FiCheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Brainzima Card */}
+              <motion.div
+                variants={cardVariants}
+                whileHover="hover"
+                className="relative group rounded-3xl bg-white p-8 shadow-xl border border-gray-100 overflow-hidden flex flex-col justify-between"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl pointer-events-none" />
+                <div>
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                    <div>
+                      <span className="inline-block px-3 py-1 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full mb-2">
+                        Professional Training
+                      </span>
+                      <h3 className="text-2xl font-bold text-gray-900">
+                        🏫 Brainzima Innovation Institute
+                      </h3>
+                      <p className="text-purple-600 font-semibold mt-1">
+                        Katihar, Bihar – 854105
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Highlights Grid */}
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <span className="text-base flex-shrink-0">🏅</span>
+                      <span className="text-xs font-medium">ISO Certified</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <span className="text-base flex-shrink-0">👨‍🎓</span>
+                      <span className="text-xs font-medium">1200+ Trained</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <span className="text-base flex-shrink-0">⭐</span>
+                      <span className="text-xs font-medium">5.0 Google Rating</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <span className="text-base flex-shrink-0">💼</span>
+                      <span className="text-xs font-medium">100% Placement</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <FiCode className="w-5 h-5 text-purple-500 flex-shrink-0" />
+                      <div>
+                        <strong className="text-gray-900">Training:</strong> Web Dev, Python, DCA, ADCA
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <FiSend className="w-5 h-5 text-purple-500 flex-shrink-0" />
+                      <div>
+                        <strong className="text-gray-900">Contact:</strong> <a href="tel:+917979864304" className="hover:underline text-purple-600">+91-7979864304</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <FiAward className="text-purple-500" /> Professional Skills
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                      {[
+                        "Full Stack Web Development",
+                        "React.js & Next.js",
+                        "PHP & MySQL",
+                        "JavaScript Development",
+                        "Git & GitHub",
+                        "Real-World Projects"
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
+                          <FiCheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-auto border-t border-gray-100 pt-4 text-center">
+                  <p className="text-xs text-gray-500 italic">
+                    "Proud to be trained at one of Katihar's leading technology institutes."
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.section>
+
           {/* ===== FOCUS AREAS ===== */}
           <motion.section
             id="focus-areas"
