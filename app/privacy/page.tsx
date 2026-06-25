@@ -1,7 +1,3 @@
-'use client';
-
-import { motion } from "framer-motion";
-
 // ========== ADVANCED STRUCTURED DATA ==========
 const structuredData = {
   "@context": "https://schema.org",
@@ -104,28 +100,8 @@ const structuredData = {
   ]
 };
 
-// ========== ANIMATION CONFIG ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const }
-  }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-};
-
 // ========== PRIVACY PAGE COMPONENT ==========
-const Privacy = () => {
+export default function PrivacyPage() {
   const currentDate = new Date().toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'long',
@@ -146,7 +122,7 @@ const Privacy = () => {
           
           {/* Breadcrumb Navigation (SEO Gold) */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex text-sm text-gray-600 space-x-2">
+            <ol className="flex text-sm text-gray-650 space-x-2">
               <li>
                 <a href="/" className="hover:text-blue-600 transition-colors">
                   Home
@@ -160,16 +136,11 @@ const Privacy = () => {
           </nav>
 
           {/* Hero Section with Trust Indicators */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="mb-16"
-          >
-            <motion.div variants={fadeInUp} className="text-center">
+          <div className="mb-16">
+            <div className="text-center">
               {/* Trust Badge */}
               <div className="inline-flex items-center bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
                 🔒 GDPR-Ready • 100% Transparency
@@ -179,7 +150,7 @@ const Privacy = () => {
                 Privacy Policy
               </h1>
               
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-650 max-w-3xl mx-auto">
                 How <strong className="text-gray-900">Ajit Kumar</strong>, a 
                 <strong className="text-blue-600"> DevOps Engineer & Cloud Security Developer</strong> 
                 from <strong className="text-gray-900">Katihar, Bihar, India</strong>, 
@@ -187,21 +158,16 @@ const Privacy = () => {
               </p>
 
               {/* Last Updated Badge */}
-              <div className="mt-6 inline-block bg-gray-100 text-gray-600 px-6 py-2 rounded-full text-sm">
+              <div className="mt-6 inline-block bg-gray-100 text-gray-650 px-6 py-2 rounded-full text-sm">
                 📅 Last Updated: <time dateTime="2025-02-22">{currentDate}</time>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* ███████ PRIVACY CONTENT - STRUCTURED FOR SEO ███████ */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="prose prose-lg max-w-none text-gray-700"
-          >
+          <div className="prose prose-lg max-w-none text-gray-700">
             {/* Section 1: Introduction */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 1. Introduction
               </h2>
@@ -212,17 +178,17 @@ const Privacy = () => {
                   based in <strong>Katihar, Bihar, India</strong>. This website showcases cloud security projects, 
                   DevOps implementations, and full-stack development work.
                 </p>
-                <p className="text-gray-800 mt-4">
+                <p className="text-gray-805 mt-4">
                   <span className="font-semibold">My Commitment:</span> Your privacy is paramount. 
                   Whether you're a recruiter evaluating my <strong>DevOps engineer portfolio</strong>, 
                   a potential client seeking cloud expertise, or a fellow developer, I handle your 
                   data with the same security principles I apply to cloud infrastructure.
                 </p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 2: Information Collection */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 2. Information I Collect
               </h2>
@@ -252,42 +218,42 @@ const Privacy = () => {
                 <li>Anonymous usage patterns (to improve my <strong>cloud engineer portfolio</strong>)</li>
                 <li>IP address (anonymized for security)</li>
               </ul>
-            </motion.section>
+            </section>
 
             {/* Section 3: How Information Is Used */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 3. How Your Information Is Used
               </h2>
               <div className="grid md:grid-cols-2 gap-6 mt-6">
                 <div className="bg-gray-50 p-5 rounded-lg">
                   <div className="text-blue-600 text-2xl mb-3">📧</div>
-                  <h3 className="font-semibold mb-2">Responding to Inquiries</h3>
-                  <p>Answering questions about DevOps projects, cloud security, or collaboration</p>
+                  <h3 className="font-semibold mb-2 text-gray-900">Responding to Inquiries</h3>
+                  <p className="text-gray-650">Answering questions about DevOps projects, cloud security, or collaboration</p>
                 </div>
                 <div className="bg-gray-50 p-5 rounded-lg">
                   <div className="text-blue-600 text-2xl mb-3">🚀</div>
-                  <h3 className="font-semibold mb-2">Project Communication</h3>
-                  <p>Discussing potential cloud engineering opportunities</p>
+                  <h3 className="font-semibold mb-2 text-gray-900">Project Communication</h3>
+                  <p className="text-gray-650">Discussing potential cloud engineering opportunities</p>
                 </div>
                 <div className="bg-gray-50 p-5 rounded-lg">
                   <div className="text-blue-600 text-2xl mb-3">📊</div>
-                  <h3 className="font-semibold mb-2">Analytics</h3>
-                  <p>Understanding which projects interest visitors most</p>
+                  <h3 className="font-semibold mb-2 text-gray-900">Analytics</h3>
+                  <p className="text-gray-655">Understanding which projects interest visitors most</p>
                 </div>
                 <div className="bg-gray-50 p-5 rounded-lg">
                   <div className="text-blue-600 text-2xl mb-3">🔒</div>
-                  <h3 className="font-semibold mb-2">Security</h3>
-                  <p>Monitoring for abuse and protecting the portfolio</p>
+                  <h3 className="font-semibold mb-2 text-gray-900">Security</h3>
+                  <p className="text-gray-650">Monitoring for abuse and protecting the portfolio</p>
                 </div>
               </div>
               <p className="mt-4 font-medium text-green-700">
                 ✓ I NEVER sell your data. As a DevOps professional, I respect data privacy.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 4: Third-Party Services */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 4. Third-Party Services
               </h2>
@@ -302,12 +268,12 @@ const Privacy = () => {
                   </thead>
                   <tbody>
                     <tr className="border-b">
-                      <td className="p-3 font-medium">EmailJS</td>
+                      <td className="p-3 font-medium text-gray-900">EmailJS</td>
                       <td className="p-3">Contact form delivery</td>
                       <td className="p-3">Name, email, message</td>
                     </tr>
                     <tr className="border-b bg-gray-50">
-                      <td className="p-3 font-medium text-gray-900 font-mono">Vercel/GitHub Pages</td>
+                      <td className="p-3 font-medium text-gray-905 font-mono">Vercel/GitHub Pages</td>
                       <td className="p-3">Hosting</td>
                       <td className="p-3">Server logs (temporary)</td>
                     </tr>
@@ -319,13 +285,13 @@ const Privacy = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-gray-600 mt-4">
+              <p className="text-sm text-gray-655 mt-4">
                 Each service operates under its own privacy policy. Links open in new tabs.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 5: Data Security */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 5. Data Security (DevOps Approach)
               </h2>
@@ -337,10 +303,10 @@ const Privacy = () => {
                 <p className="mb-1">{'  '}✓ No database storage of forms</p>
                 <p>{'  '}✓ Cloud best practices applied</p>
               </div>
-            </motion.section>
+            </section>
 
             {/* Section 6: Cookies */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 6. Cookies & Tracking
               </h2>
@@ -354,10 +320,10 @@ const Privacy = () => {
               <p className="mt-4">
                 Manage cookies via browser settings. No third-party tracking cookies.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 7: External Links */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 7. External Links
               </h2>
@@ -376,13 +342,13 @@ const Privacy = () => {
                   </a> — Professional network
                 </li>
               </ul>
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-sm text-gray-655">
                 External sites have independent privacy policies.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 8: Your Rights */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 8. Your Rights
               </h2>
@@ -407,17 +373,17 @@ const Privacy = () => {
               <p className="mt-6">
                 Contact me anytime to exercise these rights.
               </p>
-            </motion.section>
+            </section>
 
             {/* Section 9: Contact */}
-            <motion.section variants={fadeInUp} className="mb-12">
+            <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 9. Contact Information
               </h2>
               <address className="not-italic bg-gray-100 p-6 rounded-xl">
                 <p className="text-xl font-semibold text-gray-900">Ajit Kumar</p>
                 <p className="text-gray-700 mt-2">DevOps Engineer & Full Stack Developer</p>
-                <p className="text-gray-600">Katihar, Bihar, India</p>
+                <p className="text-gray-655">Katihar, Bihar, India</p>
                 <p className="mt-4">
                   <strong>Email:</strong>{' '}
                   <a href="mailto:support@ajitdev.com" className="text-blue-600 hover:underline">
@@ -434,10 +400,10 @@ const Privacy = () => {
                   </a>
                 </p>
               </address>
-            </motion.section>
+            </section>
 
             {/* Section 10: Updates */}
-            <motion.section variants={fadeInUp}>
+            <section>
               <h2 className="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-3">
                 10. Policy Updates
               </h2>
@@ -452,42 +418,35 @@ const Privacy = () => {
               <p className="mt-4">
                 Check the &quot;Last Updated&quot; date for the latest version.
               </p>
-            </motion.section>
-          </motion.div>
+            </section>
+          </div>
 
           {/* Trust Seal Section */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-16 text-center border-t border-gray-200 pt-10"
-          >
+          <div className="mt-16 text-center border-t border-gray-200 pt-10">
             <div className="inline-flex flex-wrap justify-center gap-8">
-              <div className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center text-gray-655">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 GDPR Ready
               </div>
-              <div className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center text-gray-655">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 No Data Selling
               </div>
-              <div className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center text-gray-655">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 HTTPS Secured
               </div>
             </div>
-          </motion.div>
+          </div>
 
         </article>
       </main>
     </>
   );
-};
-
-export default Privacy;
+}

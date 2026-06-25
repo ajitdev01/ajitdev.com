@@ -1,8 +1,5 @@
-'use client';
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 // ========== INLINE SVG ICONS (eliminates react-icons bundle) ==========
 const IP = { strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
@@ -21,17 +18,6 @@ const FiDatabase = ({ className }: { className?: string }) => <svg {...ic(24, cl
 const FiAward = ({ className }: { className?: string }) => <svg {...ic(24, className)}><circle cx="12" cy="8" r="7" /><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" /></svg>;
 const FiExternalLink = ({ className }: { className?: string }) => <svg {...ic(24, className)}><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>;
 
-// ========== ANIMATION VARIANTS ==========
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
-};
-
 // ========== SKILLS DATA ==========
 const skills = [
   { name: "MERN Stack", icon: FiCode, color: "from-blue-500 to-cyan-500" },
@@ -42,23 +28,6 @@ const skills = [
   { name: "MongoDB", icon: FiDatabase, color: "from-green-600 to-lime-500" },
   { name: "Express.js", icon: FiCode, color: "from-gray-600 to-gray-800" },
   { name: "Tailwind CSS", icon: FiCode, color: "from-teal-400 to-cyan-400" },
-];
-
-// ========== BACKLINK PROFILES ==========
-const professionalProfiles = [
-  { name: "GitHub", url: "https://github.com/ajitdev01", icon: FiGithub, username: "ajitdev01" },
-  { name: "LeetCode", url: "https://leetcode.com/ajitdev01", icon: FiCode, username: "ajitdev01" },
-  { name: "Codeforces", url: "https://codeforces.com/profile/ajitdev01", icon: FiCode, username: "ajitdev01" },
-  { name: "LinkedIn", url: "https://linkedin.com/in/ajitdev01", icon: FiLinkedin, username: "ajitdev01" },
-  { name: "Dev.to", url: "https://dev.to/ajitdev01", icon: FiBookOpen, username: "ajitdev01" },
-  { name: "Medium", url: "https://medium.com/@ajitdev01", icon: FiBookOpen, username: "@ajitdev01" },
-  { name: "Hashnode", url: "https://hashnode.com/@ajitdev01", icon: FiBookOpen, username: "@ajitdev01" },
-  { name: "YouTube", url: "https://youtube.com/@ajitdev01", icon: FiExternalLink, username: "@ajitdev01" },
-  { name: "Twitter/X", url: "https://twitter.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
-  { name: "Instagram", url: "https://instagram.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
-  { name: "Facebook", url: "https://facebook.com/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
-  { name: "Telegram", url: "https://t.me/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
-  { name: "Snapchat", url: "https://snapchat.com/add/ajitdev01", icon: FiExternalLink, username: "ajitdev01" },
 ];
 
 // ========== CONTACT DETAILS ==========
@@ -73,72 +42,42 @@ const contactDetails = [
 // ========== MAIN ABOUT COMPONENT ==========
 const About = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-white"
-    >
+    <div className="min-h-screen bg-white transition-opacity duration-300">
       <main className="pt-20 pb-16" id="main-content">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ===== HERO SECTION ===== */}
-          <motion.section
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div
-              variants={fadeInUp}
-              className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl mb-6"
-            >
+          <section className="text-center mb-16">
+            <div className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl mb-6">
               <FiUser className="w-8 h-8 text-blue-600" />
-            </motion.div>
+            </div>
 
-            <motion.h1
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2"
-            >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-2">
               Ajit Dev
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              variants={fadeInUp}
-              className="text-sm text-gray-500 font-medium mb-4"
-            >
+            <p className="text-sm text-gray-650 font-medium mb-4">
               (ajitdev01)
-            </motion.p>
+            </p>
 
-            <motion.div
-              variants={fadeInUp}
-              className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"
-            />
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6" />
 
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-            >
+            <p className="text-xl text-gray-650 max-w-2xl mx-auto">
               <span className="font-semibold text-gray-900">
                 Full Stack Developer · DevOps Engineer
               </span>
               <br />
               MERN Stack · Next.js · AWS · Cloud Security
-            </motion.p>
-          </motion.section>
+            </p>
+          </section>
 
           {/* ===== MAIN CONTENT GRID ===== */}
           <div className="grid lg:grid-cols-3 gap-12 mb-1">
 
             {/* LEFT COLUMN - Profile & Contact */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="lg:col-span-1"
-            >
+            <div className="lg:col-span-1">
               {/* Profile Image */}
-              <motion.div variants={fadeInUp} className="mb-6">
+              <div className="mb-6">
                 <Image
                   src="/my.jpeg"
                   alt="Ajit Kumar - Full Stack Engineer from Katihar, Bihar, India"
@@ -147,10 +86,10 @@ const About = () => {
                   className="w-full max-w-sm mx-auto rounded-2xl shadow-lg border border-gray-200 h-auto"
                   priority
                 />
-              </motion.div>
+              </div>
 
               {/* Contact Cards */}
-              <motion.div variants={fadeInUp} className="space-y-3">
+              <div className="space-y-3">
                 {contactDetails.map((detail) => {
                   const IconComp = detail.icon;
                   return (
@@ -160,7 +99,7 @@ const About = () => {
                     >
                       <IconComp className="w-5 h-5 text-blue-600 flex-shrink-0" />
                       <div>
-                        <p className="text-xs text-gray-500 mb-0.5">{detail.label}</p>
+                        <p className="text-xs text-gray-650 mb-0.5">{detail.label}</p>
                         {detail.href ? (
                           <a
                             href={detail.href}
@@ -175,20 +114,13 @@ const About = () => {
                     </div>
                   );
                 })}
-              </motion.div>
-
-
-            </motion.div>
+              </div>
+            </div>
 
             {/* RIGHT COLUMN - About Content (2 cols) */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              className="lg:col-span-2"
-            >
+            <div className="lg:col-span-2">
               {/* Professional Summary */}
-              <motion.div variants={fadeInUp} className="mb-8">
+              <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
@@ -216,10 +148,10 @@ const About = () => {
                     </Link>.
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Skills Grid */}
-              <motion.div variants={fadeInUp} className="mb-8">
+              <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Tech Stack</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {skills.map((skill) => {
@@ -235,30 +167,31 @@ const About = () => {
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
+
               {/* Education & Training */}
-              <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
                 <h2 className="text-xl font-bold text-slate-900 mb-4">Education & Training</h2>
                 <div className="space-y-5">
                   <div>
                     <p className="font-bold text-slate-850">BCA — Cloud & Security</p>
-                    <p className="text-xs text-indigo-600 font-semibold mb-0.5">Amity University Online</p>
-                    <p className="text-xs text-slate-500">Duration: 2025 – 2027 · Currently Enrolled</p>
+                    <p className="text-xs text-indigo-650 font-semibold mb-0.5">Amity University Online</p>
+                    <p className="text-xs text-slate-600">Duration: 2025 – 2027 · Currently Enrolled</p>
                   </div>
                   <div className="border-t border-slate-100 pt-4">
                     <p className="font-bold text-slate-850">Practical Software Training</p>
                     <p className="text-xs text-emerald-600 font-semibold mb-0.5">Brainzima Innovation Institute</p>
-                    <p className="text-xs text-slate-500">ISO Certified Training · Katihar, Bihar</p>
+                    <p className="text-xs text-slate-600">ISO Certified Training · Katihar, Bihar</p>
                   </div>
                   <div className="border-t border-slate-100 pt-4">
                     <p className="font-bold text-slate-850">Project Exposure & Workflows</p>
                     <p className="text-xs text-blue-600 font-semibold mb-0.5">Rexvel</p>
-                    <p className="text-xs text-slate-500">Real-World Project Exposure & SDLC</p>
+                    <p className="text-xs text-slate-600">Real-World Project Exposure & SDLC</p>
                   </div>
                   <div className="border-t border-slate-100 pt-4">
                     <p className="font-bold text-slate-855">Self-Directed Technical Growth</p>
                     <p className="text-xs text-amber-600 font-semibold mb-0.5">Continuous Self-Learning</p>
-                    <p className="text-xs text-slate-500">400+ LeetCode Problems · Systems & Cloud Fundamentals</p>
+                    <p className="text-xs text-slate-600">400+ LeetCode Problems · Systems & Cloud Fundamentals</p>
                   </div>
                   <div className="border-t border-slate-100 pt-3">
                     <Link
@@ -269,40 +202,40 @@ const About = () => {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Values */}
-              <motion.div variants={fadeInUp} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start gap-3 p-4 bg-white border border-gray-100 rounded-xl shadow-sm">
                   <FiCheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Clean Code</h3>
-                    <p className="text-sm text-gray-600">Modular, documented, and maintainable</p>
+                    <p className="text-sm text-gray-650">Modular, documented, and maintainable</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 bg-white border border-gray-100 rounded-xl shadow-sm">
                   <FiCheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Scalable Architecture</h3>
-                    <p className="text-sm text-gray-600">Built to grow with your business</p>
+                    <p className="text-sm text-gray-650">Built to grow with your business</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 bg-white border border-gray-100 rounded-xl shadow-sm">
                   <FiCheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Performance First</h3>
-                    <p className="text-sm text-gray-600">Optimized for speed and UX</p>
+                    <p className="text-sm text-gray-650">Optimized for speed and UX</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 bg-white border border-gray-100 rounded-xl shadow-sm">
                   <FiCheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-gray-800">On-Time Delivery</h3>
-                    <p className="text-sm text-gray-600">100% success rate</p>
+                    <p className="text-sm text-gray-650">100% success rate</p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
           {/* ===== HIDDEN SEO NAVIGATION ===== */}
@@ -329,7 +262,7 @@ const About = () => {
 
         </div>
       </main>
-    </motion.div>
+    </div>
   );
 };
 

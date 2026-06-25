@@ -1,8 +1,8 @@
-'use client';
+import Link from "next/link";
+import React from "react";
+import dynamic from "next/dynamic";
 
-import Link from 'next/link';
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+const BackToTop = dynamic(() => import("./common/BackToTop"));
 
 // ========== INLINE SVG ICONS (eliminates react-icons bundle) ==========
 const IconProps = { strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
@@ -14,7 +14,6 @@ const FiSettings = ({ size = 24, className }: { size?: number; className?: strin
 const FiFolder = ({ size = 24, className }: { size?: number; className?: string }) => <svg {...icon(size, className)}><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>;
 const FiMail = ({ size = 24, className }: { size?: number; className?: string }) => <svg {...icon(size, className)}><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
 const FiHeart = ({ size = 24, className }: { size?: number; className?: string }) => <svg {...icon(size, className)}><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" /></svg>;
-const FiChevronUp = ({ size = 24, className }: { size?: number; className?: string }) => <svg {...icon(size, className)}><path d="M18 15l-6-6-6 6" /></svg>;
 const FiGithub = ({ size = 24, className }: { size?: number; className?: string }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg>;
 const FiLinkedin = ({ size = 24, className }: { size?: number; className?: string }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.222 0 22.225 0z" /></svg>;
 const FiShield = ({ size = 24, className }: { size?: number; className?: string }) => <svg {...icon(size, className)}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>;
@@ -121,26 +120,13 @@ const HIDDEN_KEYWORDS = [
   "React Node.js Developer", "TypeScript Full Stack", "MongoDB Express React Node",
 ];
 
-// ========== HOOKS ==========
-const useScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    const toggle = () => setIsVisible(window.pageYOffset > 300);
-    window.addEventListener("scroll", toggle, { passive: true });
-    return () => window.removeEventListener("scroll", toggle);
-  }, []);
-  return { isVisible, scrollToTop: () => window.scrollTo({ top: 0, behavior: "smooth" }) };
-};
-
 // ========== SUB-COMPONENTS ==========
 
 /** Animated background blob */
-const Blob = ({ style }: { style: React.CSSProperties }) => (
-  <motion.div
-    className="absolute rounded-full pointer-events-none"
+const Blob = ({ className, style }: { className?: string; style: React.CSSProperties }) => (
+  <div
+    className={`absolute rounded-full pointer-events-none ${className || ""}`}
     style={style}
-    animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0.7, 0.5] }}
-    transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
   />
 );
 
@@ -148,24 +134,21 @@ const Blob = ({ style }: { style: React.CSSProperties }) => (
 const SocialIcon = ({ link }: { link: typeof SOCIAL_LINKS[number] }) => {
   const Icon = link.icon;
   return (
-    <motion.a
+    <a
       href={link.url}
       rel={link.rel}
       aria-label={link.ariaLabel}
       data-platform={link.platform}
       data-authority={link.profileType === "professional" ? "primary-identity" : undefined}
-      whileHover={{ scale: 1.12, y: -2 }}
-      whileTap={{ scale: 0.95 }}
       className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-400
                  bg-white/[0.04] border border-white/[0.08]
                  hover:text-white hover:bg-white/[0.09] hover:border-white/[0.16]
-                 hover:shadow-lg
-                 transition-colors duration-200
+                 hover:shadow-lg hover:scale-112 hover:-translate-y-0.5
+                 transition-all duration-200
                  focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-1 focus:ring-offset-[#080c14]"
-      style={{ willChange: "transform" }}
     >
       <Icon size={14} />
-    </motion.a>
+    </a>
   );
 };
 
@@ -181,7 +164,7 @@ const NavItem = ({ link }: { link: typeof NAV_LINKS[number] }) => {
         className="group flex items-center gap-2.5 text-slate-500 hover:text-slate-100 text-sm py-1.5 transition-colors duration-200 focus:outline-none focus:text-white"
       >
         <span className="w-[22px] h-[22px] rounded-md bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/15 group-hover:border-blue-500/25 transition-all duration-200">
-          <Icon size={11} className="text-slate-600 group-hover:text-blue-400 transition-colors duration-200" />
+          <Icon size={11} className="text-slate-650 group-hover:text-blue-400 transition-colors duration-200" />
         </span>
         <span className="relative">
           {link.name}
@@ -194,22 +177,18 @@ const NavItem = ({ link }: { link: typeof NAV_LINKS[number] }) => {
 
 /** Technology badge */
 const TechBadge = ({ name, color, category }: { name: string; color: string; category: string }) => (
-  <motion.span
-    whileHover={{ scale: 1.06, y: -1 }}
-    className={`inline-flex items-center px-2.5 py-[5px] rounded-md text-[11px] font-medium border cursor-default transition-all duration-200 hover:shadow-md ${TECH_STYLES[color]}`}
+  <span
+    className={`inline-flex items-center px-2.5 py-[5px] rounded-md text-[11px] font-medium border cursor-default transition-all duration-200 hover:shadow-md hover:scale-106 hover:-translate-y-0.5 ${TECH_STYLES[color]}`}
     data-category={category}
     title={`${name} — ${category}`}
   >
     {name}
-  </motion.span>
+  </span>
 );
 
 // ========== MAIN FOOTER COMPONENT ==========
 const Footer = () => {
-  const { isVisible, scrollToTop } = useScrollToTop();
   const currentYear = new Date().getFullYear();
-  const footerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(footerRef, { once: true, margin: "-80px" });
 
   // JSON-LD SCHEMAS
   const allSocialUrls = SOCIAL_LINKS.map(link => link.url);
@@ -307,16 +286,6 @@ const Footer = () => {
     }
   ];
 
-  const stagger = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-  };
-
-  const slideUp = {
-    hidden: { opacity: 0, y: 28 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
-  };
-
   return (
     <>
       {/* JSON-LD SCHEMAS */}
@@ -329,20 +298,19 @@ const Footer = () => {
 
       {/* INTERNAL LINKING CLUSTER */}
       <nav aria-hidden="true" className="sr-only" data-type="internal-semantic-cluster">
-        <Link href="/about">Ajit Dev - Full Stack Developer & DevOps Engineer Journey</Link>
-        <Link href="/projects">MERN Stack & DevOps Projects Portfolio</Link>
-        <Link href="/skills">Full Stack Skills - React Node.js TypeScript DevOps AWS</Link>
-        <Link href="/contact">Hire Full Stack Developer & DevOps Engineer Katihar Bihar</Link>
-        <Link href="/education">Computer Science Education - Full Stack & DevOps Certifications</Link>
-        <Link href="/resume">Ajit Dev Resume - Full Stack Coder & DevOps CV</Link>
-        <Link href="/case-studies">Software Engineering Architecture Case Studies</Link>
-        <Link href="/dsa">Data Structures & Algorithms DSA Hub LeetCode</Link>
-        <Link href="/system-design">High & Low Level System Design Hub</Link>
-        <Link href="/devops">DevOps CI/CD Pipelines & Cloud Automation Hub</Link>
+        <Link href="/about" tabIndex={-1}>Ajit Dev - Full Stack Developer & DevOps Engineer Journey</Link>
+        <Link href="/projects" tabIndex={-1}>MERN Stack & DevOps Projects Portfolio</Link>
+        <Link href="/skills" tabIndex={-1}>Full Stack Skills - React Node.js TypeScript DevOps AWS</Link>
+        <Link href="/contact" tabIndex={-1}>Hire Full Stack Developer & DevOps Engineer Katihar Bihar</Link>
+        <Link href="/education" tabIndex={-1}>Computer Science Education - Full Stack & DevOps Certifications</Link>
+        <Link href="/resume" tabIndex={-1}>Ajit Dev Resume - Full Stack Coder & DevOps CV</Link>
+        <Link href="/case-studies" tabIndex={-1}>Software Engineering Architecture Case Studies</Link>
+        <Link href="/dsa" tabIndex={-1}>Data Structures & Algorithms DSA Hub LeetCode</Link>
+        <Link href="/system-design" tabIndex={-1}>High & Low Level System Design Hub</Link>
+        <Link href="/devops" tabIndex={-1}>DevOps CI/CD Pipelines & Cloud Automation Hub</Link>
       </nav>
 
       <footer
-        ref={footerRef}
         role="contentinfo"
         aria-label={`${BRAND_CONFIG.name} (ajitdev01) - Full Stack Developer & DevOps Engineer Portfolio Footer`}
         itemScope
@@ -359,22 +327,17 @@ const Footer = () => {
               backgroundSize: "28px 28px",
             }}
           />
-          <Blob style={{ width: 480, height: 480, bottom: -180, left: -120, background: "radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 70%)", filter: "blur(40px)" }} />
-          <Blob style={{ width: 360, height: 360, bottom: -100, right: "18%", background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)", filter: "blur(40px)" }} />
-          <Blob style={{ width: 280, height: 280, top: 0, right: 0, background: "radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)", filter: "blur(32px)" }} />
+          <Blob className="animate-float-blob" style={{ width: 480, height: 480, bottom: -180, left: -120, background: "radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 70%)", filter: "blur(40px)" }} />
+          <Blob className="animate-float-blob" style={{ width: 360, height: 360, bottom: -100, right: "18%", background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)", filter: "blur(40px)", animationDelay: "-4s" }} />
+          <Blob className="animate-float-blob" style={{ width: 280, height: 280, top: 0, right: 0, background: "radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)", filter: "blur(32px)", animationDelay: "-8s" }} />
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
         </div>
 
         {/* MAIN GRID FOOTER CONTENT */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
             {/* COLUMN 1: BRAND IDENTITY */}
-            <motion.div variants={slideUp} className="lg:col-span-4 space-y-5">
+            <div className="lg:col-span-4 space-y-5">
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-sm text-white"
@@ -402,14 +365,13 @@ const Footer = () => {
                   { icon: FiAward, label: "Full Stack & DevOps", cls: "bg-blue-500/8 border-blue-500/18 text-blue-400" },
                   { icon: FiGlobe, label: "Katihar, India", cls: "bg-orange-500/8 border-orange-500/18 text-orange-400" },
                 ].map(({ icon: Icon, label, cls }) => (
-                  <motion.span
+                  <span
                     key={label}
-                    whileHover={{ scale: 1.05, y: -1 }}
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border ${cls}`}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border hover:scale-105 hover:-translate-y-0.5 transition-all duration-200 ${cls}`}
                   >
                     <Icon size={10} />
                     {label}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
 
@@ -418,16 +380,17 @@ const Footer = () => {
                 <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
                   Professional Profiles
                 </p>
-                <div
+                <ul
                   className="flex flex-wrap gap-2"
-                  role="list"
                   aria-label="Professional social media profiles"
                   data-authority="primary-identity"
                 >
                   {SOCIAL_LINKS.filter(l => l.profileType === "professional").map(link => (
-                    <SocialIcon key={link.platform} link={link} />
+                    <li key={link.platform}>
+                      <SocialIcon link={link} />
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
               {/* Social Profiles */}
@@ -435,11 +398,13 @@ const Footer = () => {
                 <p className="text-slate-700 text-[10px] font-semibold uppercase tracking-widest mb-3">
                   Social Profiles
                 </p>
-                <div className="flex flex-wrap gap-2" role="list" aria-label="Social media profiles">
+                <ul className="flex flex-wrap gap-2" aria-label="Social media profiles">
                   {SOCIAL_LINKS.filter(l => l.profileType === "social").map(link => (
-                    <SocialIcon key={link.platform} link={link} />
+                    <li key={link.platform}>
+                      <SocialIcon link={link} />
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
               {/* Contact Information */}
@@ -476,10 +441,10 @@ const Footer = () => {
                   </span>
                 </a>
               </address>
-            </motion.div>
+            </div>
 
             {/* COLUMN 2: NAVIGATION */}
-            <motion.div variants={slideUp} className="lg:col-span-2">
+            <div className="lg:col-span-2">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
                 Navigation
               </h3>
@@ -488,10 +453,10 @@ const Footer = () => {
                   {NAV_LINKS.map(link => <NavItem key={link.path} link={link} />)}
                 </ul>
               </nav>
-            </motion.div>
+            </div>
 
             {/* COLUMN 3: TECH STACK */}
-            <motion.div variants={slideUp} className="lg:col-span-6">
+            <div className="lg:col-span-6">
               <h3 className="text-slate-600 font-semibold text-[10px] uppercase tracking-widest mb-5">
                 Full Stack Technologies & Tools
               </h3>
@@ -523,18 +488,14 @@ const Footer = () => {
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
+
           {/* DIVIDER */}
           <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
           {/* BOTTOM BAR */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-          >
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="text-slate-700 text-[12px]">
                 © {currentYear}{" "}
@@ -572,7 +533,7 @@ const Footer = () => {
                 Built with <FiHeart size={9} className="text-red-500/60" /> in India
               </span>
             </div>
-          </motion.div>
+          </div>
 
           {/* BACKLINK ATTRIBUTION */}
           <div className="mt-4 text-center">
@@ -590,28 +551,8 @@ const Footer = () => {
         </div>
       </footer>
 
-      {/* BACK TO TOP BUTTON */}
-      <AnimatePresence>
-        {isVisible && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.7, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.7, y: 10 }}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={scrollToTop}
-            aria-label="Scroll back to top of page"
-            className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-xl text-white flex items-center justify-center
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#080c14]"
-            style={{
-              background: "linear-gradient(135deg, #3b82f6, #6366f1)",
-              boxShadow: "0 4px 24px rgba(99,102,241,0.40)",
-            }}
-          >
-            <FiChevronUp size={17} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* BACK TO TOP BUTTON (DYNAMIC LOAD FOR ZERO TBT) */}
+      <BackToTop />
     </>
   );
 };

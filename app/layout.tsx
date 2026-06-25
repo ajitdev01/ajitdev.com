@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
-import Script from "next/script";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const ThirdPartyScripts = dynamic(() => import("@/app/components/ThirdPartyScripts"));
 
 const inter = Inter({
   variable: "--font-inter",
@@ -131,37 +133,7 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Microsoft Clarity Script */}
-        <Script id="clarity-script" strategy="lazyOnload">
-          {`
-            (function (c, l, a, r, i, t, y) {
-              c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-              t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-              y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-            })(window, document, "clarity", "script", "vncrgbmome");
-          `}
-        </Script>
-
-        {/* Google Analytics (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-648KHZ7K6T"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-            gtag('config', 'G-648KHZ7K6T');
-          `}
-        </Script>
-
-        {/* Cloudflare Web Analytics */}
-        <Script
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "3011d7a1a53748ac8d82869375ddcf22"}'
-          strategy="lazyOnload"
-        />
+        <ThirdPartyScripts />
 
         {/* Google Knowledge Graph (Unified Closed Entity Graph) */}
         <script
