@@ -1,0 +1,87 @@
+---
+title: "OS & Networking: CPU Scheduling, Virtual Memory, and the TCP/IP Stack"
+description: "A developer's guide to system internals and computer networks. Learn CPU scheduling algorithms, virtual memory paging, socket operations, and TCP/IP routing structures."
+date: "2026-06-25"
+category: "linux"
+tags: ["Operating Systems", "Networking", "TCP/IP", "Linux", "SysAdmin"]
+difficulty: "Hard"
+version: "1.0.0"
+lastReviewed: "2026-06-25"
+prerequisites: ["linux-complete-roadmap"]
+series: "System Internals"
+featured: false
+subcategory: "OS & Networks"
+faq:
+  - question: "What is the difference between a Process and a Thread?"
+    answer: "A process is an isolated execution environment with its own address space, memory pages, and handles. A thread is a lightweight execution unit inside a process that shares memory and heap space with sibling threads."
+  - question: "What is Page Fault in virtual memory?"
+    answer: "A page fault is an interrupt raised by the CPU Memory Management Unit (MMU) when a program tries to access a memory page that is not currently mapped into physical RAM. The OS must swap it in from disk."
+  - question: "How does the TCP 3-Way Handshake work?"
+    answer: "TCP establishes connections by sending SYN (Synchronize), receiving SYN-ACK (Synchronize-Acknowledge), and returning ACK (Acknowledge) messages between client and server."
+---
+
+To design scalable high-performance backend systems, engineers must understand the low-level operating system internals and network protocols that coordinate CPU runtime execution and transit data packets.
+
+## 1. Operating System Internals: Processes & CPU Scheduling
+
+An operating system kernel manages how processes gain access to computing execution resources on physical CPU cores.
+
+### CPU Scheduling Algorithms:
+*   **First-Come First-Served (FCFS)**: Non-preemptive scheduling; execute processes in order of arrival.
+*   **Round Robin (RR)**: Preemptive scheduling; assigns a fixed execution time slice (quantum) to each process, cycling through the ready queue.
+*   **Shortest Job First (SJF)**: Prioritizes processes requiring the least execution time.
+
+```
+Round Robin (Quantum = 4ms):
+Ready Queue: [ P1 (8ms), P2 (3ms) ]
+Execution: [ P1 (4ms) ] -> [ P2 (3ms) ] -> [ P1 (4ms) ] -> Completed
+```
+
+### Virtual Memory and Paging
+Virtual memory decouples application memory from physical RAM. The address space is split into fixed-size **pages** (usually 4KB), mapped by the Memory Management Unit (MMU) onto physical hardware **frames**:
+
+```
+  Virtual Address Space           Page Table             Physical RAM
+   ┌────────────────┐          ┌─────────────┐        ┌────────────────┐
+   │ Page 0 (Code)  ├─────────►│ Page0 -> Fr2├───────►│ Frame 2 (Code) │
+   │ Page 1 (Heap)  ├────┐     ├─────────────┤        ├────────────────┤
+   │ Page 2 (Stack) ├─┐  │     │ Page1 -> Fr0├───────►│ Frame 0 (Heap) │
+   └────────────────┘ │  │     ├─────────────┤        ├────────────────┤
+                      │  └────►│ Page2 -> Fr5├───────►│ Frame 5 (Stack)│
+                      └────────└─────────────┘        └────────────────┘
+```
+
+## 2. Network Architectures: The TCP/IP Layer Stack
+
+Computer network communications map to the 4-layer **TCP/IP Model**:
+
+| Layer | Protocol Examples | Core Function |
+|---|---|---|
+| **Application** | HTTP, HTTPS, SSH, DNS | User application level communication |
+| **Transport** | TCP, UDP | Endpoint data transmission and flow control |
+| **Network** | IP (IPv4, IPv6), ICMP | Host-to-host packet routing |
+| **Network Interface** | Ethernet, Wi-Fi | Local physical frame transit |
+
+### TCP vs UDP
+*   **TCP (Transmission Control Protocol)**: Connection-oriented, guarantees packet delivery, respects network congestions, orders packets.
+*   **UDP (User Datagram Protocol)**: Connectionless, lightweight speed (no handshakes), packet loss is ignored. Used in VoIP and DNS queries.
+
+## 3. Command Line Diagnostic Tools
+
+System administrators utilize CLI utilities to debug network routing and interface configurations:
+
+```bash
+# Display routing paths to target host
+tracert google.com
+
+# Trace network ports and active sockets
+netstat -ano
+
+# Send ICMP echo requests to verify endpoint reachability
+ping 8.8.8.8
+
+# Query DNS server configurations for domain names
+nslookup ajitdev.com
+```
+
+Understanding how the OS coordinates memory pages and packets allows you to write highly optimized applications that utilize hardware efficiently.

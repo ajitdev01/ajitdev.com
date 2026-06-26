@@ -1,0 +1,172 @@
+---
+title: "The TypeScript Engineering Handbook: Designing Rigid Static Type Systems"
+description: "A comprehensive developer's guide to TypeScript. Interfaces, union/intersection types, generics, conditional utility types, compiler hardening, and code standards."
+date: "2026-06-20"
+updatedDate: "2026-06-26"
+category: "TypeScript"
+tags: ["TypeScript", "Generics", "Utility Types", "Type Safety", "Software Architecture"]
+difficulty: "Hard"
+estimatedReadingTime: "22 min read"
+faq:
+  - question: "What is the difference between an Interface and a Type alias?"
+    answer: "Interfaces are extendable via declaration merging, whereas Types support union and intersection mappings directly but cannot be redefined once declared."
+  - question: "What does 'keyof' do in TypeScript?"
+    answer: "The 'keyof' operator takes an object type and returns a string or numeric literal union of its keys."
+  - question: "How do Generics work in TypeScript?"
+    answer: "Generics allow developers to write reusable interfaces or functions that accept types as parameters, preserving exact type signatures during execution."
+---
+
+## Key Takeaways (TL;DR)
+* **Compile-Time Safety Only**: TypeScript acts as a strict compile-time validator. Types are completely removed during transpilation to pure JavaScript.
+* **Strict Compiler Options**: Enforce `strictNullChecks` and disable the `any` keyword to ensure maximum type safety.
+* **Conditional Type Power**: Write complex conditional types using the `infer` keyword to extract signatures from arguments.
+
+---
+
+## 1. Static Typing: Primitives, Unions, and Intersections
+
+TypeScript provides compile-time safety by typing variables explicitly or through inference.
+
+```typescript
+// Unions and Intersections
+type Status = "idle" | "loading" | "success" | "error";
+
+interface User {
+  id: string;
+  name: string;
+}
+
+interface Admin {
+  permissions: string[];
+}
+
+// Intersection type
+type AdminUser = User & Admin;
+
+const admin: AdminUser = {
+  id: "001",
+  name: "Ajit Dev",
+  permissions: ["write_blogs", "deploy_infrastructure"]
+};
+```
+
+---
+
+## 2. Structural Types: Interfaces vs Type Aliases
+
+TypeScript matches types based on their shape (structural typing) rather than explicit names.
+
+```typescript
+interface Point {
+  x: number;
+  y: number;
+}
+
+// Can be extended via declaration merging
+interface Point {
+  z?: number; // Optional property
+}
+```
+
+---
+
+## 3. Generic Systems: Reusable Interfaces & Methods
+
+Generics act as type parameters, allowing functions or components to adapt to different datasets while preserving type details.
+
+```typescript
+// Generic API Response wrapper
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message: string;
+}
+
+interface BlogPost {
+  title: string;
+  slug: string;
+}
+
+function processResponse<T>(res: ApiResponse<T>): T {
+  return res.data;
+}
+```
+
+---
+
+## 4. TypeScript Utility Types Reference
+
+TypeScript provides built-in helper types to transform existing structures:
+* `Partial<T>`: Makes all properties in `T` optional.
+* `Required<T>`: Makes all properties in `T` required.
+* `Readonly<T>`: Makes all properties in `T` readonly.
+* `Record<K, T>`: Constructs an object type with keys `K` and values `T`.
+* `Pick<T, K>`: Constructs a type by picking a subset of keys `K` from `T`.
+* `Omit<T, K>`: Constructs a type by omitting keys `K` from `T`.
+
+```typescript
+interface Article {
+  id: string;
+  title: string;
+  content: string;
+}
+
+// Pick title and content only
+type ArticlePreview = Pick<Article, "title" | "content">;
+
+// Omit the ID field
+type AnonymousArticle = Omit<Article, "id">;
+```
+
+---
+
+## 5. Advanced Type Manipulation (Mapped & Conditional Types)
+
+Conditional types choose types dynamically based on generic relationships:
+```typescript
+type IsString<T> = T extends string ? true : false;
+type A = IsString<string>; // true
+type B = IsString<number>; // false
+```
+
+### The `infer` keyword
+Extract nested type information within conditional tests:
+```typescript
+type UnpackArray<T> = T extends (infer U)[] ? U : T;
+type ElementType = UnpackArray<number[]>; // number
+```
+
+---
+
+## 6. TS Config Hardening Guidelines
+
+To prevent runtime errors, configure your `tsconfig.json` with strict rules:
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true
+  }
+}
+```
+
+---
+
+## 7. TypeScript Technical Interview Questions
+1. **What is type assertion (`as`) vs type casting?**
+   * TypeScript assertion tells the compiler to treat a variable as a specific type, without performing runtime changes. Type casting in other languages performs runtime conversions.
+2. **What does the `unknown` type represent?**
+   * `unknown` is the type-safe counterpart of `any`. Any value can be assigned to `unknown`, but you cannot perform operations on it without type narrowing.
+3. **What is a discriminated union?**
+   * A pattern where multiple types share a common literal field (like `kind` or `type`), which is used to narrow down the union type dynamically.
+
+---
+
+## 8. References
+* Rosenwasser, D. (2020). *TypeScript Deep Dive*. Online docs.
+* TypeScript Official Handbook.
+* Production type guidelines from the Google TypeScript Style Guide.

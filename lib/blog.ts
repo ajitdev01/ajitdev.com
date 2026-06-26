@@ -14,6 +14,18 @@ export interface BlogPost {
   content: string;
   faq?: Array<{ question: string; answer: string }>;
   isPlaceholder?: boolean;
+  updatedDate?: string;
+  difficulty?: string;
+  estimatedReadingTime?: string;
+  // Enterprise-grade parameters
+  lastReviewed?: string;
+  wordCount?: number;
+  prerequisites?: string[];
+  series?: string;
+  version?: string;
+  featured?: boolean;
+  subcategory?: string;
+  estimatedCompletion?: string;
 }
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
@@ -21,18 +33,31 @@ const metadataFile = path.join(process.cwd(), "content/posts-metadata.json");
 
 // Define categories for authority expansion
 const CATEGORIES = [
-  { key: "nextjs", name: "Next.js", tags: ["Next.js", "React", "Frontend", "SSR", "Vercel", "Web Performance"] },
+  { key: "programming", name: "Programming", tags: ["Coding", "Software Engineering", "Development", "Logic"] },
+  { key: "c", name: "C", tags: ["C Programming", "Low Level", "Pointers", "Memory Management", "Embedded Systems"] },
+  { key: "cpp", name: "C++", tags: ["C++", "OOP", "STL", "Modern C++", "Templates", "Smart Pointers"] },
+  { key: "java", name: "Java", tags: ["Java", "JVM", "Collections", "OOP", "Spring Boot", "Multithreading"] },
+  { key: "python", name: "Python", tags: ["Python", "Scripting", "Django", "FastAPI", "Decorators", "Generators"] },
+  { key: "javascript", name: "JavaScript", tags: ["JavaScript", "ES6+", "Async", "Promises", "Event Loop", "Closures"] },
+  { key: "typescript", name: "TypeScript", tags: ["TypeScript", "Static Typing", "Generics", "Interfaces", "Utility Types"] },
   { key: "react", name: "React", tags: ["React", "JavaScript", "Frontend", "State Management", "Hooks", "UI UX"] },
+  { key: "nextjs", name: "Next.js", tags: ["Next.js", "React", "Frontend", "SSR", "Vercel", "Web Performance"] },
+  { key: "dsa", name: "DSA", tags: ["DSA", "LeetCode", "Algorithms", "Data Structures", "C++", "Optimization"] },
+  { key: "system-design", name: "System Design", tags: ["System Design", "Distributed Systems", "Scaling", "Database", "HLD", "LLD"] },
+  { key: "devops", name: "DevOps", tags: ["DevOps", "CI/CD", "GitHub Actions", "Docker", "Automation", "Pipelines"] },
+  { key: "cloud", name: "Cloud", tags: ["Cloud Computing", "AWS", "Infrastructure", "Serverless", "S3", "EC2"] },
+  { key: "cybersecurity", name: "Cyber Security", tags: ["Cyber Security", "OWASP", "XSS", "Penetration Testing", "API Security"] },
+  { key: "linux", name: "Linux", tags: ["Linux", "Bash", "Shell Scripting", "SysAdmin", "Security", "Server"] },
+  { key: "database", name: "Database", tags: ["SQL", "NoSQL", "MongoDB", "MySQL", "Indexing", "Scaling"] },
+  { key: "career", name: "Career", tags: ["Career Growth", "Developer Guide", "Job Search", "Mentorship"] },
+  { key: "interview", name: "Interview", tags: ["Interview Prep", "Coding Questions", "Behavioral", "System Design Interview"] },
+  // Legacy compatibility keys:
   { key: "mern", name: "MERN Stack", tags: ["MERN Stack", "MongoDB", "Express", "React", "Node.js", "API Security"] },
   { key: "lamp", name: "LAMP Stack", tags: ["LAMP Stack", "PHP", "MySQL", "Apache", "Linux", "Backend"] },
-  { key: "devops", name: "DevOps", tags: ["DevOps", "CI/CD", "GitHub Actions", "Docker", "Automation", "Pipelines"] },
   { key: "aws", name: "AWS", tags: ["AWS", "Cloud", "VPC", "Serverless", "EC2", "IAM", "Infrastructure"] },
   { key: "docker", name: "Docker", tags: ["Docker", "Containers", "Orchestration", "Microservices", "Security"] },
   { key: "kubernetes", name: "Kubernetes", tags: ["Kubernetes", "K8s", "EKS", "Orchestration", "Pods", "Scaling"] },
   { key: "terraform", name: "Terraform", tags: ["Terraform", "IaC", "AWS", "Infrastructure", "Automation"] },
-  { key: "linux", name: "Linux", tags: ["Linux", "Bash", "Shell Scripting", "SysAdmin", "Security", "Server"] },
-  { key: "dsa", name: "DSA", tags: ["DSA", "LeetCode", "Algorithms", "Data Structures", "C++", "Optimization"] },
-  { key: "system-design", name: "System Design", tags: ["System Design", "Distributed Systems", "Scaling", "Database", "HLD", "LLD"] },
   { key: "cloud-security", name: "Cloud Security", tags: ["Cloud Security", "DevSecOps", "AWS Security", "IAM", "VPC", "Zero Trust", "Vulnerability Scanning"] }
 ];
 
@@ -968,6 +993,11 @@ export function getPostBySlug(slug: string): BlogPost {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     const rtResult = readingTime(content);
+    const words = content.trim().split(/\s+/).length;
+    const minutes = Math.ceil(words / 200);
+    const calculatedReadingTime = `${minutes} min read`;
+    const calculatedCompletion = `${minutes} mins to complete`;
+
     return {
       slug: realSlug,
       title: data.title || "Untitled Post",
@@ -975,10 +1005,21 @@ export function getPostBySlug(slug: string): BlogPost {
       date: data.date || new Date().toISOString().split("T")[0],
       category: data.category || "General",
       tags: data.tags || [],
-      readingTime: rtResult.text,
+      readingTime: data.readingTime || calculatedReadingTime,
       content,
       faq: data.faq || [],
       isPlaceholder: false,
+      updatedDate: data.updatedDate || data.date,
+      difficulty: data.difficulty || "Medium",
+      estimatedReadingTime: data.estimatedReadingTime || calculatedReadingTime,
+      lastReviewed: data.lastReviewed || data.date,
+      wordCount: data.wordCount || words,
+      prerequisites: data.prerequisites || [],
+      series: data.series,
+      version: data.version || "1.0.0",
+      featured: !!data.featured,
+      subcategory: data.subcategory || "General",
+      estimatedCompletion: data.estimatedCompletion || calculatedCompletion,
     };
   }
 
@@ -1060,6 +1101,7 @@ Leverage GitHub Actions pipelines to compile static react bundles and scan conta
 Developing software requires making structural decisions. In ${prettyCategory}, we must always check memory utilization cycles against database indexing parameters to avoid performance bottlenecks. Keep your code modular and your infrastructure declarative.
       `;
 
+      const placeholderWords = genericContent.trim().split(/\s+/).length;
       return {
         slug: matched.slug,
         title: matched.title,
@@ -1071,6 +1113,17 @@ Developing software requires making structural decisions. In ${prettyCategory}, 
         content: genericContent,
         faq: matched.faq || [],
         isPlaceholder: true,
+        updatedDate: matched.updatedDate || matched.date,
+        difficulty: matched.difficulty || "Medium",
+        estimatedReadingTime: matched.estimatedReadingTime || matched.readingTime,
+        lastReviewed: matched.lastReviewed || matched.date,
+        wordCount: matched.wordCount || placeholderWords,
+        prerequisites: matched.prerequisites || [],
+        series: matched.series,
+        version: matched.version || "1.0.0",
+        featured: !!matched.featured,
+        subcategory: matched.subcategory || "General",
+        estimatedCompletion: matched.estimatedCompletion || `${matched.readingTime.split(' ')[0]} mins to complete`,
       };
     }
   } catch (e) {
@@ -1105,6 +1158,17 @@ export function getAllPosts(): BlogPost[] {
       content: "",
       faq: p.faq || [],
       isPlaceholder: true,
+      updatedDate: p.updatedDate || p.date,
+      difficulty: p.difficulty || "Medium",
+      estimatedReadingTime: p.estimatedReadingTime || p.readingTime,
+      lastReviewed: p.lastReviewed || p.date,
+      wordCount: p.wordCount || 1000,
+      prerequisites: p.prerequisites || [],
+      series: p.series,
+      version: p.version || "1.0.0",
+      featured: !!p.featured,
+      subcategory: p.subcategory || "General",
+      estimatedCompletion: p.estimatedCompletion || `${p.readingTime.split(' ')[0]} mins to complete`,
     }));
   } catch (e) {
     console.error("Error reading all post metadata:", e);

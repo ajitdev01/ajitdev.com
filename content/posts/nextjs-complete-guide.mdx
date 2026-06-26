@@ -1,0 +1,177 @@
+---
+title: "The Next.js 16 Architect Playbook: Rendering Engines & Metadata API"
+description: "An expert-level guide to Next.js. Exploring the App Router, SSR/ISR/SSG configurations, Metadata API, Server Actions, Middleware, and Core Web Vitals optimization."
+date: "2026-06-18"
+updatedDate: "2026-06-26"
+category: "Next.js"
+tags: ["Next.js", "App Router", "Server Actions", "ISR", "SEO"]
+difficulty: "Hard"
+estimatedReadingTime: "26 min read"
+faq:
+  - question: "What is the difference between Server Actions and API Routes?"
+    answer: "Server Actions provide a way to run server-side code directly from client events without manually setting up API endpoints, simplifying form submissions."
+  - question: "How does Incremental Static Regeneration (ISR) work?"
+    answer: "ISR allows you to update static pages in the background after they have been built, without rebuilding the entire site, using a revalidate timer."
+  - question: "Why is next/image preferred over the raw img tag?"
+    answer: "next/image automatically resizes images, converts them to modern formats (WebP/AVIF), prevents layout shifts, and lazy-loads them based on viewport visibility."
+---
+
+## Key Takeaways (TL;DR)
+* **App Router Integration**: Next.js organizes routes in folders with `page.tsx` and `layout.tsx` files, leveraging React Server Components by default.
+* **Server Actions**: Mutate database state directly from components, eliminating the need to write separate API route files.
+* **Static Generation & Revalidation**: Combine high-performance static rendering with dynamic updates using ISR (`export const revalidate = 60;`).
+
+---
+
+## 1. The Next.js App Router Architecture
+
+The App Router runs on React Server Components, prioritizing server-side rendering to deliver fast initial page loads.
+
+```
+app/
+├── layout.tsx      (Global Shell)
+├── page.tsx        (Home Route)
+├── blog/
+│   ├── page.tsx    (Blog Hub Route)
+│   └── [slug]/
+│       └── page.tsx (Dynamic Article Route)
+```
+
+---
+
+## 2. Data Fetching & Caching Strategy (SSR, SSG, ISR)
+
+Next.js unifies rendering methods using standard fetch configuration parameters:
+
+### Server-Side Rendering (SSR / Dynamic)
+Fetch data fresh on every user request.
+```typescript
+async function getDynamicData() {
+  const res = await fetch("https://api.example.com/data", { cache: "no-store" });
+  return res.json();
+}
+```
+
+### Static Site Generation (SSG)
+Fetch data at build time.
+```typescript
+async function getStaticData() {
+  const res = await fetch("https://api.example.com/data");
+  return res.json();
+}
+```
+
+### Incremental Static Regeneration (ISR)
+Regenerate pages in the background after a specified number of seconds.
+```typescript
+export const revalidate = 3600; // revalidate every hour
+```
+
+---
+
+## 3. The Metadata API & Dynamic SEO
+
+Next.js provides a robust Metadata API to configure SEO tags statically or dynamically.
+
+```typescript
+import { Metadata } from "next";
+
+// Static metadata
+export const metadata: Metadata = {
+  title: "Ajit Dev Portfolio",
+  description: "DevOps & Full Stack developer website",
+};
+
+// Dynamic metadata
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const post = await fetchPost(params.slug);
+  return {
+    title: `${post.title} | Ajit Dev Blog`,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      images: [{ url: post.ogImageUrl }],
+    },
+  };
+}
+```
+
+---
+
+## 4. Server Actions: Form Mutations & Security
+
+Server Actions allow calling server-side functions directly from forms without writing API handlers.
+
+```typescript
+// app/contact/actions.ts
+"use server";
+
+import { z } from "zod";
+
+const formSchema = z.object({
+  email: z.string().email(),
+  message: z.string().min(10),
+});
+
+export async function submitContactForm(formData: FormData) {
+  const rawData = {
+    email: formData.get("email"),
+    message: formData.get("message"),
+  };
+
+  // Validate inputs on the server
+  const validated = formSchema.parse(rawData);
+  
+  // Save to database or trigger email notifications
+  console.log("Saving contact record:", validated);
+  return { success: true };
+}
+```
+
+---
+
+## 5. Edge Middleware & Request Routing
+
+Middleware runs before requests are completed, allowing you to rewrite paths, redirect routes, or check authentication tokens.
+
+```typescript
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("session_token");
+
+  // Redirect unauthenticated users
+  if (!token && request.nextUrl.pathname.startsWith("/admin")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+  
+  return NextResponse.next();
+}
+```
+
+---
+
+## 6. Image & Asset Optimization
+
+* **`next/image`**: Resizes images, uses modern WebP/AVIF formats, lazy-loads images, and prevents Layout Shifts (CLS).
+* **`next/font`**: Downloads Google Fonts at build time, hosting them locally to remove external network calls.
+
+---
+
+## 7. Next.js Technical Interview Questions
+1. **What is hydration in Next.js?**
+   * The process where the client-side JavaScript loads and attaches event listeners to pre-rendered static HTML sent by the server, making the page interactive.
+2. **What is the difference between Server Components and Client Components?**
+   * Server Components render on the server and do not add to the client-side bundle. Client Components are hydration-capable and run on the client, enabled by using `"use client"`.
+3. **What is `route.ts` used for?**
+   * It is used to define custom API endpoints (supporting GET, POST, PUT, DELETE requests) within the App Router structure.
+
+---
+
+## 8. References
+* Next.js Official Documentation.
+* Web Vitals and Lighthouse Performance guides.
+* Vercel Next.js Architecture Whitepapers.

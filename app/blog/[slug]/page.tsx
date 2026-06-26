@@ -12,9 +12,60 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const CATEGORIES = ["devops", "aws", "docker", "kubernetes", "terraform", "linux", "react", "nextjs", "system-design", "dsa", "mern", "lamp", "cloud-security"];
+const CATEGORIES = [
+  "devops", "aws", "docker", "kubernetes", "terraform", "linux", "react", "nextjs", "system-design", "dsa", "mern", "lamp", "cloud-security",
+  "programming", "c", "cpp", "java", "python", "javascript", "typescript", "cloud", "cybersecurity", "database", "career", "interview"
+];
 
 const CATEGORY_MAP: Record<string, { title: string; desc: string }> = {
+  programming: {
+    title: "Programming Core Concepts & Engineering",
+    desc: "Guides and strategies to build a solid programming foundation, covering logic, paradigms, and software development practices.",
+  },
+  c: {
+    title: "C Programming Language Roadmaps & Guides",
+    desc: "Master low-level programming with C. Learn pointers, memory allocation, structure architectures, and file systems.",
+  },
+  cpp: {
+    title: "C++ Programming & Advanced Journey",
+    desc: "Master object-oriented programming, standard template library (STL), smart pointers, and high-performance algorithms in C++.",
+  },
+  java: {
+    title: "Java & Spring Boot Core Engineering",
+    desc: "Deep-dives into JVM architectures, collections, multithreading, garbage collection, and Spring Boot microservices.",
+  },
+  python: {
+    title: "Python Roadmap & Backend Development",
+    desc: "Explore clean scripting, OOP, decorators, generators, and backend architectures using FastAPI and Django.",
+  },
+  javascript: {
+    title: "JavaScript Core, Async & Performance",
+    desc: "Master execution contexts, closures, prototypes, asynchronous event loops, Promises, and UI performance strategies.",
+  },
+  typescript: {
+    title: "TypeScript Static Architectures & Generics",
+    desc: "Build highly reliable type systems. Learn interfaces, generic functions, utility helpers, and strict compiler configs.",
+  },
+  cloud: {
+    title: "Cloud Engineering & Infrastructure Deployment",
+    desc: "Architect scalable network systems using EC2, S3 buckets, VPC configurations, CloudFront caching, and Serverless.",
+  },
+  cybersecurity: {
+    title: "Cyber Security & Application Hardening",
+    desc: "Identify and defend web applications against OWASP Top 10 vulnerabilities, JWT security flaws, and network compromises.",
+  },
+  database: {
+    title: "Database Architectures & Schema Optimization",
+    desc: "Relational and non-relational database management. Optimizing query execution plans, indexes, sharding, and ACID controls.",
+  },
+  career: {
+    title: "Developer Career Guidance & Growth",
+    desc: "Actionable advice on scaling as a software engineer, building portfolios, preparing profiles, and negotiating developer roles.",
+  },
+  interview: {
+    title: "Coding Interview Questions & Preparation",
+    desc: "Master DSA challenges, system design patterns, and behavioral topics to ace modern technical interviews.",
+  },
   devops: {
     title: "DevOps & Infrastructure Automation Tutorials",
     desc: "Production-grade DevOps playbooks on CI/CD pipelines, containerization, orchestration, and automated server workflows.",
@@ -321,8 +372,55 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
 
   // Related Posts logic
   const allPosts = getAllPosts();
+  const currentIdx = allPosts.findIndex((p) => p.slug === post.slug);
+
+  const prevPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
+  const nextPost = currentIdx < allPosts.length - 1 ? allPosts[currentIdx + 1] : null;
+
   const relatedPosts = allPosts
-    .filter((p) => p.slug !== post.slug && (p.category === post.category || p.tags.some((t) => post.tags.includes(t))))
+    .filter((p) => p.slug !== post.slug && (p.category.toLowerCase() === post.category.toLowerCase() || p.tags.some((t) => post.tags.some(pt => pt.toLowerCase() === t.toLowerCase()))))
+    .slice(0, 3);
+
+  const youMayLike = allPosts
+    .filter((p) => p.slug !== post.slug && p.category.toLowerCase() !== post.category.toLowerCase())
+    .slice(0, 3);
+
+  const peopleAlsoRead = allPosts
+    .filter((p) => p.slug !== post.slug && p.category.toLowerCase() === post.category.toLowerCase())
+    .slice(3, 6);
+
+  const continueReading = allPosts
+    .filter((p, idx) => p.slug !== post.slug && idx > currentIdx)
+    .slice(0, 3);
+
+  const learningPath = allPosts
+    .filter((p) => p.slug !== post.slug && (post.series ? p.series === post.series : p.category.toLowerCase() === post.category.toLowerCase()))
+    .slice(0, 3);
+
+  const prerequisites = allPosts
+    .filter((p) => {
+      if (p.slug === post.slug) return false;
+      if (post.prerequisites && post.prerequisites.length > 0) {
+        return post.prerequisites.some(prereq => p.slug.includes(prereq) || p.title.toLowerCase().includes(prereq.toLowerCase()));
+      }
+      return p.category.toLowerCase() === post.category.toLowerCase() && p.difficulty?.toLowerCase() === "easy";
+    })
+    .slice(0, 3);
+
+  const advancedTopics = allPosts
+    .filter((p) => p.slug !== post.slug && p.difficulty?.toLowerCase() === "hard" && p.category.toLowerCase() === post.category.toLowerCase())
+    .slice(0, 3);
+
+  const beginnerTopics = allPosts
+    .filter((p) => p.slug !== post.slug && p.difficulty?.toLowerCase() === "easy" && p.category.toLowerCase() === post.category.toLowerCase())
+    .slice(0, 3);
+
+  const popularArticles = allPosts
+    .filter((p) => p.slug !== post.slug && !p.isPlaceholder)
+    .slice(0, 3);
+
+  const recentArticles = allPosts
+    .filter((p) => p.slug !== post.slug)
     .slice(0, 3);
 
   return (
@@ -386,18 +484,58 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
             {/* MAIN ARTICLE BODY */}
             <div className={`col-span-1 lg:col-span-3 ${headings.length === 0 ? "lg:col-span-4 max-w-4xl mx-auto" : ""}`}>
               <header className="mb-10 pb-8 border-b border-gray-100">
-                <div className="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-4">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-4 bg-gray-50 border border-gray-100 rounded-2xl p-4 shadow-xs">
                   <span className="bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
-                    {post.category}
+                    {post.category} {post.subcategory && post.subcategory !== "General" && `• ${post.subcategory}`}
                   </span>
-                  <span className="flex items-center gap-1.5 text-gray-400">
+                  {post.version && (
+                    <span className="bg-gray-100 border border-gray-200 text-gray-600 px-3 py-1 rounded-full">
+                      v{post.version}
+                    </span>
+                  )}
+                  {post.difficulty && (
+                    <span className={`border px-3 py-1 rounded-full ${
+                      post.difficulty.toLowerCase() === "easy"
+                        ? "bg-emerald-50 border-emerald-100 text-emerald-700"
+                        : post.difficulty.toLowerCase() === "hard"
+                        ? "bg-rose-50 border-rose-100 text-rose-700"
+                        : "bg-amber-50 border-amber-100 text-amber-700"
+                    }`}>
+                      Difficulty: {post.difficulty}
+                    </span>
+                  )}
+                  <span className="flex items-center gap-1.5 text-gray-500">
                     <Calendar className="w-4 h-4" />
-                    {post.date}
+                    Published: {post.date}
                   </span>
-                  <span className="flex items-center gap-1.5 text-gray-400">
+                  {post.updatedDate && post.updatedDate !== post.date && (
+                    <span className="flex items-center gap-1.5 text-gray-500">
+                      <Calendar className="w-4 h-4" />
+                      Updated: {post.updatedDate}
+                    </span>
+                  )}
+                  {post.lastReviewed && (
+                    <span className="flex items-center gap-1.5 text-gray-500">
+                      <Calendar className="w-4 h-4" />
+                      Reviewed: {post.lastReviewed}
+                    </span>
+                  )}
+                  <span className="flex items-center gap-1.5 text-gray-500">
                     <Clock className="w-4 h-4" />
-                    {post.readingTime}
+                    Reading Time: {post.readingTime}
                   </span>
+                  {post.estimatedCompletion && (
+                    <span className="flex items-center gap-1.5 text-gray-500">
+                      <Clock className="w-4 h-4" />
+                      Est. Completion: {post.estimatedCompletion}
+                    </span>
+                  )}
+                  {post.wordCount && (
+                    <span className="flex items-center gap-1.5 text-gray-500">
+                      <BookOpen className="w-4 h-4" />
+                      {post.wordCount} words
+                    </span>
+                  )}
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight mb-6">
@@ -423,6 +561,33 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
 
               <div className="prose prose-indigo max-w-none">
                 <MDXRemote source={post.content} components={MDXComponents} />
+              </div>
+
+              {/* PREV/NEXT NAVIGATION */}
+              <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                {prevPost ? (
+                  <Link
+                    href={`/blog/${prevPost.slug}`}
+                    className="w-full sm:w-1/2 p-4 border border-gray-200 rounded-2xl hover:border-indigo-500 hover:bg-indigo-50/30 transition-all flex flex-col items-start gap-1 group text-left"
+                  >
+                    <span className="text-[10px] uppercase font-bold text-gray-400">← Previous Post</span>
+                    <span className="text-xs font-bold text-gray-850 group-hover:text-indigo-650 transition-colors line-clamp-1">{prevPost.title}</span>
+                  </Link>
+                ) : (
+                  <div className="hidden sm:block" />
+                )}
+
+                {nextPost ? (
+                  <Link
+                    href={`/blog/${nextPost.slug}`}
+                    className="w-full sm:w-1/2 p-4 border border-gray-200 rounded-2xl hover:border-indigo-500 hover:bg-indigo-50/30 transition-all flex flex-col items-end gap-1 group text-right"
+                  >
+                    <span className="text-[10px] uppercase font-bold text-gray-400">Next Post →</span>
+                    <span className="text-xs font-bold text-gray-850 group-hover:text-indigo-650 transition-colors line-clamp-1">{nextPost.title}</span>
+                  </Link>
+                ) : (
+                  <div className="hidden sm:block" />
+                )}
               </div>
 
               {/* AUTHOR BIO SECTION */}
@@ -462,38 +627,305 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* RELATED POSTS SECTION */}
-              {relatedPosts.length > 0 && (
-                <div className="mt-20 pt-10 border-t border-gray-200">
-                  <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Related Articles
-                  </h3>
-                  <div className="grid md:grid-cols-3 gap-6">
-                    {relatedPosts.map((rp) => (
-                      <div
-                        key={rp.slug}
-                        className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
-                      >
-                        <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
-                          {rp.category}
-                        </span>
-                        <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
-                          <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
-                        </h4>
-                        <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
-                          {rp.description}
-                        </p>
-                        <Link
-                          href={`/blog/${rp.slug}`}
-                          className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+              {/* RELATED POSTS SECTIONS */}
+              <div className="mt-20 pt-10 border-t border-gray-200 space-y-16">
+                {/* Related Articles */}
+                {relatedPosts.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      Related Articles
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {relatedPosts.map((rp) => (
+                        <div
+                          key={`related-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
                         >
-                          Read Article →
-                        </Link>
-                      </div>
-                    ))}
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+
+                {/* People Also Read */}
+                {peopleAlsoRead.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                      People Also Read
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {peopleAlsoRead.map((rp) => (
+                        <div
+                          key={`people-read-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Continue Reading */}
+                {continueReading.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                      Continue Reading
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {continueReading.map((rp) => (
+                        <div
+                          key={`continue-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Learning Path */}
+                {learningPath.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      Learning Path
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {learningPath.map((rp) => (
+                        <div
+                          key={`learning-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Prerequisites */}
+                {prerequisites.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                      Prerequisites
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {prerequisites.map((rp) => (
+                        <div
+                          key={`prereq-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Advanced Topics */}
+                {advancedTopics.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
+                      Advanced Topics
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {advancedTopics.map((rp) => (
+                        <div
+                          key={`advanced-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Beginner Topics */}
+                {beginnerTopics.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      Beginner Topics
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {beginnerTopics.map((rp) => (
+                        <div
+                          key={`beginner-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Popular Articles */}
+                {popularArticles.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+                      Popular Articles
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {popularArticles.map((rp) => (
+                        <div
+                          key={`popular-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Recent Articles */}
+                {recentArticles.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-6 bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+                      Recent Articles
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {recentArticles.map((rp) => (
+                        <div
+                          key={`recent-${rp.slug}`}
+                          className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex flex-col h-full group"
+                        >
+                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-2 block">
+                            {rp.category}
+                          </span>
+                          <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm mb-2 line-clamp-2">
+                            <Link href={`/blog/${rp.slug}`}>{rp.title}</Link>
+                          </h4>
+                          <p className="text-gray-500 text-xs line-clamp-3 mb-4 leading-relaxed flex-1">
+                            {rp.description}
+                          </p>
+                          <Link
+                            href={`/blog/${rp.slug}`}
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors mt-auto block text-right"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

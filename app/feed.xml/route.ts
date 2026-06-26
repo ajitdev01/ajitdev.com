@@ -11,24 +11,7 @@ export async function GET() {
     console.error("Error loading posts for feed generator:", e);
   }
 
-  // RSS feed generation when blog count exceeds 20 articles
-  if (posts.length <= 20) {
-    return new NextResponse(
-      `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-  <channel>
-    <title>Ajit Dev | Technical Blog</title>
-    <link>${baseUrl}/blog</link>
-    <description>Feed is disabled because the blog count is 20 or fewer articles.</description>
-  </channel>
-</rss>`,
-      {
-        headers: {
-          "Content-Type": "application/xml; charset=utf-8",
-        },
-      }
-    );
-  }
+
 
   const feed = new RSS({
     title: "Ajit Dev | Technical Blog",

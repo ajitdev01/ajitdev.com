@@ -1,0 +1,152 @@
+---
+title: "The Ultimate JavaScript Guide: Mastering Engine Internals & Async Control Flows"
+description: "An in-depth developer's handbook to JavaScript. Understanding closures, prototype scopes, async promise loops, the V8 engine, event loops, and web performance optimization."
+date: "2026-06-21"
+updatedDate: "2026-06-26"
+category: "JavaScript"
+tags: ["JavaScript", "ES6+", "Event Loop", "Async", "Performance"]
+difficulty: "Medium"
+estimatedReadingTime: "25 min read"
+faq:
+  - question: "What is a Closure in JavaScript?"
+    answer: "A closure is the combination of a function bundled together with references to its surrounding state (lexical environment), allowing it to access outer variables even after the outer function has finished executing."
+  - question: "How does the Event Loop work?"
+    answer: "The Event Loop continuously checks the call stack. If the stack is empty, it processes microtasks (Promises) first, and then macrotasks (setTimeout, DOM events) from execution queues."
+  - question: "What is prototypal inheritance?"
+    answer: "In JavaScript, objects have an internal link to a prototype object. If a property isn't found on the object itself, JavaScript searches the prototype chain until it finds it or hits null."
+---
+
+## Key Takeaways (TL;DR)
+* **Single Threaded, Event-Driven**: JavaScript executes on a single main thread, using non-blocking I/O callbacks managed by the Event Loop to handle concurrency.
+* **Lexical Scope Protection**: Closures trap references to outer variables in memory, enabling encapsulation and module design patterns.
+* **Microtask Queue Priority**: Promise callbacks (`.then()`, `await`) are executed in the microtask queue, which has priority over the standard callback task queue.
+
+---
+
+## 1. Modern JavaScript: ES6+ Standards & Syntax
+
+ES6 (ECMAScript 2015) and subsequent updates transformed JavaScript, introducing features like block scoping, arrow functions, destructuring, and classes.
+
+```javascript
+// Modern array destructuring and template literals
+const profile = { name: "Ajit Dev", stack: ["Node.js", "React"] };
+const { name, stack } = profile;
+
+console.log(`${name} builds applications using: ${stack.join(", ")}`);
+```
+
+---
+
+## 2. Document Object Model (DOM) & Browser Rendering
+
+The DOM is the browser's in-memory tree representation of the webpage.
+* **Critical Rendering Path**: HTML parsed ──► DOM tree built ──► CSSOM tree built ──► Layout computed ──► Paint executed.
+* **Optimization**: Minimize layouts recalculations (Reflow) and repainting. Use document fragments when injecting multiple elements.
+
+---
+
+## 3. Asynchronous JavaScript: Promises & Fetch API
+
+JavaScript handles async operations using Promises and `async`/`await` syntax wrappers.
+
+```javascript
+// Fetch API usage with async/await
+async function fetchDeveloperData(username) {
+    try {
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        if (!response.ok) throw new Error("Network issues!");
+        const data = await response.json();
+        return data;
+    } catch (err) {
+        console.error("Fetch failed:", err);
+    }
+}
+
+fetchDeveloperData("ajitdev01").then(data => console.log(data?.name));
+```
+
+---
+
+## 4. The Event Loop, Call Stack, and Microtask Queue
+
+JavaScript engines (like V8 in Chrome/Node) run on a single main thread using:
+1. **Call Stack**: Synchronous execution frames.
+2. **Web APIs**: Background processes (timers, network requests) managed by the browser.
+3. **Microtask Queue**: High-priority tasks (Promises, MutationObserver).
+4. **Macrotask Queue**: General callbacks (timers, UI events).
+
+```
+[ Call Stack ]  <─── (Pushes Microtasks First) <─── [ Microtask Queue ]
+      │
+      ▼ (Checks if Stack is empty)
+[ Event Loop ]  <─── (Pushes Macrotasks Next) <─── [ Macrotask Queue ]
+```
+
+---
+
+## 5. Lexical Scopes & Closures
+
+A closure is created when an inner function retains access to its lexical outer function scope even after the outer function has completed.
+
+```javascript
+function createCounter() {
+    let count = 0; // private state
+    return {
+        increment() {
+            count++;
+            return count;
+        },
+        getCount() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+```
+
+---
+
+## 6. Prototypal Inheritance Chain
+
+Objects inherit properties directly from parent prototype references linked via the internal `[[Prototype]]` property (accessible via `Object.getPrototypeOf`).
+
+```javascript
+const vehicle = {
+    hasEngine: true
+};
+
+const car = Object.create(vehicle);
+car.doors = 4;
+
+console.log(car.hasEngine); // true (inherited)
+console.log(car.doors);     // 4 (own property)
+```
+
+---
+
+## 7. Engine Memory Profiling & Garbage Collection
+
+* **Call Stack Memory**: Primitive types and execution contexts.
+* **Heap Memory**: Dynamic allocations (objects, arrays).
+* **Garbage Collection**: Uses the **Mark-and-Sweep** algorithm. Starting from the root (global object), the engine marks all reachable objects. Unmarked objects are swept.
+* **Memory Leaks**: Occur when global references are forgotten, event listeners are not removed, or closures retain unused variables.
+
+---
+
+## 8. JavaScript Technical Interview Questions
+1. **What is variable hoisting in JavaScript?**
+   * Variables declared with `var` and function declarations are moved (hoisted) to the top of their enclosing scope before execution. Variables declared with `let` and `const` are also hoisted but reside inside a Temporal Dead Zone (TDZ).
+2. **What is the difference between `null` and `undefined`?**
+   * `undefined` indicates a variable has been declared but not assigned a value, whereas `null` is an assigned value representing the intentional absence of any object reference.
+3. **What is function currying?**
+   * A technique of translating a function that takes multiple arguments into a sequence of nested functions, each taking a single argument.
+
+---
+
+## 9. References
+* Crockford, D. (2008). *JavaScript: The Good Parts*. O'Reilly.
+* MDN Web Docs - JavaScript Guides.
+* ECMA-262 Language Standard specification.
