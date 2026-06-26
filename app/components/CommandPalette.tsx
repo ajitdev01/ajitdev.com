@@ -2,16 +2,18 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Compass, FileText, Check, Link2, X } from "lucide-react";
+import { Search, Compass, FileText, Check, Link2, X, BookOpen, Folder } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import Fuse from "fuse.js";
 
-interface CommandItem {
+interface SearchItem {
   id: string;
   title: string;
-  category: string;
+  subtitle?: string;
+  category: "Navigation" | "Quick Actions" | "Projects" | "Blog Posts";
   shortcut?: string[];
-  action: () => void;
   icon: React.ComponentType<{ className?: string }>;
+  action: () => void;
 }
 
 export default function CommandPalette() {
@@ -21,17 +23,49 @@ export default function CommandPalette() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedGithub, setCopiedGithub] = useState(false);
   
+  // Dynamic search data from API
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
+  const [projectsData, setProjectsData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 1. Define command items
-  const commands = useMemo<CommandItem[]>(() => {
-    const list: CommandItem[] = [
+  // 1. Fetch posts and projects search index on mount
+  useEffect(() => {
+    let active = true;
+    const fetchSearchData = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch("/api/search");
+        if (!res.ok) throw new Error("Search data load failed");
+        const data = await res.json();
+        if (active) {
+          setBlogPosts(data.posts || []);
+          setProjectsData(data.projects || []);
+        }
+      } catch (err) {
+        console.error("Failed to load command palette search index:", err);
+      } finally {
+        if (active) setIsLoading(false);
+      }
+    };
+
+    fetchSearchData();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // 2. Build the unified items list
+  const allItems = useMemo<SearchItem[]>(() => {
+    const list: SearchItem[] = [
       // Navigation
       {
         id: "nav-home",
         title: "Go to Home Page",
+        subtitle: "Return to the main hero section and overview",
         category: "Navigation",
         shortcut: ["G", "H"],
         icon: Compass,
@@ -40,6 +74,7 @@ export default function CommandPalette() {
       {
         id: "nav-about",
         title: "Go to About Page",
+        subtitle: "My professional background and credentials",
         category: "Navigation",
         shortcut: ["G", "A"],
         icon: Compass,
@@ -48,6 +83,7 @@ export default function CommandPalette() {
       {
         id: "nav-skills",
         title: "Go to Skills Page",
+        subtitle: "DevOps, cloud computing, and backend skillsets",
         category: "Navigation",
         shortcut: ["G", "S"],
         icon: Compass,
@@ -56,6 +92,7 @@ export default function CommandPalette() {
       {
         id: "nav-projects",
         title: "Go to Projects Page",
+        subtitle: "Explore interactive software engineering portfolio projects",
         category: "Navigation",
         shortcut: ["G", "P"],
         icon: Compass,
@@ -64,6 +101,7 @@ export default function CommandPalette() {
       {
         id: "nav-blog",
         title: "Go to Blog Page",
+        subtitle: "Technical articles, guides, and architecture deep dives",
         category: "Navigation",
         shortcut: ["G", "B"],
         icon: Compass,
@@ -72,6 +110,7 @@ export default function CommandPalette() {
       {
         id: "nav-contact",
         title: "Go to Contact Page",
+        subtitle: "Get in touch or leave feedback",
         category: "Navigation",
         shortcut: ["G", "C"],
         icon: Compass,
@@ -81,8 +120,9 @@ export default function CommandPalette() {
       {
         id: "act-email",
         title: copiedEmail ? "Email Copied!" : "Copy Support Email",
+        subtitle: "support@ajitdev.com",
         category: "Quick Actions",
-        icon: copiedEmail ? Check : FileText,
+        icon: copiedEmail ? Check : Link2,
         action: () => {
           navigator.clipboard.writeText("support@ajitdev.com");
           setCopiedEmail(true);
@@ -93,6 +133,7 @@ export default function CommandPalette() {
       {
         id: "act-github",
         title: copiedGithub ? "Github Link Copied!" : "Copy GitHub URL",
+        subtitle: "https://github.com/ajitdev01",
         category: "Quick Actions",
         icon: copiedGithub ? Check : Link2,
         action: () => {
@@ -102,51 +143,70 @@ export default function CommandPalette() {
           setTimeout(() => setCopiedGithub(false), 2000);
         },
       },
-      // Quick Portfolio Projects
-      {
-        id: "proj-irctc",
-        title: "Project: IRCTC Railway System Clone",
-        category: "Projects",
-        icon: FileText,
-        action: () => { router.push("/projects"); setIsOpen(false); },
-      },
-      {
-        id: "proj-mern",
-        title: "Project: MERN Full Stack Repository",
-        category: "Projects",
-        icon: FileText,
-        action: () => { router.push("/projects"); setIsOpen(false); },
-      },
-      {
-        id: "proj-lamp",
-        title: "Project: LAMP Stack Authentication System",
-        category: "Projects",
-        icon: FileText,
-        action: () => { router.push("/projects"); setIsOpen(false); },
-      },
-      {
-        id: "proj-dsa",
-        title: "Project: DSA Journey Repository (400+ solved)",
-        category: "Projects",
-        icon: FileText,
-        action: () => { router.push("/projects"); setIsOpen(false); },
-      },
     ];
+
+    // Append dynamic Projects
+    projectsData.forEach((proj) => {
+      list.push({
+        id: `proj-${proj.id}`,
+        title: proj.title,
+        subtitle: `Project • ${proj.tech.slice(0, 3).join(", ")}`,
+        category: "Projects",
+        icon: Folder,
+        action: () => {
+          trackEvent("command_palette_project_click", { projectId: proj.id, title: proj.title });
+          if (proj.github && proj.github !== "#") {
+            window.open(proj.github, "_blank");
+          } else {
+            router.push("/projects");
+          }
+          setIsOpen(false);
+        },
+      });
+    });
+
+    // Append dynamic Blog Posts
+    blogPosts.forEach((post) => {
+      list.push({
+        id: `post-${post.slug}`,
+        title: post.title,
+        subtitle: `Article • in ${post.category}`,
+        category: "Blog Posts",
+        icon: BookOpen,
+        action: () => {
+          trackEvent("command_palette_blog_click", { slug: post.slug, title: post.title });
+          router.push(`/blog/${post.slug}`);
+          setIsOpen(false);
+        },
+      });
+    });
+
     return list;
-  }, [router, copiedEmail, copiedGithub]);
+  }, [router, copiedEmail, copiedGithub, blogPosts, projectsData]);
 
-  // 2. Filter commands
-  const filteredCommands = useMemo(() => {
-    if (!query.trim()) return commands;
-    const cleanQuery = query.toLowerCase().trim();
-    return commands.filter(
-      (cmd) =>
-        cmd.title.toLowerCase().includes(cleanQuery) ||
-        cmd.category.toLowerCase().includes(cleanQuery)
-    );
-  }, [query, commands]);
+  // 3. Initialize Fuse for unified search
+  const fuse = useMemo(() => {
+    return new Fuse(allItems, {
+      keys: [
+        { name: "title", weight: 0.5 },
+        { name: "subtitle", weight: 0.3 },
+        { name: "category", weight: 0.2 },
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+    });
+  }, [allItems]);
 
-  // 3. Listen to keyboard shortcuts
+  // 4. Filter items based on query
+  const filteredItems = useMemo(() => {
+    if (!query.trim()) {
+      // Return navigation & actions when query is empty to avoid cluttering with all blog posts
+      return allItems.filter(item => item.category === "Navigation" || item.category === "Quick Actions");
+    }
+    return fuse.search(query).map(result => result.item);
+  }, [query, allItems, fuse]);
+
+  // 5. Global Keyboard Hook to toggle Command Palette (Ctrl+K or ⌘K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -154,7 +214,6 @@ export default function CommandPalette() {
         setIsOpen((prev) => !prev);
         trackEvent("command_palette_toggle", { source: "keyboard" });
       }
-
       if (e.key === "Escape") {
         setIsOpen(false);
       }
@@ -163,7 +222,7 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // 4. Focus input when palette opens
+  // 6. Manage scroll locks and inputs autofocus
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50);
@@ -178,7 +237,6 @@ export default function CommandPalette() {
     };
   }, [isOpen]);
 
-  // 5. Navigate through filtered results via arrow keys
   useEffect(() => {
     setSelectedIndex(0);
   }, [query]);
@@ -187,17 +245,17 @@ export default function CommandPalette() {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((prev) =>
-        prev < filteredCommands.length - 1 ? prev + 1 : 0
+        prev < filteredItems.length - 1 ? prev + 1 : 0
       );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((prev) =>
-        prev > 0 ? prev - 1 : filteredCommands.length - 1
+        prev > 0 ? prev - 1 : filteredItems.length - 1
       );
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (filteredCommands[selectedIndex]) {
-        filteredCommands[selectedIndex].action();
+      if (filteredItems[selectedIndex]) {
+        filteredItems[selectedIndex].action();
       }
     }
   };
@@ -205,77 +263,89 @@ export default function CommandPalette() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] px-4">
-      {/* Glassmorphic Backdrop */}
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[12vh] px-4">
+      {/* Backdrop */}
       <div
         onClick={() => setIsOpen(false)}
-        className="fixed inset-0 bg-gray-950/40 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-950/60 backdrop-blur-[4px] transition-opacity"
       />
 
-      {/* Palette Card */}
+      {/* Palette Container */}
       <div
         ref={containerRef}
         onKeyDown={handleKeyDown}
-        className="relative w-full max-w-lg bg-white/90 backdrop-blur-md border border-gray-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[50vh] animate-in fade-in zoom-in-95 duration-100"
+        className="relative w-full max-w-lg bg-slate-900/95 border border-slate-800 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[60vh] text-slate-100 animate-in fade-in zoom-in-95 duration-100"
       >
-        {/* Search Input Box */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 bg-gray-50/50">
-          <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
+        {/* Search Bar */}
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-slate-800 bg-slate-950/50">
+          <Search className="w-5 h-5 text-slate-400 flex-shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            placeholder="Type a command or page name..."
+            placeholder="Search files, routes, projects, articles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent focus:outline-none text-sm text-gray-800 placeholder-gray-400"
+            className="flex-1 bg-transparent focus:outline-none text-sm text-slate-200 placeholder-slate-500 w-full"
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="p-1 hover:bg-gray-200/60 rounded-full text-gray-400 hover:text-gray-600 transition-all"
+              className="p-1 hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-200 transition-all"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[9px] font-sans font-medium text-gray-400 bg-white border border-gray-200 rounded shadow-xs select-none">
+          <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-sans font-medium text-slate-400 bg-slate-800 border border-slate-700 rounded shadow-xs select-none">
             ESC
           </kbd>
         </div>
 
-        {/* Command List */}
-        <div className="flex-1 overflow-y-auto p-2">
-          {filteredCommands.length > 0 ? (
+        {/* Scrollable Results Area */}
+        <div className="flex-1 overflow-y-auto p-2 min-h-[200px]">
+          {filteredItems.length > 0 ? (
             <div className="space-y-1">
-              {filteredCommands.map((cmd, index) => {
-                const Icon = cmd.icon;
+              {filteredItems.map((item, index) => {
+                const Icon = item.icon;
                 const isSelected = index === selectedIndex;
                 return (
                   <button
-                    key={cmd.id}
-                    onClick={cmd.action}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all text-left text-xs ${
+                    key={item.id}
+                    onClick={item.action}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all text-left ${
                       isSelected
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-500/10 font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/10 font-medium"
+                        : "text-slate-300 hover:bg-slate-800/60"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <Icon className={`w-4 h-4 ${isSelected ? "text-white" : "text-gray-400"}`} />
-                      <span>{cmd.title}</span>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-blue-500 text-white" : "bg-slate-800 text-slate-400"}`}>
+                        <Icon className="w-4 h-4 flex-shrink-0" />
+                      </div>
+                      <div className="min-w-0 flex flex-col">
+                        <span className="text-xs font-semibold truncate leading-tight">{item.title}</span>
+                        {item.subtitle && (
+                          <span className={`text-[10px] truncate mt-0.5 leading-none ${
+                            isSelected ? "text-blue-100" : "text-slate-400"
+                          }`}>
+                            {item.subtitle}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
-                        isSelected ? "bg-white/20 text-white" : "bg-gray-100 text-gray-400 border border-gray-200/55"
+                    
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className={`text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
+                        isSelected ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400 border border-slate-700/50"
                       }`}>
-                        {cmd.category}
+                        {item.category}
                       </span>
-                      {cmd.shortcut && (
+                      {item.shortcut && (
                         <div className="flex items-center gap-0.5">
-                          {cmd.shortcut.map((key) => (
+                          {item.shortcut.map((key) => (
                             <kbd
                               key={key}
                               className={`text-[9px] font-sans font-semibold px-1 rounded shadow-xs select-none ${
-                                isSelected ? "bg-white/20 text-white" : "bg-white text-gray-400 border border-gray-200"
+                                isSelected ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400 border border-slate-700"
                               }`}
                             >
                               {key}
@@ -289,20 +359,20 @@ export default function CommandPalette() {
               })}
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500 text-xs">
-              No matching commands or pages found.
+            <div className="text-center py-10 text-slate-500 text-xs">
+              No matching commands, pages, or projects found.
             </div>
           )}
         </div>
 
-        {/* Palette Footer */}
-        <div className="px-4 py-2 border-t border-gray-100 bg-gray-50/50 flex items-center justify-between text-[10px] text-gray-400 select-none">
+        {/* Footer */}
+        <div className="px-4 py-2.5 border-t border-slate-800 bg-slate-950/50 flex items-center justify-between text-[10px] text-slate-400 select-none">
           <div className="flex gap-4">
             <span className="flex items-center gap-1">
-              <span className="font-bold">↑↓</span> to navigate
+              <span className="font-semibold text-slate-300">↑↓</span> navigate
             </span>
             <span className="flex items-center gap-1">
-              <span className="font-bold">Enter</span> to select
+              <span className="font-semibold text-slate-300">Enter</span> select
             </span>
           </div>
           <span>

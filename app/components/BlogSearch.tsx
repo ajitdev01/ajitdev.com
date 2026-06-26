@@ -60,13 +60,9 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
     return results.map(r => r.item);
   }, [modalQuery, fuse]);
 
-  // Handle Ctrl+K shortcut
+  // Handle Escape shortcut to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setIsOpen((prev) => !prev);
-      }
       if (e.key === "Escape") {
         setIsOpen(false);
       }
