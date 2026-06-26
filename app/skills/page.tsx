@@ -1,9 +1,8 @@
-import Link from "next/link";
 import {
   FiCode, FiServer, FiDatabase, FiCheck, FiBarChart2,
-  FiAward, FiTarget, FiMapPin, FiBriefcase,
+  FiTarget, FiMapPin, FiBriefcase,
   FiCalendar, FiPackage, FiStar, FiArrowRight
-} from "react-icons/fi";
+} from "@/lib/icons";
 import SkillsSection from "../components/skills/SkillsSection";
 
 // ========== STRUCTURED DATA ==========

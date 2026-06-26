@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from "react";
-import { FiChevronDown, FiChevronUp, FiStar, FiZap, FiGithub, FiExternalLink } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiStar, FiZap, FiGithub, FiExternalLink } from "@/lib/icons";
 import { projects } from "@/lib/projects";
 
 

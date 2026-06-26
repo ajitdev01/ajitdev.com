@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   FiFolder, FiBarChart2, FiTrendingUp, FiBook,
   FiDatabase, FiGlobe, FiZap, FiMapPin, FiBriefcase
-} from "react-icons/fi";
+} from "@/lib/icons";
 import ProjectsSection from "../components/projects/ProjectsSection";
 
 // ========== STATS (DSA + Full Stack Focus) ==========

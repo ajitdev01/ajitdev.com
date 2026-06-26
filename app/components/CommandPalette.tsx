@@ -267,35 +267,35 @@ export default function CommandPalette() {
       {/* Backdrop */}
       <div
         onClick={() => setIsOpen(false)}
-        className="fixed inset-0 bg-slate-950/60 backdrop-blur-[4px] transition-opacity"
+        className="fixed inset-0 bg-gray-950/40 backdrop-blur-[4px] transition-opacity"
       />
 
       {/* Palette Container */}
       <div
         ref={containerRef}
         onKeyDown={handleKeyDown}
-        className="relative w-full max-w-lg bg-slate-900/95 border border-slate-800 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[60vh] text-slate-100 animate-in fade-in zoom-in-95 duration-100"
+        className="relative w-full max-w-lg bg-white/95 border border-gray-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[60vh] text-gray-800 animate-in fade-in zoom-in-95 duration-100"
       >
         {/* Search Bar */}
-        <div className="flex items-center gap-3 px-4 py-4 border-b border-slate-800 bg-slate-950/50">
-          <Search className="w-5 h-5 text-slate-400 flex-shrink-0" />
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100 bg-gray-50/50">
+          <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
           <input
             ref={inputRef}
             type="text"
             placeholder="Search files, routes, projects, articles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent focus:outline-none text-sm text-slate-200 placeholder-slate-500 w-full"
+            className="flex-1 bg-transparent focus:outline-none text-sm text-gray-800 placeholder-gray-400 w-full"
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="p-1 hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-200 transition-all"
+              className="p-1 hover:bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-all"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-sans font-medium text-slate-400 bg-slate-800 border border-slate-700 rounded shadow-xs select-none">
+          <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-sans font-medium text-gray-400 bg-white border border-gray-200 rounded shadow-sm select-none">
             ESC
           </kbd>
         </div>
@@ -313,19 +313,21 @@ export default function CommandPalette() {
                     onClick={item.action}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all text-left ${
                       isSelected
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/10 font-medium"
-                        : "text-slate-300 hover:bg-slate-800/60"
+                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10 font-medium"
+                        : "text-gray-750 hover:bg-gray-50"
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-blue-500 text-white" : "bg-slate-800 text-slate-400"}`}>
+                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-indigo-500 text-white" : "bg-gray-100 text-gray-400"}`}>
                         <Icon className="w-4 h-4 flex-shrink-0" />
                       </div>
                       <div className="min-w-0 flex flex-col">
-                        <span className="text-xs font-semibold truncate leading-tight">{item.title}</span>
+                        <span className={`text-xs font-semibold truncate leading-tight ${
+                          isSelected ? "text-white" : "text-gray-900"
+                        }`}>{item.title}</span>
                         {item.subtitle && (
                           <span className={`text-[10px] truncate mt-0.5 leading-none ${
-                            isSelected ? "text-blue-100" : "text-slate-400"
+                            isSelected ? "text-indigo-100" : "text-gray-500"
                           }`}>
                             {item.subtitle}
                           </span>
@@ -335,7 +337,7 @@ export default function CommandPalette() {
                     
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <span className={`text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
-                        isSelected ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400 border border-slate-700/50"
+                        isSelected ? "bg-white/20 text-white" : "bg-gray-100 text-gray-605 border border-gray-200/50"
                       }`}>
                         {item.category}
                       </span>
@@ -345,7 +347,7 @@ export default function CommandPalette() {
                             <kbd
                               key={key}
                               className={`text-[9px] font-sans font-semibold px-1 rounded shadow-xs select-none ${
-                                isSelected ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400 border border-slate-700"
+                                isSelected ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500 border border-gray-200"
                               }`}
                             >
                               {key}
@@ -359,20 +361,20 @@ export default function CommandPalette() {
               })}
             </div>
           ) : (
-            <div className="text-center py-10 text-slate-500 text-xs">
+            <div className="text-center py-10 text-gray-400 text-xs">
               No matching commands, pages, or projects found.
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2.5 border-t border-slate-800 bg-slate-950/50 flex items-center justify-between text-[10px] text-slate-400 select-none">
+        <div className="px-4 py-2.5 border-t border-gray-100 bg-gray-50/50 flex items-center justify-between text-[10px] text-gray-500 select-none">
           <div className="flex gap-4">
             <span className="flex items-center gap-1">
-              <span className="font-semibold text-slate-300">↑↓</span> navigate
+              <span className="font-semibold text-gray-700">↑↓</span> navigate
             </span>
             <span className="flex items-center gap-1">
-              <span className="font-semibold text-slate-300">Enter</span> select
+              <span className="font-semibold text-gray-700">Enter</span> select
             </span>
           </div>
           <span>

@@ -1,8 +1,8 @@
 import {
-  FiGithub, FiExternalLink, FiStar, FiZap, FiBook, FiDatabase,
+  FiBook, FiDatabase,
   FiBarChart2, FiGlobe, FiPackage, FiGitPullRequest, FiTerminal,
   FiServer
-} from "react-icons/fi";
+} from "@/lib/icons";
 
 export const projects = [
   {

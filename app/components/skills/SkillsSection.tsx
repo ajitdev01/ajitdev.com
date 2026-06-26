@@ -5,7 +5,7 @@ import {
   FiCode, FiServer, FiDatabase, FiCloud, FiChevronDown, FiChevronUp,
   FiLayers, FiGlobe, FiSmartphone, FiPackage, FiCpu, FiSend, FiLock,
   FiGitPullRequest, FiTool, FiGitBranch, FiTrendingUp, FiZap, FiBarChart2, FiActivity
-} from "react-icons/fi";
+} from "@/lib/icons";
 
 const SiAmazonaws = () => <FiCloud className="w-4 h-4" />;
 const SiDocker = () => <FiPackage className="w-4 h-4" />;

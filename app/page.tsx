@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import JSONLD from "./components/JSONLD";
 
 // Dynamically import client-heavy sections with no SSR
 const CodeSpace3D = dynamic(() => import("./components/home/CodeSpace3D"));
@@ -72,59 +73,436 @@ export default function HomePage() {
   return (
     <>
       {/* JSON-LD Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "Person",
-                "@id": "https://ajitdev.com/#person",
-                name: "Ajit Dev",
-                alternateName: ["Ajit Kumar", "AjitDev01"],
-                url: "https://ajitdev.com",
-                email: "support@ajitdev.com",
-                telephone: "+916205526784",
-                jobTitle: ["Full Stack Developer", "DevOps Engineer", "Cloud Security Enthusiast"],
-                description: "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Available for hire.",
-                address: {
-                  "@type": "PostalAddress",
-                  addressLocality: "Katihar",
-                  addressRegion: "Bihar",
-                  addressCountry: "India",
-                },
-                sameAs: allSocialUrls,
-                knowsAbout: ["MERN Stack", "Next.js", "TypeScript", "React", "Node.js", "DevOps", "Cloud Security", "AWS", "Docker", "Kubernetes", "Terraform", "Linux", "CI/CD", "System Design"],
-                hasOccupation: {
-                  "@type": "Occupation",
-                  name: "Full Stack Developer",
-                  skills: "React, Next.js, Node.js, Express, MongoDB, TypeScript, AWS, Docker, Kubernetes, Terraform, CI/CD",
-                },
+      <JSONLD
+        schema={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Person",
+              "@id": "https://ajitdev.com/#person",
+              "name": "Ajit Dev",
+              "alternateName": ["Ajit Kumar", "AjitDev01", "ajitdev01"],
+              "url": "https://ajitdev.com",
+              "mainEntityOfPage": {
+                "@id": "https://ajitdev.com/#profilepage"
               },
-              {
-                "@type": "WebSite",
-                "@id": "https://ajitdev.com/#website",
-                url: "https://ajitdev.com",
-                name: "Ajit Dev — Full Stack Developer & DevOps Engineer Portfolio",
-                description: "Portfolio of Ajit Dev (ajitdev01), a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India.",
-                publisher: { "@id": "https://ajitdev.com/#person" },
+              "image": {
+                "@type": "ImageObject",
+                "@id": "https://ajitdev.com/#personimage",
+                "url": "https://ajitdev.com/logo.png",
+                "width": 400,
+                "height": 400,
+                "caption": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer"
               },
-              {
-                "@type": "Organization",
-                "@id": "https://ajitdev.com/#organization",
-                name: "AjitDev",
-                alternateName: ["ajitdev01", "Ajit Kumar", "Ajit Dev Portfolio"],
-                url: "https://ajitdev.com",
-                sameAs: allSocialUrls,
-                contactPoint: {
-                  "@type": "ContactPoint",
-                  email: "support@ajitdev.com",
-                  contactType: "professional services",
+              "jobTitle": [
+                "Full Stack Developer",
+                "DevOps Engineer",
+                "Cloud Security Enthusiast",
+                "DevSecOps Engineer"
+              ],
+              "description": "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer, Cloud Security and Cybersecurity Enthusiast from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in Next.js, React, MERN Stack, cloud computing, CI/CD automation, security engineering, Linux, Docker, AWS, Kubernetes, Terraform.",
+              "gender": "Male",
+              "nationality": "Indian",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Katihar",
+                "addressRegion": "Bihar",
+                "addressCountry": "IN",
+                "postalCode": "854105"
+              },
+              "alumniOf": [
+                {
+                  "@type": "CollegeOrUniversity",
+                  "@id": "https://amityonline.com/#org",
+                  "name": "Amity University Online",
+                  "url": "https://amityonline.com"
                 },
+                {
+                  "@type": "EducationalOrganization",
+                  "@id": "https://www.brainzima.com/#org",
+                  "name": "Brainzima Innovation Institute",
+                  "url": "https://www.brainzima.com/"
+                }
+              ],
+              "memberOf": [
+                {
+                  "@type": "EducationalOrganization",
+                  "@id": "https://amityonline.com/#org"
+                },
+                {
+                  "@type": "EducationalOrganization",
+                  "@id": "https://www.brainzima.com/#org"
+                }
+              ],
+              "hasOccupation": {
+                "@type": "Occupation",
+                "name": "DevOps & Cloud Security Developer",
+                "occupationLocation": {
+                  "@type": "Country",
+                  "name": "India"
+                },
+                "estimatedSalary": {
+                  "@type": "MonetaryAmountDistribution",
+                  "currency": "INR",
+                  "percentile10": 300000,
+                  "percentile90": 2000000
+                },
+                "skills": "DevOps, DevSecOps, Cloud Security, Cybersecurity, Linux, Docker, Cloud Computing, Security Automation, CI/CD Pipelines, Infrastructure as Code, MERN Stack, LAMP Stack, GitHub Actions, Terraform, Ansible, Kubernetes"
               },
-            ],
-          }),
+              "knowsAbout": [
+                "DevOps Engineering",
+                "DevSecOps",
+                "Cloud Security",
+                "Cybersecurity",
+                "Cloud Computing",
+                "Linux System Administration",
+                "Docker Containerization",
+                "Security Automation",
+                "CI/CD Pipelines",
+                "Infrastructure as Code",
+                "Network Security",
+                "MERN Stack Development",
+                "LAMP Stack Development",
+                "GitHub Actions",
+                "Terraform",
+                "Ansible",
+                "Kubernetes",
+                "Web Application Security",
+                "Penetration Testing Fundamentals",
+                "SIEM and Log Analysis",
+                "Zero Trust Architecture"
+              ],
+              "knowsLanguage": [
+                { "@type": "Language", "name": "English" },
+                { "@type": "Language", "name": "Hindi" }
+              ],
+              "hasCredential": [
+                {
+                  "@type": "EducationalOccupationalCredential",
+                  "name": "DevOps Engineering Training",
+                  "credentialCategory": "certificate",
+                  "recognizedBy": {
+                    "@type": "EducationalOrganization",
+                    "@id": "https://www.brainzima.com/#org"
+                  }
+                }
+              ],
+              "subjectOf": {
+                "@id": "https://ajitdev.com/#profilepage"
+              },
+              "sameAs": allSocialUrls
+            },
+            {
+              "@type": "ProfilePage",
+              "@id": "https://ajitdev.com/#profilepage",
+              "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer Portfolio",
+              "url": "https://ajitdev.com/",
+              "description": "Official developer portfolio of Ajit Dev, a DevOps, DevSecOps and Cloud Security engineer from Katihar, Bihar, India. Featuring CI/CD, Docker, Linux, MERN Stack and LAMP Stack projects.",
+              "inLanguage": "en-IN",
+              "isPartOf": { "@id": "https://ajitdev.com/#website" },
+              "about": { "@id": "https://ajitdev.com/#person" },
+              "mainEntity": { "@id": "https://ajitdev.com/#person" },
+              "mentions": [
+                { "@type": "Thing", "name": "DevOps" },
+                { "@type": "Thing", "name": "DevSecOps" },
+                { "@type": "Thing", "name": "Cloud Security" },
+                { "@type": "Thing", "name": "Docker" },
+                { "@type": "Thing", "name": "Linux" },
+                { "@type": "Thing", "name": "Cybersecurity" },
+                { "@type": "Thing", "name": "Cloud Computing" },
+                { "@type": "Thing", "name": "MERN Stack" },
+                { "@type": "Thing", "name": "LAMP Stack" },
+                { "@type": "Thing", "name": "CI/CD Pipeline" },
+                { "@type": "Thing", "name": "Infrastructure as Code" },
+                { "@type": "Thing", "name": "Kubernetes" },
+                { "@type": "Thing", "name": "GitHub Actions" }
+              ],
+              "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": ["h1", "h2", ".hero-description", ".about-summary"]
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              },
+              "dateCreated": "2026-02-09T10:00:00+05:30",
+              "dateModified": "2026-02-17T12:00:00+05:30",
+              "datePublished": "2026-02-09T10:00:00+05:30",
+              "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": "https://ajitdev.com/og-image.png",
+                "width": 1200,
+                "height": 630
+              },
+              "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
+              "significantLinks": [
+                "https://github.com/ajitdev01",
+                "https://linkedin.com/in/ajitdev01",
+                "https://ajitdev.com/projects"
+              ]
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://ajitdev.com/#webpage",
+              "url": "https://ajitdev.com/",
+              "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Engineer",
+              "headline": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer from Katihar, India",
+              "description": "Official portfolio and professional homepage of Ajit Dev, a DevOps, DevSecOps, Cloud Security and Cybersecurity developer from Katihar, Bihar, India.",
+              "inLanguage": "en-IN",
+              "isPartOf": { "@id": "https://ajitdev.com/#website" },
+              "about": { "@id": "https://ajitdev.com/#person" },
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "datePublished": "2026-02-09T10:00:00+05:30",
+              "dateModified": "2026-02-17T12:00:00+05:30",
+              "breadcrumb": { "@id": "https://ajitdev.com/#breadcrumb" },
+              "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": "https://ajitdev.com/og-image.png",
+                "width": 1200,
+                "height": 630
+              },
+              "keywords": "Ajit Dev, AjitDev01, Full Stack Developer India, DevOps Engineer India, Cloud Security Developer, MERN Stack, Next.js, React, Katihar Bihar Developer, AWS, Docker, Kubernetes"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ajitdev.com/#website",
+              "name": "Ajit Dev Portfolio",
+              "alternateName": "ajitdev.com",
+              "url": "https://ajitdev.com",
+              "description": "DevOps, DevSecOps, Cloud Security and Cybersecurity developer portfolio by Ajit Dev — Katihar, Bihar, India.",
+              "inLanguage": "en-IN",
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "copyrightHolder": { "@id": "https://ajitdev.com/#person" },
+              "copyrightYear": "2026",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://ajitdev.com/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://ajitdev.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Projects",
+                  "item": "https://ajitdev.com/projects"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "About",
+                  "item": "https://ajitdev.com/about"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "Contact",
+                  "item": "https://ajitdev.com/contact"
+                }
+              ]
+            },
+            {
+              "@type": "VideoObject",
+              "@id": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+              "name": "JavaScript & DevOps Coding Showcase | Ajit Dev",
+              "description": "DevOps, JavaScript and coding showcase by Ajit Dev demonstrating CI/CD automation, security engineering, cloud computing, Docker containerization and technical editing.",
+              "thumbnailUrl": [
+                "https://img.youtube.com/vi/9jDShfTLjwo/maxresdefault.jpg",
+                "https://img.youtube.com/vi/9jDShfTLjwo/hqdefault.jpg",
+                "https://img.youtube.com/vi/9jDShfTLjwo/mqdefault.jpg"
+              ],
+              "uploadDate": "2026-02-17T10:00:00+05:30",
+              "duration": "PT2M00S",
+              "embedUrl": "https://www.youtube.com/embed/9jDShfTLjwo",
+              "contentUrl": "https://www.youtube.com/watch?v=9jDShfTLjwo",
+              "potentialAction": {
+                "@type": "WatchAction",
+                "target": "https://www.youtube.com/watch?v=9jDShfTLjwo"
+              },
+              "hasPart": [
+                {
+                  "@type": "Clip",
+                  "name": "DevOps Demo",
+                  "startOffset": 0,
+                  "endOffset": 60,
+                  "url": "https://www.youtube.com/watch?v=9jDShfTLjwo&t=0s"
+                },
+                {
+                  "@type": "Clip",
+                  "name": "Cloud Security Showcase",
+                  "startOffset": 60,
+                  "endOffset": 120,
+                  "url": "https://www.youtube.com/watch?v=9jDShfTLjwo&t=60s"
+                }
+              ],
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "inLanguage": "en",
+              "keywords": "DevOps, DevSecOps, Cloud Security, JavaScript, Linux, Docker, CI/CD, coding portfolio, Ajit Dev, India"
+            },
+            {
+              "@type": "ItemList",
+              "@id": "https://ajitdev.com/#projectlist",
+              "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Projects",
+              "description": "Featured DevOps, DevSecOps, Cloud Security, Cybersecurity, MERN Stack and LAMP Stack projects by Ajit Dev from Katihar, India.",
+              "url": "https://ajitdev.com/projects",
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "itemListOrder": "https://schema.org/ItemListOrderDescending",
+              "numberOfItems": 6,
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "DevOps CI/CD Automation Pipeline",
+                  "url": "https://ajitdev.com/projects/devops-automation",
+                  "description": "Automated CI/CD pipeline using GitHub Actions, Docker and Linux for continuous integration and deployment."
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Cloud Security Lab",
+                  "url": "https://ajitdev.com/projects/cloud-security-lab",
+                  "description": "Cloud security engineering project implementing Zero Trust, IAM policies and network security controls."
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "DevSecOps Security Pipeline",
+                  "url": "https://ajitdev.com/projects/devsecops-pipeline",
+                  "description": "Shift-left security implementation integrating SAST, DAST and dependency scanning into CI/CD workflows."
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "MERN Stack Application",
+                  "url": "https://ajitdev.com/projects/mern-stack-app",
+                  "description": "Full-stack MERN (MongoDB, Express, React, Node.js) application with secure API architecture."
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 5,
+                  "name": "LAMP Stack Web Platform",
+                  "url": "https://ajitdev.com/projects/lamp-stack-platform",
+                  "description": "Linux, Apache, MySQL and PHP web platform with hardened server configuration and DevOps deployment."
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 6,
+                  "name": "Cybersecurity Monitoring Dashboard",
+                  "url": "https://ajitdev.com/projects/cybersecurity-dashboard",
+                  "description": "Security monitoring and SIEM dashboard for real-time threat detection and log analysis using open-source tools."
+                }
+              ]
+            },
+            {
+              "@type": "CreativeWorkSeries",
+              "@id": "https://ajitdev.com/#workseries",
+              "name": "Ajit Dev — DevOps, DevSecOps & Cloud Security Works",
+              "description": "An ongoing series of DevOps, DevSecOps, Cloud Security, Cybersecurity, MERN Stack and LAMP Stack projects and technical writings by Ajit Dev from Katihar, Bihar, India.",
+              "url": "https://ajitdev.com/projects",
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "creator": { "@id": "https://ajitdev.com/#person" },
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "inLanguage": "en-IN",
+              "startDate": "2026-02-09",
+              "genre": [
+                "DevOps",
+                "DevSecOps",
+                "Cloud Security",
+                "Cybersecurity",
+                "Cloud Computing",
+                "MERN Stack",
+                "LAMP Stack"
+              ],
+              "about": [
+                { "@type": "Thing", "name": "DevOps Engineering" },
+                { "@type": "Thing", "name": "DevSecOps" },
+                { "@type": "Thing", "name": "Cloud Security" },
+                { "@type": "Thing", "name": "Cybersecurity" },
+                { "@type": "Thing", "name": "Cloud Computing" },
+                { "@type": "Thing", "name": "MERN Stack" },
+                { "@type": "Thing", "name": "LAMP Stack" },
+                { "@type": "Thing", "name": "Linux" },
+                { "@type": "Thing", "name": "Docker" },
+                { "@type": "Thing", "name": "CI/CD Pipelines" }
+              ]
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "@id": "https://ajitdev.com/#credential-brainzima",
+              "name": "DevOps & Cloud Security Training Certification",
+              "credentialCategory": "certificate",
+              "about": [
+                { "@type": "Thing", "name": "DevOps Engineering" },
+                { "@type": "Thing", "name": "Cloud Security" },
+                { "@type": "Thing", "name": "Cybersecurity" }
+              ],
+              "competencyRequired": "DevOps, CI/CD, Docker, Linux, Cloud Security, Cybersecurity",
+              "recognizedBy": {
+                "@type": "EducationalOrganization",
+                "@id": "https://www.brainzima.com/#org",
+                "name": "Brainzima Innovation Institute",
+                "url": "https://www.brainzima.com/"
+              },
+              "holder": {
+                "@id": "https://ajitdev.com/#person"
+              }
+            },
+            {
+              "@type": "SoftwareApplication",
+              "@id": "https://ajitdev.com/projects/devops-automation#project",
+              "name": "DevOps CI/CD Automation Pipeline",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Linux",
+              "description": "Automated CI/CD pipeline built with GitHub Actions, Docker and Linux for continuous integration and deployment.",
+              "url": "https://ajitdev.com/projects/devops-automation",
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "creator": { "@id": "https://ajitdev.com/#person" },
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "softwareVersion": "1.0",
+              "datePublished": "2026-02-09",
+              "inLanguage": "en",
+              "keywords": "DevOps, CI/CD, Docker, GitHub Actions, Linux automation",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              }
+            },
+            {
+              "@type": "SoftwareApplication",
+              "@id": "https://ajitdev.com/projects/devsecops-pipeline#project",
+              "name": "DevSecOps Security Integration Pipeline",
+              "applicationCategory": "SecurityApplication",
+              "operatingSystem": "Linux",
+              "description": "Shift-left security DevSecOps pipeline integrating SAST, DAST, container scanning and dependency auditing into CI/CD workflows. Built for cloud-native security engineering.",
+              "url": "https://ajitdev.com/projects/devsecops-pipeline",
+              "author": { "@id": "https://ajitdev.com/#person" },
+              "creator": { "@id": "https://ajitdev.com/#person" },
+              "publisher": { "@id": "https://ajitdev.com/#person" },
+              "keywords": "DevSecOps, security automation, SAST, DAST, CI/CD, Docker, cloud security",
+              "inLanguage": "en",
+              "datePublished": "2026-02-09"
+            }
+          ]
         }}
       />
 
