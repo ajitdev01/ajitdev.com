@@ -176,6 +176,7 @@ const filterCategories = [
 export default function ProjectsSection() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
@@ -183,13 +184,25 @@ export default function ProjectsSection() {
   }, [isMobileMenuOpen]);
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "All") return projects;
-    return projects.filter(p =>
-      p.category === activeFilter ||
-      p.subcategory === activeFilter ||
-      p.tech.includes(activeFilter)
-    );
-  }, [activeFilter]);
+    let list = projects;
+    if (activeFilter !== "All") {
+      list = list.filter(p =>
+        p.category === activeFilter ||
+        p.subcategory === activeFilter ||
+        p.tech.includes(activeFilter)
+      );
+    }
+    if (searchQuery.trim() !== "") {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.shortDescription.toLowerCase().includes(q) ||
+        p.tech.some(t => t.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  }, [activeFilter, searchQuery]);
 
   const filtersWithCounts = useMemo(() =>
     filterCategories.map(f => ({
@@ -202,6 +215,31 @@ export default function ProjectsSection() {
 
   return (
     <>
+      {/* === SEARCH INPUT === */}
+      <div className="relative w-full max-w-md mx-auto mb-10 group">
+        <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+        <input
+          type="text"
+          placeholder="Search projects by title, description, or stack..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-11 pr-10 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/90 backdrop-blur-sm shadow-md transition-all text-gray-800 text-sm outline-none"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
+      </div>
       {/* === MOBILE FILTER BUTTON === */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

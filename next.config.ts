@@ -27,7 +27,7 @@ const securityHeaders = [
   },
 ];
 
-const nextConfig: NextConfig = {
+let nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: false,
   images: {
@@ -44,5 +44,12 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
+if (process.env.ANALYZE === "true") {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: true,
+  });
+  nextConfig = withBundleAnalyzer(nextConfig);
+}
 
 export default nextConfig;

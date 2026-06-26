@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackEvent } from "@/lib/analytics";
 
 const IP = { strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
 const ic = (s: number, c?: string) => ({ width: s, height: s, viewBox: "0 0 24 24", className: c || undefined, stroke: "currentColor", ...IP });
@@ -72,13 +73,15 @@ export default function ContactForm() {
       if (result.status === 200) {
         setIsLoading(false);
         setShowSuccessModal(true);
+        trackEvent("contact_submission_success", { subject: formData.subject || "General" });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         throw new Error("Failed to send email");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Email sending error:", err);
       setIsLoading(false);
+      trackEvent("contact_submission_failed", { error: err.message || "Unknown error" });
       setError("Failed to send message. Please try again or email me directly.");
     }
   };

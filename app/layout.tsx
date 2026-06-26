@@ -8,6 +8,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const ThirdPartyScripts = dynamic(() => import("@/app/components/ThirdPartyScripts"));
+import PWARegister from "@/app/components/PWARegister";
+import AnalyticsTracker from "@/app/components/AnalyticsTracker";
+import CommandPalette from "@/app/components/CommandPalette";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -134,6 +137,9 @@ export default function RootLayout({
         </noscript>
 
         <ThirdPartyScripts />
+        <PWARegister />
+        <AnalyticsTracker />
+        <CommandPalette />
 
         {/* Google Knowledge Graph (Unified Closed Entity Graph) */}
         <script

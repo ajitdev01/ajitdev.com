@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import CopyButton from "./CopyButton";
 
 export const MDXComponents = {
   h1: (props: any) => (
@@ -78,12 +79,29 @@ export const MDXComponents = {
       />
     </div>
   ),
-  pre: (props: any) => (
-    <pre
-      className="bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto my-6 border border-gray-800 text-sm font-mono leading-relaxed"
-      {...props}
-    />
-  ),
+  pre: ({ children, ...props }: any) => {
+    const getCodeText = (c: any): string => {
+      if (!c) return "";
+      if (typeof c === "string") return c;
+      if (Array.isArray(c)) return c.map(getCodeText).join("");
+      if (c.props && c.props.children) return getCodeText(c.props.children);
+      return "";
+    };
+
+    const textContent = getCodeText(children);
+
+    return (
+      <div className="relative group my-6">
+        {textContent && <CopyButton text={textContent} />}
+        <pre
+          className="bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto border border-gray-800 text-sm font-mono leading-relaxed"
+          {...props}
+        >
+          {children}
+        </pre>
+      </div>
+    );
+  },
   code: (props: any) => (
     <code
       className="bg-gray-100 dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded font-mono text-sm"
