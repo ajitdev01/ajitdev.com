@@ -576,7 +576,7 @@ export default function ResumePage() {
 
                   {/* Screen tag groups */}
                   <div className="space-y-3 print:hidden">
-                    {techStack.map(({ label, icon: _i, tags }) => (
+                    {techStack.map(({ label, tags }) => (
                       <div key={label}>
                         <h3 className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">
                           {label}
