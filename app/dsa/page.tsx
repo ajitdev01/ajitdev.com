@@ -1,41 +1,45 @@
-import React from "react";
-import { Metadata } from "next";
+"use client";
+
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Award, Zap, Code, Star, LayoutGrid } from "lucide-react";
+import { ArrowLeft, BookOpen, Award, Zap, Code, Star, LayoutGrid, BarChart2, Calendar, Target, CheckCircle2, ChevronRight } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
-export const metadata: Metadata = {
-  title: "Data Structures & Algorithms (DSA) Dashboard | Ajit Dev",
-  description: "Explore Ajit Dev's algorithm practice analytics. Features LeetCode stats (450+ solved), problem difficulty distributions, and a structured learning timeline.",
-  alternates: {
-    canonical: "https://ajitdev.com/dsa",
-  },
-};
-
-const CATEGORIES = [
-  { key: "arrays", name: "Arrays Data Structure", solved: 45, total: 50, color: "from-blue-500 to-indigo-500" },
-  { key: "strings", name: "Strings Manipulation", solved: 38, total: 40, color: "from-purple-500 to-violet-500" },
-  { key: "hashing", name: "Hashing & Hash Tables", solved: 30, total: 32, color: "from-pink-500 to-rose-500" },
-  { key: "linked-list", name: "Linked Lists Nodes", solved: 25, total: 30, color: "from-emerald-500 to-teal-500" },
-  { key: "stack", name: "Stack Data Structures", solved: 22, total: 25, color: "from-cyan-500 to-blue-500" },
-  { key: "queue", name: "Queue Data Structures", solved: 15, total: 20, color: "from-amber-500 to-orange-500" },
-  { key: "binary-search", name: "Binary Search Algorithms", solved: 28, total: 30, color: "from-rose-500 to-red-500" },
-  { key: "backtracking", name: "Backtracking Algorithms", solved: 18, total: 20, color: "from-indigo-500 to-purple-500" },
-  { key: "sliding-window", name: "Sliding Window", solved: 24, total: 25, color: "from-violet-500 to-fuchsia-500" },
-  { key: "two-pointer", name: "Two Pointer Technique", solved: 26, total: 28, color: "from-teal-500 to-emerald-500" },
+const DSA_TOPICS = [
+  { key: "arrays", name: "Arrays Data Structure", solved: 45, total: 50, completed: true, details: "Contiguous memory lists, sliding windows, and pointer operations." },
+  { key: "strings", name: "Strings Manipulation", solved: 38, total: 40, completed: true, details: "Pattern matching algorithms, rolling hashes, and subsegment parsing." },
+  { key: "hashing", name: "Hashing & Hash Tables", solved: 30, total: 32, completed: true, details: "Key-value indexes, resolving collisions, and custom bucket hashes." },
+  { key: "two-pointer", name: "Two Pointer Technique", solved: 26, total: 28, completed: true, details: "Optimizing search spacing, sliding thresholds, and midpoint bounds." },
+  { key: "sliding-window", name: "Sliding Window", solved: 24, total: 25, completed: true, details: "Dynamic expansion subsegments, finding maximum/minimum bounds in linear time." },
+  { key: "binary-search", name: "Binary Search Algorithms", solved: 28, total: 30, completed: true, details: "Logarithmic ranges search, sorting checkpoints, and search boundaries." },
+  { key: "stack", name: "Stack Data Structures", solved: 22, total: 25, completed: true, details: "LIFO queue memory arrays, matching brackets, and monotonic layouts." },
+  { key: "queue", name: "Queue Data Structures", solved: 15, total: 20, completed: true, details: "FIFO buffers, priority queues, and double-ended queues." },
+  { key: "linked-list", name: "Linked Lists Nodes", solved: 25, total: 30, completed: true, details: "Singly, doubly, and circular linked chains, loops detection, and node reversals." },
+  { key: "recursion", name: "Recursion Loops", solved: 18, total: 20, completed: true, details: "Call stack execution chains, divide-and-conquer divisions, and recursive trees." },
+  { key: "backtracking", name: "Backtracking Algorithms", solved: 18, total: 20, completed: true, details: "Recursive path finding, state restorations, and solving constraint puzzles." },
+  { key: "trees", name: "Tree Data Structures", solved: 12, total: 30, completed: false, details: "Hierarchical parent-child node maps, traversing structures, and paths mapping." },
+  { key: "bst", name: "Binary Search Trees", solved: 10, total: 25, completed: false, details: "Ordered tree nodes, balance conditions, AVL models, and node operations." },
+  { key: "heap", name: "Heap & Priority Queues", solved: 8, total: 20, completed: false, details: "Min/Max binary heaps, bubble operations, and top-K elements extraction." },
+  { key: "greedy", name: "Greedy Algorithms", solved: 12, total: 25, completed: false, details: "Optimal localized decisions, minimizing paths, and coin change solutions." },
+  { key: "graph", name: "Graph Data Structures", solved: 8, total: 35, completed: false, details: "Nodes connected by edges, DFS/BFS traversals, path routing algorithms." },
+  { key: "dynamic-programming", name: "Dynamic Programming (DP)", solved: 6, total: 40, completed: false, details: "Subproblem dependencies, tabulating states, and memory memoization." },
 ];
 
-const CURRENTLY_LEARNING = [
-  { topic: "Trees & BST", progress: 65, status: "Active Learning" },
-  { topic: "Heaps / Priority Queues", progress: 40, status: "Active Learning" },
-  { topic: "Greedy Algorithms", progress: 50, status: "Active Learning" },
-  { topic: "Graph Algorithms", progress: 30, status: "Active Learning" },
-  { topic: "Dynamic Programming (DP)", progress: 20, status: "Active Learning" },
-  { topic: "System Design Concepts", progress: 45, status: "Active Learning" },
-  { topic: "Object-Oriented Programming (OOP)", progress: 80, status: "Deepening" },
+const DAILY_STATS = [
+  { date: "June 27, 2026", solved: 4, difficulty: "2 Medium, 2 Easy", focus: "Binary Trees" },
+  { date: "June 26, 2026", solved: 3, difficulty: "1 Hard, 2 Medium", focus: "Monotonic Stack" },
+  { date: "June 25, 2026", solved: 5, difficulty: "4 Easy, 1 Medium", focus: "Two Pointers" },
+  { date: "June 24, 2026", solved: 3, difficulty: "2 Medium, 1 Easy", focus: "Sliding Window" },
+  { date: "June 23, 2026", solved: 4, difficulty: "1 Hard, 3 Medium", focus: "Graphs BFS" },
 ];
 
 export default function DsaDashboardPage() {
+  const [selectedTopic, setSelectedTopic] = useState<string>("arrays");
+
+  const activeTopicInfo = useMemo(() => {
+    return DSA_TOPICS.find(t => t.key === selectedTopic) || DSA_TOPICS[0];
+  }, [selectedTopic]);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -56,19 +60,28 @@ export default function DsaDashboardPage() {
     ],
   };
 
+  // SVG Chart calculation details (Easy: 180, Med: 220, Hard: 50 -> Total: 450)
+  const totalSolved = 450;
+  const easySolved = 180;
+  const medSolved = 220;
+  const hardSolved = 50;
+
+  const easyPct = (easySolved / totalSolved) * 100;
+  const medPct = (medSolved / totalSolved) * 100;
+  const hardPct = (hardSolved / totalSolved) * 100;
+
   return (
     <>
       <JSONLD schema={breadcrumbSchema} />
 
       <section className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen text-gray-800 relative overflow-hidden">
-        {/* Soft Background Glows */}
+        {/* Glow Effects */}
         <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
           <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px]" />
           <div className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px]" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
           {/* Back Nav */}
           <Link
             href="/"
@@ -78,148 +91,164 @@ export default function DsaDashboardPage() {
             Back to Home
           </Link>
 
-          {/* Heading */}
+          {/* Header */}
           <div className="max-w-3xl mb-12">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-indigo-100">
-              <Code className="w-3.5 h-3.5" /> Problem Solving Hub
+              <Code className="w-3.5 h-3.5" /> Problem Solving Engine
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
               Data Structures & Algorithms Dashboard
             </h1>
             <p className="text-gray-655 text-sm sm:text-base leading-relaxed mt-2">
-              Practicing complex problems in C++ and Java daily. Tracking coding statistics, patterns, and complexity tradeoffs.
+              Competitive coding progress log. I practice daily algorithm structures in C++ and Java, focusing on runtime optimization, computational space hierarchies, and code maintainability.
             </p>
           </div>
 
-          {/* Stat Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-            
-            {/* LeetCode Distribution Card */}
-            <div className="md:col-span-8 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                    LeetCode Analytics
-                  </h2>
-                  <span className="text-xs text-indigo-600 font-semibold uppercase tracking-wide">Public Handle: ajitdev01</span>
-                </div>
+          {/* Stats Summary Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {/* LeetCode Distribution Chart Card */}
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col md:flex-row lg:flex-col xl:flex-row items-center gap-6 justify-between">
+              <div className="space-y-4 flex-1">
+                <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" /> Difficulty Breakdown
+                </h2>
                 
-                {/* Visual Counters */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
-                    <div className="text-3xl font-black text-emerald-600">180</div>
-                    <div className="text-[10px] text-gray-500 mt-1 uppercase font-bold">Easy Solved</div>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between items-center">
+                    <span className="flex items-center gap-2 text-emerald-600 font-semibold">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Easy
+                    </span>
+                    <span className="font-bold text-gray-900">{easySolved} ({easyPct.toFixed(0)}%)</span>
                   </div>
-                  <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
-                    <div className="text-3xl font-black text-indigo-600">220</div>
-                    <div className="text-[10px] text-gray-500 mt-1 uppercase font-bold">Medium Solved</div>
+                  <div className="flex justify-between items-center">
+                    <span className="flex items-center gap-2 text-indigo-600 font-semibold">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Medium
+                    </span>
+                    <span className="font-bold text-gray-900">{medSolved} ({medPct.toFixed(0)}%)</span>
                   </div>
-                  <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
-                    <div className="text-3xl font-black text-rose-600">50</div>
-                    <div className="text-[10px] text-gray-500 mt-1 uppercase font-bold">Hard Solved</div>
+                  <div className="flex justify-between items-center">
+                    <span className="flex items-center gap-2 text-rose-600 font-semibold">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Hard
+                    </span>
+                    <span className="font-bold text-gray-900">{hardSolved} ({hardPct.toFixed(0)}%)</span>
                   </div>
                 </div>
+              </div>
 
-                {/* Progress Bars */}
-                <div className="space-y-4">
+              {/* Dynamic SVG Donut Chart */}
+              <div className="relative w-32 h-32 flex-shrink-0">
+                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                  {/* Background Circle */}
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f3f4f6" strokeWidth="3" />
+                  
+                  {/* Easy Segment */}
+                  <circle
+                    cx="18" cy="18" r="15.915" fill="none"
+                    stroke="#10b981" strokeWidth="3"
+                    strokeDasharray={`${easyPct} ${100 - easyPct}`}
+                    strokeDashoffset="0"
+                  />
+                  
+                  {/* Med Segment */}
+                  <circle
+                    cx="18" cy="18" r="15.915" fill="none"
+                    stroke="#6366f1" strokeWidth="3"
+                    strokeDasharray={`${medPct} ${100 - medPct}`}
+                    strokeDashoffset={`-${easyPct}`}
+                  />
+                  
+                  {/* Hard Segment */}
+                  <circle
+                    cx="18" cy="18" r="15.915" fill="none"
+                    stroke="#f43f5e" strokeWidth="3"
+                    strokeDasharray={`${hardPct} ${100 - hardPct}`}
+                    strokeDashoffset={`-${easyPct + medPct}`}
+                  />
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-transparent">
+                  <span className="text-xl font-black text-gray-900">{totalSolved}</span>
+                  <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Solved</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Coding Achievements Card */}
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
+              <div className="space-y-4">
+                <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                  <Award className="w-4 h-4 text-indigo-600" /> Performance & Consistency
+                </h2>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl text-center">
+                    <div className="text-2xl font-black text-indigo-600">180+</div>
+                    <div className="text-[9px] text-gray-500 uppercase font-bold tracking-wider mt-0.5">Day Streak</div>
+                  </div>
+                  <div className="p-3 bg-gray-50 border border-gray-100 rounded-xl text-center">
+                    <div className="text-2xl font-black text-purple-600">1,620</div>
+                    <div className="text-[9px] text-gray-500 uppercase font-bold tracking-wider mt-0.5">Contest Peak</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
+                <span className="text-gray-500 font-medium">Daily Coding Goal</span>
+                <span className="font-bold text-indigo-600 flex items-center gap-1">
+                  <Target className="w-3.5 h-3.5" /> 3-5 Problems / Day
+                </span>
+              </div>
+            </div>
+
+            {/* Target Goals Card */}
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
+              <div className="space-y-3">
+                <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                  <Target className="w-4 h-4 text-rose-500" /> Milestone Tracking
+                </h2>
+
+                <div className="space-y-2.5 text-xs">
                   <div>
-                    <div className="flex justify-between text-xs text-gray-700 mb-1 font-semibold">
-                      <span>Easy Progress</span>
-                      <span>180 / 200 (90%)</span>
+                    <div className="flex justify-between font-semibold mb-1">
+                      <span>Completed Topics</span>
+                      <span>11 / 17 (65%)</span>
                     </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
-                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: "90%" }} />
+                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-emerald-500" style={{ width: "65%" }} />
                     </div>
                   </div>
-
                   <div>
-                    <div className="flex justify-between text-xs text-gray-700 mb-1 font-semibold">
-                      <span>Medium Progress</span>
-                      <span>220 / 250 (88%)</span>
+                    <div className="flex justify-between font-semibold mb-1">
+                      <span>Next Level (Knight Badge)</span>
+                      <span>1620 / 1800 (90%)</span>
                     </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
-                      <div className="h-full bg-indigo-500 rounded-full" style={{ width: "88%" }} />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-xs text-gray-700 mb-1 font-semibold">
-                      <span>Hard Progress</span>
-                      <span>50 / 100 (50%)</span>
-                    </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
-                      <div className="h-full bg-rose-500 rounded-full" style={{ width: "50%" }} />
+                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-500" style={{ width: "90%" }} />
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-550">
-                <span>Total Problems Solved: <strong className="text-gray-900 text-sm">450+</strong></span>
+              <div className="pt-3 border-t border-gray-100 text-right">
                 <a
                   href="https://leetcode.com/u/ajitdev01"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-indigo-650 hover:text-indigo-700 font-bold hover:underline"
+                  className="text-xs font-bold text-indigo-650 hover:text-indigo-800 hover:underline"
                 >
-                  Verify on LeetCode →
+                  Verify LeetCode Profile &rarr;
                 </a>
               </div>
             </div>
-
-            {/* Streak & Achievements Card */}
-            <div className="md:col-span-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between">
-              <div className="space-y-6">
-                <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-indigo-600" />
-                  Achievements
-                </h2>
-                
-                {/* Active streak */}
-                <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center border border-indigo-100 text-indigo-600">
-                    <Zap className="w-6 h-6 fill-indigo-100" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">180 Days</div>
-                    <div className="text-[10px] text-gray-400 uppercase font-bold">Daily Coding Streak</div>
-                  </div>
-                </div>
-
-                {/* Achievements List */}
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-gray-600">Contest Rating Peak</span>
-                    <span className="font-bold text-gray-900">1,620+</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-gray-600">NeetCode Roadmap</span>
-                    <span className="font-bold text-gray-900">82% Complete</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-gray-600">Contests Participated</span>
-                    <span className="font-bold text-gray-900">12+ Matches</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-gray-100">
-                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wide">Target Goal</div>
-                <div className="text-xs text-gray-700 mt-1 font-semibold">Reach LeetCode Knight Badge (1800+ rating)</div>
-              </div>
-            </div>
-
           </div>
 
-          {/* Contributions Heatmap Showcase */}
+          {/* Daily Consistency Matrix (Heatmap) */}
           <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm mb-12">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <LayoutGrid className="w-4 h-4 text-indigo-600" />
-                Daily Practice Consistency Matrix
+              <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <LayoutGrid className="w-4 h-4 text-indigo-600" /> Daily Practice Matrix
               </h2>
-              <span className="text-xs text-gray-500">Mock coding heatmap matrix (2026 practice log)</span>
+              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Mock practice cells log (2026)</span>
             </div>
             <div className="grid grid-flow-col grid-rows-7 gap-1.5 h-28 overflow-hidden select-none">
               {Array.from({ length: 280 }).map((_, i) => {
@@ -245,76 +274,140 @@ export default function DsaDashboardPage() {
             </div>
           </div>
 
-          {/* Grid Layout of Categories */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {/* Interactive Learning Progress Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-start">
             
-            {/* Category list */}
-            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-6">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-indigo-600" />
-                Topics Solved Breakdown
+            {/* Topic selection list */}
+            <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-4">
+              <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-indigo-600" /> Target Roadmap & Topic Select
               </h2>
-              <div className="space-y-4">
-                {CATEGORIES.map((cat) => (
-                  <div key={cat.key}>
-                    <div className="flex justify-between items-center text-xs text-gray-700 mb-1">
-                      <Link href={`/dsa/${cat.key}`} className="hover:text-indigo-600 font-semibold hover:underline">
-                        {cat.name}
-                      </Link>
-                      <span className="text-[11px] text-gray-500">{cat.solved} / {cat.total} solved</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
-                      <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style={{ width: `${(cat.solved / cat.total) * 100}%` }} />
-                    </div>
-                  </div>
+              
+              <div className="max-h-[380px] overflow-y-auto pr-2 space-y-1.5 scrollbar-thin">
+                {DSA_TOPICS.map((topic) => (
+                  <button
+                    key={topic.key}
+                    onClick={() => setSelectedTopic(topic.key)}
+                    className={`w-full p-2.5 rounded-xl border text-left text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
+                      selectedTopic === topic.key
+                        ? "bg-indigo-550 border-indigo-550 text-white shadow-sm"
+                        : "bg-white border-gray-150 hover:bg-gray-50 text-gray-700"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      {topic.completed ? (
+                        <CheckCircle2 className={`w-4 h-4 ${selectedTopic === topic.key ? "text-white" : "text-emerald-500"}`} />
+                      ) : (
+                        <Zap className={`w-4 h-4 ${selectedTopic === topic.key ? "text-white" : "text-amber-500 animate-pulse"}`} />
+                      )}
+                      {topic.name}
+                    </span>
+                    <span className={`text-[10px] font-bold ${selectedTopic === topic.key ? "text-white/80" : "text-gray-400"}`}>
+                      {topic.solved} / {topic.total}
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Currently Learning / Future topics */}
-            <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-6">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-indigo-600" />
-                Advanced Topics Roadmap (Currently Learning)
-              </h2>
-              <div className="space-y-4">
-                {CURRENTLY_LEARNING.map((learn) => (
-                  <div key={learn.topic}>
-                    <div className="flex justify-between items-center text-xs mb-1">
-                      <span className="font-semibold text-gray-800">{learn.topic}</span>
-                      <span className="text-[10px] text-gray-550 italic bg-gray-100 px-2 py-0.5 border border-gray-200/50 rounded-full">{learn.status}</span>
+            {/* Selected Topic Details display card */}
+            <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between h-full min-h-[460px]">
+              <div>
+                <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded-md">
+                      {activeTopicInfo.completed ? "Topic Completed" : "Currently Learning"}
+                    </span>
+                    <h3 className="text-xl font-bold text-gray-900 mt-2">{activeTopicInfo.name}</h3>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-black text-gray-900">{((activeTopicInfo.solved / activeTopicInfo.total) * 100).toFixed(0)}%</div>
+                    <div className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Completion</div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Topical Focus & Focus areas</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed">{activeTopicInfo.details}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Practice Progress Bar</h4>
+                    <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
+                      <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style={{ width: `${(activeTopicInfo.solved / activeTopicInfo.total) * 100}%` }} />
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden border border-gray-200/50">
-                        <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: `${learn.progress}%` }} />
-                      </div>
-                      <span className="text-[10px] font-bold text-gray-650 flex-shrink-0 w-8">{learn.progress}%</span>
+                    <div className="flex justify-between text-[10px] text-gray-400 mt-1.5 font-bold">
+                      <span>Solved: {activeTopicInfo.solved}</span>
+                      <span>Target: {activeTopicInfo.total}</span>
                     </div>
                   </div>
-                ))}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
+                <span className="text-xs text-gray-500 font-medium">Detailed study notes, blueprints, and templates available.</span>
+                <Link
+                  href={`/dsa/${activeTopicInfo.key}`}
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1 group"
+                >
+                  Read Study Notes
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
               </div>
             </div>
 
           </div>
 
-          {/* Study Notes Internal Linking Grid */}
+          {/* Daily Coding Stats Table */}
+          <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm mb-12">
+            <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-6">
+              <Calendar className="w-4 h-4 text-indigo-600" /> Daily Coding Stats & Log
+            </h2>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-400 font-bold uppercase tracking-wider">
+                    <th className="pb-3 font-semibold">Date Logged</th>
+                    <th className="pb-3 font-semibold">Problems Solved</th>
+                    <th className="pb-3 font-semibold">Difficulty Split</th>
+                    <th className="pb-3 font-semibold text-right">Topics of Focus</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {DAILY_STATS.map((stat, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="py-3.5 font-bold text-gray-900">{stat.date}</td>
+                      <td className="py-3.5 font-semibold">
+                        <span className="px-2 py-0.5 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700">
+                          {stat.solved} Solved
+                        </span>
+                      </td>
+                      <td className="py-3.5 text-gray-500 font-medium">{stat.difficulty}</td>
+                      <td className="py-3.5 text-right font-bold text-indigo-650">{stat.focus}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Study Notes Internal Links */}
           <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
-            <h3 className="text-lg font-bold text-indigo-900 mb-4">Browse Topic Study Notes</h3>
-            <div className="flex flex-wrap gap-2.5">
-              {CATEGORIES.map((cat) => (
+            <h3 className="text-sm font-black text-indigo-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-indigo-600" /> Browse Detailed DSA Chapters
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {DSA_TOPICS.map((topic) => (
                 <Link
-                  key={cat.key}
-                  href={`/dsa/${cat.key}`}
-                  className="px-3.5 py-2 bg-white hover:bg-indigo-650 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm"
+                  key={topic.key}
+                  href={`/dsa/${topic.key}`}
+                  className="px-3 py-1.5 bg-white hover:bg-indigo-650 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm"
                 >
-                  {cat.name}
+                  {topic.name}
                 </Link>
               ))}
-              <Link href="/dsa/trees" className="px-3.5 py-2 bg-white hover:bg-indigo-655 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">Trees Notes</Link>
-              <Link href="/dsa/bst" className="px-3.5 py-2 bg-white hover:bg-indigo-655 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">BST Notes</Link>
-              <Link href="/dsa/heap" className="px-3.5 py-2 bg-white hover:bg-indigo-655 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">Heaps Notes</Link>
-              <Link href="/dsa/graph" className="px-3.5 py-2 bg-white hover:bg-indigo-655 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">Graphs Notes</Link>
-              <Link href="/dsa/dynamic-programming" className="px-3.5 py-2 bg-white hover:bg-indigo-655 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">DP Notes</Link>
             </div>
           </div>
 

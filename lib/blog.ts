@@ -50,7 +50,9 @@ const CATEGORIES = [
   { key: "linux", name: "Linux", tags: ["Linux", "Bash", "Shell Scripting", "SysAdmin", "Security", "Server"] },
   { key: "database", name: "Database", tags: ["SQL", "NoSQL", "MongoDB", "MySQL", "Indexing", "Scaling"] },
   { key: "career", name: "Career", tags: ["Career Growth", "Developer Guide", "Job Search", "Mentorship"] },
-  { key: "interview", name: "Interview", tags: ["Interview Prep", "Coding Questions", "Behavioral", "System Design Interview"] },
+  { key: "interview", name: "Interview Preparation", tags: ["Interview Prep", "Coding Questions", "Behavioral", "System Design Interview"] },
+  { key: "express", name: "Express", tags: ["Express", "API", "Routing", "Middleware"] },
+  { key: "devsecops", name: "DevSecOps", tags: ["DevSecOps", "Security", "CI/CD Scanning", "CVE"] },
   // Legacy compatibility keys:
   { key: "mern", name: "MERN Stack", tags: ["MERN Stack", "MongoDB", "Express", "React", "Node.js", "API Security"] },
   { key: "lamp", name: "LAMP Stack", tags: ["LAMP Stack", "PHP", "MySQL", "Apache", "Linux", "Backend"] },

@@ -74,6 +74,11 @@ const NAV_LINKS = [
   { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills - Full Stack Development, DevOps & Cloud Security", title: "Skills - MERN, Next.js, DevOps, AWS, Cloud Security" },
   { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Dev - Full Stack & DevOps Applications", title: "Projects - Full Stack & DevOps Applications Portfolio" },
   { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications in Computer Science", title: "Education & Certifications - Ajit Dev" },
+  { name: "Blog", path: "/blog", icon: FiFolder, description: "Read Ajit Dev's technical blog tutorials", title: "Blog - Coding & Systems Tutorials" },
+  { name: "Research", path: "/research", icon: FiFolder, description: "Explore technical research publications", title: "Research - Software Architectures & Whitepapers" },
+  { name: "News", path: "/news", icon: FiGlobe, description: "Check out real-time industry technology news feed", title: "News Hub - Latest Releases & Tech Feeds" },
+  { name: "DSA", path: "/dsa", icon: FiAward, description: "View Ajit Dev's algorithmic coding analytics and LeetCode goals", title: "DSA Dashboard - Algorithmic Metrics" },
+  { name: "Resume", path: "/resume", icon: FiUser, description: "View and print Ajit Dev's professional developer CV", title: "Professional CV / Resume - Ajit Dev" },
   { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for Full Stack & DevOps opportunities", title: "Contact Ajit Dev - Hire Full Stack Developer & DevOps Engineer" },
 ];
 

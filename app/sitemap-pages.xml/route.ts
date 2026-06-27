@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { RESEARCH_DB } from "@/lib/research";
 
 export async function GET() {
   const baseUrl = "https://ajitdev.com";
+  const dynamicResearchPaths = Object.keys(RESEARCH_DB).map(slug => `/research/${slug}`);
   const staticPaths = [
     "",
     "/about",
@@ -76,6 +78,12 @@ export async function GET() {
     "/devops/cicd",
     "/devops/aws",
     "/devops/linux",
+
+    // Main portfolio update routes
+    "/research",
+    "/blog",
+    "/news",
+    ...dynamicResearchPaths
   ];
 
   const urlNodes = staticPaths

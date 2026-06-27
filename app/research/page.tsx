@@ -12,62 +12,10 @@ export const metadata: Metadata = {
   },
 };
 
-const RESEARCH_PAPERS = [
-  {
-    slug: "how-docker-works",
-    title: "How Docker Works: Under the Hood",
-    desc: "A deep dive into Linux Namespaces (PID, NET, MNT), Cgroups, and Union File Systems (OverlayFS) that enable container virtualization without hypervisors.",
-    category: "Virtualization",
-    icon: Layers,
-    readTime: "8 min read",
-    date: "June 2026"
-  },
-  {
-    slug: "kubernetes-architecture",
-    title: "Kubernetes Architecture & Orchestration",
-    desc: "Analyzing Control Plane mechanics (apiserver, etcd, scheduler) and Worker Node daemons (kubelet, kube-proxy, CNI) in containerized distributed systems.",
-    category: "Distributed Systems",
-    icon: Cpu,
-    readTime: "10 min read",
-    date: "June 2026"
-  },
-  {
-    slug: "linux-internals",
-    title: "Linux Internals: System Calls & Virtual Memory",
-    desc: "Understanding kernel space vs user space transition, scheduling queues, virtual memory paging, systemd, and the lifecycle of processes via fork/exec.",
-    category: "Operating Systems",
-    icon: Terminal,
-    readTime: "9 min read",
-    date: "May 2026"
-  },
-  {
-    slug: "aws-iam-explained",
-    title: "AWS IAM Policy Evaluation Logic & Access Roles",
-    desc: "A security engineering guide to IAM principles, cross-account delegation roles, and the precise IAM policy evaluation engine rules.",
-    category: "Cloud Security",
-    icon: Key,
-    readTime: "7 min read",
-    date: "May 2026"
-  },
-  {
-    slug: "zero-trust-security",
-    title: "Zero Trust Security Architectures in Modern Cloud",
-    desc: "Practical blueprints for implementing Zero Trust networks. Micro-segmentation, identity-aware proxies, and Shift-Left scanning pipelines.",
-    category: "Cybersecurity",
-    icon: Shield,
-    readTime: "8 min read",
-    date: "April 2026"
-  },
-  {
-    slug: "authentication-vs-authorization",
-    title: "Authentication vs Authorization Deep Dive",
-    desc: "Comparing protocols: OAuth 2.0, OpenID Connect (OIDC), SAML, and JWT authentication mechanisms, with secure state-transfer guidelines.",
-    category: "App Security",
-    icon: Key,
-    readTime: "6 min read",
-    date: "March 2026"
-  }
-];
+import { RESEARCH_DB } from "@/lib/research";
+
+const RESEARCH_PAPERS = Object.values(RESEARCH_DB);
+
 
 export default function ResearchIndexPage() {
   const breadcrumbSchema = {
@@ -151,7 +99,7 @@ export default function ResearchIndexPage() {
                     </h2>
 
                     <p className="text-gray-600 text-xs leading-relaxed">
-                      {paper.desc}
+                      {paper.summary}
                     </p>
                   </div>
 

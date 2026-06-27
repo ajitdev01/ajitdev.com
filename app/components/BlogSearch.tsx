@@ -15,8 +15,15 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isOpen, setIsOpen] = useState(false);
   const [modalQuery, setModalQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 12;
 
   const modalInputRef = useRef<HTMLInputElement>(null);
+
+  // Reset page when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
   const categories = ["All", ...Array.from(new Set(initialPosts.map((p) => p.category)))];
 
@@ -50,6 +57,13 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
       return matchesCategory;
     });
   }, [query, selectedCategory, initialPosts, fuse]);
+
+  const paginatedPosts = useMemo(() => {
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    return filteredPosts.slice(start, start + POSTS_PER_PAGE);
+  }, [filteredPosts, currentPage]);
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
   // Modal fuzzy search results
   const modalResults = useMemo(() => {
@@ -168,61 +182,112 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
       </div>
 
       {/* Blogs Output Grid */}
-      {filteredPosts.length > 0 ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col h-full group"
-            >
-              {/* Category tag */}
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">
-                    {post.category}
-                  </span>
-                  <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                    <Clock className="w-3.5 h-3.5" />
-                    {post.readingTime}
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors mb-2.5 line-clamp-2">
-                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </h3>
-
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                  {post.description}
-                </p>
-
-                <div className="mt-auto pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 text-[11px] text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded"
-                    >
-                      <Tag className="w-2.5 h-2.5 text-gray-400" />
-                      {tag}
+      {paginatedPosts.length > 0 ? (
+        <div className="space-y-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedPosts.map((post) => (
+              <article
+                key={post.slug}
+                className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col h-full group"
+              >
+                {/* Category tag */}
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">
+                      {post.category}
                     </span>
-                  ))}
-                </div>
-              </div>
+                    <span className="flex items-center gap-1 text-[11px] text-gray-400">
+                      <Clock className="w-3.5 h-3.5" />
+                      {post.readingTime}
+                    </span>
+                  </div>
 
-              {/* Bottom bar */}
-              <div className="bg-gray-50 border-t border-gray-100 px-6 py-3 flex items-center justify-between text-xs text-gray-500">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {post.date}
-                </span>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
-                >
-                  Read Article →
-                </Link>
-              </div>
-            </article>
-          ))}
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors mb-2.5 line-clamp-2">
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h3>
+
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                    {post.description}
+                  </p>
+
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
+                    {post.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 text-[11px] text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded"
+                      >
+                        <Tag className="w-2.5 h-2.5 text-gray-400" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom bar */}
+                <div className="bg-gray-50 border-t border-gray-100 px-6 py-3 flex items-center justify-between text-xs text-gray-500">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {post.date}
+                  </span>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
+                  >
+                    Read Article →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex flex-wrap justify-center items-center gap-2 pt-6 border-t border-gray-100">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors cursor-pointer"
+              >
+                &larr; Prev
+              </button>
+              
+              {Array.from({ length: totalPages }).map((_, idx) => {
+                const pageNum = idx + 1;
+                // Show page button if it is close to current page
+                const isNear = Math.abs(pageNum - currentPage) <= 1;
+                const isEdge = pageNum === 1 || pageNum === totalPages;
+                
+                if (isEdge || isNear) {
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                        currentPage === pageNum
+                          ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/20"
+                          : "bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:text-indigo-600"
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                }
+                
+                if (pageNum === 2 || pageNum === totalPages - 1) {
+                  return <span key={pageNum} className="text-gray-400 text-xs px-1">...</span>;
+                }
+                return null;
+              })}
+
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors cursor-pointer"
+              >
+                Next &rarr;
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center py-20 bg-gray-50 border border-gray-200 rounded-2xl">
