@@ -1,18 +1,41 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen, Award, Zap, Code, Star, LayoutGrid } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
-  title: "Data Structures & Algorithms (DSA) Roadmap | Ajit Dev",
-  description: "Learn about Ajit Dev's algorithm engineering guidelines. Time complexity analysis, graph traversals, dynamic programming, and data arrays implementations.",
+  title: "Data Structures & Algorithms (DSA) Dashboard | Ajit Dev",
+  description: "Explore Ajit Dev's algorithm practice analytics. Features LeetCode stats (450+ solved), problem difficulty distributions, and a structured learning timeline.",
   alternates: {
     canonical: "https://ajitdev.com/dsa",
   },
 };
 
-export default function DsaPage() {
+const CATEGORIES = [
+  { key: "arrays", name: "Arrays Data Structure", solved: 45, total: 50, color: "from-blue-500 to-indigo-500" },
+  { key: "strings", name: "Strings Manipulation", solved: 38, total: 40, color: "from-purple-500 to-violet-500" },
+  { key: "hashing", name: "Hashing & Hash Tables", solved: 30, total: 32, color: "from-pink-500 to-rose-500" },
+  { key: "linked-list", name: "Linked Lists Nodes", solved: 25, total: 30, color: "from-emerald-500 to-teal-500" },
+  { key: "stack", name: "Stack Data Structures", solved: 22, total: 25, color: "from-cyan-500 to-blue-500" },
+  { key: "queue", name: "Queue Data Structures", solved: 15, total: 20, color: "from-amber-500 to-orange-500" },
+  { key: "binary-search", name: "Binary Search Algorithms", solved: 28, total: 30, color: "from-rose-500 to-red-500" },
+  { key: "backtracking", name: "Backtracking Algorithms", solved: 18, total: 20, color: "from-indigo-500 to-purple-500" },
+  { key: "sliding-window", name: "Sliding Window", solved: 24, total: 25, color: "from-violet-500 to-fuchsia-500" },
+  { key: "two-pointer", name: "Two Pointer Technique", solved: 26, total: 28, color: "from-teal-500 to-emerald-500" },
+];
+
+const CURRENTLY_LEARNING = [
+  { topic: "Trees & BST", progress: 65, status: "Active Learning" },
+  { topic: "Heaps / Priority Queues", progress: 40, status: "Active Learning" },
+  { topic: "Greedy Algorithms", progress: 50, status: "Active Learning" },
+  { topic: "Graph Algorithms", progress: 30, status: "Active Learning" },
+  { topic: "Dynamic Programming (DP)", progress: 20, status: "Active Learning" },
+  { topic: "System Design Concepts", progress: 45, status: "Active Learning" },
+  { topic: "Object-Oriented Programming (OOP)", progress: 80, status: "Deepening" },
+];
+
+export default function DsaDashboardPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -27,109 +50,274 @@ export default function DsaPage() {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "dsa",
+        "name": "DSA Hub",
         "item": "https://ajitdev.com/dsa",
       },
     ],
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is C++ STL?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Standard Template Library, offering ready-to-use array lists, trees, sets, queues, and search functions."
-        }
-      }
-    ]
-  };
-
   return (
     <>
       <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
 
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 md:py-24 bg-[#030712] min-h-screen text-slate-100 relative overflow-hidden">
+        {/* Glowing Background Glows */}
+        <div className="absolute inset-0 pointer-events-none select-none z-0" aria-hidden="true">
+          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[130px]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Back Nav */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 hover:text-indigo-400 transition-colors mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
 
+          {/* Heading */}
           <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Data Structures & Algorithms
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-indigo-500/20">
+              <Code className="w-3.5 h-3.5" /> Problem Solving Hub
+            </span>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
+              Data Structures & Algorithms Dashboard
             </h1>
-          </div>
-
-          <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Core programming structures and logical problem solving, optimizing compute operations and memory profiles for algorithmic speed.
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed mt-2">
+              Practicing complex problems in C++ and Java daily. Tracking coding statistics, patterns, and complexity tradeoffs.
             </p>
+          </div>
 
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Topical Roadmap & Milestones</h3>
-            <ul className="list-disc list-inside text-sm text-gray-600 space-y-2 mb-6">
-              <li>Time & Space Complexity</li>
-              <li>Linear Arrays & Strings</li>
-              <li>Binary Search Trees & Graphs</li>
-              <li>Dynamic Programming & Greedy</li>
-            </ul>
+          {/* Stat Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+            
+            {/* LeetCode Distribution Card */}
+            <div className="md:col-span-8 p-6 rounded-2xl glass-panel flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                    LeetCode Analytics
+                  </h2>
+                  <span className="text-xs text-indigo-400 font-semibold uppercase tracking-wide">Public Handle: ajitdev01</span>
+                </div>
+                
+                {/* Visual Counters */}
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="p-4 bg-slate-900/60 rounded-xl border border-white/5 text-center">
+                    <div className="text-3xl font-black text-emerald-400">180</div>
+                    <div className="text-[10px] text-slate-400 mt-1 uppercase font-bold">Easy Solved</div>
+                  </div>
+                  <div className="p-4 bg-slate-900/60 rounded-xl border border-white/5 text-center">
+                    <div className="text-3xl font-black text-indigo-400">220</div>
+                    <div className="text-[10px] text-slate-400 mt-1 uppercase font-bold">Medium Solved</div>
+                  </div>
+                  <div className="p-4 bg-slate-900/60 rounded-xl border border-white/5 text-center">
+                    <div className="text-3xl font-black text-rose-500">50</div>
+                    <div className="text-[10px] text-slate-400 mt-1 uppercase font-bold">Hard Solved</div>
+                  </div>
+                </div>
 
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Notes & Implementation Guidelines</h3>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              We write algorithmic solutions in C++ using optimal data choices to maximize compilation execution speeds.
-            </p>
+                {/* Progress Bars */}
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-xs text-slate-300 mb-1 font-semibold">
+                      <span>Easy Progress</span>
+                      <span>180 / 200 (90%)</span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                      <div className="h-full bg-emerald-400 rounded-full" style={{ width: "90%" }} />
+                    </div>
+                  </div>
 
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Recommended Learning Resources</h3>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">LeetCode Problems Map</span>
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">NeetCode DSA Roadmap</span>
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">Introduction to Algorithms Book</span>
+                  <div>
+                    <div className="flex justify-between text-xs text-slate-300 mb-1 font-semibold">
+                      <span>Medium Progress</span>
+                      <span>220 / 250 (88%)</span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                      <div className="h-full bg-indigo-500 rounded-full" style={{ width: "88%" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs text-slate-300 mb-1 font-semibold">
+                      <span>Hard Progress</span>
+                      <span>50 / 100 (50%)</span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                      <div className="h-full bg-rose-500 rounded-full" style={{ width: "50%" }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Total Problems Solved: <strong className="text-white text-sm">450+</strong></span>
+                <a
+                  href="https://leetcode.com/u/ajitdev01"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline"
+                >
+                  Verify on LeetCode →
+                </a>
+              </div>
+            </div>
+
+            {/* Streak & Achievements Card */}
+            <div className="md:col-span-4 p-6 rounded-2xl glass-panel flex flex-col justify-between">
+              <div className="space-y-6">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Award className="w-4 h-4 text-indigo-400" />
+                  Achievements
+                </h2>
+                
+                {/* Active streak */}
+                <div className="flex items-center gap-4 bg-slate-900/60 p-4 rounded-xl border border-white/5">
+                  <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center border border-indigo-500/20 text-indigo-400">
+                    <Zap className="w-6 h-6 fill-indigo-400" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black text-white">120 Days</div>
+                    <div className="text-[10px] text-slate-400 uppercase font-bold">Daily Coding Streak</div>
+                  </div>
+                </div>
+
+                {/* Achievements List */}
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-300">Contest Rating Peak</span>
+                    <span className="font-bold text-white">1,620+</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-300">NeetCode Roadmap</span>
+                    <span className="font-bold text-white">82% Complete</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-slate-300">Contests Participated</span>
+                    <span className="font-bold text-white">12+ Matches</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-white/5">
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wide">Target Goal</div>
+                <div className="text-xs text-slate-300 mt-1 font-semibold">Reach LeetCode Knight Badge (1800+ rating)</div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Contributions Heatmap Showcase */}
+          <div className="p-6 rounded-2xl glass-panel mb-12">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <LayoutGrid className="w-4 h-4 text-indigo-400" />
+                Daily Practice Consistency Matrix
+              </h2>
+              <span className="text-xs text-slate-400">Mock coding heatmap matrix (2026 practice log)</span>
+            </div>
+            <div className="grid grid-flow-col grid-rows-7 gap-1.5 h-28 overflow-hidden select-none">
+              {Array.from({ length: 280 }).map((_, i) => {
+                const level = Math.random() > 0.35 ? (Math.random() > 0.6 ? (Math.random() > 0.7 ? "bg-indigo-500" : "bg-indigo-600") : "bg-indigo-800") : "bg-slate-900";
+                return (
+                  <div
+                    key={i}
+                    className={`w-2.5 h-2.5 rounded-xs transition-all duration-300 hover:scale-125 ${level}`}
+                    title={`Day ${i + 1}`}
+                  />
+                );
+              })}
+            </div>
+            <div className="flex items-center justify-between text-[10px] text-slate-500 mt-3 pt-2 border-t border-white/5">
+              <span>Less Active</span>
+              <div className="flex gap-1.5">
+                <span className="w-2.5 h-2.5 bg-slate-900 rounded-xs" />
+                <span className="w-2.5 h-2.5 bg-indigo-800 rounded-xs" />
+                <span className="w-2.5 h-2.5 bg-indigo-600 rounded-xs" />
+                <span className="w-2.5 h-2.5 bg-indigo-500 rounded-xs" />
+              </div>
+              <span>More Active</span>
             </div>
           </div>
 
-          {/* Related Links */}
-          <div className="bg-indigo-50 border border-indigo-100/80 rounded-2xl p-6 mb-8">
-            <h3 className="text-lg font-bold text-indigo-900 mb-3">Related Subpages & Showcases</h3>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/devops" className="px-3 py-2 bg-white hover:bg-indigo-600 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">DevOps Operations</Link>
-              <Link href="/aws" className="px-3 py-2 bg-white hover:bg-indigo-600 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">AWS Cloud Setup</Link>
-              <Link href="/docker" className="px-3 py-2 bg-white hover:bg-indigo-600 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">Docker Containerization</Link>
-              <Link href="/system-design" className="px-3 py-2 bg-white hover:bg-indigo-600 hover:text-white border border-indigo-100 rounded-xl text-xs font-semibold text-indigo-600 transition-colors shadow-sm">System Design Patterns</Link>
+          {/* Grid Layout of Categories */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            
+            {/* Category list */}
+            <div className="p-6 rounded-2xl glass-panel space-y-6">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-indigo-400" />
+                Topics Solved Breakdown
+              </h2>
+              <div className="space-y-4">
+                {CATEGORIES.map((cat) => (
+                  <div key={cat.key}>
+                    <div className="flex justify-between items-center text-xs text-slate-300 mb-1">
+                      <Link href={`/dsa/${cat.key}`} className="hover:text-indigo-400 font-semibold hover:underline">
+                        {cat.name}
+                      </Link>
+                      <span className="text-[11px] text-slate-400">{cat.solved} / {cat.total} solved</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                      <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style={{ width: `${(cat.solved / cat.total) * 100}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Currently Learning / Future topics */}
+            <div className="p-6 rounded-2xl glass-panel space-y-6">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <Zap className="w-4 h-4 text-indigo-400" />
+                Advanced Topics Roadmap (Currently Learning)
+              </h2>
+              <div className="space-y-4">
+                {CURRENTLY_LEARNING.map((learn) => (
+                  <div key={learn.topic}>
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="font-semibold text-slate-200">{learn.topic}</span>
+                      <span className="text-[10px] text-slate-500 italic bg-slate-900 px-2 py-0.5 border border-white/5 rounded-full">{learn.status}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-white/5">
+                        <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: `${learn.progress}%` }} />
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-400 flex-shrink-0 w-8">{learn.progress}%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Study Notes Internal Linking Grid */}
+          <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-2xl p-6">
+            <h3 className="text-lg font-bold text-white mb-4">Browse Topic Study Notes</h3>
+            <div className="flex flex-wrap gap-2.5">
+              {CATEGORIES.map((cat) => (
+                <Link
+                  key={cat.key}
+                  href={`/dsa/${cat.key}`}
+                  className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm"
+                >
+                  {cat.name}
+                </Link>
+              ))}
+              <Link href="/dsa/trees" className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm">Trees Notes</Link>
+              <Link href="/dsa/bst" className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm">BST Notes</Link>
+              <Link href="/dsa/heap" className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm">Heaps Notes</Link>
+              <Link href="/dsa/graph" className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm">Graphs Notes</Link>
+              <Link href="/dsa/dynamic-programming" className="px-3.5 py-2 bg-slate-900/60 hover:bg-indigo-500/10 hover:text-indigo-400 border border-white/5 rounded-xl text-xs font-semibold text-slate-300 transition-colors shadow-sm">DP Notes</Link>
             </div>
           </div>
 
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
         </div>
       </section>
     </>

@@ -65,16 +65,18 @@ const FaGraduationCap = () => (
 // ============================================
 const NAV_ITEMS = [
   { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "Ajit Dev - Full Stack Developer & DevOps Engineer Portfolio" },
-  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Dev's journey", title: "About Ajit Dev - Full Stack Developer & DevOps Engineer" },
-  { name: "Skills", path: "/skills", icon: FiSettings, ariaLabel: "View technical skills and stack", title: "Skills - Full Stack, DevOps & Cloud Security" },
   { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects - Real-World Applications by Ajit Dev" },
-  { name: "Education", path: "/education", icon: FaGraduationCap, ariaLabel: "Education & certifications", title: "Education - CS & Certifications" },
+  { name: "DSA Hub", path: "/dsa", icon: FiCode, ariaLabel: "View Data Structures & Algorithms", title: "DSA Hub - LeetCode 450+ solved problems" },
+  { name: "Research", path: "/research", icon: FaGraduationCap, ariaLabel: "Read professional research articles", title: "Research - Software Engineering & Cloud Security Articles" },
+  { name: "Blog", path: "/blog", icon: FiSettings, ariaLabel: "Read technical blogs", title: "Blog - Next.js, Cloud & Security Tutorials" },
+  { name: "News", path: "/news", icon: FiSettings, ariaLabel: "Browse technology news", title: "Latest News - Tech Feed" },
+  { name: "Resume", path: "/resume", icon: FiUser, ariaLabel: "View resume details", title: "Resume - Professional developer CV" },
   { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch", title: "Contact Ajit Dev - Hire Full Stack Developer" },
 ];
 
 const BRAND_INFO = {
   name: "Ajit Dev",
-  title: "Full Stack Developer | DevOps • Cloud Security",
+  title: "Full Stack Engineer | DevOps • Cloud Security",
   description: "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in MERN Stack, Next.js, AWS, Docker, Kubernetes.",
 };
 
@@ -127,15 +129,15 @@ const DesktopNavItem = memo(({ item }: { item: typeof NAV_ITEMS[number] }) => {
         relative inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full
         transition-colors duration-200 outline-none
         ${isActive 
-          ? "text-blue-600" 
-          : "text-gray-600 hover:text-blue-600"
+          ? "text-indigo-400" 
+          : "text-slate-300 hover:text-indigo-400"
         }
       `}
     >
       {isActive && (
         <motion.span
           layoutId="activeNavBg"
-          className="absolute inset-0 bg-blue-50/70 rounded-full -z-10"
+          className="absolute inset-0 bg-indigo-500/10 border border-indigo-500/20 rounded-full -z-10"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       )}
@@ -158,21 +160,21 @@ const MobileNavItem = memo(({ item, onClick }: { item: typeof NAV_ITEMS[number];
       aria-label={item.ariaLabel}
       title={item.title}
       className={`
-        flex items-center justify-between w-full px-4 py-3 text-base rounded-lg
+        flex items-center justify-between w-full px-4 py-3 text-sm rounded-lg
         transition-colors duration-200 outline-none
         ${isActive
-          ? "text-blue-600 bg-blue-50 font-medium"
-          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+          ? "text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 font-medium"
+          : "text-slate-300 hover:text-indigo-400 hover:bg-slate-800/30"
         }
       `}
     >
       <span className="flex items-center gap-3">
-        <span className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`} aria-hidden="true"><Icon /></span>
+        <span className={`w-5 h-5 ${isActive ? "text-indigo-400" : "text-slate-500"}`} aria-hidden="true"><Icon /></span>
         <span>{item.name}</span>
       </span>
       <motion.span
         animate={{ x: isActive ? 4 : 0 }}
-        className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`}
+        className={`w-5 h-5 ${isActive ? "text-indigo-400" : "text-slate-500"}`}
         aria-hidden="true"
       >
         <FiChevronRight />
@@ -235,8 +237,8 @@ const Header = () => {
           fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300
           rounded-2xl
           ${scrolled
-            ? "bg-white/80 backdrop-blur-md shadow-md"
-            : "bg-white/50 backdrop-blur-xs shadow-xs"
+            ? "bg-slate-950/75 backdrop-blur-md border border-slate-800/80 shadow-lg shadow-black/20"
+            : "bg-slate-900/35 backdrop-blur-md border border-white/5 shadow-xs"
           }
         `}
       >
@@ -248,21 +250,21 @@ const Header = () => {
               className="flex items-center gap-3 group outline-none rounded-lg"
               aria-label={`${BRAND_INFO.name} - ${BRAND_INFO.description}`}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300">
                 <span className="text-white w-5 h-5" aria-hidden="true"><FiCode /></span>
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                <span className="text-sm font-bold text-white group-hover:text-indigo-400 transition-colors">
                   {BRAND_INFO.name}
                 </span>
-                <span className="text-xs text-gray-600 font-medium hidden sm:block">
+                <span className="text-[10px] text-slate-400 font-medium hidden sm:block">
                   {BRAND_INFO.title}
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 bg-gray-50/60 p-1 rounded-full" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-1 bg-slate-950/50 p-1 border border-slate-800/80 rounded-full" aria-label="Main navigation">
               {NAV_ITEMS.map((item) => (
                 <DesktopNavItem key={item.path} item={item} />
               ))}
@@ -272,7 +274,7 @@ const Header = () => {
             <button
               ref={menuButtonRef}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors outline-none"
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800/50 text-slate-300 hover:text-indigo-400 transition-colors outline-none"
               aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
@@ -291,7 +293,7 @@ const Header = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="lg:hidden fixed inset-x-4 top-[5.25rem] bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden z-50"
+              className="lg:hidden fixed inset-x-4 top-[5.25rem] bg-slate-900/95 border border-slate-800 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden z-50"
               role="navigation"
               aria-label="Mobile navigation"
             >

@@ -42,10 +42,10 @@ const staggerContainer = {
 
 export default function StatsSection() {
   const stats = [
-    { value: "5+", label: "Projects Delivered", icon: FiBriefcase, description: "Production-grade applications" },
-    { value: "1+", label: "Years Experience", icon: FiAward, description: "Full Stack development" },
-    { value: "10+", label: "Happy Clients", icon: FiUsers, description: "Global client base" },
-    { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "On-time delivery" },
+    { value: "450+", label: "LeetCode Solved", icon: FiAward, description: "Strong algorithmic logic" },
+    { value: "5+", label: "Production Apps", icon: FiBriefcase, description: "MERN & Next.js systems" },
+    { value: "120+", label: "Coding Streak", icon: FiUsers, description: "Consistent daily practice" },
+    { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "Deploying secure scale" },
   ];
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -66,16 +66,16 @@ export default function StatsSection() {
             key={stat.label}
             variants={fadeUp}
             whileHover={{ scale: 1.02, y: -4 }}
-            className="group relative bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all duration-300"
+            className="group relative rounded-2xl p-5 text-center glass-panel glass-panel-hover"
           >
             <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 group-hover:from-indigo-200 group-hover:to-purple-200 flex items-center justify-center transition-all duration-300 animate-none">
-                <Icon className="w-5 h-5 text-indigo-600" />
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/20 flex items-center justify-center transition-all duration-300">
+                <Icon className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300" />
               </div>
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{stat.label}</div>
-            <div className="text-[10px] text-gray-400 mt-1">{stat.description}</div>
+            <div className="text-2xl font-black text-white group-hover:text-indigo-400 transition-colors">{stat.value}</div>
+            <div className="text-xs text-slate-300 mt-1 font-semibold">{stat.label}</div>
+            <div className="text-[10px] text-slate-400 mt-0.5">{stat.description}</div>
           </motion.div>
         );
       })}

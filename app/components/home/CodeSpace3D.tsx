@@ -34,23 +34,23 @@ export default function CodeSpace3D() {
   };
 
   const codeLines = [
-    { text: "const Success = async (developer) => {", color: "text-indigo-600", delay: 0 },
-    { text: '  await developer.learn("MERN + Next.js + TypeScript");', color: "text-emerald-600", delay: 400 },
-    { text: '  await developer.build("5+ Production Apps");', color: "text-emerald-600", delay: 800 },
-    { text: '  await developer.deploy("Cloud Native Solutions");', color: "text-emerald-600", delay: 1200 },
-    { text: '  return "CAREER_GROWTH 🚀";', color: "text-purple-600", delay: 1600 },
-    { text: "};", color: "text-indigo-600", delay: 1900 },
+    { text: "const Success = async (developer) => {", color: "text-indigo-400", delay: 0 },
+    { text: '  await developer.learn("MERN + Next.js + TypeScript");', color: "text-emerald-400", delay: 400 },
+    { text: '  await developer.build("5+ Production Apps");', color: "text-emerald-400", delay: 800 },
+    { text: '  await developer.deploy("Cloud Native Solutions");', color: "text-emerald-400", delay: 1200 },
+    { text: '  return "CAREER_GROWTH 🚀";', color: "text-purple-400", delay: 1600 },
+    { text: "};", color: "text-indigo-400", delay: 1900 },
     { text: "", color: "", delay: 2100 },
-    { text: "// 3000+ hours of coding", color: "text-gray-400", delay: 2300 },
-    { text: "// 99% client satisfaction", color: "text-gray-400", delay: 2500 },
+    { text: "// 3000+ hours of coding", color: "text-slate-500", delay: 2300 },
+    { text: "// 99% client satisfaction", color: "text-slate-500", delay: 2500 },
   ];
 
   const terminalLines = [
-    { text: "$ npm run deploy", color: "text-cyan-600", delay: 2800 },
-    { text: "> System Online: 100%", color: "text-emerald-600", delay: 3200 },
-    { text: "> Full Stack Mode Activated", color: "text-emerald-600", delay: 3500 },
-    { text: "> Deploying Projects...", color: "text-blue-600", delay: 3800 },
-    { text: "> Build Complete: 0 Errors ✨", color: "text-emerald-600", delay: 4200 },
+    { text: "$ npm run deploy", color: "text-cyan-400", delay: 2800 },
+    { text: "> System Online: 100%", color: "text-emerald-400", delay: 3200 },
+    { text: "> Full Stack Mode Activated", color: "text-emerald-400", delay: 3500 },
+    { text: "> Deploying Projects...", color: "text-indigo-400", delay: 3800 },
+    { text: "> Build Complete: 0 Errors ✨", color: "text-emerald-400", delay: 4200 },
   ];
 
   useEffect(() => {
@@ -120,24 +120,24 @@ export default function CodeSpace3D() {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="relative w-full max-w-lg mx-auto lg:mx-0"
     >
-      <div className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 bg-white">
+      <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-950/80 backdrop-blur-md">
         {/* Header Bar */}
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-200">
-          <span className="w-3 h-3 bg-red-500 rounded-full shadow-sm" />
-          <span className="w-3 h-3 bg-yellow-500 rounded-full shadow-sm" />
-          <span className="w-3 h-3 bg-green-500 rounded-full shadow-sm" />
-          <span className="ml-auto text-xs text-gray-500 font-mono">ajitdev_success.ts</span>
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border-b border-white/5">
+          <span className="w-3 h-3 bg-red-500/80 rounded-full shadow-sm" />
+          <span className="w-3 h-3 bg-yellow-500/80 rounded-full shadow-sm" />
+          <span className="w-3 h-3 bg-green-500/80 rounded-full shadow-sm" />
+          <span className="ml-auto text-xs text-slate-400 font-mono">ajitdev_success.ts</span>
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className="ml-2 px-2 py-0.5 text-[10px] font-mono bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded transition-all duration-200 disabled:opacity-50"
+            className="ml-2 px-2 py-0.5 text-[10px] font-mono bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/20 rounded transition-all duration-200 disabled:opacity-50"
           >
             {isRunning ? "Running..." : "▶ Run"}
           </button>
         </div>
 
         {/* Code Editor Area */}
-        <div className="p-5 font-mono text-sm space-y-1.5 bg-gray-50/50">
+        <div className="p-5 font-mono text-sm space-y-1.5 bg-slate-950/20">
           {codeLines.map((line, idx) => {
             const isTyped = typedLines.some(t => t.text === line.text && t.delay === line.delay);
             return (
@@ -156,8 +156,8 @@ export default function CodeSpace3D() {
         </div>
 
         {/* Terminal Area */}
-        <div className="border-t border-gray-200 p-3 text-xs font-mono bg-gray-100/50 space-y-0.5">
-          <div className="text-gray-500 text-[10px] mb-1 flex items-center gap-2">
+        <div className="border-t border-white/5 p-3 text-xs font-mono bg-slate-950/60 space-y-0.5">
+          <div className="text-slate-500 text-[10px] mb-1 flex items-center gap-2">
             <FiCommand />
             TERMINAL OUTPUT
           </div>
@@ -170,9 +170,9 @@ export default function CodeSpace3D() {
             </div>
           ))}
           {output.length === terminalLines.length && (
-            <div className="flex items-center gap-2 mt-2 pt-1 border-t border-gray-200">
+            <div className="flex items-center gap-2 mt-2 pt-1 border-t border-white/5">
               <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-emerald-600 text-[10px] font-medium">Ready for opportunities</span>
+              <span className="text-emerald-400 text-[10px] font-medium">Ready for opportunities</span>
             </div>
           )}
           {output.length < terminalLines.length && output.length > 0 && (
