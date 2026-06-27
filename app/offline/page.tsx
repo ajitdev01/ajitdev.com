@@ -8,42 +8,46 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white px-6">
-      {/* Decorative Blur Backgrounds */}
+    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-slate-50 px-6 relative overflow-hidden">
+      {/* Subtle ambient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-pink-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-100/70 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-violet-100/60 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 text-center max-w-md w-full space-y-8 bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-3xl shadow-2xl">
-        {/* Offline Icon SVG */}
-        <div className="mx-auto w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2m-4-3.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+      <div className="relative z-10 text-center max-w-sm w-full space-y-7 bg-white border border-slate-200 shadow-xl shadow-slate-200/80 p-10 rounded-3xl">
+
+        {/* Icon */}
+        <div className="mx-auto w-20 h-20 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200">
+          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
+              d="M18.364 5.636a9 9 0 010 12.728M15.536 8.464a5 5 0 010 7.072M6.343 17.657a9 9 0 010-12.728M9.172 15.536a5 5 0 010-7.072M12 12h.01" />
           </svg>
         </div>
 
-        <div className="space-y-3">
-          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        {/* Text */}
+        <div className="space-y-2">
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             Connection Lost
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-slate-500 text-sm leading-relaxed">
             It looks like you are currently offline. Please check your network connection and try again.
           </p>
         </div>
 
-        <div className="pt-4">
-          <button
-            onClick={handleReload}
-            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:shadow-indigo-500/25 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            Retry Connection
-          </button>
-        </div>
+        {/* Retry button */}
+        <button
+          id="retry-connection-btn"
+          onClick={handleReload}
+          className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-bold rounded-xl shadow-md shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 cursor-pointer"
+        >
+          Retry Connection
+        </button>
 
-        <div className="text-[10px] text-gray-500">
+        {/* Footer badge */}
+        <p className="text-[10px] text-slate-400 font-medium">
           Ajit Dev Portfolio PWA • Offline Cache Enabled
-        </div>
+        </p>
       </div>
     </div>
   );
