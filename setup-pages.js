@@ -15,36 +15,36 @@ const PAGES = {
     h1: "LeetCode DSA Metrics",
     icon: "Activity",
     content: `
-      <div className="bg-slate-900/60 border border-white/5 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-white mb-4">Daily Problem Solving Progress</h2>
-        <p className="text-slate-400 mb-6 leading-relaxed">
+      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Daily Problem Solving Progress</h2>
+        <p className="text-gray-600 mb-6 leading-relaxed">
           I practice competitive programming and data structures daily to sharpen logic and speed. Tracking arrays, sliding windows, backtracking, tree traversals, and dynamic programming patterns.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-slate-950 p-4 rounded-xl border border-white/5">
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider block">Solved</span>
-            <span className="text-3xl font-black text-indigo-400">457+</span>
+          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider block">Solved</span>
+            <span className="text-3xl font-black text-indigo-600">457+</span>
           </div>
-          <div className="bg-slate-950 p-4 rounded-xl border border-white/5">
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider block">Streak</span>
-            <span className="text-3xl font-black text-indigo-400">180 Days</span>
+          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider block">Streak</span>
+            <span className="text-3xl font-black text-indigo-600">180 Days</span>
           </div>
-          <div className="bg-slate-950 p-4 rounded-xl border border-white/5">
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider block">Hard Solved</span>
-            <span className="text-3xl font-black text-indigo-400">50</span>
+          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider block">Hard Solved</span>
+            <span className="text-3xl font-black text-indigo-600">50</span>
           </div>
-          <div className="bg-slate-950 p-4 rounded-xl border border-white/5">
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider block">Contest Rating</span>
-            <span className="text-3xl font-black text-indigo-400">1580</span>
+          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider block">Contest Rating</span>
+            <span className="text-3xl font-black text-indigo-600">1580</span>
           </div>
         </div>
       </div>
-      <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-2xl p-6">
-        <h3 className="text-lg font-bold text-white mb-2">LeetCode Profile Information</h3>
-        <p className="text-slate-400 text-sm mb-4">
+      <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+        <h3 className="text-lg font-bold text-indigo-900 mb-2">LeetCode Profile Information</h3>
+        <p className="text-indigo-950 text-sm mb-4">
           Access my public LeetCode dashboard to review code submissions and verify optimization statistics.
         </p>
-        <a href="https://leetcode.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 px-5 bg-indigo-600 hover:bg-indigo-750 text-white font-semibold rounded-xl text-xs transition-colors">
+        <a href="https://leetcode.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 px-5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-colors">
           View Public Profile →
         </a>
       </div>

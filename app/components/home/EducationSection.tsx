@@ -45,17 +45,17 @@ export default function EducationSection() {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
-      className="py-20 bg-slate-950/25 border-t border-b border-white/5 transition-colors duration-300"
+      className="py-20 bg-slate-50 border-t border-b border-slate-200/65 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-indigo-500/20">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-blue-100">
             <FiAward className="w-3.5 h-3.5" /> Learning & Exposure
           </span>
-          <h2 className="text-3xl font-black text-white mb-3">
+          <h2 className="text-3xl font-extrabold text-slate-900 mb-3">
             Education & Industry Exposure
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
+          <p className="text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed">
             Theoretical baseline, professional engineering training, and real-world project delivery exposure.
           </p>
         </div>
@@ -64,33 +64,33 @@ export default function EducationSection() {
           {/* Card 1: Amity BCA */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative rounded-3xl p-8 glass-panel glass-panel-hover flex flex-col justify-between"
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white mb-5 shadow-md shadow-indigo-500/10">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center text-white mb-5 shadow-sm">
                 <FiAward />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded border border-indigo-500/20">
+                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
                   Cloud & Security
                 </span>
-                <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded border border-emerald-500/20">
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
                   Currently Enrolled
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
                 Bachelor of Computer Applications (BCA)
               </h3>
-              <p className="text-indigo-400 font-semibold text-sm mb-4">
+              <p className="text-indigo-600 font-semibold text-sm mb-4">
                 Amity University Online
               </p>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Academic program covering secure system designs, operating systems (Linux), databases, cloud security, and algorithmic logic.
               </p>
             </div>
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-400 hover:text-indigo-300 mt-auto group/link"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:underline mt-auto group/link"
             >
               Explore Coursework & Timeline
               <span className="transition-transform group-hover/link:translate-x-1">→</span>
@@ -100,33 +100,33 @@ export default function EducationSection() {
           {/* Card 2: Brainzima */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative rounded-3xl p-8 glass-panel glass-panel-hover flex flex-col justify-between"
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-500 flex items-center justify-center text-white mb-5 shadow-md shadow-purple-500/10">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white mb-5 shadow-sm">
                 <FiTrendingUp />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-[10px] font-bold rounded border border-purple-500/20">
+                <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded border border-purple-100/50">
                   ISO Certified
                 </span>
-                <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-[10px] font-bold rounded border border-amber-500/20">
+                <span className="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded border border-amber-100/50">
                   Full Stack
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
                 Practical Software Training
               </h3>
-              <p className="text-purple-400 font-semibold text-sm mb-4">
+              <p className="text-purple-600 font-semibold text-sm mb-4">
                 Brainzima Innovation Institute
               </p>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Hands-on developer training specializing in python scripting, version control, API architecture, React/Next.js and MERN Stack.
               </p>
             </div>
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 mt-auto group/link"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline mt-auto group/link"
             >
               View Practical Competency & Badges
               <span className="transition-transform group-hover/link:translate-x-1">→</span>
@@ -136,33 +136,33 @@ export default function EducationSection() {
           {/* Card 3: Rexvel */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative rounded-3xl p-8 glass-panel glass-panel-hover flex flex-col justify-between"
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-500 flex items-center justify-center text-white mb-5 shadow-md shadow-emerald-500/10">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white mb-5 shadow-sm">
                 <FiBriefcase />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded border border-emerald-500/20">
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
                   Industry Exposure
                 </span>
-                <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded border border-indigo-500/20">
+                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
                   Real-World Projects
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
                 Project Exposure & SDLC
               </h3>
-              <p className="text-emerald-400 font-semibold text-sm mb-4">
+              <p className="text-emerald-600 font-semibold text-sm mb-4">
                 Rexvel
               </p>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Understanding client-focused requirements, team collaboration, versioning pipelines, and professional web development workflows.
               </p>
             </div>
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 mt-auto group/link"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline mt-auto group/link"
             >
               Explore Industry Experience
               <span className="transition-transform group-hover/link:translate-x-1">→</span>

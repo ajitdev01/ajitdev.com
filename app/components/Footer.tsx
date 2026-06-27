@@ -69,14 +69,12 @@ const SOCIAL_LINKS = [
 
 // ========== NAVIGATION ==========
 const NAV_LINKS = [
-  { name: "Home", path: "/", icon: FiHome, description: "Return to homepage", title: "Home - Full Stack Developer & DevOps Engineer Portfolio" },
-  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Dev", title: "Projects - Full Stack & DevOps Applications Portfolio" },
-  { name: "DSA Hub", path: "/dsa", icon: FiSettings, description: "Data Structures & Algorithms DSA Hub LeetCode", title: "DSA Hub - LeetCode 450+ solved problems" },
-  { name: "Research", path: "/research", icon: FaGraduationCap, description: "Professional technical research articles", title: "Research - Software Engineering & Cloud Security Articles" },
-  { name: "Blog", path: "/blog", icon: FiGlobe, description: "Read technical blogs", title: "Blog - Next.js, Cloud & Security Tutorials" },
-  { name: "News", path: "/news", icon: FiSettings, description: "Browse technology news", title: "Latest News - Tech Feed" },
-  { name: "Resume", path: "/resume", icon: FiUser, description: "View professional developer CV", title: "Resume - Professional developer CV" },
-  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch", title: "Contact Ajit Dev - Hire Full Stack Developer & DevOps Engineer" },
+  { name: "Home", path: "/", icon: FiHome, description: "Return to Ajit Dev's Full Stack & DevOps Portfolio homepage", title: "Home - Full Stack Developer & DevOps Engineer Portfolio" },
+  { name: "About", path: "/about", icon: FiUser, description: "Learn about Ajit Dev's Full Stack & DevOps journey", title: "About Ajit Dev - Full Stack Developer & DevOps Engineer" },
+  { name: "Skills", path: "/skills", icon: FiSettings, description: "Technical skills - Full Stack Development, DevOps & Cloud Security", title: "Skills - MERN, Next.js, DevOps, AWS, Cloud Security" },
+  { name: "Projects", path: "/projects", icon: FiFolder, description: "Portfolio projects by Ajit Dev - Full Stack & DevOps Applications", title: "Projects - Full Stack & DevOps Applications Portfolio" },
+  { name: "Education", path: "/education", icon: FaGraduationCap, description: "Education and certifications in Computer Science", title: "Education & Certifications - Ajit Dev" },
+  { name: "Contact", path: "/contact", icon: FiMail, description: "Get in touch for Full Stack & DevOps opportunities", title: "Contact Ajit Dev - Hire Full Stack Developer & DevOps Engineer" },
 ];
 
 const LEGAL_LINKS = [
