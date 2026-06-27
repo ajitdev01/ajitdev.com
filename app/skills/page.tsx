@@ -14,10 +14,10 @@ const skillsForSchema = [
 ];
 
 const stats = [
-  { value: "400+", label: "LeetCode Problems Solved", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
-  { value: "150+", label: "Days Active Streak", icon: FiCalendar, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
-  { value: "15+", label: "Production Projects", icon: FiPackage, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
-  { value: "4+", label: "Tech Stacks Mastered", icon: FiCode, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" },
+  { value: "450+", label: "LeetCode Problems Solved", icon: FiBarChart2, gradient: "from-indigo-500/15 to-cyan-500/15", color: "text-indigo-400", highlight: true },
+  { value: "180+", label: "Days Active Streak", icon: FiCalendar, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-400" },
+  { value: "5+", label: "Production Projects", icon: FiPackage, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-400" },
+  { value: "4+", label: "Tech Stacks Mastered", icon: FiCode, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-400" },
 ];
 
 const nextTargets = [
@@ -30,7 +30,7 @@ const nextTargets = [
 
 export default function SkillsPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 overflow-hidden relative">
       {/* Schema.org microdata for Skills */}
       <script
         type="application/ld+json"
@@ -49,9 +49,9 @@ export default function SkillsPage() {
         }}
       />
 
-      <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[100px]" />
       </div>
 
       <main className="flex-grow pt-16 relative z-10">
@@ -59,41 +59,41 @@ export default function SkillsPage() {
 
           {/* ===== PROFESSIONAL SUMMARY ===== */}
           <div className="text-center mb-16">
-            <div className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40">
-              <FiCode className="text-4xl text-blue-600" />
+            <div className="inline-flex p-5 bg-indigo-500/10 rounded-2xl mb-6 border border-indigo-500/20 shadow-md">
+              <FiCode className="text-4xl text-indigo-400" />
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h1 className="text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
               Skills & Expertise
             </h1>
 
-            <p className="text-xl text-gray-650 max-w-3xl mx-auto mb-6">
-              MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">400+ DSA problems solved</span>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-6">
+              MERN • LAMP • Next.js • <span className="font-semibold text-indigo-455">450+ DSA problems solved</span>
             </p>
 
-            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full" />
+            <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full" />
 
             <div className="flex justify-center gap-3 mt-8 flex-wrap">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm text-gray-700 shadow-sm">
-                <FiMapPin className="w-4 h-4 text-blue-500" />
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-white/5 text-sm text-slate-300 rounded-full shadow-sm">
+                <FiMapPin className="w-4 h-4 text-indigo-400" />
                 Katihar, Bihar, India
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm text-gray-700 shadow-sm">
-                <FiBriefcase className="w-4 h-4 text-emerald-500" />
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-white/5 text-sm text-slate-300 rounded-full shadow-sm">
+                <FiBriefcase className="w-4 h-4 text-emerald-400" />
                 Full Stack Engineer • Problem Solver
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 text-sm text-indigo-400 rounded-full shadow-sm font-semibold">
                 <FiBarChart2 className="w-4 h-4" />
-                LeetCode 400+ • Active Streak
+                LeetCode 450+ • Active Streak
               </span>
             </div>
 
             {/* Professional summary paragraph */}
-            <div className="max-w-3xl mx-auto mt-8 p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-              <p className="text-gray-700 leading-relaxed">
-                Full Stack Engineer with <strong className="text-gray-900">production-grade expertise in MERN, LAMP, and Next.js</strong>.
-                Proven problem-solving ability with <strong className="text-amber-700">400+ LeetCode problems solved</strong> and a disciplined daily coding streak.
-                I build <strong className="text-gray-900">scalable, SEO-optimized, high-performance web applications</strong> with clean architecture and modern best practices.
+            <div className="max-w-3xl mx-auto mt-8 p-6 glass-panel">
+              <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
+                Full Stack Engineer with <strong className="text-white">production-grade expertise in MERN, LAMP, and Next.js</strong>.
+                Proven problem-solving ability with <strong className="text-indigo-400">450+ LeetCode problems solved</strong> and a disciplined daily coding streak.
+                I build <strong className="text-white">scalable, SEO-optimized, high-performance web applications</strong> with clean architecture and modern best practices.
               </p>
             </div>
           </div>
@@ -108,11 +108,11 @@ export default function SkillsPage() {
               return (
                 <div
                   key={i}
-                  className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${s.gradient} border border-white/50 shadow-md text-center transition-transform duration-300 hover:scale-105 ${s.highlight ? 'ring-2 ring-amber-300/50' : ''}`}
+                  className={`relative overflow-hidden rounded-2xl p-6 bg-slate-900 border border-white/5 shadow-md text-center transition-all duration-300 hover:-translate-y-1 ${s.highlight ? 'ring-2 ring-indigo-500/25' : ''}`}
                 >
                   <StatIcon className={`absolute top-3 right-3 w-6 h-6 ${s.color} opacity-25`} />
-                  <div className="text-3xl font-bold text-gray-900 mb-1">{s.value}</div>
-                  <div className="text-gray-650 text-sm font-medium">{s.label}</div>
+                  <div className="text-3xl font-black text-white mb-1">{s.value}</div>
+                  <div className="text-slate-400 text-xs font-semibold uppercase tracking-wider">{s.label}</div>
                 </div>
               );
             })}
@@ -121,53 +121,53 @@ export default function SkillsPage() {
           {/* ===== STRENGTHS & MINDSET SECTION ===== */}
           <div className="mb-20">
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+              <div className="rounded-3xl p-8 glass-panel">
                 <div className="flex items-center gap-3 mb-6">
-                  <FiStar className="w-8 h-8 text-amber-500" />
-                  <h3 className="text-xl font-bold text-gray-900">Core Strengths</h3>
+                  <FiStar className="w-8 h-8 text-amber-400" />
+                  <h3 className="text-xl font-bold text-white">Core Strengths</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    <FiCheck className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800">Full Stack Architecture</span>
-                      <p className="text-sm text-gray-650">End-to-end application design with MERN + LAMP stacks</p>
+                      <span className="font-bold text-white text-sm sm:text-base">Full Stack Architecture</span>
+                      <p className="text-xs sm:text-sm text-slate-400 mt-1">End-to-end application design with MERN + LAMP stacks</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    <FiCheck className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800">DSA & Problem Solving</span>
-                      <p className="text-sm text-gray-650">400+ LeetCode problems — clean, optimized, real-world application</p>
+                      <span className="font-bold text-white text-sm sm:text-base">DSA & Problem Solving</span>
+                      <p className="text-xs sm:text-sm text-slate-400 mt-1">450+ LeetCode problems — clean, optimized, real-world application</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    <FiCheck className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800">Performance & SEO</span>
-                      <p className="text-sm text-gray-650">Core Web Vitals, structured data, SSR/SSG optimization</p>
+                      <span className="font-bold text-white text-sm sm:text-base">Performance & SEO</span>
+                      <p className="text-xs sm:text-sm text-slate-400 mt-1">Core Web Vitals, structured data, SSR/SSG optimization</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    <FiCheck className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-gray-800">Consistency × Discipline</span>
-                      <p className="text-sm text-gray-650">Daily coding streak — balancing development, DSA, and continuous learning</p>
+                      <span className="font-bold text-white text-sm sm:text-base">Consistency × Discipline</span>
+                      <p className="text-xs sm:text-sm text-slate-400 mt-1">Daily coding streak — balancing development, DSA, and continuous learning</p>
                     </div>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-100">
+              <div className="rounded-3xl p-8 glass-panel">
                 <div className="flex items-center gap-3 mb-6">
-                  <FiTarget className="w-8 h-8 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-gray-900">Next Targets</h3>
+                  <FiTarget className="w-8 h-8 text-indigo-400" />
+                  <h3 className="text-xl font-bold text-white">Next Targets</h3>
                 </div>
                 <ul className="space-y-3">
                   {nextTargets.map((target, i) => (
-                    <li key={i} className="flex items-start gap-3 p-2">
-                      <FiArrowRight className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{target}</span>
+                    <li key={i} className="flex items-start gap-3 p-1">
+                      <FiArrowRight className="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-slate-300 text-sm">{target}</span>
                     </li>
                   ))}
                 </ul>
@@ -177,28 +177,28 @@ export default function SkillsPage() {
 
           {/* ===== CAREER POSITIONING STATEMENT ===== */}
           <div className="mb-16">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-10 text-center">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-3xl bg-slate-950 border border-white/5 p-10 text-center">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent" aria-hidden="true" />
               <div className="relative z-10">
                 <div className="flex justify-center gap-2 mb-4">
-                  <FiCode className="w-8 h-8 text-blue-400" />
+                  <FiCode className="w-8 h-8 text-indigo-400" />
                   <FiServer className="w-8 h-8 text-emerald-400" />
                   <FiDatabase className="w-8 h-8 text-purple-400" />
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                <h3 className="text-2xl lg:text-3xl font-black text-white mb-4">
                   Full Stack Engineer — Not Just Code, Production-Ready Solutions
                 </h3>
-                <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
                   I bridge the gap between robust backend logic, performant frontend experiences,
                   and algorithmic thinking. Every project is an opportunity to build something
-                  <span className="text-amber-300 font-semibold"> scalable, maintainable, and impactful</span>.
+                  <span className="text-indigo-400 font-semibold"> scalable, maintainable, and impactful</span>.
                 </p>
                 <div className="mt-6 flex justify-center gap-2 flex-wrap">
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">MERN</span>
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">LAMP</span>
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">Next.js</span>
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">400+ DSA</span>
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300">SEO Expert</span>
+                  <span className="px-3 py-1 bg-slate-900 border border-white/5 rounded-full text-xs text-slate-400 font-semibold">MERN</span>
+                  <span className="px-3 py-1 bg-slate-900 border border-white/5 rounded-full text-xs text-slate-400 font-semibold">LAMP</span>
+                  <span className="px-3 py-1 bg-slate-900 border border-white/5 rounded-full text-xs text-slate-400 font-semibold">Next.js</span>
+                  <span className="px-3 py-1 bg-slate-900 border border-white/5 rounded-full text-xs text-slate-400 font-semibold">450+ DSA</span>
+                  <span className="px-3 py-1 bg-slate-900 border border-white/5 rounded-full text-xs text-slate-400 font-semibold">SEO Expert</span>
                 </div>
               </div>
             </div>

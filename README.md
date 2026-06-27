@@ -71,7 +71,7 @@ Detailed case studies of production-grade projects — MERN apps, DevSecOps pipe
 In-depth articles on Full Stack Development, DevOps, Cloud Security, AWS, Docker, Kubernetes, and Next.js — written from a practitioner's perspective.
 
 **🧩 DSA Hub**
-Comprehensive notes, patterns, and problem walkthroughs covering 430+ LeetCode problems — from Arrays to Dynamic Programming.
+Comprehensive notes, patterns, and problem walkthroughs covering 450+ LeetCode problems — from Arrays to Dynamic Programming.
 
 </td>
 <td width="50%" valign="top">

@@ -44,7 +44,7 @@ export default function StatsSection() {
   const stats = [
     { value: "450+", label: "LeetCode Solved", icon: FiAward, description: "Strong algorithmic logic" },
     { value: "5+", label: "Production Apps", icon: FiBriefcase, description: "MERN & Next.js systems" },
-    { value: "120+", label: "Coding Streak", icon: FiUsers, description: "Consistent daily practice" },
+    { value: "180+", label: "Coding Streak", icon: FiUsers, description: "Consistent daily practice" },
     { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "Deploying secure scale" },
   ];
 

@@ -133,7 +133,7 @@ const selfLearning = [
   {
     icon: FiLayers,
     title: "Data Structures & Algorithms",
-    description: "Mastering core DSA concepts with C++ implementations, LeetCode practice (400+ problems), and competitive programming.",
+    description: "Mastering core DSA concepts with C++ implementations, LeetCode practice (450+ problems), and competitive programming.",
     progress: 82,
     gradient: "from-indigo-500/15 to-blue-500/15",
     highlight: true
@@ -752,7 +752,7 @@ export default function EducationClient() {
                         {/* Growth Statistics */}
                         <div className="grid grid-cols-2 gap-4 mb-6">
                           <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                            <div className="text-xl font-extrabold text-blue-600">400+ Solved</div>
+                            <div className="text-xl font-extrabold text-blue-600">450+ Solved</div>
                             <div className="text-[10px] font-bold text-slate-500 uppercase mt-0.5">LeetCode Problems</div>
                           </div>
                           <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
@@ -1077,12 +1077,12 @@ export default function EducationClient() {
           <nav className="sr-only" aria-label="Site Navigation">
             <ul>
               <li><a href="/">Home — Full Stack Engineer Portfolio</a></li>
-              <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 400+</a></li>
+              <li><a href="/skills">Technical Skills — MERN • Next.js • DSA 450+</a></li>
               <li><a href="/projects">Full Stack Projects — Production Portfolio</a></li>
               <li><a href="/education">Education — BCA Cloud & Security</a></li>
               <li><a href="/contact">Hire Full Stack Engineer</a></li>
               <li><a href="https://github.com/ajitdev01">GitHub — Code Portfolio</a></li>
-              <li><a href="https://leetcode.com/ajitdev01">LeetCode — 400+ Problems</a></li>
+              <li><a href="https://leetcode.com/ajitdev01">LeetCode — 450+ Problems</a></li>
             </ul>
           </nav>
 

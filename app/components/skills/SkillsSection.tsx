@@ -93,12 +93,12 @@ const skillCategories: SkillCategory[] = [
     icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
     color: "text-amber-600",
-    description: "400+ LeetCode problems — clean, optimized solutions",
+    description: "450+ LeetCode problems — clean, optimized solutions",
     proficiency: 85,
     level: "Advanced",
     highlight: true,
     skills: [
-      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "400+ solved" },
+      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "450+ solved" },
       { name: "Recursion & Backtracking", icon: FiActivity, proficiency: 85, level: "Advanced" },
       { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 78, level: "Proficient", note: "Active growth" },
       { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 70, level: "Intermediate", note: "Daily practice" },
@@ -147,7 +147,7 @@ const filterLabels: Record<typeof FILTERS[number], string> = {
   Frontend: "Frontend",
   Backend: "Backend",
   FullStack: "Full Stack",
-  DSA: "DSA • 400+ Problems",
+  DSA: "DSA • 450+ Problems",
   Performance: "SEO • Performance",
   DevOps: "Deployment • Workflow"
 };

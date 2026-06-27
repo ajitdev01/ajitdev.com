@@ -82,7 +82,7 @@ export default function ResumePage() {
               </div>
               <div className="flex flex-col md:items-end text-xs text-slate-400 print:text-slate-600 space-y-1">
                 <div>LeetCode: <strong className="text-white print:text-black">450+ Solved</strong></div>
-                <div>Streak: <strong className="text-white print:text-black">120+ Days</strong></div>
+                <div>Streak: <strong className="text-white print:text-black">180+ Days</strong></div>
                 <div>Target Pathways: <span className="text-indigo-350 font-semibold print:text-indigo-600">Full Stack, DevOps, Security</span></div>
               </div>
             </div>

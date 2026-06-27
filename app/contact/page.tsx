@@ -17,7 +17,6 @@ const FiGlobe = ({ className }: { className?: string }) => <svg {...ic(24, class
 const FiTrendingUp = ({ className }: { className?: string }) => <svg {...ic(24, className)}><path d="M23 6l-9.5 9.5-5-5L1 18" /><path d="M17 6h6v6" /></svg>;
 const FiCode = ({ className }: { className?: string }) => <svg {...ic(24, className)}><path d="M16 18l6-6-6-6M8 6l-6 6 6 6" /></svg>;
 const FiZap = ({ className }: { className?: string }) => <svg {...ic(24, className)}><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z" /></svg>;
-const FiFolder = ({ className }: { className?: string }) => <svg {...ic(24, className)}><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>;
 
 // ========== CONTACT DATA ==========
 const contactInfo = [
@@ -26,7 +25,7 @@ const contactInfo = [
     title: "Primary Email",
     content: "support@ajitdev.com",
     link: "mailto:support@ajitdev.com",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-blue-500/10 to-cyan-500/10",
     description: "Business & support queries"
   },
   {
@@ -34,7 +33,7 @@ const contactInfo = [
     title: "Personal Email",
     content: "ajitk23192@gmail.com",
     link: "mailto:ajitk23192@gmail.com",
-    gradient: "from-indigo-500 to-blue-500",
+    gradient: "from-indigo-500/10 to-blue-500/10",
     description: "Direct communication • 24hr response"
   },
   {
@@ -42,7 +41,7 @@ const contactInfo = [
     title: "Location",
     content: "Katihar, Bihar, India",
     link: null,
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-emerald-500/10 to-teal-500/10",
     description: "Available worldwide • Remote"
   },
   {
@@ -50,7 +49,7 @@ const contactInfo = [
     title: "Education",
     content: "BCA — Cloud & Security",
     link: null,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-purple-500/10 to-pink-500/10",
     description: "Amity University Online • CGPA 7.95+"
   },
   {
@@ -58,19 +57,19 @@ const contactInfo = [
     title: "Status",
     content: "Open to Opportunities",
     link: null,
-    gradient: "from-amber-500 to-orange-500",
+    gradient: "from-amber-500/10 to-orange-500/10",
     description: "Full Stack Engineer • Remote"
   }
 ];
 
 const socialLinks = [
-  { icon: FiGithub, label: "GitHub", url: "https://github.com/ajitdev01", gradient: "from-gray-700 to-gray-900", external: true },
-  { icon: FiLinkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", gradient: "from-blue-600 to-indigo-600", external: true },
-  { icon: FiCode, label: "LeetCode", url: "https://leetcode.com/ajitdev01", gradient: "from-amber-500 to-orange-500", external: true },
-  { icon: FiMail, label: "Support", url: "mailto:support@ajitdev.com", gradient: "from-rose-500 to-pink-500", external: false },
-  { icon: FiMail, label: "Personal", url: "mailto:ajitk23192@gmail.com", gradient: "from-indigo-500 to-blue-500", external: false },
-  { icon: FiFileText, label: "Resume", url: "/resume.pdf", gradient: "from-emerald-500 to-teal-500", external: true },
-  { icon: FiGlobe, label: "Portfolio", url: "/", gradient: "from-purple-500 to-violet-500", external: false }
+  { icon: FiGithub, label: "GitHub", url: "https://github.com/ajitdev01", gradient: "from-slate-850 to-slate-900", external: true },
+  { icon: FiLinkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/ajitdev01/", gradient: "from-indigo-900 to-indigo-950", external: true },
+  { icon: FiCode, label: "LeetCode", url: "https://leetcode.com/ajitdev01", gradient: "from-amber-900 to-orange-950", external: true },
+  { icon: FiMail, label: "Support", url: "mailto:support@ajitdev.com", gradient: "from-rose-900 to-pink-950", external: false },
+  { icon: FiMail, label: "Personal", url: "mailto:ajitk23192@gmail.com", gradient: "from-indigo-900 to-blue-950", external: false },
+  { icon: FiFileText, label: "Resume", url: "/resume", gradient: "from-emerald-900 to-teal-955", external: false },
+  { icon: FiGlobe, label: "Portfolio", url: "/", gradient: "from-purple-900 to-violet-950", external: false }
 ];
 
 export default function ContactPage() {
@@ -108,7 +107,7 @@ export default function ContactPage() {
                 name: "What technologies does Ajit Kumar specialize in?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 300+ LeetCode problems solved."
+                  text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 450+ LeetCode problems solved."
                 }
               },
               {
@@ -124,13 +123,13 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden">
+      <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 overflow-x-hidden relative">
         {/* Background Blobs */}
-        <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-0 -left-40 w-96 h-96 bg-blue-500/8 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-0 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-emerald-500/6 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl" />
+        <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
+          <div className="absolute top-0 -left-40 w-96 h-96 bg-indigo-500/5 rounded-full blur-[100px]" />
+          <div className="absolute top-1/3 right-0 w-80 h-80 bg-purple-500/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-emerald-500/4 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-amber-500/4 rounded-full blur-[100px]" />
         </div>
 
         <main className="flex-grow pt-4 relative z-10">
@@ -138,48 +137,46 @@ export default function ContactPage() {
 
             {/* Hidden SEO Content */}
             <section className="sr-only" aria-label="Contact Overview">
-              <h1>Contact Full Stack Engineer — Ajit Kumar | MERN • Next.js • DSA 300+</h1>
+              <h1>Contact Full Stack Engineer — Ajit Kumar | MERN • Next.js • DSA 450+</h1>
               <p>
                 Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack,
-                Next.js. With 300+ LeetCode problems solved and a 150+ day coding streak.
+                Next.js. With 450+ LeetCode problems solved and a 180+ day coding streak.
                 Available for remote Full Stack Engineer roles worldwide.
               </p>
             </section>
 
             {/* ===== HERO SECTION ===== */}
             <section className="text-center mb-20">
-              <div className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl mb-6 border border-gray-200/20">
-                <FiMail className="text-4xl text-blue-600" />
+              <div className="inline-flex p-4 bg-indigo-500/10 rounded-2xl mb-6 border border-indigo-500/20 shadow-md">
+                <FiMail className="text-4xl text-indigo-400" />
               </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 tracking-tight">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4 tracking-tight">
                 Let&apos;s{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Connect
-                </span>
+                <span className="text-gradient">Connect</span>
               </h1>
 
-              <p className="text-xl text-gray-650 max-w-2xl mx-auto mb-6">
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-6 font-semibold">
                 Full Stack Engineer • MERN • Next.js •{" "}
-                <span className="font-semibold text-amber-600">300+ DSA Problems Solved</span>
+                <span className="text-indigo-400">450+ DSA Problems Solved</span>
               </p>
 
               <div className="flex justify-center gap-3 flex-wrap mb-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100">
-                  <FiMapPin className="w-4 h-4" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-white/5 text-slate-300 rounded-full text-sm font-semibold shadow-sm">
+                  <FiMapPin className="w-4 h-4 text-indigo-400" />
                   Katihar, Bihar, India
                 </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium border border-emerald-100">
-                  <FiGlobe className="w-4 h-4" />
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-white/5 text-slate-300 rounded-full text-sm font-semibold shadow-sm">
+                  <FiGlobe className="w-4 h-4 text-emerald-400" />
                   Available Worldwide • Remote
                 </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-100">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full text-sm font-semibold shadow-sm">
                   <FiClock className="w-4 h-4" />
                   Response: 24 Hours
                 </span>
               </div>
 
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
+              <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full" />
             </section>
 
             {/* ===== MAIN GRID ===== */}
@@ -189,29 +186,29 @@ export default function ContactPage() {
               {/* Side Panels - contact details and socials under the main form */}
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Contact Cards */}
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h2>
+                <div className="rounded-3xl p-6 glass-panel">
+                  <h2 className="text-xl font-bold text-white mb-6">Contact Information</h2>
                   <div className="space-y-4">
                     {contactInfo.map((item, idx) => {
                       const IconComp = item.icon;
                       return (
                         <div
                           key={idx}
-                          className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 hover:bg-blue-50/30 transition-all duration-200"
+                          className="flex items-start gap-4 p-4 rounded-xl bg-slate-900/60 border border-white/5 hover:border-indigo-500/20 transition-all duration-300"
                         >
-                          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                            <IconComp className="w-4 h-4 text-white" />
+                          <div className="w-10 h-10 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-center flex-shrink-0">
+                            <IconComp className="w-4 h-4 text-indigo-400" />
                           </div>
                           <div>
-                            <p className="text-xs font-semibold text-gray-400 uppercase">{item.title}</p>
+                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{item.title}</p>
                             {item.link ? (
-                              <a href={item.link} className="text-gray-900 font-medium hover:text-blue-600 transition-colors">
+                              <a href={item.link} className="text-white font-semibold text-sm hover:text-indigo-400 transition-colors">
                                 {item.content}
                               </a>
                             ) : (
-                              <p className="text-gray-900 font-medium">{item.content}</p>
+                              <p className="text-white font-semibold text-sm">{item.content}</p>
                             )}
-                            <p className="text-xs text-gray-650 mt-0.5">{item.description}</p>
+                            <p className="text-xs text-slate-400 mt-1">{item.description}</p>
                           </div>
                         </div>
                       );
@@ -220,25 +217,27 @@ export default function ContactPage() {
                 </div>
 
                 {/* Social Links Grid */}
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-6 shadow-xl">
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Connect Online</h3>
-                  <div className="grid grid-cols-3 gap-3">
-                    {socialLinks.map((s, idx) => {
-                      const SIcon = s.icon;
-                      return (
-                        <a
-                          key={idx}
-                          href={s.url}
-                          target={s.external ? "_blank" : undefined}
-                          rel={s.external ? "noopener noreferrer" : undefined}
-                          className={`h-16 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}
-                          aria-label={`Ajit Kumar ${s.label}`}
-                        >
-                          <SIcon className="w-5 h-5 mb-1" />
-                          <span className="text-xs font-medium">{s.label}</span>
-                        </a>
-                      );
-                    })}
+                <div className="rounded-3xl p-6 glass-panel flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Connect Online</h3>
+                    <div className="grid grid-cols-3 gap-3">
+                      {socialLinks.map((s, idx) => {
+                        const SIcon = s.icon;
+                        return (
+                          <Link
+                            key={idx}
+                            href={s.url}
+                            target={s.external ? "_blank" : undefined}
+                            rel={s.external ? "noopener noreferrer" : undefined}
+                            className={`h-16 rounded-xl bg-slate-900 border border-white/5 text-slate-300 hover:text-white flex flex-col items-center justify-center shadow-md hover:border-indigo-500/20 hover:bg-slate-950 transition-all duration-300`}
+                            aria-label={`Ajit Kumar ${s.label}`}
+                          >
+                            <SIcon className="w-5 h-5 mb-1 text-indigo-400" />
+                            <span className="text-xs font-semibold">{s.label}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -248,7 +247,7 @@ export default function ContactPage() {
             <nav className="sr-only" aria-label="Site Navigation">
               <ul>
                 <li><Link href="/">Home — Full Stack Engineer Portfolio</Link></li>
-                <li><Link href="/skills">Technical Skills — MERN • Next.js • DSA 300+</Link></li>
+                <li><Link href="/skills">Technical Skills — MERN • Next.js • DSA 450+</Link></li>
                 <li><Link href="/projects">Full Stack Projects — Production Portfolio</Link></li>
                 <li><Link href="/about">About Ajit Kumar — Full Stack Engineer</Link></li>
               </ul>

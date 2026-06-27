@@ -191,7 +191,7 @@ const About = () => {
                   <div className="border-t border-slate-100 pt-4">
                     <p className="font-bold text-slate-855">Self-Directed Technical Growth</p>
                     <p className="text-xs text-amber-600 font-semibold mb-0.5">Continuous Self-Learning</p>
-                    <p className="text-xs text-slate-600">400+ LeetCode Problems · Systems & Cloud Fundamentals</p>
+                    <p className="text-xs text-slate-600">450+ LeetCode Problems · Systems & Cloud Fundamentals</p>
                   </div>
                   <div className="border-t border-slate-100 pt-3">
                     <Link

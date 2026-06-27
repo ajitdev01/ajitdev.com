@@ -8,7 +8,7 @@ import ProjectsSection from "../components/projects/ProjectsSection";
 // ========== STATS (DSA & Full Stack Focus) ==========
 const stats = [
   { value: "450+", label: "LeetCode Problems", icon: FiBarChart2, gradient: "from-indigo-500/15 to-cyan-500/15", color: "text-indigo-400", highlight: true },
-  { value: "120+", label: "Day Streak", icon: FiTrendingUp, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-400" },
+  { value: "180+", label: "Day Streak", icon: FiTrendingUp, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-400" },
   { value: "8+", label: "Live Projects", icon: FiFolder, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-400" },
   { value: "45+", label: "Lectures Created", icon: FiBook, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-400" }
 ];
@@ -59,7 +59,7 @@ export default function ProjectsPage() {
               </span>
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-sm text-indigo-400 shadow-sm font-semibold">
                 <FiBarChart2 className="w-4 h-4" />
-                LeetCode 450+ • 120 Day Streak
+                LeetCode 450+ • 180 Day Streak
               </span>
             </div>
 
@@ -141,7 +141,7 @@ export default function ProjectsPage() {
 
                 <p className="text-slate-400 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
                   Consistently improving problem-solving skills through daily DSA practice,
-                  maintaining a <span className="font-semibold text-indigo-450">120+ day coding streak</span>,
+                  maintaining a <span className="font-semibold text-indigo-450">180+ day coding streak</span>,
                   and solving challenges across multiple domains on LeetCode.
                 </p>
 
@@ -160,7 +160,7 @@ export default function ProjectsPage() {
                   </div>
 
                   <div className="bg-slate-900/60 border border-white/5 rounded-2xl p-4">
-                    <h4 className="text-2xl font-black text-indigo-400">120</h4>
+                    <h4 className="text-2xl font-black text-indigo-400">180</h4>
                     <p className="text-xs text-slate-400 mt-1 uppercase font-bold">Day Streak</p>
                   </div>
 

@@ -342,7 +342,7 @@ const PAGES_CONFIG = {
   },
   "leetcode": {
     title: "LeetCode DSA Statistics & Metrics | Ajit Dev",
-    desc: "Review Ajit Dev's LeetCode coding stats. Solved 430+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
+    desc: "Review Ajit Dev's LeetCode coding stats. Solved 450+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
     h1: "LeetCode DSA Metrics",
     category: "Algorithms",
     icon: "Activity",
@@ -350,7 +350,7 @@ const PAGES_CONFIG = {
     roadmap: ["Array Complexity Checks", "Dynamic Stack Traversal", "Graph Depth Search", "Dynamic Programming Memoization"],
     resources: ["LeetCode Profile link", "Algorithms Code Library", "Contest Rating Trackers"],
     notes: "We track problem solving daily to train memory optimization and fast algorithm coding.",
-    faq: [{ q: "What is Ajit Dev's LeetCode handle?", a: "His public LeetCode handle is ajitdev01, showing 430+ solved problems." }]
+    faq: [{ q: "What is Ajit Dev's LeetCode handle?", a: "His public LeetCode handle is ajitdev01, showing 450+ solved problems." }]
   }
 };
 

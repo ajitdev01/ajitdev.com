@@ -182,7 +182,7 @@ export default function DsaDashboardPage() {
                     <Zap className="w-6 h-6 fill-indigo-400" />
                   </div>
                   <div>
-                    <div className="text-2xl font-black text-white">120 Days</div>
+                    <div className="text-2xl font-black text-white">180 Days</div>
                     <div className="text-[10px] text-slate-400 uppercase font-bold">Daily Coding Streak</div>
                   </div>
                 </div>
