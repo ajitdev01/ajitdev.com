@@ -1,0 +1,448 @@
+---
+title: "Automated Microservices Deployments to AWS & Kubernetes with Buddy CI/CD"
+description: "A step-by-step production playbook for automating Docker microservices deployments to AWS EC2, ECS, EKS, and Vercel using Buddy CI/CD pipelines. Covers Docker registry push, Kubernetes rolling updates, environment approval gates, and failure rollback strategies."
+date: "2026-07-18"
+updatedDate: "2026-07-22"
+category: "DevOps"
+tags: ["Buddy", "Docker", "Kubernetes", "AWS", "ECS", "EKS", "Microservices", "CI/CD", "DevOps"]
+difficulty: "Hard"
+estimatedReadingTime: "25 min read"
+faq:
+  - question: "How does Buddy deploy to AWS ECS?"
+    answer: "Buddy has a native AWS ECS action that authenticates with your AWS credentials (stored as encrypted pipeline variables), registers a new ECS task definition with the updated Docker image tag, and triggers a rolling service update."
+  - question: "Can Buddy roll back a failed deployment automatically?"
+    answer: "Yes. You can configure Buddy pipelines with rollback actions that trigger on failure: run `kubectl rollout undo` for Kubernetes, swap back an ECS task definition, or execute a custom SSH command to restore the previous Docker container."
+  - question: "What is the difference between ECS and EKS on AWS?"
+    answer: "Amazon ECS (Elastic Container Service) is AWS's own managed container orchestration system, simpler to set up but less flexible. Amazon EKS (Elastic Kubernetes Service) runs managed Kubernetes, giving you full Kubernetes API compatibility but requiring more configuration."
+  - question: "Does Buddy support multi-region AWS deployments?"
+    answer: "Yes. You can define separate Buddy pipelines (or pipeline stages with different environment variables) for each AWS region, allowing sequential or parallel multi-region rollouts with approval gates between regions."
+---
+
+## Key Takeaways (TL;DR)
+
+* **Full Automation**: Buddy pipelines handle Docker builds, registry pushes, ECS/EKS deployments, and health checks without manual SSH sessions.
+* **Approval Gates**: Insert manual approval steps before production deployments to enforce change management procedures.
+* **Automatic Rollback**: Configure failure recovery actions to automatically restore the previous stable deployment.
+* **Multi-Environment**: Use Buddy's environment variables to target dev, staging, and production with a single pipeline definition.
+
+---
+
+## 1. Architecture Overview
+
+This guide deploys a **Next.js API + microservices** stack to AWS with the following architecture:
+
+```
+Developer commits to `main`
+      ↓
+Buddy CI/CD Pipeline
+      ├── Step 1: Lint, Type Check, Unit Tests
+      ├── Step 2: Build Docker Images (layer cached)
+      ├── Step 3: Security Scan (Trivy)
+      ├── Step 4: Push to AWS ECR
+      ├── Step 5: Deploy to ECS/EKS (staging)
+      ├── Step 6: Integration Tests on Staging
+      ├── Step 7: Manual Approval Gate (production)
+      └── Step 8: Deploy to Production + Health Check
+              ↓ (on failure)
+      Rollback Action → Restore previous version
+```
+
+---
+
+## 2. Prerequisites
+
+### AWS Setup
+
+```bash
+# Create ECR Repository
+aws ecr create-repository \
+  --repository-name ajitdev/web \
+  --region us-east-1
+
+# Note the repository URI
+# 123456789.dkr.ecr.us-east-1.amazonaws.com/ajitdev/web
+```
+
+### Required Buddy Variables
+
+Set these in **Buddy → Project → Variables**:
+
+```bash
+AWS_ACCESS_KEY_ID=AKIAXXXXXXXXXXXXXXXX
+AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxx
+AWS_REGION=us-east-1
+AWS_ACCOUNT_ID=123456789012
+ECR_REPO=ajitdev/web
+ECS_CLUSTER=ajitdev-production
+ECS_SERVICE=ajitdev-web-service
+ECS_TASK_FAMILY=ajitdev-web
+KUBERNETES_SERVER=https://XXXXXXXXXXX.gr7.us-east-1.eks.amazonaws.com
+```
+
+---
+
+## 3. Dockerfile for Production Microservices
+
+```dockerfile
+# Optimized multi-stage Dockerfile
+# Stage 1: Install dependencies
+FROM node:20-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Stage 2: Build application
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# Stage 3: Minimal production runner
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs \
+  && adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]
+```
+
+---
+
+## 4. Complete Buddy Pipeline Configuration
+
+```yaml
+# buddy.yml — Full AWS microservices deployment pipeline
+- pipeline: "AWS Microservices Deployment"
+  trigger_mode: ON_EVERY_PUSH
+  refs:
+    - refs/heads/main
+  variables:
+    - key: IMAGE_TAG
+      value: "$BUDDY_EXECUTION_REVISION"
+
+  actions:
+
+    # ================================================
+    # PHASE 1: CODE QUALITY CHECKS
+    # ================================================
+    - action: "TypeScript & Lint Validation"
+      type: BUILD
+      docker_image_name: node
+      docker_image_tag: "20-alpine"
+      cached_dirs:
+        - path: node_modules
+          key: package-lock.json
+      execute_commands:
+        - npm ci
+        - npx tsc --noEmit
+        - npm run lint
+        - echo "✅ Code quality checks passed"
+
+    # ================================================
+    # PHASE 2: DOCKER BUILD
+    # ================================================
+    - action: "Build Production Docker Image"
+      type: DOCKERFILE
+      dockerfile_path: Dockerfile
+      image_name: "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO"
+      image_tag: "$IMAGE_TAG"
+      cache_build_args: true
+      buildkit: true
+
+    # ================================================
+    # PHASE 3: SECURITY SCAN
+    # ================================================
+    - action: "Container Security Scan (Trivy)"
+      type: BUILD
+      docker_image_name: aquasec/trivy
+      docker_image_tag: latest
+      execute_commands:
+        - >
+          trivy image
+          --severity CRITICAL,HIGH
+          --exit-code 1
+          --no-progress
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+
+    # ================================================
+    # PHASE 4: PUSH TO AWS ECR
+    # ================================================
+    - action: "Authenticate & Push to AWS ECR"
+      type: BUILD
+      docker_image_name: amazon/aws-cli
+      docker_image_tag: latest
+      execute_commands:
+        - >
+          aws ecr get-login-password --region $AWS_REGION |
+          docker login --username AWS --password-stdin
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+        - >
+          docker push
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+        - >
+          docker tag
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest
+        - >
+          docker push
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest
+
+    # ================================================
+    # PHASE 5: DEPLOY TO STAGING (ECS)
+    # ================================================
+    - action: "Deploy to Staging ECS"
+      type: AWS_ECS_DEPLOY_SERVICE
+      region: "$AWS_REGION"
+      cluster: "$ECS_CLUSTER-staging"
+      service: "$ECS_SERVICE"
+      task_definition_family: "$ECS_TASK_FAMILY"
+      image: "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG"
+      wait_for_completion: true
+
+    # ================================================
+    # PHASE 6: STAGING HEALTH CHECK
+    # ================================================
+    - action: "Staging Health Check"
+      type: BUILD
+      docker_image_name: curlimages/curl
+      docker_image_tag: latest
+      execute_commands:
+        - >
+          curl --retry 10 --retry-delay 5 --retry-connrefused
+          -f https://staging.ajitdev.com/api/healthz
+          && echo "✅ Staging health check passed"
+          || (echo "❌ Staging health check failed" && exit 1)
+
+    # ================================================
+    # PHASE 7: MANUAL APPROVAL GATE
+    # ================================================
+    - action: "Production Deployment Approval"
+      type: WAIT_FOR_APPROVAL
+      approvers:
+        - "ajitdev01"
+      comment: "Review staging deployment before promoting to production. Commit: $BUDDY_EXECUTION_REVISION"
+
+    # ================================================
+    # PHASE 8: PRODUCTION ECS DEPLOYMENT
+    # ================================================
+    - action: "Deploy to Production ECS"
+      type: AWS_ECS_DEPLOY_SERVICE
+      region: "$AWS_REGION"
+      cluster: "$ECS_CLUSTER"
+      service: "$ECS_SERVICE"
+      task_definition_family: "$ECS_TASK_FAMILY"
+      image: "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG"
+      wait_for_completion: true
+
+    # ================================================
+    # PHASE 9: PRODUCTION HEALTH CHECK
+    # ================================================
+    - action: "Production Health Verification"
+      type: BUILD
+      docker_image_name: curlimages/curl
+      docker_image_tag: latest
+      execute_commands:
+        - >
+          curl --retry 10 --retry-delay 5 --retry-connrefused
+          -f https://ajitdev.com/api/healthz
+          && echo "✅ Production is healthy"
+          || (echo "❌ Production health check failed — triggering rollback" && exit 1)
+      on_failure: TRIGGER_NEXT
+
+    # ================================================
+    # PHASE 10: AUTOMATIC ROLLBACK (only on failure)
+    # ================================================
+    - action: "Automatic Rollback to Previous"
+      type: AWS_ECS_DEPLOY_SERVICE
+      region: "$AWS_REGION"
+      cluster: "$ECS_CLUSTER"
+      service: "$ECS_SERVICE"
+      task_definition_family: "$ECS_TASK_FAMILY"
+      image: "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest"
+      wait_for_completion: true
+      trigger: ON_FAILURE
+```
+
+---
+
+## 5. ECS Task Definition Template
+
+```json
+{
+  "family": "ajitdev-web",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::123456789012:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/ajitdev/web:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "NEXT_TELEMETRY_DISABLED", "value": "1" }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:123456789012:secret:ajitdev/database-url"
+        }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:3000/api/healthz || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ajitdev-web",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
+```
+
+---
+
+## 6. Kubernetes (EKS) Deployment with Buddy
+
+For teams using EKS instead of ECS:
+
+```yaml
+# buddy.yml — EKS deployment section
+- action: "Deploy to EKS Production"
+  type: KUBERNETES_APPLY_DEPLOYMENT_CONFIGURATION
+  auth_mode: AWS_EKS
+  cluster_name: "ajitdev-eks-cluster"
+  region: "$AWS_REGION"
+  config_path: "k8s/"
+
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ajitdev-web
+  namespace: production
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ajitdev-web
+  template:
+    spec:
+      containers:
+      - name: web
+        image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/ajitdev/web:IMAGE_TAG
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        readinessProbe:
+          httpGet:
+            path: /api/healthz
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /api/healthz
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+```
+
+### EKS Rollback Command
+
+```bash
+# Automatic rollback in pipeline failure action
+kubectl rollout undo deployment/ajitdev-web -n production
+kubectl rollout status deployment/ajitdev-web -n production --timeout=5m
+```
+
+---
+
+## 7. Monitoring Pipeline Metrics
+
+After setting up the pipeline, track these metrics in Buddy's dashboard:
+
+| Metric | Target | Alert Threshold |
+|--------|--------|----------------|
+| Pipeline Success Rate | > 95% | < 85% |
+| Average Build Duration | < 5 min | > 10 min |
+| Cache Hit Rate | > 80% | < 60% |
+| Deployment Frequency | Daily | < Weekly |
+| Time to Recovery (MTTR) | < 10 min | > 30 min |
+
+---
+
+## 8. Cost Optimization Tips
+
+1. **Use ECR Lifecycle Policies** to auto-delete old image tags (keeps only last 10)
+2. **Enable ECS Fargate Spot** for non-production environments (70% cost reduction)
+3. **Cache npm dependencies** in Buddy to avoid re-downloading packages
+4. **Use ARM64 (Graviton)** ECS tasks for up to 40% better price-performance
+
+```bash
+# ECR lifecycle policy — keep only last 10 images
+aws ecr put-lifecycle-policy \
+  --repository-name ajitdev/web \
+  --lifecycle-policy-text '{
+    "rules": [{
+      "rulePriority": 1,
+      "description": "Keep last 10 images",
+      "selection": {
+        "tagStatus": "any",
+        "countType": "imageCountMoreThan",
+        "countNumber": 10
+      },
+      "action": {"type": "expire"}
+    }]
+  }'
+```
+
+---
+
+## References
+
+* AWS ECS Documentation — [docs.aws.amazon.com/ecs](https://docs.aws.amazon.com/ecs)
+* Amazon EKS User Guide — [docs.aws.amazon.com/eks](https://docs.aws.amazon.com/eks)
+* Buddy AWS ECS Action Docs — [buddy.works/docs/deployments/amazon-ecs](https://buddy.works/docs/deployments/amazon-ecs)
+* AWS ECR Private Registry — [docs.aws.amazon.com/ecr](https://docs.aws.amazon.com/ecr)
+* Trivy Container Security Scanner — [trivy.dev](https://trivy.dev)

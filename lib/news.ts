@@ -11,6 +11,36 @@ export interface NewsItem {
 
 export const NEWS_DATABASE: NewsItem[] = [
   {
+    id: 13,
+    title: "Buddy CI/CD Introduces Native AI-Powered Pipeline Generator & Instant Docker Layer Caching",
+    summary: "Buddy has launched its AI Pipeline Generator feature, which analyzes your repository structure and auto-generates optimized CI/CD pipelines in seconds. Combined with a new distributed Docker layer cache system, build times are reduced by up to 80% for Node.js, Python, and Go microservices.",
+    category: "DevOps",
+    source: "Buddy Blog",
+    date: "July 22, 2026",
+    link: "https://buddy.works/blog",
+    tag: "Buddy"
+  },
+  {
+    id: 14,
+    title: "Anthropic Releases Claude 3.7 Sonnet with Hybrid Reasoning & Extended Thinking Windows",
+    summary: "Anthropic unveiled Claude 3.7 Sonnet, featuring a breakthrough hybrid reasoning architecture that seamlessly switches between fast responses and deep multi-step chain-of-thought reasoning. The model achieves state-of-the-art scores on SWE-bench coding benchmarks and supports a 200k context window.",
+    category: "AI",
+    source: "Anthropic Blog",
+    date: "July 20, 2026",
+    link: "https://anthropic.com",
+    tag: "Anthropic"
+  },
+  {
+    id: 15,
+    title: "Vercel Unveils Native Micro-Frontend Engine for Next.js App Router with Module Federation",
+    summary: "Vercel announced first-class Micro-Frontend support for Next.js App Router, built on top of Module Federation 2.0. Teams can now independently deploy and compose frontend modules across repositories, enabling enterprise-scale application architectures without runtime performance penalties.",
+    category: "Programming",
+    source: "Vercel Blog",
+    date: "July 18, 2026",
+    link: "https://vercel.com/blog",
+    tag: "Next.js"
+  },
+  {
     id: 1,
     title: "OpenAI Announces GPT-5 with Advanced Reasoning and Multimodal Actions",
     summary: "OpenAI has officially launched its next-generation reasoning model, GPT-5. The model boasts a 10x improvement in complex programming tasks and multi-agent coordination capabilities.",
