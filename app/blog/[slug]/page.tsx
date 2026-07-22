@@ -167,7 +167,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         authors: ["https://ajitdev.com"],
       },
     };
-  } catch (e) {
+  } catch (_e) {
     return {
       title: "Blog Post Not Found | Ajit Dev",
       description: "The requested technical article could not be found.",
@@ -305,7 +305,7 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
   let post;
   try {
     post = getPostBySlug(resolvedParams.slug);
-  } catch (error) {
+  } catch (_error) {
     notFound();
   }
 
@@ -381,9 +381,7 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
     .filter((p) => p.slug !== post.slug && (p.category.toLowerCase() === post.category.toLowerCase() || p.tags.some((t) => post.tags.some(pt => pt.toLowerCase() === t.toLowerCase()))))
     .slice(0, 3);
 
-  const youMayLike = allPosts
-    .filter((p) => p.slug !== post.slug && p.category.toLowerCase() !== post.category.toLowerCase())
-    .slice(0, 3);
+  // youMayLike removed — variable was computed but never rendered
 
   const peopleAlsoRead = allPosts
     .filter((p) => p.slug !== post.slug && p.category.toLowerCase() === post.category.toLowerCase())

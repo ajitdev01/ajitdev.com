@@ -9,9 +9,12 @@ const Github = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Deterministic contribution pattern — fixed outside render to avoid react-hooks/purity violation.
+// Repeating a seeded 28-value pattern across 140 cells produces a realistic-looking heatmap.
+const ACTIVITY_PATTERN = [4, 0, 2, 1, 3, 0, 1, 2, 4, 0, 3, 1, 0, 2, 4, 1, 3, 0, 2, 1, 0, 4, 2, 3, 1, 0, 2, 3];
+const ACTIVITY_DATA: number[] = Array.from({ length: 140 }, (_, i) => ACTIVITY_PATTERN[i % ACTIVITY_PATTERN.length]);
+
 export default function GithubActivityMock() {
-  // Generate mock contribution values (0 to 4 commits)
-  const activityData = Array.from({ length: 140 }).map(() => Math.floor(Math.random() * 5));
 
   const stats = [
     { label: "Total Contributions", value: "1,450+", icon: GitPullRequest },
@@ -41,7 +44,7 @@ export default function GithubActivityMock() {
       {/* Grid columns */}
       <div className="overflow-x-auto pb-2 scrollbar-thin">
         <div className="flex gap-1.5 min-w-[320px] h-20 select-none items-center justify-between">
-          {activityData.map((commits, idx) => {
+          {ACTIVITY_DATA.map((commits, idx) => {
             const color =
               commits === 4
                 ? "bg-indigo-600"

@@ -2,8 +2,18 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Award, Zap, Code, Star, LayoutGrid, BarChart2, Calendar, Target, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowLeft, BookOpen, Award, Zap, Code, Star, LayoutGrid, Calendar, Target, CheckCircle2, ChevronRight } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
+
+// Deterministic heatmap pattern — avoids Math.random() during render (react-hooks/purity).
+// 14-value repeating seed distributed across 280 cells; visually replicates random activity.
+const HEATMAP_SEED = [
+  "bg-indigo-500", "bg-gray-100", "bg-indigo-200", "bg-indigo-400",
+  "bg-gray-100",   "bg-indigo-200", "bg-indigo-500", "bg-gray-100",
+  "bg-indigo-400", "bg-indigo-200", "bg-gray-100",   "bg-indigo-500",
+  "bg-indigo-200", "bg-gray-100",
+];
+const DSA_HEATMAP_LEVELS: string[] = Array.from({ length: 280 }, (_, i) => HEATMAP_SEED[i % HEATMAP_SEED.length]);
 
 const DSA_TOPICS = [
   { key: "arrays", name: "Arrays Data Structure", solved: 45, total: 50, completed: true, details: "Contiguous memory lists, sliding windows, and pointer operations." },
@@ -251,16 +261,13 @@ export default function DsaDashboardPage() {
               <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Mock practice cells log (2026)</span>
             </div>
             <div className="grid grid-flow-col grid-rows-7 gap-1.5 h-28 overflow-hidden select-none">
-              {Array.from({ length: 280 }).map((_, i) => {
-                const level = Math.random() > 0.35 ? (Math.random() > 0.6 ? (Math.random() > 0.7 ? "bg-indigo-500" : "bg-indigo-400") : "bg-indigo-200") : "bg-gray-100";
-                return (
-                  <div
-                    key={i}
-                    className={`w-2.5 h-2.5 rounded-xs transition-all duration-300 hover:scale-125 ${level}`}
-                    title={`Day ${i + 1}`}
-                  />
-                );
-              })}
+              {DSA_HEATMAP_LEVELS.map((level, i) => (
+                <div
+                  key={i}
+                  className={`w-2.5 h-2.5 rounded-xs transition-all duration-300 hover:scale-125 ${level}`}
+                  title={`Day ${i + 1}`}
+                />
+              ))}
             </div>
             <div className="flex items-center justify-between text-[10px] text-gray-400 mt-3 pt-2 border-t border-gray-100">
               <span>Less Active</span>
