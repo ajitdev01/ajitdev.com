@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@types/nodemailer": "^8.0.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
@@ -22,6 +23,7 @@
     "next-mdx-remote": "^6.0.0",
     "next-seo": "^6.8.0",
     "next-sitemap": "^4.2.3",
+    "nodemailer": "^9.0.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "reading-time": "^1.5.0",

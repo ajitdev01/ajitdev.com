@@ -54,35 +54,29 @@ export default function ContactForm() {
     setError("");
 
     try {
-      const emailjs = (await import("emailjs-com")).default;
-
-      const result = await emailjs.send(
-        "service_jylezlb",
-        "template_l7naq4c",
-        {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject || "New Message from Portfolio",
-          message: formData.message,
-          to_email: "ajitk23192@gmail.com",
-          timestamp: new Date().toLocaleString()
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        "19sQiv4dP-SrzHK2B"
-      );
+        body: JSON.stringify(formData),
+      });
 
-      if (result.status === 200) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setIsLoading(false);
         setShowSuccessModal(true);
         trackEvent("contact_submission_success", { subject: formData.subject || "General" });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error("Failed to send email");
+        throw new Error(data.error || "Failed to send email");
       }
     } catch (err: any) {
-      console.error("Email sending error:", err);
+      console.error("Contact form error:", err);
       setIsLoading(false);
       trackEvent("contact_submission_failed", { error: err.message || "Unknown error" });
-      setError("Failed to send message. Please try again or email me directly.");
+      setError(err.message || "Failed to send message. Please try again or email me directly.");
     }
   };
 
