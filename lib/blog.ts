@@ -1186,7 +1186,78 @@ export function getAllPosts(): BlogPost[] {
 }
 
 export function getPostsByCategory(category: string): BlogPost[] {
-  return getAllPosts().filter(
-    (post) => post.category.toLowerCase() === category.toLowerCase()
+  const normalizedCategory = category.toLowerCase().trim();
+  return getAllPosts().filter((post) => {
+    const postCat = post.category.toLowerCase().trim();
+    if (postCat === normalizedCategory) return true;
+    
+    // Map slug aliases (e.g. cpp -> C++, dsa -> DSA, etc.)
+    const catObj = CATEGORIES.find((c) => c.key.toLowerCase() === normalizedCategory);
+    if (catObj && postCat === catObj.name.toLowerCase()) return true;
+
+    return false;
+  });
+}
+
+export function getCategories() {
+  return CATEGORIES;
+}
+
+export function getRelatedPosts(currentPost: BlogPost, limit = 4): BlogPost[] {
+  const allPosts = getAllPosts().filter((p) => p.slug !== currentPost.slug);
+
+  const scored = allPosts.map((post) => {
+    let score = 0;
+    if (post.category.toLowerCase() === currentPost.category.toLowerCase()) score += 5;
+    
+    const sharedTags = post.tags?.filter((tag) =>
+      currentPost.tags?.some((t) => t.toLowerCase() === tag.toLowerCase())
+    );
+    score += (sharedTags?.length || 0) * 2;
+
+    if (post.difficulty === currentPost.difficulty) score += 1;
+
+    return { post, score };
+  });
+
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.post);
+}
+
+export function getAdjacentPosts(currentPost: BlogPost): {
+  prevPost: BlogPost | null;
+  nextPost: BlogPost | null;
+} {
+  const allPosts = getAllPosts();
+  const currentIndex = allPosts.findIndex((p) => p.slug === currentPost.slug);
+
+  if (currentIndex === -1) {
+    return { prevPost: null, nextPost: null };
+  }
+
+  const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+
+  return { prevPost, nextPost };
+}
+
+export function getPostsByTag(tag: string): BlogPost[] {
+  const normalizedTag = tag.toLowerCase().trim();
+  return getAllPosts().filter((post) =>
+    post.tags?.some((t) => t.toLowerCase().trim() === normalizedTag)
   );
 }
+
+export function searchPosts(query: string): BlogPost[] {
+  if (!query || !query.trim()) return [];
+  const q = query.toLowerCase().trim();
+  return getAllPosts().filter((post) =>
+    post.title.toLowerCase().includes(q) ||
+    post.description.toLowerCase().includes(q) ||
+    post.category.toLowerCase().includes(q) ||
+    post.tags?.some((t) => t.toLowerCase().includes(q))
+  );
+}
+

@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "../components/contact/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Contact — AJITDEV",
+  description: "Get in touch with Ajit Dev (ajitdev01), a Full Stack Developer & DevOps Engineer based in Katihar, Bihar, India. Available for full-time and contract software roles.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact — AJITDEV",
+    description: "Get in touch with Ajit Dev (ajitdev01), a Full Stack Developer & DevOps Engineer based in Katihar, Bihar, India.",
+    url: "https://ajitdev.com/contact",
+  },
+};
 
 // ========== INLINE SVG ICONS (eliminates react-icons bundle) ==========
 const IP = { strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
@@ -83,12 +97,12 @@ export default function ContactPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            name: "Contact Ajit Kumar — Full Stack Engineer",
+            name: "Contact Ajit Dev — Full Stack Engineer",
             url: "https://ajitdev.com/contact",
-            description: "Contact page for Ajit Kumar, a Full Stack Engineer specializing in MERN, Next.js, and LAMP stacks.",
+            description: "Contact page for Ajit Dev (ajitdev01), a Full Stack Engineer specializing in MERN, Next.js, Docker, Kubernetes, and Cloud Security.",
             about: {
               "@type": "Person",
-              name: "Ajit Kumar",
+              name: "Ajit Dev",
               jobTitle: "Full Stack Engineer",
               email: ["support@ajitdev.com", "ajitk23192@gmail.com"],
               url: "https://ajitdev.com",
@@ -105,18 +119,18 @@ export default function ContactPage() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "What technologies does Ajit Kumar specialize in?",
+                name: "What technologies does Ajit Dev specialize in?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), Next.js for SSR/SSG, TypeScript, Tailwind CSS, and has strong DSA foundation with 450+ LeetCode problems solved."
+                  text: "Ajit specializes in MERN Stack (MongoDB, Express.js, React.js, Node.js), Next.js for SSR/SSG, TypeScript, Tailwind CSS, Docker, Kubernetes, AWS, and has strong DSA foundation with 450+ LeetCode problems solved."
                 }
               },
               {
                 "@type": "Question",
-                name: "Is Ajit Kumar available for Full Stack Engineer roles?",
+                name: "Is Ajit Dev available for Full Stack Engineer roles?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes. Ajit is actively seeking Full Stack Engineer roles worldwide, available for remote positions immediately."
+                  text: "Yes. Ajit is actively seeking Full Stack Engineer and DevOps roles worldwide, available for remote positions."
                 }
               }
             ]
@@ -135,16 +149,6 @@ export default function ContactPage() {
 
         <main className="flex-grow pt-4 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-
-            {/* Hidden SEO Content */}
-            <section className="sr-only" aria-label="Contact Overview">
-              <h1>Contact Full Stack Engineer — Ajit Kumar | MERN • Next.js • DSA 450+</h1>
-              <p>
-                Ajit Kumar is a Full Stack Engineer from Katihar, Bihar, India specializing in MERN Stack,
-                Next.js. With 450+ LeetCode problems solved and a 180+ day coding streak.
-                Available for remote Full Stack Engineer roles worldwide.
-              </p>
-            </section>
 
             {/* ===== HERO SECTION ===== */}
             <section className="text-center mb-20">
@@ -232,7 +236,7 @@ export default function ContactPage() {
                           target={s.external ? "_blank" : undefined}
                           rel={s.external ? "noopener noreferrer" : undefined}
                           className={`h-16 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200`}
-                          aria-label={`Ajit Kumar ${s.label}`}
+                          aria-label={`Ajit Dev ${s.label}`}
                         >
                           <SIcon className="w-5 h-5 mb-1" />
                           <span className="text-xs font-medium">{s.label}</span>
@@ -244,15 +248,26 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Hidden Internal Links (SEO) */}
-            <nav className="sr-only" aria-label="Site Navigation">
-              <ul>
-                <li><Link href="/">Home — Full Stack Engineer Portfolio</Link></li>
-                <li><Link href="/skills">Technical Skills — MERN • Next.js • DSA 450+</Link></li>
-                <li><Link href="/projects">Full Stack Projects — Production Portfolio</Link></li>
-                <li><Link href="/about">About Ajit Kumar — Full Stack Engineer</Link></li>
-              </ul>
-            </nav>
+            {/* Contextual Internal Links */}
+            <section className="mt-12 pt-8 border-t border-gray-200">
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
+                Discover More About Ajit Dev
+              </h4>
+              <div className="flex flex-wrap gap-3 text-xs font-semibold">
+                <Link href="/about" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                  About Ajit Dev
+                </Link>
+                <Link href="/projects" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                  Full Stack Projects
+                </Link>
+                <Link href="/skills" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                  Skills & Technology Stack
+                </Link>
+                <Link href="/resume" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                  Professional Resume
+                </Link>
+              </div>
+            </section>
           </div>
         </main>
       </div>

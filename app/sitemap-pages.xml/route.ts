@@ -7,6 +7,7 @@ export async function GET() {
   const staticPaths = [
     "",
     "/about",
+    "/now",
     "/skills",
     "/education",
     "/contact",

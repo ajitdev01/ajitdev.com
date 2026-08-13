@@ -1,9 +1,23 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   FiFolder, FiBarChart2, FiTrendingUp, FiBook,
   FiDatabase, FiGlobe, FiZap, FiMapPin, FiBriefcase
 } from "@/lib/icons";
 import ProjectsSection from "../components/projects/ProjectsSection";
+
+export const metadata: Metadata = {
+  title: "Projects — AJITDEV",
+  description: "Explore production-grade full-stack MERN, Next.js, Docker, Kubernetes, AWS, and Cloud Security projects built by Ajit Dev (ajitdev01).",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects — AJITDEV",
+    description: "Explore production-grade full-stack MERN, Next.js, Docker, Kubernetes, AWS, and Cloud Security projects built by Ajit Dev (ajitdev01).",
+    url: "https://ajitdev.com/projects",
+  },
+};
 
 // ========== STATS (DSA + Full Stack Focus) ==========
 const stats = [
@@ -178,27 +192,32 @@ export default function ProjectsPage() {
             </div>
           </section>
 
-          {/* === HIDDEN INTERNAL LINKS (SEO) === */}
-          <nav className="sr-only" aria-label="Site navigation">
-            <ul>
-              <li><Link href="/">Ajit Dev — Full Stack Developer & DevOps Engineer Home</Link></li>
-              <li><Link href="/skills">Technical Skills — MERN • DevOps • AWS • Cloud Security</Link></li>
-              <li><Link href="/projects">Ajit Dev Projects — Full Stack & DevOps Portfolio</Link></li>
-              <li><Link href="/contact">Hire Ajit Dev — Full Stack Developer & DevOps Engineer</Link></li>
-              <li><a href="https://github.com/ajitdev01">GitHub — Ajit Dev Code Portfolio</a></li>
-              <li><a href="https://leetcode.com/ajitdev01">LeetCode — Ajit Dev 400+ Problems</a></li>
-            </ul>
-          </nav>
-
-          {/* Hidden SEO Keywords */}
-          <span className="sr-only" aria-hidden="true">
-            Ajit Dev Projects, Ajit Dev GitHub, Ajit Dev Portfolio,
-            Ajit Dev, Ajit Kumar, AjitDev01, Next.js Developer,
-            MERN Stack Developer, Full Stack Projects Portfolio,
-            Katihar Developer, Katihar Full Stack Developer,
-            India Full Stack Developer, India DevOps Engineer,
-            Bihar Software Engineer, DevOps Projects Portfolio
-          </span>
+          {/* === CONTEXTUAL INTERNAL NAVIGATION === */}
+          <section className="mt-12 pt-8 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
+              Explore Project Categories & Technical Case Studies
+            </h4>
+            <div className="flex flex-wrap gap-3 text-xs font-semibold">
+              <Link href="/projects/full-stack" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Full Stack Projects
+              </Link>
+              <Link href="/projects/devops" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                DevOps & CI/CD Pipelines
+              </Link>
+              <Link href="/projects/cloud" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                AWS Cloud Infrastructure
+              </Link>
+              <Link href="/projects/security" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Cloud Security & DevSecOps
+              </Link>
+              <Link href="/case-studies" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Software Architecture Case Studies
+              </Link>
+              <Link href="/skills" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Skills & Technologies
+              </Link>
+            </div>
+          </section>
 
         </div>
       </main>

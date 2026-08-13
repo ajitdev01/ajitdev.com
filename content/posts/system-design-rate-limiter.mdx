@@ -1,0 +1,165 @@
+---
+title: "Mastering System Design: Building a High-Throughput Rate Limiter in Distributed Architectures"
+description: "An in-depth engineering blueprint for designing production-ready distributed rate limiters. Compares Token Bucket, Sliding Window Counter algorithms, Redis Lua script implementations, handling race conditions, and interview tradeoffs."
+date: "2026-08-13"
+updatedDate: "2026-08-13"
+category: "System Design"
+tags: ["System Design", "Rate Limiter", "Redis", "Distributed Systems", "API Security"]
+difficulty: "Hard"
+estimatedReadingTime: "25 min read"
+faq:
+  - question: "What is the best rate limiting algorithm for distributed systems?"
+    answer: "Sliding Window Counter combined with Redis Lua scripts provides the best balance between memory efficiency, accuracy, and handling burst traffic in distributed environments."
+  - question: "How do you prevent race conditions in a Redis rate limiter?"
+    answer: "Execute rate limiting counter operations inside atomic Redis Lua scripts or use Redis transactions (MULTI/EXEC) to eliminate race conditions across distributed API servers."
+  - question: "What HTTP status code should a rate limiter return?"
+    answer: "HTTP 429 Too Many Requests, along with headers such as Retry-After, X-RateLimit-Limit, and X-RateLimit-Remaining."
+---
+
+## Key Takeaways (TL;DR)
+* **API Protection**: Rate limiting safeguards backend services from Denial of Service (DoS) attacks, brute-force exploits, and unexpected traffic spikes.
+* **Token Bucket vs Sliding Window**: Token Bucket allows short burst traffic, while Sliding Window Counter enforces strict smooth rate limits with minimal memory overhead.
+* **Atomic Redis Lua Execution**: Network latency and concurrency race conditions in distributed clusters are eliminated by running counter checks inside atomic Redis Lua scripts.
+
+---
+
+## 1. Why Every Scalable System Needs Rate Limiting
+
+Rate limiting is an essential component of backend architecture. It controls the rate of traffic sent by a client or service, shielding API endpoints, databases, and third-party integrations from resource exhaustion.
+
+### Primary Use Cases:
+1. **Preventing Resource Starvation**: Protects server memory and CPU threads from being hogged by single malicious or misconfigured clients.
+2. **Cost Control**: Prevents excessive API consumption on pay-per-request third-party services (e.g., OpenAI API, Stripe, Twilio).
+3. **Security Defense**: Hardens endpoints against credential stuffing, brute-force login attempts, and Distributed Denial of Service (DDoS).
+
+---
+
+## 2. Core Rate Limiting Algorithms Compared
+
+### 1. Token Bucket Algorithm
+* **Mechanism**: A bucket holds up to $N$ tokens. Tokens are continuously added at a fixed refill rate (e.g., 10 tokens per second). When an HTTP request arrives, it consumes 1 token. If no tokens remain, the request is rejected with `HTTP 429`.
+* **Pros**: Handles burst traffic efficiently; memory footprint is tiny (storing token count and last timestamp).
+* **Cons**: Refill rate tuning can be complex in multi-region environments.
+
+### 2. Leaky Bucket Algorithm
+* **Mechanism**: Requests enter a FIFO queue (the bucket). Requests exit the queue and are processed at a constant output rate. If the queue fills up, incoming requests overflow and are dropped.
+* **Pros**: Guarantees a smooth, steady output processing rate.
+* **Cons**: Bursts of valid requests can stall in the queue, increasing API latency.
+
+### 3. Sliding Window Counter Algorithm
+* **Mechanism**: Combines Fixed Window Partitioning with a weighted sliding calculation.
+  $$\text{Current Window Weight} = \text{Previous Window Count} \times \left(1 - \frac{\text{Current Time Offset}}{\text{Window Size}}\right) + \text{Current Window Count}$$
+* **Pros**: High precision, smooth boundaries, eliminates memory spikes of Sliding Window Log.
+
+---
+
+## 3. High-Throughput Distributed Implementation (Node.js + Redis Lua)
+
+In a distributed infrastructure with multiple API gateway instances, local in-memory rate limiters fail because state isn't shared. A centralized Redis store solves state distribution.
+
+To prevent race conditions when two requests arrive simultaneously at separate API servers, we execute the check and increment atomically inside a **Redis Lua script**:
+
+```lua
+-- Redis Lua Script for Sliding Window Rate Limiter
+-- KEYS[1]: Rate limit key (e.g. "rate_limit:user_123")
+-- ARGV[1]: Current Unix Timestamp (milliseconds)
+-- ARGV[2]: Window duration in milliseconds (e.g. 60000)
+-- ARGV[3]: Max requests allowed in window (e.g. 100)
+
+local key = KEYS[1]
+local now = tonumber(ARGV[1])
+local window = tonumber(ARGV[2])
+local limit = tonumber(ARGV[3])
+local clearBefore = now - window
+
+-- 1. Remove expired timestamps outside the sliding window
+redis.call('ZREMRANGEBYSCORE', key, 0, clearBefore)
+
+-- 2. Count requests currently in the window
+local currentRequests = redis.call('ZCARD', key)
+
+if currentRequests < limit then
+    -- Add current request timestamp
+    redis.call('ZADD', key, now, now)
+    -- Set TTL on the set for auto cleanup
+    redis.call('PEXPIRE', key, window)
+    return {1, limit - currentRequests - 1} -- Allowed (1)
+else
+    return {0, 0} -- Blocked (0)
+end
+```
+
+### TypeScript / Node.js Middleware Wrapper:
+
+```typescript
+import Redis from "ioredis";
+
+const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
+
+export async function checkRateLimit(
+  userId: string,
+  limit = 100,
+  windowMs = 60000
+): Promise<{ allowed: boolean; remaining: number }> {
+  const key = `ratelimit:${userId}`;
+  const now = Date.now();
+
+  const luaScript = `
+    local key = KEYS[1]
+    local now = tonumber(ARGV[1])
+    local window = tonumber(ARGV[2])
+    local limit = tonumber(ARGV[3])
+    local clearBefore = now - window
+
+    redis.call('ZREMRANGEBYSCORE', key, 0, clearBefore)
+    local currentRequests = redis.call('ZCARD', key)
+
+    if currentRequests < limit then
+        redis.call('ZADD', key, now, now)
+        redis.call('PEXPIRE', key, window)
+        return {1, limit - currentRequests - 1}
+    else
+        return {0, 0}
+    end
+  `;
+
+  const [allowed, remaining] = (await redis.eval(
+    luaScript,
+    1,
+    key,
+    now.toString(),
+    windowMs.toString(),
+    limit.toString()
+  )) as [number, number];
+
+  return {
+    allowed: allowed === 1,
+    remaining: Math.max(0, remaining),
+  };
+}
+```
+
+---
+
+## 4. System Design Interview Checklist
+
+When designing a Rate Limiter in a high-level system design interview:
+
+1. **Clarify Requirements**:
+   - Client-side vs Server-side vs API Gateway level?
+   - What key is used? IP address, User ID, API Key, or Route combination?
+   - Scale expectations: 100k QPS or 10M QPS?
+2. **Handle Failure Gracefully (Fallback)**:
+   - If Redis cluster fails or experiences high latency, should the rate limiter fail open (allow request) or fail closed (block request)? Most production systems fail open to prevent complete site outages.
+3. **HTTP Response Headers**:
+   - `X-RateLimit-Limit`: Maximum requests per window.
+   - `X-RateLimit-Remaining`: Remaining allowed requests.
+   - `X-RateLimit-Reset`: Unix timestamp when the window resets.
+   - `Retry-After`: Seconds to wait before retrying (on HTTP 429).
+
+---
+
+## 5. References & Recommended Reading
+* Kleppmann, M. (2017). *Designing Data-Intensive Applications*. O'Reilly Media.
+* Redis Documentation: Atomic Lua Scripting Execution Engine.
+* IETF RFC 6585: Additional HTTP Status Codes (HTTP 429).

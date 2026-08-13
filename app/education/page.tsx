@@ -4,11 +4,16 @@ import EducationClient from "./EducationClient";
 import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
-  title: "Education & Learning Journey | Ajit Dev Portfolio",
+  title: "Education — Computer Science & Certifications",
   description:
     "Academic credentials, specialized certifications in AWS & Web Security, and self-directed software engineering learning journey of Ajit Dev.",
   alternates: {
-    canonical: "https://ajitdev.com/education",
+    canonical: "/education",
+  },
+  openGraph: {
+    title: "Education — AJITDEV",
+    description: "Academic credentials, specialized certifications in AWS & Web Security, and self-directed software engineering learning journey of Ajit Dev.",
+    url: "https://ajitdev.com/education",
   },
 };
 

@@ -38,7 +38,11 @@ export async function GET() {
     "/blog/cybersecurity",
     "/blog/database",
     "/blog/career",
-    "/blog/interview"
+    "/blog/interview",
+    "/blog/nodejs",
+    "/blog/git",
+    "/blog/ci-cd",
+    "/blog/devsecops"
   ];
 
   const archiveNodes = blogArchivePaths.map((path) => {

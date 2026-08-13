@@ -1,5 +1,85 @@
 [
   {
+    "slug": "system-design-rate-limiter",
+    "title": "Mastering System Design: Building a High-Throughput Rate Limiter in Distributed Architectures",
+    "description": "An in-depth engineering blueprint for designing production-ready distributed rate limiters. Compares Token Bucket, Sliding Window Counter algorithms, Redis Lua script implementations, handling race conditions, and interview tradeoffs.",
+    "date": "2026-08-13",
+    "category": "system-design",
+    "tags": [
+      "System Design",
+      "Rate Limiter",
+      "Redis",
+      "Distributed Systems",
+      "API Security"
+    ],
+    "readingTime": "25 min read",
+    "difficulty": "Hard",
+    "faq": [
+      {
+        "question": "What is the best rate limiting algorithm for distributed systems?",
+        "answer": "Sliding Window Counter combined with Redis Lua scripts provides the best balance between memory efficiency, accuracy, and handling burst traffic in distributed environments."
+      },
+      {
+        "question": "How do you prevent race conditions in a Redis rate limiter?",
+        "answer": "Execute rate limiting counter operations inside atomic Redis Lua scripts or use Redis transactions (MULTI/EXEC) to eliminate race conditions across distributed API servers."
+      }
+    ]
+  },
+  {
+    "slug": "sliding-window-dsa-guide",
+    "title": "Mastering Sliding Window Technique in Data Structures & Algorithms (C++ & TypeScript)",
+    "description": "A definitive guide to mastering fixed and dynamic sliding window patterns in DSA. Includes step-by-step intuition, time complexity analysis, C++ STL code, and LeetCode problem walkthroughs.",
+    "date": "2026-08-13",
+    "category": "dsa",
+    "tags": [
+      "DSA",
+      "Algorithms",
+      "Sliding Window",
+      "C++",
+      "LeetCode",
+      "Data Structures"
+    ],
+    "readingTime": "22 min read",
+    "difficulty": "Medium",
+    "faq": [
+      {
+        "question": "When should I use the Sliding Window pattern instead of Two Pointers?",
+        "answer": "Sliding Window is used when dealing with contiguous subarrays or substrings where you need to track a property (sum, max, unique characters) over a window of length K or variable size."
+      },
+      {
+        "question": "What is the time complexity of the Sliding Window technique?",
+        "answer": "Sliding Window reduces nested O(N^2) brute force loops to linear O(N) time complexity because both left and right pointers traverse the array at most once."
+      }
+    ]
+  },
+  {
+    "slug": "nextjs-docker-kubernetes-microservices",
+    "title": "Building Production-Grade Microservices with Next.js 15, Docker & Kubernetes",
+    "description": "A complete DevOps playbook for containerizing Next.js 15 App Router applications using standalone multi-stage Dockerfiles, Docker Compose orchestrations, and Kubernetes (K8s) EKS deployment manifests.",
+    "date": "2026-08-13",
+    "category": "devops",
+    "tags": [
+      "Next.js",
+      "Docker",
+      "Kubernetes",
+      "DevOps",
+      "Microservices",
+      "Cloud Security"
+    ],
+    "readingTime": "28 min read",
+    "difficulty": "Hard",
+    "faq": [
+      {
+        "question": "Why use Next.js standalone output mode for Docker containers?",
+        "answer": "Next.js standalone mode automatically traces dependencies and creates a minimal node_modules payload, reducing Docker image size from ~1GB to under 120MB."
+      },
+      {
+        "question": "How do you handle environment variables in Next.js Docker images?",
+        "answer": "Build-time variables (NEXT_PUBLIC_*) are injected during docker build, while server-side runtime variables are mounted via Kubernetes ConfigMaps and Secrets."
+      }
+    ]
+  },
+  {
     "slug": "nextjs-tutorial-001",
     "title": "Advanced Next.js and Scalable Architectures Tutorial 1",
     "description": "Deep-dive tutorial on optimizing and securing your Next.js workloads. We analyze tradeoffs, network topologies, and debugging strategies.",

@@ -25,20 +25,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security | Katihar, India",
+  metadataBase: new URL("https://ajitdev.com"),
+  title: {
+    default: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
+    template: "%s — AJITDEV",
+  },
   description:
     "Ajit Dev (ajitdev01) is a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Expert in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux & System Design.",
   authors: [{ name: "Ajit Dev", url: "https://ajitdev.com" }],
   creator: "Ajit Dev",
-  metadataBase: new URL("https://ajitdev.com"),
+  publisher: "Ajit Dev",
   keywords: ["Ajit Dev", "Ajit Kumar", "AjitDev01", "Full Stack Developer", "DevOps Engineer", "Cloud Security", "MERN Stack", "Next.js", "React", "Katihar", "Bihar", "India"],
   alternates: {
-    canonical: "https://ajitdev.com/",
-    languages: {
-      "en-IN": "https://ajitdev.com/",
-      "en": "https://ajitdev.com/",
-      "x-default": "https://ajitdev.com/",
-    },
+    canonical: "/",
   },
   other: {
     "geo.region": "IN-BR",
@@ -51,8 +50,8 @@ export const metadata: Metadata = {
     locale: "en_IN",
     alternateLocale: ["en_US"],
     url: "https://ajitdev.com/",
-    siteName: "Ajit Dev Portfolio",
-    title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security",
+    siteName: "AJITDEV Portfolio",
+    title: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
     description:
       "Full Stack Developer, DevOps Engineer & Cloud Security portfolio by Ajit Dev (ajitdev01). Next.js, React, MERN Stack, AWS, Docker, Kubernetes projects from Katihar, Bihar, India.",
     images: [
@@ -69,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ajitdev01",
     creator: "@ajitdev01",
-    title: "Ajit Dev — Full Stack Developer, DevOps Engineer & Cloud Security",
+    title: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
     description:
       "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast. Next.js, React, MERN Stack, AWS, Docker, Kubernetes from Katihar, Bihar, India.",
     images: ["https://ajitdev.com/og-image.png"],
@@ -99,8 +98,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Sitemap discovery */}
+        {/* Sitemap & RSS discovery */}
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <link rel="alternate" type="application/rss+xml" title="AJITDEV Blog RSS Feed" href="/rss.xml" />
 
         {/* Identity Rel links */}
         <link rel="me" href="https://github.com/ajitdev01" />

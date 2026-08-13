@@ -115,16 +115,6 @@ const DOT_COLORS: Record<string, string> = {
 const ALL_TECHS = TECH_CATEGORIES.flatMap(c => c.items.map(item => ({ name: item, color: c.color, category: c.category })));
 const ALL_TECH_NAMES = TECH_CATEGORIES.flatMap(c => c.items);
 
-// ========== SEO KEYWORDS ==========
-const HIDDEN_KEYWORDS = [
-  "Ajit Dev", "Ajit Kumar", "AjitDev01", "Ajit Dev Portfolio",
-  "Full Stack Developer India", "MERN Stack Developer Portfolio", "Next.js Developer Portfolio",
-  "DevOps Engineer India", "Cloud Security Engineer", "DevSecOps Engineer",
-  "Hire Full Stack Developer", "Full Stack Developer Katihar Bihar",
-  "Katihar Developer", "Bihar Full Stack Developer", "India DevOps Engineer",
-  "React Node.js Developer", "TypeScript Full Stack", "MongoDB Express React Node",
-];
-
 // ========== SUB-COMPONENTS ==========
 
 /** Animated background blob */
@@ -197,22 +187,6 @@ const Footer = () => {
 
   return (
     <>
-      {/* HIDDEN SEO KEYWORDS */}
-      <span className="sr-only" aria-hidden="true">{HIDDEN_KEYWORDS.join(", ")}</span>
-
-      {/* INTERNAL LINKING CLUSTER */}
-      <nav aria-hidden="true" className="sr-only" data-type="internal-semantic-cluster">
-        <Link href="/about" tabIndex={-1}>Ajit Dev - Full Stack Developer & DevOps Engineer Journey</Link>
-        <Link href="/projects" tabIndex={-1}>MERN Stack & DevOps Projects Portfolio</Link>
-        <Link href="/skills" tabIndex={-1}>Full Stack Skills - React Node.js TypeScript DevOps AWS</Link>
-        <Link href="/contact" tabIndex={-1}>Hire Full Stack Developer & DevOps Engineer Katihar Bihar</Link>
-        <Link href="/education" tabIndex={-1}>Computer Science Education - Full Stack & DevOps Certifications</Link>
-        <Link href="/resume" tabIndex={-1}>Ajit Dev Resume - Full Stack Coder & DevOps CV</Link>
-        <Link href="/case-studies" tabIndex={-1}>Software Engineering Architecture Case Studies</Link>
-        <Link href="/dsa" tabIndex={-1}>Data Structures & Algorithms DSA Hub LeetCode</Link>
-        <Link href="/system-design" tabIndex={-1}>High & Low Level System Design Hub</Link>
-        <Link href="/devops" tabIndex={-1}>DevOps CI/CD Pipelines & Cloud Automation Hub</Link>
-      </nav>
 
       <footer
         role="contentinfo"

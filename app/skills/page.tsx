@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   FiCode, FiServer, FiDatabase, FiCheck, FiBarChart2,
   FiTarget, FiMapPin, FiBriefcase,
@@ -203,6 +204,33 @@ export default function SkillsPage() {
               </div>
             </div>
           </div>
+
+          {/* === CONTEXTUAL INTERNAL NAVIGATION === */}
+          <section className="mt-12 pt-8 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
+              Connect Skills to Real-World Projects & Systems
+            </h4>
+            <div className="flex flex-wrap gap-3 text-xs font-semibold">
+              <Link href="/projects/full-stack" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                MERN & Full Stack Projects
+              </Link>
+              <Link href="/projects/devops" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                DevOps & Docker Deployments
+              </Link>
+              <Link href="/projects/cloud" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                AWS Cloud Architecture
+              </Link>
+              <Link href="/projects/security" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Cloud Security & DevSecOps
+              </Link>
+              <Link href="/dsa" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Algorithmic DSA Problem Solving
+              </Link>
+              <Link href="/system-design" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                System Design Patterns
+              </Link>
+            </div>
+          </section>
 
         </div>
       </main>

@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "About Ajit Dev — Full Stack Developer & DevOps Engineer",
+  description: "Learn about Ajit Dev (ajitdev01), a Full Stack Engineer and DevOps Specialist from Katihar, Bihar, India. BCA Cloud & Security student specializing in Next.js, MERN, AWS, Docker, and Cloud Security.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Ajit Dev — Full Stack Developer & DevOps Engineer",
+    description: "Learn about Ajit Dev (ajitdev01), a Full Stack Engineer and DevOps Specialist from Katihar, Bihar, India.",
+    url: "https://ajitdev.com/about",
+  },
+};
 
 // ========== INLINE SVG ICONS (eliminates react-icons bundle) ==========
 const IP = { strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
@@ -238,27 +252,32 @@ const About = () => {
             </div>
           </div>
 
-          {/* ===== HIDDEN SEO NAVIGATION ===== */}
-          <nav className="sr-only" aria-label="SEO navigation">
-            <ul>
-              <li><Link href="/">Ajit Dev - Full Stack Developer & DevOps Engineer — Home</Link></li>
-              <li><Link href="/about">About Ajit Dev (ajitdev01) — Full Stack Developer & DevOps Engineer</Link></li>
-              <li><Link href="/projects">Ajit Dev Projects - MERN Stack & DevOps Portfolio</Link></li>
-              <li><Link href="/skills">Full Stack & DevOps Skills — React Node.js AWS Docker</Link></li>
-              <li><Link href="/contact">Hire Ajit Dev - Full Stack Developer & DevOps Engineer</Link></li>
-            </ul>
-          </nav>
-
-          {/* Hidden SEO Keywords */}
-          <span className="sr-only" aria-hidden="true">
-            Ajit Dev, Ajit Kumar, AjitDev01, Ajit Dev Portfolio, Ajit Dev Developer, Ajit Dev Engineer,
-            Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio,
-            DevOps Engineer India, Cloud Security Engineer, DevSecOps Engineer,
-            Katihar Developer, Katihar Full Stack Developer, Katihar Software Engineer, Katihar DevOps Engineer,
-            Bihar Developer, Bihar Full Stack Developer, Bihar Software Engineer, Bihar DevOps Engineer,
-            India Full Stack Developer, India DevOps Engineer, India Next.js Developer,
-            Hire Full Stack Developer, Full Stack Developer Katihar Bihar
-          </span>
+          {/* ===== CONTEXTUAL INTERNAL NAVIGATION ===== */}
+          <section className="mt-12 pt-8 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
+              Explore Ajit Dev&apos;s Engineering Portfolio & Resume
+            </h4>
+            <div className="flex flex-wrap gap-3 text-xs font-semibold">
+              <Link href="/projects" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                View All Projects
+              </Link>
+              <Link href="/skills" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Technical Skills Matrix
+              </Link>
+              <Link href="/resume" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Professional Resume CV
+              </Link>
+              <Link href="/education" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Education & Certifications
+              </Link>
+              <Link href="/contact" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Get in Touch / Contact
+              </Link>
+              <Link href="/blog" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
+                Read Engineering Articles
+              </Link>
+            </div>
+          </section>
 
         </div>
       </main>

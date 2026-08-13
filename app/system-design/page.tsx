@@ -5,10 +5,15 @@ import { ArrowLeft, Cpu } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
-  title: "System Design & Scalable Architectures | Ajit Dev",
+  title: "System Design Patterns & Distributed Systems",
   description: "Discover system design patterns by Ajit Dev. Sharding databases, REST controllers, API gateways, load balancing, and rate limiting algorithms.",
   alternates: {
-    canonical: "https://ajitdev.com/system-design",
+    canonical: "/system-design",
+  },
+  openGraph: {
+    title: "System Design Patterns — AJITDEV",
+    description: "Discover system design patterns by Ajit Dev. Sharding databases, REST controllers, API gateways, load balancing, and rate limiting algorithms.",
+    url: "https://ajitdev.com/system-design",
   },
 };
 

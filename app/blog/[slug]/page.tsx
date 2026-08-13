@@ -8,13 +8,21 @@ import { getPostBySlug, getPostSlugs, getPostsByCategory, getAllPosts } from "@/
 import { MDXComponents } from "@/app/components/MDXComponents";
 import JSONLD from "@/app/components/JSONLD";
 
+import {
+  getPersonSchema,
+  getBlogPostingSchema,
+  getBreadcrumbSchema,
+  getBlogSchema,
+} from "@/lib/schema";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 const CATEGORIES = [
   "devops", "aws", "docker", "kubernetes", "terraform", "linux", "react", "nextjs", "system-design", "dsa", "mern", "lamp", "cloud-security",
-  "programming", "c", "cpp", "java", "python", "javascript", "typescript", "cloud", "cybersecurity", "database", "career", "interview"
+  "programming", "c", "cpp", "java", "python", "javascript", "typescript", "cloud", "cybersecurity", "database", "career", "interview",
+  "nodejs", "git", "ci-cd", "devsecops"
 ];
 
 const CATEGORY_MAP: Record<string, { title: string; desc: string }> = {
@@ -118,6 +126,22 @@ const CATEGORY_MAP: Record<string, { title: string; desc: string }> = {
     title: "Cloud Security, Compliance & DevSecOps",
     desc: "Harden cloud infrastructure and pipelines. Zero-trust networks, IAM role permissions boundary policies, and automated security scans.",
   },
+  nodejs: {
+    title: "Node.js REST API & Microservice Engineering",
+    desc: "Build scalable asynchronous Node.js backend controllers, middleware pipelines, event loops, and cluster setups.",
+  },
+  git: {
+    title: "Git & GitHub Version Control & Workflows",
+    desc: "Master Git branching strategies, rebasing, pull request reviews, merge conflict resolutions, and GitHub actions.",
+  },
+  "ci-cd": {
+    title: "Continuous Integration & Delivery (CI/CD) Automation",
+    desc: "Automate code checks, unit test suites, container image builds, and zero-downtime server deployments.",
+  },
+  devsecops: {
+    title: "DevSecOps & Automated Pipeline Security",
+    desc: "Integrate SAST, DAST, dependency vulnerability scanning, and compliance controls directly into CI/CD workflows.",
+  },
 };
 
 export async function generateStaticParams() {
@@ -141,10 +165,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       desc: `Read guides, tutorials, and codebase setup resources on ${slug} on Ajit Dev Blog.`,
     };
     return {
-      title: `${info.title} | Ajit Dev Blog`,
+      title: info.title,
       description: info.desc,
       alternates: {
-        canonical: `https://ajitdev.com/blog/${slug}`,
+        canonical: `/blog/${slug}`,
       },
     };
   }
@@ -153,13 +177,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   try {
     const post = getPostBySlug(resolvedParams.slug);
     return {
-      title: `${post.title} | Ajit Dev Blog`,
+      title: post.title,
       description: post.description,
       alternates: {
-        canonical: `https://ajitdev.com/blog/${resolvedParams.slug}`,
+        canonical: `/blog/${resolvedParams.slug}`,
       },
       openGraph: {
-        title: post.title,
+        title: `${post.title} — AJITDEV`,
         description: post.description,
         type: "article",
         url: `https://ajitdev.com/blog/${resolvedParams.slug}`,
@@ -169,7 +193,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   } catch (_e) {
     return {
-      title: "Blog Post Not Found | Ajit Dev",
+      title: "Blog Post Not Found",
       description: "The requested technical article could not be found.",
     };
   }

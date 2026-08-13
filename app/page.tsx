@@ -141,12 +141,6 @@ export default function HomePage() {
                   "@type": "Country",
                   "name": "India"
                 },
-                "estimatedSalary": {
-                  "@type": "MonetaryAmountDistribution",
-                  "currency": "INR",
-                  "percentile10": 300000,
-                  "percentile90": 2000000
-                },
                 "skills": "DevOps, DevSecOps, Cloud Security, Cybersecurity, Linux, Docker, Cloud Computing, Security Automation, CI/CD Pipelines, Infrastructure as Code, MERN Stack, LAMP Stack, GitHub Actions, Terraform, Ansible, Kubernetes"
               },
               "knowsAbout": [
@@ -221,14 +215,6 @@ export default function HomePage() {
                 "@type": "SpeakableSpecification",
                 "cssSelector": ["h1", "h2", ".hero-description", ".about-summary"]
               },
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              },
               "dateCreated": "2026-02-09T10:00:00+05:30",
               "dateModified": "2026-02-17T12:00:00+05:30",
               "datePublished": "2026-02-09T10:00:00+05:30",
@@ -279,15 +265,7 @@ export default function HomePage() {
               "publisher": { "@id": "https://ajitdev.com/#person" },
               "author": { "@id": "https://ajitdev.com/#person" },
               "copyrightHolder": { "@id": "https://ajitdev.com/#person" },
-              "copyrightYear": "2026",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://ajitdev.com/?s={search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              }
+              "copyrightYear": "2026"
             },
             {
               "@type": "BreadcrumbList",
@@ -605,17 +583,6 @@ export default function HomePage() {
         {/* Education Section */}
         <EducationSection />
       </div>
-
-      {/* Hidden SEO Keywords */}
-      <span className="sr-only" aria-hidden="true">
-        Ajit Dev, Ajit Kumar, AjitDev01, Ajit Dev Portfolio, Ajit Dev Developer,
-        Full Stack Developer India, MERN Stack Developer Portfolio, Next.js Developer Portfolio,
-        DevOps Engineer India, Cloud Security Engineer, DevSecOps Engineer,
-        Katihar Developer, Katihar Full Stack Developer, Katihar Software Engineer,
-        Bihar Developer, Bihar Full Stack Developer, Bihar DevOps Engineer,
-        India Full Stack Developer, India DevOps Engineer, India Next.js Developer,
-        React Node.js Developer, TypeScript Full Stack, MongoDB Express React Node
-      </span>
     </>
   );
 }

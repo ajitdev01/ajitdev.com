@@ -5,11 +5,16 @@ import BlogSearch from "@/app/components/BlogSearch";
 import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
-  title: "Technical Blog | Ajit Dev — Full Stack Developer, DevOps & Cloud Security",
+  title: "Blog — Technical Articles & Engineering Guides",
   description:
     "Explore Ajit Dev's (ajitdev01) technical tutorials on Next.js, MERN Stack, AWS, DevOps, Kubernetes CI/CD, Cloud Security, and System Design.",
   alternates: {
-    canonical: "https://ajitdev.com/blog",
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Blog — AJITDEV",
+    description: "Explore Ajit Dev's (ajitdev01) technical tutorials on Next.js, MERN Stack, AWS, DevOps, Kubernetes CI/CD, Cloud Security, and System Design.",
+    url: "https://ajitdev.com/blog",
   },
 };
 
@@ -78,14 +83,6 @@ export default function BlogArchivePage() {
           <BlogSearch initialPosts={posts} />
         </div>
       </section>
-
-      {/* Hidden SEO Keywords */}
-      <span className="sr-only" aria-hidden="true">
-        Ajit Dev Blog, Ajit Dev DevOps, Ajit Dev Cloud Security, Ajit Dev Projects,
-        Full Stack Developer Blog, DevOps Engineer Blog, Next.js Developer Blog,
-        Ajit Dev, Ajit Kumar, AjitDev01, Katihar Developer Blog, Bihar Developer Blog,
-        India Full Stack Developer Blog, MERN Stack Tutorials, AWS Cloud Engineering
-      </span>
     </>
   );
 }

@@ -1,0 +1,183 @@
+---
+title: "Mastering Sliding Window Technique in Data Structures & Algorithms (C++ & TypeScript)"
+description: "A definitive guide to mastering fixed and dynamic sliding window patterns in DSA. Includes step-by-step intuition, time complexity analysis, C++ STL code, and LeetCode problem walkthroughs."
+date: "2026-08-13"
+updatedDate: "2026-08-13"
+category: "DSA"
+tags: ["DSA", "Algorithms", "Sliding Window", "C++", "LeetCode", "Data Structures"]
+difficulty: "Medium"
+estimatedReadingTime: "22 min read"
+faq:
+  - question: "When should I use the Sliding Window pattern instead of Two Pointers?"
+    answer: "Sliding Window is used when dealing with contiguous subarrays or substrings where you need to track a property (sum, max, unique characters) over a window of length K or variable size."
+  - question: "What is the time complexity of the Sliding Window technique?"
+    answer: "Sliding Window reduces nested O(N^2) brute force loops to linear O(N) time complexity because both left and right pointers traverse the array at most once."
+---
+
+## Key Takeaways (TL;DR)
+* **Optimization**: Replaces nested $O(N^2)$ checks with a linear $O(N)$ single pass over contiguous array sub-segments.
+* **Fixed vs Variable Window**: Fixed windows maintain a constant size $K$, while Variable windows shrink or expand based on condition criteria.
+* **Hash Maps & Monotonic Deques**: Complement sliding windows to achieve $O(1)$ amortized max/min or character frequency checks.
+
+---
+
+## 1. Sliding Window Mental Model
+
+In array and string algorithm problems, a naive solution often inspects every possible subarray using nested loops ($O(N^2)$). The **Sliding Window** technique optimizes this by maintaining a "window" defined by two pointers (`left` and `right`) and updating calculations incrementally as the window slides.
+
+```text
+Brute Force O(N^2):
+Re-evaluates element sums from scratch for every subarray window.
+
+Sliding Window O(N):
+[ 2 , 1 , 5 , 1 , 3 , 2 ]  -> Window sum = 8 (Indices 0..2)
+  |_______|
+      [ 1 , 5 , 1 ]        -> Next Window sum = 8 - 2 + 1 = 7 (Slide right)
+        |_______|
+```
+
+---
+
+## 2. Pattern 1: Fixed Window Size ($K$)
+
+In fixed sliding window problems, the size of the window remains constant ($K$).
+
+### Problem: Maximum Sum Subarray of Size K
+
+Given an array of integers `nums` and a positive integer `k`, find the maximum sum of any contiguous subarray of size `k`.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+
+int maxSubarraySumK(const std::vector<int>& nums, int k) {
+    int n = nums.size();
+    if (n < k) return 0;
+
+    int currentSum = 0;
+    // 1. Calculate sum of first window
+    for (int i = 0; i < k; ++i) {
+        currentSum += nums[i];
+    }
+
+    int maxSum = currentSum;
+
+    // 2. Slide the window across the array
+    for (int i = k; i < n; ++i) {
+        currentSum += nums[i] - nums[i - k]; // Add incoming, remove outgoing
+        maxSum = std::max(maxSum, currentSum);
+    }
+
+    return maxSum;
+}
+
+int main() {
+    std::vector<int> arr = {2, 1, 5, 1, 3, 2};
+    int k = 3;
+    std::cout << "Max Sum Subarray of size " << k << ": " << maxSubarraySumK(arr, k) << "\n";
+    // Output: 9 (Subarray: [5, 1, 3])
+    return 0;
+}
+```
+
+* **Time Complexity**: $O(N)$ — Single pass across the array.
+* **Space Complexity**: $O(1)$ — Uses fixed integer pointers.
+
+---
+
+## 3. Pattern 2: Dynamic / Variable Window Size
+
+In variable window problems, the window expands by moving `right` until a condition is violated, then shrinks by advancing `left` until the condition is restored.
+
+### Problem: Longest Substring Without Repeating Characters (LeetCode #3)
+
+Given a string `s`, find the length of the longest substring without repeating characters.
+
+```typescript
+function lengthOfLongestSubstring(s: string): number {
+    const charMap = new Map<string, number>();
+    let left = 0;
+    let maxLength = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        const currentChar = s[right];
+
+        // If duplicate character found inside active window, shrink window
+        if (charMap.has(currentChar) && charMap.get(currentChar)! >= left) {
+            left = charMap.get(currentChar)! + 1;
+        }
+
+        charMap.set(currentChar, right);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+
+    return maxLength;
+}
+
+// Test Run
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3 ("abc")
+console.log(lengthOfLongestSubstring("bbbbb"));    // Output: 1 ("b")
+```
+
+---
+
+## 4. Advanced Pattern: Sliding Window with Monotonic Queue
+
+### Problem: Sliding Window Maximum (LeetCode #239)
+
+Given an array `nums` and window size `k`, return the max element in each sliding window. We maintain a **monotonic decreasing deque** storing indices.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <deque>
+
+std::vector<int> maxSlidingWindow(const std::vector<int>& nums, int k) {
+    std::deque<int> dq; // Stores indices
+    std::vector<int> result;
+
+    for (int i = 0; i < nums.size(); ++i) {
+        // 1. Remove indices outside current window range
+        if (!dq.empty() && dq.front() == i - k) {
+            dq.pop_front();
+        }
+
+        // 2. Maintain monotonic decreasing order in deque
+        while (!dq.empty() && nums[dq.back()] <= nums[i]) {
+            dq.pop_back();
+        }
+
+        dq.push_back(i);
+
+        // 3. Append max (front of deque) to result once first window is filled
+        if (i >= k - 1) {
+            result.push_back(nums[dq.front()]);
+        }
+    }
+
+    return result;
+}
+```
+
+* **Time Complexity**: $O(N)$ — Each index is pushed and popped at most once.
+* **Space Complexity**: $O(K)$ — Deque size is bounded by window length.
+
+---
+
+## 5. Summary Cheat Sheet for Interviews
+
+| Problem Type | Window Behavior | Key Data Structure |
+| :--- | :--- | :--- |
+| Max Sum Subarray of Size K | Fixed ($K$) | Variables (`currentSum`, `maxSum`) |
+| Longest Substring Without Repeats | Variable | `Map<char, int>` or Hash Array |
+| Minimum Window Substring | Variable | Frequency Hash Map |
+| Sliding Window Maximum | Fixed ($K$) | Monotonic Deque |
+
+---
+
+## 6. References & Learning Resources
+* LeetCode Sliding Window Tagged Problem Sets.
+* Sedgewick, R., & Wayne, K. (2011). *Algorithms (4th Edition)*. Addison-Wesley.
+* Ajit Dev DSA Roadmap: `/dsa` & `/leetcode`.

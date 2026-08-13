@@ -25,16 +25,34 @@ export default function NotFound() {
           </p>
         </div>
 
-        <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="pt-4 flex flex-wrap gap-2.5 justify-center">
           <Link
             href="/"
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all text-sm text-center"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md transition-all text-xs text-center"
           >
-            Go back Home
+            Home Page
+          </Link>
+          <Link
+            href="/blog"
+            className="px-5 py-2.5 bg-gray-900 hover:bg-black text-white font-semibold rounded-xl shadow-md transition-all text-xs text-center"
+          >
+            Technical Blog
+          </Link>
+          <Link
+            href="/projects"
+            className="px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-800 font-semibold rounded-xl border border-gray-200 transition-colors text-xs text-center shadow-xs"
+          >
+            View Projects
+          </Link>
+          <Link
+            href="/skills"
+            className="px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-800 font-semibold rounded-xl border border-gray-200 transition-colors text-xs text-center shadow-xs"
+          >
+            Skills Matrix
           </Link>
           <Link
             href="/contact"
-            className="px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-300 transition-colors text-sm text-center shadow-sm"
+            className="px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-800 font-semibold rounded-xl border border-gray-200 transition-colors text-xs text-center shadow-xs"
           >
             Contact Support
           </Link>

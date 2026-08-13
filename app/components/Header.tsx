@@ -80,15 +80,22 @@ const FiActivity = () => (
   </svg>
 );
 
+const FiClock = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
 // ============================================
 // 2. CONFIGURATION (SEO-Optimized)
 // ============================================
 const NAV_ITEMS = [
-  { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "Ajit Dev - Full Stack Developer & DevOps Engineer Portfolio" },
-  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Dev's journey", title: "About Ajit Dev - Full Stack Developer & DevOps Engineer" },
-  { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects - Real-World Applications by Ajit Dev" },
-  { name: "Education", path: "/education", icon: FaGraduationCap, ariaLabel: "Education & certifications", title: "Education - CS & Certifications" },
-  { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch", title: "Contact Ajit Dev - Hire Full Stack Developer" },
+  { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "AJITDEV — Full Stack Developer & DevOps Engineer Portfolio" },
+  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Dev's engineering journey", title: "About Ajit Dev — Developer & Cloud Security Enthusiast" },
+  { name: "Skills", path: "/skills", icon: FiSettings, ariaLabel: "Technical skills and technologies", title: "Skills & Technologies — Full Stack, DevOps & Cloud Security" },
+  { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects — Real-World Applications by Ajit Dev" },
+  { name: "Education", path: "/education", icon: FaGraduationCap, ariaLabel: "Education and certifications", title: "Education — Computer Science & Certifications" },
+  { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch with Ajit Dev", title: "Contact — Hire Full Stack Developer & DevOps Engineer" },
 ];
 
 const BRAND_INFO = {
@@ -143,7 +150,7 @@ const DesktopNavItem = memo(({ item }: { item: typeof NAV_ITEMS[number] }) => {
       aria-label={item.ariaLabel}
       title={item.title}
       className={`
-        relative inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full
+        relative inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full
         transition-colors duration-200 outline-none
         ${isActive 
           ? "text-blue-600" 
@@ -281,7 +288,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 bg-gray-50/60 p-1 rounded-full" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-2 bg-gray-50/80 p-1.5 rounded-full border border-gray-100/80" aria-label="Main navigation">
               {NAV_ITEMS.map((item) => (
                 <DesktopNavItem key={item.path} item={item} />
               ))}
