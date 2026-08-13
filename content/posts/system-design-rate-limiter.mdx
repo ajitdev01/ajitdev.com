@@ -37,7 +37,7 @@ Rate limiting is an essential component of backend architecture. It controls the
 ## 2. Core Rate Limiting Algorithms Compared
 
 ### 1. Token Bucket Algorithm
-* **Mechanism**: A bucket holds up to $N$ tokens. Tokens are continuously added at a fixed refill rate (e.g., 10 tokens per second). When an HTTP request arrives, it consumes 1 token. If no tokens remain, the request is rejected with `HTTP 429`.
+* **Mechanism**: A bucket holds up to `N` tokens. Tokens are continuously added at a fixed refill rate (e.g., 10 tokens per second). When an HTTP request arrives, it consumes 1 token. If no tokens remain, the request is rejected with `HTTP 429`.
 * **Pros**: Handles burst traffic efficiently; memory footprint is tiny (storing token count and last timestamp).
 * **Cons**: Refill rate tuning can be complex in multi-region environments.
 
@@ -47,8 +47,12 @@ Rate limiting is an essential component of backend architecture. It controls the
 * **Cons**: Bursts of valid requests can stall in the queue, increasing API latency.
 
 ### 3. Sliding Window Counter Algorithm
-* **Mechanism**: Combines Fixed Window Partitioning with a weighted sliding calculation.
-  $$\text{Current Window Weight} = \text{Previous Window Count} \times \left(1 - \frac{\text{Current Time Offset}}{\text{Window Size}}\right) + \text{Current Window Count}$$
+* **Mechanism**: Combines Fixed Window Partitioning with a weighted sliding calculation:
+
+```text
+Current Window Weight = Previous Window Count * (1 - Current Time Offset / Window Size) + Current Window Count
+```
+
 * **Pros**: High precision, smooth boundaries, eliminates memory spikes of Sliding Window Log.
 
 ---

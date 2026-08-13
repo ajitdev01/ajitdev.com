@@ -15,15 +15,15 @@ faq:
 ---
 
 ## Key Takeaways (TL;DR)
-* **Optimization**: Replaces nested $O(N^2)$ checks with a linear $O(N)$ single pass over contiguous array sub-segments.
-* **Fixed vs Variable Window**: Fixed windows maintain a constant size $K$, while Variable windows shrink or expand based on condition criteria.
-* **Hash Maps & Monotonic Deques**: Complement sliding windows to achieve $O(1)$ amortized max/min or character frequency checks.
+* **Optimization**: Replaces nested `O(N^2)` checks with a linear `O(N)` single pass over contiguous array sub-segments.
+* **Fixed vs Variable Window**: Fixed windows maintain a constant size `K`, while Variable windows shrink or expand based on condition criteria.
+* **Hash Maps & Monotonic Deques**: Complement sliding windows to achieve `O(1)` amortized max/min or character frequency checks.
 
 ---
 
 ## 1. Sliding Window Mental Model
 
-In array and string algorithm problems, a naive solution often inspects every possible subarray using nested loops ($O(N^2)$). The **Sliding Window** technique optimizes this by maintaining a "window" defined by two pointers (`left` and `right`) and updating calculations incrementally as the window slides.
+In array and string algorithm problems, a naive solution often inspects every possible subarray using nested loops (`O(N^2)`). The **Sliding Window** technique optimizes this by maintaining a "window" defined by two pointers (`left` and `right`) and updating calculations incrementally as the window slides.
 
 ```text
 Brute Force O(N^2):
@@ -38,9 +38,9 @@ Sliding Window O(N):
 
 ---
 
-## 2. Pattern 1: Fixed Window Size ($K$)
+## 2. Pattern 1: Fixed Window Size (`K`)
 
-In fixed sliding window problems, the size of the window remains constant ($K$).
+In fixed sliding window problems, the size of the window remains constant (`K`).
 
 ### Problem: Maximum Sum Subarray of Size K
 
@@ -82,8 +82,8 @@ int main() {
 }
 ```
 
-* **Time Complexity**: $O(N)$ — Single pass across the array.
-* **Space Complexity**: $O(1)$ — Uses fixed integer pointers.
+* **Time Complexity**: `O(N)` — Single pass across the array.
+* **Space Complexity**: `O(1)` — Uses fixed integer pointers.
 
 ---
 
@@ -161,8 +161,8 @@ std::vector<int> maxSlidingWindow(const std::vector<int>& nums, int k) {
 }
 ```
 
-* **Time Complexity**: $O(N)$ — Each index is pushed and popped at most once.
-* **Space Complexity**: $O(K)$ — Deque size is bounded by window length.
+* **Time Complexity**: `O(N)` — Each index is pushed and popped at most once.
+* **Space Complexity**: `O(K)` — Deque size is bounded by window length.
 
 ---
 
@@ -170,10 +170,10 @@ std::vector<int> maxSlidingWindow(const std::vector<int>& nums, int k) {
 
 | Problem Type | Window Behavior | Key Data Structure |
 | :--- | :--- | :--- |
-| Max Sum Subarray of Size K | Fixed ($K$) | Variables (`currentSum`, `maxSum`) |
+| Max Sum Subarray of Size K | Fixed (`K`) | Variables (`currentSum`, `maxSum`) |
 | Longest Substring Without Repeats | Variable | `Map<char, int>` or Hash Array |
 | Minimum Window Substring | Variable | Frequency Hash Map |
-| Sliding Window Maximum | Fixed ($K$) | Monotonic Deque |
+| Sliding Window Maximum | Fixed (`K`) | Monotonic Deque |
 
 ---
 
