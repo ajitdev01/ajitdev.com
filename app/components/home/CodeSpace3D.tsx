@@ -200,7 +200,32 @@ export default function CodeSpace3D() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="relative w-full select-none"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+            {/* Floating 3D Code Status Pill 1 */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -left-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-indigo-200/80 shadow-lg text-xs font-semibold text-indigo-700 backdrop-blur-md"
+              style={{ transform: "translateZ(30px)" }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
+              </span>
+              <span className="font-mono text-[11px] font-bold">TypeScript 5</span>
+            </motion.div>
+
+            {/* Floating 3D Code Status Pill 2 */}
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute -bottom-4 -right-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-emerald-200/80 shadow-lg text-xs font-semibold text-emerald-700 backdrop-blur-md"
+              style={{ transform: "translateZ(35px)" }}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-mono text-[11px] font-bold">Build: Passing</span>
+            </motion.div>
+
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
               {/* ── Window chrome header bar ── */}
               <div 
                 className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-200"

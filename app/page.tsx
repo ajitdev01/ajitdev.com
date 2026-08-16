@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import JSONLD from "./components/JSONLD";
+import HeroAnimatedText from "./components/home/HeroAnimatedText";
+import HeroCTAButtons from "./components/home/HeroCTAButtons";
 
 // Dynamically import client-heavy sections with no SSR
 const CodeSpace3D = dynamic(() => import("./components/home/CodeSpace3D"));
@@ -28,30 +30,6 @@ const FiArrowRight = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// ============================================
-// FEATURED TECH STACK (Static CSS badges)
-// ============================================
-const FeaturedTech = () => {
-  const techs = [
-    "React", "Next.js", "TypeScript", "Node.js",
-    "Express", "MongoDB", "Tailwind CSS", "Redux"
-  ];
-
-  return (
-    <div className="mt-8">
-      <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-        {techs.map((tech) => (
-          <span
-            key={tech}
-            className="px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 border border-gray-200 text-gray-700 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 cursor-default"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 export default function HomePage() {
   const allSocialUrls = [
@@ -497,51 +475,9 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left Content */}
               <div className="space-y-6 text-center lg:text-left transition-all duration-700">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 mx-auto lg:mx-0">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                  </span>
-                  <span className="text-xs font-medium text-indigo-700 tracking-wide">Available for Opportunities</span>
-                </div>
+                <HeroAnimatedText />
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight text-gray-900">
-                  <span className="relative inline-block pb-2">
-                    <span className="inline-block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
-                      Full Stack Engineer
-                    </span>
-                    <span className="absolute bottom-0 left-0 w-full h-[4px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 origin-left rounded-full scale-x-100 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                  </span>
-                </h1>
-
-                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  I build <span className="text-gray-900 font-semibold">production-grade web applications</span> that solve real business problems.
-                  Specialized in <span className="text-indigo-600 font-medium">MERN Stack</span>, <span className="text-indigo-600 font-medium">Next.js</span>,
-                  and <span className="text-indigo-600 font-medium">TypeScript</span>.
-                </p>
-
-                <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
-                  <Link
-                    href="/contact"
-                    className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/25"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
-                    <span className="relative z-10 flex items-center gap-2">
-                      Hire Me → Build Scalable Apps
-                      <FiArrowRight />
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-gray-700 bg-white border border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200"
-                  >
-                    View Portfolio
-                    <FiArrowRight />
-                  </Link>
-                </div>
-
-                <FeaturedTech />
+                <HeroCTAButtons />
 
                 <div className="flex items-center gap-4 justify-center lg:justify-start pt-2">
                   <div className="flex -space-x-2">
