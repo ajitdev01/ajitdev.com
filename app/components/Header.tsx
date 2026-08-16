@@ -1,353 +1,283 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, memo } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  Box,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+} from "@mui/material";
+import {
+  Home,
+  User,
+  Settings,
+  FolderGit2,
+  GraduationCap,
+  Mail,
+  Menu as MenuIcon,
+  X as CloseIcon,
+  Code,
+  Search,
+  BookOpen,
+  Newspaper,
+  Terminal,
+  Trophy,
+  Sparkles,
+} from "lucide-react";
 
-// ============================================
-// 1. ICONS (Custom SVG Components)
-// ============================================
-const FiHome = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-  </svg>
-);
-const FiUser = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-  </svg>
-);
-const FiSettings = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
-const FiFolder = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-  </svg>
-);
-const FiMail = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-  </svg>
-);
-const FiCode = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
-const FiMenu = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
-);
-const FiX = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-const FiChevronRight = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-);
-const FaGraduationCap = () => (
-  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-  </svg>
-);
-const FiBook = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-  </svg>
-);
-const FiFileText = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-  </svg>
-);
-const FiGlobe = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-  </svg>
-);
-const FiActivity = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-  </svg>
-);
-
-const FiClock = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
-// ============================================
-// 2. CONFIGURATION (SEO-Optimized)
-// ============================================
-const NAV_ITEMS = [
-  { name: "Home", path: "/", icon: FiHome, ariaLabel: "Navigate to home page", title: "AJITDEV — Full Stack Developer & DevOps Engineer Portfolio" },
-  { name: "About", path: "/about", icon: FiUser, ariaLabel: "Learn about Ajit Dev's engineering journey", title: "About Ajit Dev — Developer & Cloud Security Enthusiast" },
-  { name: "Skills", path: "/skills", icon: FiSettings, ariaLabel: "Technical skills and technologies", title: "Skills & Technologies — Full Stack, DevOps & Cloud Security" },
-  { name: "Projects", path: "/projects", icon: FiFolder, ariaLabel: "Browse portfolio projects", title: "Projects — Real-World Applications by Ajit Dev" },
-  { name: "Education", path: "/education", icon: FaGraduationCap, ariaLabel: "Education and certifications", title: "Education — Computer Science & Certifications" },
-  { name: "Contact", path: "/contact", icon: FiMail, ariaLabel: "Get in touch with Ajit Dev", title: "Contact — Hire Full Stack Developer & DevOps Engineer" },
+const NAV_ITEMS: { name: string; path: string; icon: any; badge?: string }[] = [
+  { name: "Home", path: "/", icon: Home },
+  { name: "About", path: "/about", icon: User },
+  { name: "Skills", path: "/skills", icon: Settings },
+  { name: "Projects", path: "/projects", icon: FolderGit2 },
+  { name: "Education", path: "/education", icon: GraduationCap },
+  { name: "Contact", path: "/contact", icon: Mail },
 ];
 
-const BRAND_INFO = {
-  name: "Ajit Dev",
-  title: "Full Stack Developer | DevOps • Cloud Security",
-  description: "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Specializing in MERN Stack, Next.js, AWS, Docker, Kubernetes.",
-};
-
-// ============================================
-// 3. CUSTOM HOOKS (Performance & UX)
-// ============================================
-const useScrollDetection = (threshold = 10) => {
+const Header = () => {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > threshold);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [threshold]);
-  return scrolled;
-};
-
-const useClickOutside = (ref: React.RefObject<HTMLElement | null>, callback: () => void) => {
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) callback();
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [ref, callback]);
-};
-
-// ============================================
-// 4. MEMOIZED COMPONENTS
-// ============================================
-const DesktopNavItem = memo(({ item }: { item: typeof NAV_ITEMS[number] }) => {
-  const pathname = usePathname();
-  const isActive = pathname === item.path;
-  const Icon = item.icon;
-
-  return (
-    <Link
-      href={item.path}
-      aria-label={item.ariaLabel}
-      title={item.title}
-      className={`
-        relative inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full
-        transition-colors duration-200 outline-none
-        ${isActive 
-          ? "text-blue-600" 
-          : "text-gray-600 hover:text-blue-600"
-        }
-      `}
-    >
-      {isActive && (
-        <motion.span
-          layoutId="activeNavBg"
-          className="absolute inset-0 bg-blue-50/70 rounded-full -z-10"
-          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-        />
-      )}
-      <span className="w-4 h-4 flex items-center justify-center" aria-hidden="true"><Icon /></span>
-      <span>{item.name}</span>
-    </Link>
-  );
-});
-DesktopNavItem.displayName = "DesktopNavItem";
-
-const MobileNavItem = memo(({ item, onClick }: { item: typeof NAV_ITEMS[number]; onClick: () => void }) => {
-  const pathname = usePathname();
-  const isActive = pathname === item.path;
-  const Icon = item.icon;
-
-  return (
-    <Link
-      href={item.path}
-      onClick={onClick}
-      aria-label={item.ariaLabel}
-      title={item.title}
-      className={`
-        flex items-center justify-between w-full px-4 py-3 text-base rounded-lg
-        transition-colors duration-200 outline-none
-        ${isActive
-          ? "text-blue-600 bg-blue-50 font-medium"
-          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-        }
-      `}
-    >
-      <span className="flex items-center gap-3">
-        <span className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`} aria-hidden="true"><Icon /></span>
-        <span>{item.name}</span>
-      </span>
-      <motion.span
-        animate={{ x: isActive ? 4 : 0 }}
-        className={`w-5 h-5 ${isActive ? "text-blue-600" : "text-gray-400"}`}
-        aria-hidden="true"
-      >
-        <FiChevronRight />
-      </motion.span>
-    </Link>
-  );
-});
-MobileNavItem.displayName = "MobileNavItem";
-
-// ============================================
-// 5. MAIN HEADER COMPONENT
-// ============================================
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const scrolled = useScrollDetection(10);
-  const menuRef = useRef<HTMLElement>(null);
-  const pathname = usePathname();
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  // Close menu on route change & escape key
-  useEffect(() => setIsMenuOpen(false), [pathname]);
-  useClickOutside(menuRef, () => setIsMenuOpen(false));
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape" && isMenuOpen) {
-      setIsMenuOpen(false);
-      menuButtonRef.current?.focus();
-    }
-  }, [isMenuOpen]);
+  }, []);
 
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+    setIsMobileOpen(false);
+  }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMenuOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isMenuOpen]);
-
-  const siteUrl = "https://ajitdev.com";
-  const currentUrl = `${siteUrl}${pathname}`;
+  const toggleMobileDrawer = (open: boolean) => () => {
+    setIsMobileOpen(open);
+  };
 
   return (
     <>
-      {/* SKIP TO CONTENT LINK (Accessibility) */}
+      {/* Skip to Content */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-600 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-blue-500"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-indigo-600 focus:rounded-md focus:shadow-lg"
       >
         Skip to main content
       </a>
 
-      {/* HEADER SECTION */}
-      <header
-        ref={menuRef}
-        className={`
-          fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300
-          rounded-2xl
-          ${scrolled
-            ? "bg-white/80 backdrop-blur-md shadow-md"
-            : "bg-white/50 backdrop-blur-xs shadow-xs"
-          }
-        `}
+      {/* Floating MUI Glassmorphic Header */}
+      <Box
+        component="header"
+        sx={{
+          position: "fixed",
+          top: 16,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: { xs: "calc(100% - 24px)", maxWidth: "1280px" },
+          zIndex: 1100,
+          transition: "all 0.3s ease-in-out",
+        }}
       >
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo + Brand */}
-            <Link
-              href="/"
-              className="flex items-center gap-3 group outline-none rounded-lg"
-              aria-label={`${BRAND_INFO.name} - ${BRAND_INFO.description}`}
-            >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                <span className="text-white w-5 h-5" aria-hidden="true"><FiCode /></span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                  {BRAND_INFO.name}
-                </span>
-                <span className="text-xs text-gray-600 font-medium hidden sm:block">
-                  {BRAND_INFO.title}
-                </span>
-              </div>
-            </Link>
+        <Paper
+          elevation={0}
+          sx={{
+            px: { xs: 2, sm: 3 },
+            py: 1,
+            borderRadius: "24px",
+            border: "1px solid",
+            borderColor: scrolled ? "rgba(226, 232, 240, 0.9)" : "rgba(241, 245, 249, 0.8)",
+            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.85)" : "rgba(255, 255, 255, 0.7)",
+            backdropFilter: "blur(16px)",
+            boxShadow: scrolled ? "0 10px 30px rgba(0,0,0,0.06)" : "0 4px 12px rgba(0,0,0,0.02)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Logo & Brand Info */}
+          <Link href="/" className="no-underline">
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "14px",
+                  background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                  color: "#ffffff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 12px rgba(79, 70, 229, 0.3)",
+                }}
+              >
+                <Code className="w-5 h-5" />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 900, color: "#0f172a", lineHeight: 1.2, fontSize: "1rem" }}>
+                  Ajit Dev
+                </Typography>
+                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, fontSize: "0.68rem", display: { xs: "none", sm: "block" } }}>
+                  Full Stack · DevOps · Cloud Security
+                </Typography>
+              </Box>
+            </Box>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-2 bg-gray-50/80 p-1.5 rounded-full border border-gray-100/80" aria-label="Main navigation">
-              {NAV_ITEMS.map((item) => (
-                <DesktopNavItem key={item.path} item={item} />
-              ))}
-            </nav>
+          {/* Desktop Navigation Items */}
+          <Box
+            component="nav"
+            sx={{
+              display: { xs: "none", lg: "flex" },
+              alignItems: "center",
+              gap: 1.5,
+              backgroundColor: "#f8fafc",
+              p: 1,
+              borderRadius: "20px",
+              border: "1px solid #f1f5f9",
+            }}
+          >
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.path;
+              const IconComp = item.icon;
+              return (
+                <Link key={item.path} href={item.path} className="no-underline">
+                  <Button
+                    size="medium"
+                    startIcon={<IconComp className="w-4 h-4" />}
+                    sx={{
+                      fontWeight: 800,
+                      fontSize: "0.88rem",
+                      textTransform: "none",
+                      px: 2.5,
+                      py: 1,
+                      borderRadius: "14px",
+                      color: isActive ? "#4f46e5" : "#64748b",
+                      backgroundColor: isActive ? "#ffffff" : "transparent",
+                      boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
+                      "&:hover": { backgroundColor: isActive ? "#ffffff" : "#f1f5f9", color: "#4f46e5" },
+                    }}
+                  >
+                    {item.name}
+                    {item.badge && (
+                      <Chip
+                        label={item.badge}
+                        size="small"
+                        color="success"
+                        sx={{ height: 16, fontSize: "0.6rem", fontWeight: 900, ml: 0.75 }}
+                      />
+                    )}
+                  </Button>
+                </Link>
+              );
+            })}
+          </Box>
 
-            {/* Mobile Menu Button */}
-            <button
-              ref={menuButtonRef}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors outline-none"
-              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
+          {/* Mobile Drawer Button */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <IconButton
+              onClick={toggleMobileDrawer(true)}
+              sx={{ display: { xs: "inline-flex", lg: "none" }, color: "#0f172a" }}
+              aria-label="Open mobile navigation menu"
             >
-              {isMenuOpen ? <FiX /> : <FiMenu />}
-            </button>
-          </div>
-        </div>
+              <MenuIcon className="w-6 h-6" />
+            </IconButton>
+          </Box>
+        </Paper>
+      </Box>
 
-        {/* Mobile Menu with Animation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              id="mobile-menu"
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.15 }}
-              className="lg:hidden fixed inset-x-4 top-[5.25rem] bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden z-50"
-              role="navigation"
-              aria-label="Mobile navigation"
+      {/* MUI Mobile Navigation Drawer */}
+      <Drawer
+        anchor="right"
+        open={isMobileOpen}
+        onClose={toggleMobileDrawer(false)}
+        slotProps={{
+          paper: {
+            sx: {
+              width: 280,
+              borderRadius: "24px 0 0 24px",
+              p: 2,
+              backgroundColor: "#ffffff",
+            },
+          },
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", pb: 2, borderBottom: "1px solid #f1f5f9", mb: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Code className="w-5 h-5 text-indigo-600" />
+            <Typography variant="subtitle1" sx={{ fontWeight: 900, color: "#0f172a" }}>
+              Navigation Menu
+            </Typography>
+          </Box>
+          <IconButton onClick={toggleMobileDrawer(false)}>
+            <CloseIcon className="w-5 h-5 text-slate-500" />
+          </IconButton>
+        </Box>
+
+        <List sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.path;
+            const IconComp = item.icon;
+            return (
+              <ListItem key={item.path} disablePadding>
+                <Link href={item.path} className="no-underline w-full" onClick={() => setIsMobileOpen(false)}>
+                  <ListItemButton
+                    selected={isActive}
+                    sx={{
+                      borderRadius: "14px",
+                      py: 1.2,
+                      px: 2,
+                      color: isActive ? "#4f46e5" : "#475569",
+                      backgroundColor: isActive ? "#e0e7ff" : "transparent",
+                      "&:hover": { backgroundColor: "#f1f5f9" },
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 36, color: isActive ? "#4f46e5" : "#64748b" }}>
+                      <IconComp className="w-5 h-5" />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography sx={{ fontWeight: 800, fontSize: "0.95rem" }}>
+                          {item.name}
+                        </Typography>
+                      }
+                    />
+                    {item.badge && (
+                      <Chip label={item.badge} color="success" size="small" sx={{ fontWeight: 900, fontSize: "0.6rem" }} />
+                    )}
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            );
+          })}
+        </List>
+
+        <Box sx={{ mt: "auto", pt: 2, borderTop: "1px solid #f1f5f9" }}>
+          <Link href="/contact" className="no-underline" onClick={() => setIsMobileOpen(false)}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<Sparkles className="w-4 h-4" />}
+              sx={{ fontWeight: 800, borderRadius: "14px", textTransform: "none", py: 1.2, backgroundColor: "#4f46e5" }}
             >
-              <div className="max-h-[calc(100vh-6rem)] overflow-y-auto">
-                <div className="px-4 py-4 space-y-1">
-                  {NAV_ITEMS.map((item) => (
-                    <MobileNavItem key={item.path} item={item} onClick={() => setIsMenuOpen(false)} />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+              Contact Ajit Dev
+            </Button>
+          </Link>
+        </Box>
+      </Drawer>
 
       {/* Spacer for fixed header */}
-      <div className="h-24" aria-hidden="true" />
-
-      {/* Hidden Navigation for Crawlers */}
-      <nav className="sr-only" aria-label="SEO navigation structure" itemScope itemType="https://schema.org/SiteNavigationElement">
-        <ul>
-          {NAV_ITEMS.map((item) => (
-            <li key={item.path} itemProp="name">
-              <Link href={item.path} itemProp="url">
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <Box sx={{ height: { xs: 88, md: 104 } }} aria-hidden="true" />
     </>
   );
 };
