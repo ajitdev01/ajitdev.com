@@ -3,13 +3,22 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
+  Box,
+  Typography,
+  Paper,
+  Chip,
+  Tabs,
+  Tab,
+  Button,
+  LinearProgress,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import {
   ArrowLeft,
   BookOpen,
   Award,
   Zap,
-  Code,
-  Star,
-  LayoutGrid,
   Target,
   CheckCircle2,
   ChevronRight,
@@ -19,18 +28,14 @@ import {
   ExternalLink,
   Copy,
   Check,
-  Terminal,
   Sparkles,
   Cpu,
   TrendingUp,
-  Clock,
   Layers,
   GitCommit,
-  GitBranch,
   FolderGit2,
   Play,
-  Activity,
-  ShieldCheck,
+  Star,
   BarChart3,
   Code2,
 } from "lucide-react";
@@ -42,7 +47,7 @@ const FiGithub = ({ className = "w-4 h-4" }: { className?: string }) => (
   </svg>
 );
 
-// Authentic LeetCode (@ajitdev01) Data from User Profile
+// Authentic LeetCode (@ajitdev01) Data
 const LEETCODE_PROFILE = {
   name: "AJIT DEV",
   username: "ajitdev01",
@@ -51,60 +56,43 @@ const LEETCODE_PROFILE = {
   contestRating: 1510,
   contestsAttended: 3,
   totalSolved: 514,
-  totalAvailable: 4028,
-  attempting: 2,
   easySolved: 174,
-  easyTotal: 960,
   medSolved: 249,
-  medTotal: 2103,
   hardSolved: 91,
-  hardTotal: 965,
   badgesCount: 7,
   latestBadge: "200 Days Badge 2026",
   annualSubmissions: 1450,
   activeDays: 231,
   currentStreak: 231,
-  maxStreak: 231,
-  primaryLanguage: "C++",
   cppSolvedCount: 474,
 };
 
-// Authentic NeetCode (@MoltenJinchuriki774) Data from User Profile
+// Authentic NeetCode (@MoltenJinchuriki774) Data
 const NEETCODE_PROFILE = {
   name: "AJIT DEV",
   username: "MoltenJinchuriki774",
   profileUrl: "https://neetcode.io/user/MoltenJinchuriki774",
-  submissions2026: 291,
-  activeDays2026: 108,
-  currentStreak: 110,
-  maxStreak: 110,
   percentile: "Top 5.8%",
   totalSolved: 118,
-  totalAvailable: 973,
   easySolved: 45,
-  easyTotal: 224,
   medSolved: 56,
-  medTotal: 600,
   hardSolved: 17,
-  hardTotal: 149,
+  currentStreak: 110,
 };
 
-// Authentic GitHub (@ajitdev01) Data from User Profile
+// Authentic GitHub (@ajitdev01) Data
 const GITHUB_PROFILE = {
   name: "AJIT DEV",
   username: "ajitdev01",
   profileUrl: "https://github.com/ajitdev01",
   organization: "Brainzima",
   augustCommits: 118,
-  activeReposCount: 19,
-  commitsPct: 100,
   topRepos: [
     {
       name: "DSA-Journey-2026",
       commits: 63,
       description: "Daily C++ Data Structures & Algorithms solutions, LeetCode logs, and optimization notes.",
       language: "C++",
-      langColor: "bg-blue-600 text-white",
       link: "https://github.com/ajitdev01/DSA-Journey-2026",
     },
     {
@@ -112,7 +100,6 @@ const GITHUB_PROFILE = {
       commits: 30,
       description: "Full-stack web application platform for college admission analytics & student portal.",
       language: "TypeScript",
-      langColor: "bg-indigo-600 text-white",
       link: "https://github.com/rahman4ktr/CollegeSure-Web",
     },
     {
@@ -120,23 +107,13 @@ const GITHUB_PROFILE = {
       commits: 21,
       description: "NeetCode 150 & NeetCode All practice solutions, pointer algorithms, and tree guides.",
       language: "C++",
-      langColor: "bg-blue-600 text-white",
       link: "https://github.com/ajitdev01/neetcode-submissions",
-    },
-    {
-      name: "ajitdev.com",
-      commits: 4,
-      description: "Personal developer portfolio & technical engineering hub built with Next.js & Tailwind CSS.",
-      language: "TypeScript",
-      langColor: "bg-indigo-600 text-white",
-      link: "https://github.com/ajitdev01/ajitdev.com",
     },
     {
       name: "python-core-to-advanced",
       commits: 12,
       description: "Python core data structures, OOP patterns, and recursion scripting algorithms.",
       language: "Python",
-      langColor: "bg-emerald-600 text-white",
       link: "https://github.com/ajitdev01/python-core-to-advanced",
     },
   ],
@@ -144,136 +121,34 @@ const GITHUB_PROFILE = {
 
 // Gamified Achievement Badges
 const ACHIEVEMENT_BADGES = [
-  {
-    id: 1,
-    title: "200 Days Badge 2026",
-    category: "LeetCode Featured",
-    color: "from-amber-500 to-orange-500",
-    bgColor: "bg-amber-50 border-amber-200 text-amber-900",
-    icon: Trophy,
-    desc: "Achieved 200+ active practice days in 2026",
-  },
-  {
-    id: 2,
-    title: "231-Day Streak Champion",
-    category: "Consistency Log",
-    color: "from-emerald-500 to-teal-500",
-    bgColor: "bg-emerald-50 border-emerald-200 text-emerald-900",
-    icon: Flame,
-    desc: "Maintained continuous daily coding streak",
-  },
-  {
-    id: 3,
-    title: "500+ Solved Club",
-    category: "Problem Solving",
-    color: "from-indigo-500 to-purple-500",
-    bgColor: "bg-indigo-50 border-indigo-200 text-indigo-900",
-    icon: Target,
-    desc: "Resolved 514 LeetCode + 118 NeetCode problems",
-  },
-  {
-    id: 4,
-    title: "C++ Engine Specialist",
-    category: "Primary Stack",
-    color: "from-blue-600 to-cyan-500",
-    bgColor: "bg-blue-50 border-blue-200 text-blue-900",
-    icon: Cpu,
-    desc: "474 problems solved with optimized C++ STL",
-  },
-  {
-    id: 5,
-    title: "Contest Rating 1510",
-    category: "Competitive Rank",
-    color: "from-purple-600 to-pink-500",
-    bgColor: "bg-purple-50 border-purple-200 text-purple-900",
-    icon: Zap,
-    desc: "Global Rank #194,317 across 3 contests",
-  },
-  {
-    id: 6,
-    title: "Top 5.8% NeetCode",
-    category: "NeetCode All",
-    color: "from-teal-600 to-emerald-600",
-    bgColor: "bg-teal-50 border-teal-200 text-teal-900",
-    icon: Award,
-    desc: "118 NeetCode problems solved with 67d streak",
-  },
+  { id: 1, title: "200 Days Badge 2026", category: "LeetCode Featured", color: "#f59e0b", icon: Trophy, desc: "Achieved 200+ active practice days in 2026" },
+  { id: 2, title: "231-Day Streak Champion", category: "Consistency Log", color: "#10b981", icon: Flame, desc: "Maintained continuous daily coding streak" },
+  { id: 3, title: "500+ Solved Club", category: "Problem Solving", color: "#6366f1", icon: Target, desc: "Resolved 514 LeetCode + 118 NeetCode problems" },
+  { id: 4, title: "C++ Engine Specialist", category: "Primary Stack", color: "#3b82f6", icon: Cpu, desc: "474 problems solved with optimized C++ STL" },
+  { id: 5, title: "Contest Rating 1510", category: "Competitive Rank", color: "#8b5cf6", icon: Zap, desc: "Global Rank #194,317 across 3 contests" },
+  { id: 6, title: "Top 5.8% NeetCode", category: "NeetCode All", color: "#14b8a6", icon: Award, desc: "118 NeetCode problems solved with 67d streak" },
 ];
 
-// Algorithm Skill Matrix
+// Skill Metrics
 const SKILL_METRICS = [
-  { topic: "Data Structures (Arrays, Maps, Stacks)", rating: 94, color: "bg-indigo-600" },
-  { topic: "Algorithmic Search (Binary Search, Windows)", rating: 90, color: "bg-emerald-500" },
-  { topic: "Recursion & Backtracking (N-Queens)", rating: 85, color: "bg-purple-600" },
-  { topic: "C++ STL & Runtime Memory Tuning", rating: 96, color: "bg-blue-600" },
-  { topic: "Dynamic Programming & Graph Traversals", rating: 78, color: "bg-amber-500" },
+  { topic: "Data Structures (Arrays, Maps, Stacks)", rating: 94, color: "#6366f1" },
+  { topic: "Algorithmic Search (Binary Search, Windows)", rating: 90, color: "#10b981" },
+  { topic: "Recursion & Backtracking (N-Queens)", rating: 85, color: "#8b5cf6" },
+  { topic: "C++ STL & Runtime Memory Tuning", rating: 96, color: "#3b82f6" },
+  { topic: "Dynamic Programming & Graph Traversals", rating: 78, color: "#f59e0b" },
 ];
 
 // Recent Accepted Submissions
 const RECENT_ACCEPTED_PROBLEMS = [
-  {
-    id: 1,
-    title: "Split Array Largest Sum",
-    platform: "LeetCode",
-    difficulty: "Hard",
-    difficultyColor: "text-rose-700 bg-rose-50 border-rose-200",
-    tags: ["Binary Search", "Dynamic Programming"],
-    timeAgo: "7 hours ago",
-    link: "https://leetcode.com/problems/split-array-largest-sum/",
-  },
-  {
-    id: 2,
-    title: "Longest Subsequence With Non-Zero Bitwise XOR",
-    platform: "LeetCode",
-    difficulty: "Medium",
-    difficultyColor: "text-amber-700 bg-amber-50 border-amber-200",
-    tags: ["Bit Manipulation", "Greedy"],
-    timeAgo: "1 day ago",
-    link: "https://leetcode.com/u/ajitdev01/",
-  },
-  {
-    id: 3,
-    title: "Maximum Length Substring With Two Occurrences",
-    platform: "LeetCode",
-    difficulty: "Easy",
-    difficultyColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    tags: ["Sliding Window", "Hash Table"],
-    timeAgo: "2 days ago",
-    link: "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/",
-  },
-  {
-    id: 4,
-    title: "N-Queens",
-    platform: "LeetCode",
-    difficulty: "Hard",
-    difficultyColor: "text-rose-700 bg-rose-50 border-rose-200",
-    tags: ["Backtracking", "Recursion"],
-    timeAgo: "3 days ago",
-    link: "https://leetcode.com/problems/n-queens/",
-  },
-  {
-    id: 5,
-    title: "3Sum Solution Using Two Pointer Technique",
-    platform: "NeetCode",
-    difficulty: "Medium",
-    difficultyColor: "text-amber-700 bg-amber-50 border-amber-200",
-    tags: ["Two Pointers", "Sorting"],
-    timeAgo: "NeetCode 150",
-    link: "https://neetcode.io/user/MoltenJinchuriki774",
-  },
-  {
-    id: 6,
-    title: "Two Sum - Brute Force & Hash Table Approach",
-    platform: "NeetCode",
-    difficulty: "Easy",
-    difficultyColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    tags: ["Arrays & Hashing"],
-    timeAgo: "NeetCode 150",
-    link: "https://neetcode.io/user/MoltenJinchuriki774",
-  },
+  { id: 1, title: "Split Array Largest Sum", platform: "LeetCode", difficulty: "Hard", color: "error", tags: ["Binary Search", "DP"], timeAgo: "7h ago", link: "https://leetcode.com/problems/split-array-largest-sum/" },
+  { id: 2, title: "Longest Subsequence With Non-Zero Bitwise XOR", platform: "LeetCode", difficulty: "Medium", color: "warning", tags: ["Bit Manipulation", "Greedy"], timeAgo: "1d ago", link: "https://leetcode.com/u/ajitdev01/" },
+  { id: 3, title: "Maximum Length Substring With Two Occurrences", platform: "LeetCode", difficulty: "Easy", color: "success", tags: ["Sliding Window", "Hash Table"], timeAgo: "2d ago", link: "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/" },
+  { id: 4, title: "N-Queens", platform: "LeetCode", difficulty: "Hard", color: "error", tags: ["Backtracking", "Recursion"], timeAgo: "3d ago", link: "https://leetcode.com/problems/n-queens/" },
+  { id: 5, title: "3Sum Solution Using Two Pointer Technique", platform: "NeetCode", difficulty: "Medium", color: "warning", tags: ["Two Pointers", "Sorting"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
+  { id: 6, title: "Two Sum - Brute Force & Hash Table Approach", platform: "NeetCode", difficulty: "Easy", color: "success", tags: ["Arrays & Hashing"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
 ];
 
-// DSA Topic Categories
+// DSA Topics
 const DSA_TOPICS = [
   { key: "arrays", name: "Arrays Data Structure", solved: 45, total: 50, completed: true, category: "Linear", details: "Contiguous memory lists, sliding windows, two-pointer bounds, and prefix sums.", codeSnippet: `// Prefix Sum Array Setup\nvector<int> pref(n + 1, 0);\nfor (int i = 0; i < n; ++i) pref[i + 1] = pref[i] + nums[i];` },
   { key: "strings", name: "Strings Manipulation", solved: 38, total: 40, completed: true, category: "Linear", details: "Pattern matching algorithms (KMP, Rabin-Karp), rolling hashes, and palindrome checks.", codeSnippet: `// Character Frequency Map\nunordered_map<char, int> freq;\nfor (char c : s) freq[c]++;` },
@@ -293,16 +168,15 @@ const DSA_TOPICS = [
   { key: "dynamic-programming", name: "Dynamic Programming (DP)", solved: 6, total: 40, completed: false, category: "Advanced", details: "Subproblem optimal substructure, 1D/2D memoization arrays, 0/1 knapsack, and state transitions.", codeSnippet: `// 2D DP Grid / Knapsack Template\nvector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));\nfor (int i = 1; i <= n; ++i) {\n  for (int w = 1; w <= W; ++w) {\n    if (wt[i-1] <= w) dp[i][w] = max(dp[i-1][w], val[i-1] + dp[i-1][w - wt[i-1]]);\n    else dp[i][w] = dp[i-1][w];\n  }\n}` },
 ];
 
-// C++ Algorithm Templates
+// C++ Patterns
 const CPP_PATTERNS = [
-  { id: "sliding-window", title: "Sliding Window Pattern", difficulty: "Medium", useCase: "Subarrays or substrings matching specific dynamic constraints (e.g. max sum, distinct elements).", code: `// C++ Sliding Window (Variable Size)\nint slidingWindow(const vector<int>& nums, int k) {\n    unordered_map<int, int> freq;\n    int left = 0, maxLen = 0;\n    \n    for (int right = 0; right < nums.size(); ++right) {\n        freq[nums[right]]++;\n        \n        // Shrink window if constraint violated\n        while (freq.size() > k) {\n            freq[nums[left]]--;\n            if (freq[nums[left]] == 0) freq.erase(nums[left]);\n            left++;\n        }\n        \n        maxLen = max(maxLen, right - left + 1);\n    }\n    return maxLen;\n}` },
-  { id: "two-pointers", title: "Two Pointers Pattern", difficulty: "Easy - Medium", useCase: "Sorted arrays, pair sums, palindrome verification, or container trapping water.", code: `// C++ Two Pointer Pair Sum Search\nvector<int> twoSumSorted(const vector<int>& numbers, int target) {\n    int low = 0, high = numbers.size() - 1;\n    while (low < high) {\n        int currentSum = numbers[low] + numbers[high];\n        if (currentSum == target) {\n            return {low + 1, high + 1}; // 1-indexed\n        } else if (currentSum < target) {\n            low++;\n        } else {\n            high--;\n        }\n    }\n    return {};\n}` },
-  { id: "monotonic-stack", title: "Monotonic Stack Pattern", difficulty: "Medium - Hard", useCase: "Next Greater / Smaller Element, Daily Temperatures, Largest Rectangle in Histogram.", code: `// C++ Monotonic Decreasing Stack (Next Greater Element)\nvector<int> nextGreaterElement(const vector<int>& nums) {\n    int n = nums.size();\n    vector<int> result(n, -1);\n    stack<int> st; // Stores indices\n    \n    for (int i = 0; i < n; ++i) {\n        while (!st.empty() && nums[st.top()] < nums[i]) {\n            result[st.top()] = nums[i];\n            st.pop();\n        }\n        st.push(i);\n    }\n    return result;\n}` },
-  { id: "binary-search", title: "Binary Search on Answer Space", difficulty: "Medium - Hard", useCase: "Minimizing maximum allocation (e.g. Split Array Largest Sum LC 410, Capacity To Ship Packages).", code: `// C++ Binary Search on Solution Bounds\nint splitArray(vector<int>& nums, int k) {\n    int low = *max_element(nums.begin(), nums.end());\n    int high = accumulate(nums.begin(), nums.end(), 0);\n    int ans = high;\n    \n    auto isValid = [&](int targetSum) {\n        int count = 1, currentSum = 0;\n        for (int num : nums) {\n            if (currentSum + num > targetSum) {\n                count++;\n                currentSum = num;\n            } else {\n                currentSum += num;\n            }\n        }\n        return count <= k;\n    };\n    \n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (isValid(mid)) {\n            ans = mid;\n            high = mid - 1; // Try smaller max sum\n        } else {\n            low = mid + 1; // Increase threshold\n        }\n    }\n    return ans;\n}` },
-  { id: "bfs-graph", title: "BFS Graph Shortest Path", difficulty: "Medium", useCase: "Shortest path in unweighted grid or network, level-order traversal, word ladder.", code: `// C++ BFS Shortest Distance Grid Traversal\nint bfsShortestPath(vector<vector<int>>& grid) {\n    int R = grid.size(), C = grid[0].size();\n    if (grid[0][0] == 1 || grid[R-1][C-1] == 1) return -1;\n    \n    queue<pair<int, int>> q;\n    q.push({0, 0});\n    grid[0][0] = 1; // Mark visited with distance\n    \n    int dirs[4][2] = {{0,1}, {1,0}, {0,-1}, {-1,0}};\n    int dist = 1;\n    \n    while (!q.empty()) {\n        int sz = q.size();\n        while (sz--) {\n            auto [r, c] = q.front(); q.pop();\n            if (r == R - 1 && c == C - 1) return dist;\n            \n            for (auto& d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nr < R && nc >= 0 && nc < C && grid[nr][nc] == 0) {\n                    grid[nr][nc] = 1;\n                    q.push({nr, nc});\n                }\n            }\n        }\n        dist++;\n    }\n    return -1;\n}` },
+  { id: "sliding-window", title: "Sliding Window Pattern", difficulty: "Medium", useCase: "Subarrays or substrings matching specific dynamic constraints.", code: `// C++ Sliding Window (Variable Size)\nint slidingWindow(const vector<int>& nums, int k) {\n    unordered_map<int, int> freq;\n    int left = 0, maxLen = 0;\n    for (int right = 0; right < nums.size(); ++right) {\n        freq[nums[right]]++;\n        while (freq.size() > k) {\n            freq[nums[left]]--;\n            if (freq[nums[left]] == 0) freq.erase(nums[left]);\n            left++;\n        }\n        maxLen = max(maxLen, right - left + 1);\n    }\n    return maxLen;\n}` },
+  { id: "two-pointers", title: "Two Pointers Pattern", difficulty: "Easy - Medium", useCase: "Sorted arrays, pair sums, palindrome verification.", code: `// C++ Two Pointer Pair Sum Search\nvector<int> twoSumSorted(const vector<int>& numbers, int target) {\n    int low = 0, high = numbers.size() - 1;\n    while (low < high) {\n        int currentSum = numbers[low] + numbers[high];\n        if (currentSum == target) return {low + 1, high + 1};\n        else if (currentSum < target) low++;\n        else high--;\n    }\n    return {};\n}` },
+  { id: "monotonic-stack", title: "Monotonic Stack Pattern", difficulty: "Medium - Hard", useCase: "Next Greater / Smaller Element, Daily Temperatures.", code: `// C++ Monotonic Decreasing Stack (Next Greater Element)\nvector<int> nextGreaterElement(const vector<int>& nums) {\n    int n = nums.size();\n    vector<int> result(n, -1);\n    stack<int> st;\n    for (int i = 0; i < n; ++i) {\n        while (!st.empty() && nums[st.top()] < nums[i]) {\n            result[st.top()] = nums[i];\n            st.pop();\n        }\n        st.push(i);\n    }\n    return result;\n}` },
+  { id: "binary-search", title: "Binary Search on Answer Space", difficulty: "Medium - Hard", useCase: "Minimizing maximum allocation (Split Array LC 410).", code: `// C++ Binary Search on Solution Bounds\nint splitArray(vector<int>& nums, int k) {\n    int low = *max_element(nums.begin(), nums.end());\n    int high = accumulate(nums.begin(), nums.end(), 0);\n    int ans = high;\n    auto isValid = [&](int targetSum) {\n        int count = 1, currentSum = 0;\n        for (int num : nums) {\n            if (currentSum + num > targetSum) {\n                count++; currentSum = num;\n            } else currentSum += num;\n        }\n        return count <= k;\n    };\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (isValid(mid)) { ans = mid; high = mid - 1; }\n        else low = mid + 1;\n    }\n    return ans;\n}` },
+  { id: "bfs-graph", title: "BFS Graph Shortest Path", difficulty: "Medium", useCase: "Shortest path in unweighted grid or network.", code: `// C++ BFS Shortest Distance Grid Traversal\nint bfsShortestPath(vector<vector<int>>& grid) {\n    int R = grid.size(), C = grid[0].size();\n    if (grid[0][0] == 1 || grid[R-1][C-1] == 1) return -1;\n    queue<pair<int, int>> q;\n    q.push({0, 0}); grid[0][0] = 1;\n    int dirs[4][2] = {{0,1}, {1,0}, {0,-1}, {-1,0}};\n    int dist = 1;\n    while (!q.empty()) {\n        int sz = q.size();\n        while (sz--) {\n            auto [r, c] = q.front(); q.pop();\n            if (r == R - 1 && c == C - 1) return dist;\n            for (auto& d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nr < R && nc >= 0 && nc < C && grid[nr][nc] == 0) {\n                    grid[nr][nc] = 1; q.push({nr, nc});\n                }\n            }\n        }\n        dist++;\n    }\n    return -1;\n}` },
 ];
 
-// Deterministic heatmap pattern generator (364 cells)
 const HEATMAP_SEED = [
   "bg-emerald-500", "bg-emerald-300", "bg-emerald-600", "bg-gray-100",
   "bg-emerald-500", "bg-emerald-200", "bg-emerald-500", "bg-emerald-400",
@@ -312,23 +186,19 @@ const HEATMAP_SEED = [
 const DSA_HEATMAP_GRID: string[] = Array.from({ length: 364 }, (_, i) => HEATMAP_SEED[i % HEATMAP_SEED.length]);
 
 export default function DsaDashboardPage() {
-  const [activePlatform, setActivePlatform] = useState<"combined" | "leetcode" | "neetcode" | "github">("combined");
+  const [platformTab, setPlatformTab] = useState<number>(0);
   const [selectedTopic, setSelectedTopic] = useState<string>("arrays");
   const [topicSearch, setTopicSearch] = useState<string>("");
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [activePatternTab, setActivePatternTab] = useState<string>("binary-search");
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
-
-  // Simulated code execution state
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
   const [executionOutput, setExecutionOutput] = useState<string | null>(null);
 
-  // Active topic details
   const activeTopicInfo = useMemo(() => {
     return DSA_TOPICS.find((t) => t.key === selectedTopic) || DSA_TOPICS[0];
   }, [selectedTopic]);
 
-  // Filtered topic list by search & category
   const filteredTopics = useMemo(() => {
     return DSA_TOPICS.filter((t) => {
       const matchesSearch =
@@ -343,7 +213,6 @@ export default function DsaDashboardPage() {
     });
   }, [topicSearch, activeCategory]);
 
-  // Active pattern code details
   const activePatternInfo = useMemo(() => {
     return CPP_PATTERNS.find((p) => p.id === activePatternTab) || CPP_PATTERNS[0];
   }, [activePatternTab]);
@@ -360,10 +229,9 @@ export default function DsaDashboardPage() {
     setTimeout(() => {
       setIsExecuting(false);
       setExecutionOutput(`[OK] Executed ${activePatternInfo.title} in C++ STL Engine\n✔ Status: Accepted (100/100 Test Cases Passed)\n⚡ Runtime: 0 ms (Beats 100.00% C++ submissions)\n💾 Memory: 10.4 MB (O(1) aux space verified)`);
-    }, 600);
+    }, 500);
   };
 
-  // Structured Data Schema for SEO
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -374,812 +242,541 @@ export default function DsaDashboardPage() {
     ],
   };
 
-  // Stats calculation depending on active tab
+  // Stats calculation by MUI tab index
   const stats = useMemo(() => {
-    if (activePlatform === "leetcode") {
+    if (platformTab === 1) {
+      // LeetCode
       const easy = LEETCODE_PROFILE.easySolved;
       const med = LEETCODE_PROFILE.medSolved;
       const hard = LEETCODE_PROFILE.hardSolved;
       const total = LEETCODE_PROFILE.totalSolved;
-      return {
-        total, easy, med, hard,
-        easyPct: (easy / total) * 100,
-        medPct: (med / total) * 100,
-        hardPct: (hard / total) * 100,
-        streak: LEETCODE_PROFILE.currentStreak,
-        rankOrPercentile: `Rank #${LEETCODE_PROFILE.globalRank}`,
-        subtext: `Contest Rating: ${LEETCODE_PROFILE.contestRating}`,
-      };
-    } else if (activePlatform === "neetcode") {
+      return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: LEETCODE_PROFILE.currentStreak, platformName: "LeetCode Metrics", subtext: `Rank #${LEETCODE_PROFILE.globalRank}` };
+    } else if (platformTab === 2) {
+      // NeetCode
       const easy = NEETCODE_PROFILE.easySolved;
       const med = NEETCODE_PROFILE.medSolved;
       const hard = NEETCODE_PROFILE.hardSolved;
       const total = NEETCODE_PROFILE.totalSolved;
-      return {
-        total, easy, med, hard,
-        easyPct: (easy / total) * 100,
-        medPct: (med / total) * 100,
-        hardPct: (hard / total) * 100,
-        streak: NEETCODE_PROFILE.currentStreak,
-        rankOrPercentile: NEETCODE_PROFILE.percentile,
-        subtext: `Active Days: ${NEETCODE_PROFILE.activeDays2026}`,
-      };
-    } else if (activePlatform === "github") {
-      return {
-        total: GITHUB_PROFILE.augustCommits,
-        easy: GITHUB_PROFILE.topRepos[0].commits,
-        med: GITHUB_PROFILE.topRepos[1].commits,
-        hard: GITHUB_PROFILE.topRepos[2].commits,
-        easyPct: 53, medPct: 25, hardPct: 22,
-        streak: 231,
-        rankOrPercentile: `19 Repositories`,
-        subtext: `@${GITHUB_PROFILE.organization} • 118 Commits in Aug 2026`,
-      };
+      return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: NEETCODE_PROFILE.currentStreak, platformName: "NeetCode Metrics", subtext: `Percentile: ${NEETCODE_PROFILE.percentile}` };
+    } else if (platformTab === 3) {
+      // GitHub
+      return { total: GITHUB_PROFILE.augustCommits, easy: GITHUB_PROFILE.topRepos[0].commits, med: GITHUB_PROFILE.topRepos[1].commits, hard: GITHUB_PROFILE.topRepos[2].commits, easyPct: 53, medPct: 25, hardPct: 22, streak: 231, platformName: "GitHub Commits", subtext: `@${GITHUB_PROFILE.organization}` };
     } else {
       // Combined
       const easy = LEETCODE_PROFILE.easySolved + NEETCODE_PROFILE.easySolved;
       const med = LEETCODE_PROFILE.medSolved + NEETCODE_PROFILE.medSolved;
       const hard = LEETCODE_PROFILE.hardSolved + NEETCODE_PROFILE.hardSolved;
       const total = easy + med + hard;
-      return {
-        total, easy, med, hard,
-        easyPct: (easy / total) * 100,
-        medPct: (med / total) * 100,
-        hardPct: (hard / total) * 100,
-        streak: LEETCODE_PROFILE.currentStreak,
-        rankOrPercentile: `LeetCode, NeetCode & GitHub`,
-        subtext: `Primary Engine: C++`,
-      };
+      return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: LEETCODE_PROFILE.currentStreak, platformName: "Combined Overview", subtext: "LeetCode + NeetCode" };
     }
-  }, [activePlatform]);
+  }, [platformTab]);
 
   return (
     <>
       <JSONLD schema={breadcrumbSchema} />
 
-      <section className="py-12 md:py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen text-slate-800 relative overflow-hidden font-sans">
-        {/* Soft Background Ambient Lighting */}
-        <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
-          <div className="absolute top-[3%] left-[12%] w-[550px] h-[550px] bg-indigo-500/5 rounded-full blur-[140px]" />
-          <div className="absolute bottom-[10%] right-[8%] w-[550px] h-[550px] bg-emerald-500/5 rounded-full blur-[140px]" />
-        </div>
+      {/* Main Container - Added pt: { xs: 16, md: 20 } to clear top fixed navbar completely */}
+      <Box sx={{ pt: { xs: 16, md: 20 }, pb: { xs: 8, md: 12 }, px: { xs: 2, sm: 4, lg: 8 }, minHeight: "100vh", backgroundColor: "#f8fafc" }}>
+        <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Top Navigation */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-indigo-600 transition-colors mb-8 group bg-white border border-slate-200 px-3.5 py-1.5 rounded-full shadow-xs"
+          {/* Top Back Navigation */}
+          <Box sx={{ mb: 4 }}>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition-colors bg-white border border-slate-200 px-4 py-2 rounded-full shadow-xs"
+            >
+              <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Home
+            </Link>
+          </Box>
+
+          {/* Hero Header Paper */}
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 3, sm: 5 },
+              mb: 4,
+              borderRadius: "24px",
+              border: "1px solid #e2e8f0",
+              background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
+            }}
           >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-indigo-600" />
-            Back to Home
-          </Link>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mb: 2 }}>
+              <Chip icon={<Sparkles className="w-3.5 h-3.5 text-indigo-600" />} label="Competitive Coding Engine" color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
+              <Chip icon={<Flame className="w-3.5 h-3.5 text-amber-500" />} label={`${LEETCODE_PROFILE.currentStreak}-Day Active Streak`} color="success" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
+              <Chip icon={<Cpu className="w-3.5 h-3.5 text-blue-600" />} label={`C++ STL (${LEETCODE_PROFILE.cppSolvedCount} AC)`} variant="outlined" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
+            </Box>
 
-          {/* Ultra-Premium Glassmorphic Hero Banner */}
-          <div className="relative p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/60 border border-indigo-100/90 shadow-md mb-10 overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+            <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1.5, fontSize: { xs: "1.8rem", md: "2.5rem" } }}>
+              Data Structures & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-600">Algorithms Master Engine</span>
+            </Typography>
 
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-              <div className="max-w-2xl space-y-4">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-xs font-extrabold rounded-full uppercase tracking-wider shadow-xs">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-600" /> Competitive Coding Engine
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold rounded-full tracking-wider shadow-xs">
-                    <Flame className="w-3.5 h-3.5 text-amber-500 animate-bounce" /> {LEETCODE_PROFILE.currentStreak}-Day Active Streak
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-extrabold rounded-full tracking-wider shadow-xs">
-                    <Cpu className="w-3.5 h-3.5 text-blue-600" /> C++ STL ({LEETCODE_PROFILE.cppSolvedCount} AC)
-                  </span>
-                </div>
+            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.7, maxWidth: "800px", mb: 3 }}>
+              Official engineering progress ledger of <strong>Ajit Dev</strong>. Real-time problem solving, time complexity optimization, and live logs across <strong>LeetCode</strong>, <strong>NeetCode</strong>, and <strong>GitHub</strong>.
+            </Typography>
 
-                <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                  Data Structures & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-600">Algorithms Master Engine</span>
-                </h1>
+            {/* Profile Links */}
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
+              <Button component="a" href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="outlined" color="warning" size="small" startIcon={<Trophy className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px" }}>
+                LeetCode: @{LEETCODE_PROFILE.username}
+              </Button>
 
-                <p className="text-slate-650 text-sm sm:text-base leading-relaxed">
-                  Interactive engineering ledger of <strong className="text-slate-900">Ajit Dev</strong>. Daily competitive algorithm progress, runtime O(1)-O(N log N) tuning, and real-time activity metrics from <strong className="text-indigo-600">LeetCode</strong>, <strong className="text-emerald-600">NeetCode</strong>, and <strong className="text-slate-900">GitHub</strong>.
-                </p>
+              <Button component="a" href={NEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="outlined" color="success" size="small" startIcon={<Target className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px" }}>
+                NeetCode: @{NEETCODE_PROFILE.username}
+              </Button>
 
-                {/* Profile Verification Buttons */}
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <a
-                    href={LEETCODE_PROFILE.profileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 hover:bg-amber-100/90 border border-amber-200 text-amber-900 font-bold text-xs transition-all hover:scale-105 shadow-xs"
-                  >
-                    <Trophy className="w-4 h-4 text-amber-600" />
-                    LeetCode: @{LEETCODE_PROFILE.username}
-                    <ExternalLink className="w-3 h-3 text-amber-600" />
-                  </a>
+              <Button component="a" href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="contained" color="inherit" size="small" startIcon={<FiGithub className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px", backgroundColor: "#0f172a", color: "#ffffff" }}>
+                GitHub: @{GITHUB_PROFILE.username}
+              </Button>
+            </Box>
+          </Paper>
 
-                  <a
-                    href={NEETCODE_PROFILE.profileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100/90 border border-emerald-200 text-emerald-900 font-bold text-xs transition-all hover:scale-105 shadow-xs"
-                  >
-                    <Target className="w-4 h-4 text-emerald-600" />
-                    NeetCode: @{NEETCODE_PROFILE.username}
-                    <ExternalLink className="w-3 h-3 text-emerald-600" />
-                  </a>
+          {/* Achievement Badges Row */}
+          <Box sx={{ mb: 4 }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", display: "flex", alignItems: "center", gap: 1 }}>
+                <Trophy className="w-4 h-4 text-amber-500" /> Verified Badges & Highlights
+              </Typography>
+              <Chip label={`${ACHIEVEMENT_BADGES.length} Badges`} size="small" color="primary" variant="outlined" sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
+            </Box>
 
-                  <a
-                    href={GITHUB_PROFILE.profileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all hover:scale-105 shadow-xs"
-                  >
-                    <FiGithub className="w-4 h-4 text-white" />
-                    GitHub: @{GITHUB_PROFILE.username}
-                    <ExternalLink className="w-3 h-3 text-slate-300" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Stat Highlight Cards */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:w-80">
-                <div className="p-4 rounded-2xl bg-white border border-gray-200/90 shadow-xs text-center hover:border-indigo-400 hover:shadow-md transition-all">
-                  <div className="text-3xl font-black text-indigo-600">632</div>
-                  <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mt-1">Total Solved</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white border border-gray-200/90 shadow-xs text-center hover:border-emerald-400 hover:shadow-md transition-all">
-                  <div className="text-3xl font-black text-emerald-600">{LEETCODE_PROFILE.globalRank}</div>
-                  <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mt-1">LeetCode Rank</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white border border-gray-200/90 shadow-xs text-center hover:border-amber-400 hover:shadow-md transition-all">
-                  <div className="text-3xl font-black text-amber-600">{LEETCODE_PROFILE.contestRating}</div>
-                  <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mt-1">Contest Rating</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white border border-gray-200/90 shadow-xs text-center hover:border-purple-400 hover:shadow-md transition-all">
-                  <div className="text-3xl font-black text-purple-600">{GITHUB_PROFILE.augustCommits}</div>
-                  <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mt-1">Aug '26 Commits</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Gamified Achievements Badges Showcase */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2">
-                <Trophy className="w-4 h-4 text-amber-500" /> Featured Achievements & Badges
-              </h2>
-              <span className="text-[10px] font-extrabold uppercase text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-md">
-                {ACHIEVEMENT_BADGES.length} Verified Badges
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)", lg: "repeat(6, 1fr)" }, gap: 2 }}>
               {ACHIEVEMENT_BADGES.map((badge) => {
                 const IconComp = badge.icon;
                 return (
-                  <div
-                    key={badge.id}
-                    className={`p-3.5 rounded-2xl border ${badge.bgColor} shadow-xs hover:scale-105 transition-all flex flex-col justify-between`}
-                  >
-                    <div>
-                      <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${badge.color} text-white flex items-center justify-center mb-2 shadow-xs`}>
-                        <IconComp className="w-4 h-4" />
-                      </div>
-                      <h3 className="font-extrabold text-xs leading-tight">{badge.title}</h3>
-                      <p className="text-[10px] opacity-80 mt-1 line-clamp-2">{badge.desc}</p>
-                    </div>
-                    <div className="text-[9px] font-extrabold uppercase tracking-wider mt-2 opacity-60">
-                      {badge.category}
-                    </div>
-                  </div>
+                  <Paper key={badge.id} elevation={0} sx={{ p: 2, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", transition: "transform 0.2s", "&:hover": { transform: "translateY(-4px)" } }}>
+                    <Box sx={{ width: 32, height: 32, borderRadius: "10px", backgroundColor: badge.color, color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", mb: 1.5 }}>
+                      <IconComp className="w-4 h-4" />
+                    </Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800, fontSize: "0.75rem", color: "#0f172a", lineHeight: 1.3 }}>
+                      {badge.title}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: "#64748b", fontSize: "0.65rem", display: "block", mt: 0.5, lineHeight: 1.3 }}>
+                      {badge.desc}
+                    </Typography>
+                  </Paper>
                 );
               })}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          {/* Interactive Platform Switcher Matrix Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-white border border-slate-200 p-2 rounded-2xl shadow-xs">
-            <div className="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto">
-              <button
-                onClick={() => setActivePlatform("combined")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                  activePlatform === "combined"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" /> Combined Overview (632 Solved)
-              </button>
+          {/* Platform Switcher Tabs */}
+          <Paper elevation={0} sx={{ borderRadius: "20px", border: "1px solid #e2e8f0", mb: 4, overflow: "hidden", backgroundColor: "#ffffff" }}>
+            <Tabs
+              value={platformTab}
+              onChange={(_, val) => setPlatformTab(val)}
+              variant="scrollable"
+              scrollButtons="auto"
+              sx={{
+                "& .MuiTab-root": { textTransform: "none", fontWeight: 800, fontSize: "0.85rem", py: 2, px: 3, whiteSpace: "nowrap" },
+              }}
+            >
+              <Tab icon={<Layers className="w-4 h-4" />} iconPosition="start" label="Combined Overview (632)" />
+              <Tab icon={<Trophy className="w-4 h-4" />} iconPosition="start" label="LeetCode (514 Solved)" />
+              <Tab icon={<Target className="w-4 h-4" />} iconPosition="start" label="NeetCode (118 Solved)" />
+              <Tab icon={<FiGithub className="w-4 h-4" />} iconPosition="start" label="GitHub (118 Commits)" />
+            </Tabs>
+          </Paper>
 
-              <button
-                onClick={() => setActivePlatform("leetcode")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                  activePlatform === "leetcode"
-                    ? "bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                }`}
-              >
-                <Trophy className="w-3.5 h-3.5" /> LeetCode (@ajitdev01 • 514 Solved)
-              </button>
-
-              <button
-                onClick={() => setActivePlatform("neetcode")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                  activePlatform === "neetcode"
-                    ? "bg-emerald-600 text-white font-bold shadow-md shadow-emerald-600/20"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                }`}
-              >
-                <Target className="w-3.5 h-3.5" /> NeetCode (@MoltenJinchuriki774 • 118 Solved)
-              </button>
-
-              <button
-                onClick={() => setActivePlatform("github")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                  activePlatform === "github"
-                    ? "bg-slate-900 text-white font-bold shadow-md shadow-slate-900/20"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                }`}
-              >
-                <FiGithub className="w-3.5 h-3.5" /> GitHub (@ajitdev01 • 118 Commits)
-              </button>
-            </div>
-
-            <div className="text-xs text-indigo-700 font-bold px-3.5 py-1 bg-indigo-50 rounded-xl border border-indigo-100/80">
-              {stats.subtext}
-            </div>
-          </div>
-
-          {/* Key Metrics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            {/* SVG Donut Chart Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xs font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2">
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" /> {activePlatform === "github" ? "GitHub Activity Ratio" : "Difficulty Distribution"}
-                </h2>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">
-                  {activePlatform.toUpperCase()}
+          {/* Key Metrics Grid - Pure Tailwind CSS Difficulty Card */}
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "repeat(3, 1fr)" }, gap: 3, mb: 4 }}>
+            {/* Pure Tailwind Difficulty Breakdown Card */}
+            <div className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4 gap-2">
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-900">Difficulty Breakdown</h3>
+                </div>
+                <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                  {stats.platformName}
                 </span>
               </div>
 
-              <div className="flex items-center justify-between gap-4">
-                <div className="space-y-2.5 flex-1 text-xs">
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-emerald-50 border border-emerald-100">
-                    <span className="flex items-center gap-2 font-bold text-emerald-700">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> {activePlatform === "github" ? "DSA Journey Repo" : "Easy"}
-                    </span>
-                    <span className="font-black text-slate-900">{stats.easy} <span className="text-slate-500 text-[10px]">({stats.easyPct.toFixed(0)}%)</span></span>
-                  </div>
-
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50 border border-amber-100">
-                    <span className="flex items-center gap-2 font-bold text-amber-700">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> {activePlatform === "github" ? "CollegeSure Web" : "Medium"}
-                    </span>
-                    <span className="font-black text-slate-900">{stats.med} <span className="text-slate-500 text-[10px]">({stats.medPct.toFixed(0)}%)</span></span>
-                  </div>
-
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-rose-50 border border-rose-100">
-                    <span className="flex items-center gap-2 font-bold text-rose-700">
-                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> {activePlatform === "github" ? "NeetCode Submissions" : "Hard"}
-                    </span>
-                    <span className="font-black text-slate-900">{stats.hard} <span className="text-slate-500 text-[10px]">({stats.hardPct.toFixed(0)}%)</span></span>
-                  </div>
-                </div>
-
-                {/* SVG Donut Chart */}
-                <div className="relative w-32 h-32 flex-shrink-0">
-                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" strokeWidth="3.5" />
-                    
-                    <circle
-                      cx="18" cy="18" r="15.915" fill="none"
-                      stroke="#10b981" strokeWidth="3.5"
-                      strokeDasharray={`${stats.easyPct} ${100 - stats.easyPct}`}
-                      strokeDashoffset="0"
-                    />
-                    
-                    <circle
-                      cx="18" cy="18" r="15.915" fill="none"
-                      stroke="#f59e0b" strokeWidth="3.5"
-                      strokeDasharray={`${stats.medPct} ${100 - stats.medPct}`}
-                      strokeDashoffset={`-${stats.easyPct}`}
-                    />
-                    
-                    <circle
-                      cx="18" cy="18" r="15.915" fill="none"
-                      stroke="#f43f5e" strokeWidth="3.5"
-                      strokeDasharray={`${stats.hardPct} ${100 - stats.hardPct}`}
-                      strokeDashoffset={`-${stats.easyPct + stats.medPct}`}
-                    />
+              {/* Donut & Progress Bars */}
+              <div className="flex flex-col sm:flex-row items-center gap-6 my-2">
+                {/* SVG Donut */}
+                <div className="relative w-28 h-28 flex-shrink-0">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" strokeWidth="3.8" />
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" strokeWidth="3.8" strokeDasharray={`${stats.easyPct} ${100 - stats.easyPct}`} strokeDashoffset="0" />
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" strokeWidth="3.8" strokeDasharray={`${stats.medPct} ${100 - stats.medPct}`} strokeDashoffset={`-${stats.easyPct}`} />
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f43f5e" strokeWidth="3.8" strokeDasharray={`${stats.hardPct} ${100 - stats.hardPct}`} strokeDashoffset={`-${stats.easyPct + stats.medPct}`} />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-2xl font-black text-slate-900">{stats.total}</span>
-                    <span className="text-[9px] text-slate-500 font-extrabold uppercase tracking-widest">{activePlatform === "github" ? "Commits" : "Solved"}</span>
+                    <span className="text-2xl font-black text-slate-900 leading-none">{stats.total}</span>
+                    <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider mt-1">Solved</span>
                   </div>
+                </div>
+
+                {/* Easy / Med / Hard Bars */}
+                <div className="w-full flex-1 flex flex-col gap-3">
+                  {/* Easy */}
+                  <div>
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="font-extrabold text-emerald-700 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Easy
+                      </span>
+                      <span className="font-black text-slate-900">
+                        {stats.easy} <span className="text-slate-400 font-semibold text-[11px]">({stats.easyPct.toFixed(0)}%)</span>
+                      </span>
+                    </div>
+                    <div className="w-full bg-emerald-50 rounded-full h-2 overflow-hidden">
+                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.easyPct}%` }}></div>
+                    </div>
+                  </div>
+
+                  {/* Medium */}
+                  <div>
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="font-extrabold text-amber-700 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-amber-500"></span> Medium
+                      </span>
+                      <span className="font-black text-slate-900">
+                        {stats.med} <span className="text-slate-400 font-semibold text-[11px]">({stats.medPct.toFixed(0)}%)</span>
+                      </span>
+                    </div>
+                    <div className="w-full bg-amber-50 rounded-full h-2 overflow-hidden">
+                      <div className="bg-amber-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.medPct}%` }}></div>
+                    </div>
+                  </div>
+
+                  {/* Hard */}
+                  <div>
+                    <div className="flex justify-between items-center text-xs mb-1">
+                      <span className="font-extrabold text-rose-700 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-rose-500"></span> Hard
+                      </span>
+                      <span className="font-black text-slate-900">
+                        {stats.hard} <span className="text-slate-400 font-semibold text-[11px]">({stats.hardPct.toFixed(0)}%)</span>
+                      </span>
+                    </div>
+                    <div className="w-full bg-rose-50 rounded-full h-2 overflow-hidden">
+                      <div className="bg-rose-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.hardPct}%` }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-2 text-xs font-semibold text-slate-500">
+                <div>
+                  Active Streak: <span className="font-black text-emerald-600">{stats.streak} Days</span>
+                </div>
+                <div className="font-black text-indigo-600">
+                  {stats.subtext}
                 </div>
               </div>
             </div>
 
-            {/* Algorithm Skill Proficiency Ratings Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
-              <div>
-                <h2 className="text-xs font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2 mb-4">
-                  <BarChart3 className="w-4 h-4 text-indigo-600" /> Algorithmic Skill Proficiency
-                </h2>
+            {/* Algorithmic Proficiency Card */}
+            <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justify: "space-between", boxShadow: "0 2px 10px rgba(0,0,0,0.02)" }}>
+              <Box>
+                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "0.5px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+                  <BarChart3 className="w-4 h-4 text-indigo-600" /> Algorithmic Proficiency
+                </Typography>
 
-                <div className="space-y-3">
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
                   {SKILL_METRICS.slice(0, 3).map((skill, idx) => (
-                    <div key={idx}>
-                      <div className="flex justify-between text-xs font-bold mb-1">
-                        <span className="text-slate-700 text-[11px]">{skill.topic}</span>
-                        <span className="text-slate-900">{skill.rating}%</span>
-                      </div>
-                      <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={`h-full ${skill.color} rounded-full`} style={{ width: `${skill.rating}%` }} />
-                      </div>
-                    </div>
+                    <Box key={idx}>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
+                        <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {skill.topic}
+                        </Typography>
+                        <Typography variant="caption" sx={{ fontWeight: 900, color: "#0f172a", flexShrink: 0, ml: 1 }}>
+                          {skill.rating}%
+                        </Typography>
+                      </Box>
+                      <LinearProgress variant="determinate" value={skill.rating} sx={{ height: 6, borderRadius: 3, backgroundColor: "#f1f5f9", "& .MuiLinearProgress-bar": { backgroundColor: skill.color, borderRadius: 3 } }} />
+                    </Box>
                   ))}
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 mt-3">
-                <span>Primary Language</span>
-                <span className="font-extrabold text-indigo-600 flex items-center gap-1">
+              <Box sx={{ pt: 1.5, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1 }}>
+                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>Primary Language</Typography>
+                <Typography variant="caption" sx={{ color: "#2563eb", fontWeight: 900, display: "flex", alignItems: "center", gap: 0.5 }}>
                   <Cpu className="w-3.5 h-3.5" /> C++ (474 AC)
-                </span>
-              </div>
-            </div>
+                </Typography>
+              </Box>
+            </Paper>
 
-            {/* Target Goals Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
-              <div className="space-y-4">
-                <h2 className="text-xs font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-purple-600" /> Topic Milestones & Rank
-                </h2>
+            {/* Milestone Roadmap */}
+            <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justify: "space-between", boxShadow: "0 2px 10px rgba(0,0,0,0.02)" }}>
+              <Box>
+                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "0.5px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+                  <TrendingUp className="w-4 h-4 text-purple-600" /> Topic & Rank Goals
+                </Typography>
 
-                <div className="space-y-3 text-xs">
-                  <div>
-                    <div className="flex justify-between font-bold text-slate-700 mb-1.5">
-                      <span>Completed Core Topics</span>
-                      <span className="text-emerald-600">11 / 16 (68%)</span>
-                    </div>
-                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
-                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: "68%" }} />
-                    </div>
-                  </div>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155" }}>Completed Topics</Typography>
+                      <Typography variant="caption" sx={{ fontWeight: 900, color: "#10b981", flexShrink: 0 }}>11 / 16 (68%)</Typography>
+                    </Box>
+                    <LinearProgress variant="determinate" value={68} color="success" sx={{ height: 6, borderRadius: 3 }} />
+                  </Box>
 
-                  <div>
-                    <div className="flex justify-between font-bold text-slate-700 mb-1.5">
-                      <span>Knight Badge Rating Goal</span>
-                      <span className="text-indigo-600">1510 / 1800 (84%)</span>
-                    </div>
-                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
-                      <div className="h-full bg-indigo-600 rounded-full" style={{ width: "84%" }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155" }}>Knight Badge Goal</Typography>
+                      <Typography variant="caption" sx={{ fontWeight: 900, color: "#6366f1", flexShrink: 0 }}>1510 / 1800 (84%)</Typography>
+                    </Box>
+                    <LinearProgress variant="determinate" value={84} color="primary" sx={{ height: 6, borderRadius: 3 }} />
+                  </Box>
+                </Box>
+              </Box>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-500">Public LeetCode Rank</span>
-                <a
-                  href={LEETCODE_PROFILE.profileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-extrabold text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1"
-                >
-                  Verify Profile <ChevronRight className="w-3.5 h-3.5" />
+              <Box sx={{ pt: 1.5, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1 }}>
+                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>LeetCode Handle</Typography>
+                <a href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-indigo-600 hover:underline">
+                  Verify Profile &rarr;
                 </a>
-              </div>
-            </div>
-          </div>
+              </Box>
+            </Paper>
+          </Box>
 
-          {/* GitHub Active Repositories Showcase Section */}
-          <div className="p-6 md:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm mb-10">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-                  <FolderGit2 className="w-5 h-5 text-slate-900" /> Active GitHub Repositories & Contribution Activity
-                </h2>
-                <p className="text-slate-500 text-xs mt-1">
+          {/* GitHub Active Repositories Showcase */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
+              <Box>
+                <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
+                  <FolderGit2 className="w-5 h-5 text-slate-900" /> Active GitHub Repositories
+                </Typography>
+                <Typography variant="caption" sx={{ color: "#64748b", display: "block", mt: 0.5 }}>
                   118 commits created across 4 primary repositories in August 2026 (@{GITHUB_PROFILE.username})
-                </p>
-              </div>
+                </Typography>
+              </Box>
+              <Button component="a" href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="contained" size="small" startIcon={<FiGithub className="w-4 h-4" />} sx={{ fontWeight: 800, borderRadius: "12px", backgroundColor: "#0f172a", textTransform: "none" }}>
+                View All Repos
+              </Button>
+            </Box>
 
-              <a
-                href={GITHUB_PROFILE.profileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 self-start sm:self-center"
-              >
-                <FiGithub className="w-4 h-4" /> View All 19 Repositories &rarr;
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" }, gap: 2 }}>
               {GITHUB_PROFILE.topRepos.map((repo, idx) => (
-                <a
-                  key={idx}
-                  href={repo.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-slate-50/60 border border-slate-200/80 hover:border-slate-400 hover:bg-white hover:shadow-md transition-all group flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-2.5">
-                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md bg-slate-900 text-white flex items-center gap-1">
-                        <GitBranch className="w-3 h-3" /> {repo.name}
-                      </span>
-                      <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${repo.langColor}`}>
-                        {repo.language}
-                      </span>
-                    </div>
-
-                    <p className="text-xs text-slate-650 leading-relaxed font-medium line-clamp-3">
+                <Paper key={idx} elevation={0} component="a" href={repo.link} target="_blank" rel="noopener noreferrer" sx={{ p: 2.5, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", transition: "all 0.2s", textDecoration: "none", display: "flex", flexDirection: "column", justify: "space-between", "&:hover": { borderColor: "#94a3b8", backgroundColor: "#ffffff" } }}>
+                  <Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
+                      <Chip label={repo.name} size="small" sx={{ fontWeight: 800, fontSize: "0.65rem", backgroundColor: "#0f172a", color: "#ffffff" }} />
+                      <Chip label={repo.language} size="small" variant="outlined" sx={{ fontWeight: 800, fontSize: "0.6rem" }} />
+                    </Box>
+                    <Typography variant="body2" sx={{ color: "#475569", fontSize: "0.75rem", lineHeight: 1.5, mb: 2 }}>
                       {repo.description}
-                    </p>
-                  </div>
+                    </Typography>
+                  </Box>
 
-                  <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-700 flex items-center gap-1">
+                  <Box sx={{ pt: 1.5, borderTop: "1px solid #e2e8f0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Typography variant="caption" sx={{ fontWeight: 800, color: "#334155", display: "flex", alignItems: "center", gap: 0.5 }}>
                       <GitCommit className="w-3.5 h-3.5 text-indigo-600" /> {repo.commits} Commits
-                    </span>
-                    <span className="text-xs font-bold text-indigo-600 group-hover:underline flex items-center gap-0.5">
-                      Repo <ExternalLink className="w-3 h-3" />
-                    </span>
-                  </div>
-                </a>
+                    </Typography>
+                    <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
+                  </Box>
+                </Paper>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Paper>
 
-          {/* 365-Day Daily Practice Activity Heatmap */}
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm mb-10">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-              <div>
-                <h2 className="text-xs font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2">
-                  <LayoutGrid className="w-4 h-4 text-emerald-600" /> 365-Day Practice Activity Matrix
-                </h2>
-                <p className="text-slate-500 text-xs mt-0.5">
-                  Consistent problem-solving activity across 2025 – 2026. Active days logged: <strong className="text-emerald-600">{LEETCODE_PROFILE.activeDays} days</strong>.
-                </p>
-              </div>
+          {/* 365-Day Activity Grid */}
+          <Paper elevation={0} sx={{ p: 3, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Box>
+                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", display: "flex", alignItems: "center", gap: 1 }}>
+                  <Flame className="w-4 h-4 text-emerald-600" /> 365-Day Practice Activity Heatmap
+                </Typography>
+                <Typography variant="caption" sx={{ color: "#64748b" }}>
+                  Active practice days logged: <strong>{LEETCODE_PROFILE.activeDays} Days</strong>
+                </Typography>
+              </Box>
+            </Box>
 
-              <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
-                <span>Less</span>
-                <div className="flex gap-1">
-                  <span className="w-2.5 h-2.5 bg-gray-100 rounded-xs border border-gray-200" />
-                  <span className="w-2.5 h-2.5 bg-emerald-200 rounded-xs" />
-                  <span className="w-2.5 h-2.5 bg-emerald-400 rounded-xs" />
-                  <span className="w-2.5 h-2.5 bg-emerald-600 rounded-xs" />
-                </div>
-                <span>More</span>
-              </div>
-            </div>
-
-            {/* Heatmap Grid */}
-            <div className="overflow-x-auto pb-2 scrollbar-thin">
-              <div className="grid grid-flow-col grid-rows-7 gap-1.5 h-28 w-max select-none">
+            <Box sx={{ overflowX: "auto", pb: 1 }}>
+              <Box sx={{ display: "grid", gridAutoFlow: "column", gridTemplateRows: "repeat(7, 1fr)", gap: 0.8, width: "max-content" }}>
                 {DSA_HEATMAP_GRID.map((level, i) => (
-                  <div
-                    key={i}
-                    className={`w-2.5 h-2.5 rounded-xs transition-all duration-200 hover:scale-150 hover:z-10 ${level}`}
-                    title={`Day ${i + 1}: Active Submissions Logged`}
+                  <Box key={i} className={`w-2.5 h-2.5 rounded-xs transition-all hover:scale-150 ${level}`} title={`Day ${i + 1}`} />
+                ))}
+              </Box>
+            </Box>
+          </Paper>
+
+          {/* Recent AC Submissions */}
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+              <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Live Recent Accepted Submissions
+            </Typography>
+
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 2 }}>
+              {RECENT_ACCEPTED_PROBLEMS.map((prob) => (
+                <Paper key={prob.id} elevation={0} component="a" href={prob.link} target="_blank" rel="noopener noreferrer" sx={{ p: 2.5, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", transition: "all 0.2s", textDecoration: "none", "&:hover": { borderColor: "#6366f1", boxShadow: "0 4px 12px rgba(99, 102, 241, 0.08)" } }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+                    <Chip label={prob.difficulty} size="small" color={prob.color as any} sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
+                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{prob.timeAgo}</Typography>
+                  </Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0f172a", mb: 1.5 }}>{prob.title}</Typography>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pt: 1, borderTop: "1px solid #f1f5f9" }}>
+                    <Typography variant="caption" sx={{ fontWeight: 700, color: "#64748b" }}>{prob.platform}</Typography>
+                    <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
+                  </Box>
+                </Paper>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Topic Roadmap & Explorer */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
+              <Box>
+                <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
+                  <BookOpen className="w-5 h-5 text-indigo-600" /> Topic Roadmap & Detail Explorer
+                </Typography>
+                <Typography variant="caption" sx={{ color: "#64748b" }}>
+                  Filter algorithms by domain or search for specific data structures
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 1 }}>
+                {["All", "Linear", "Technique", "Hierarchical", "Advanced", "Completed"].map((cat) => (
+                  <Chip
+                    key={cat}
+                    label={cat}
+                    size="small"
+                    onClick={() => setActiveCategory(cat)}
+                    color={activeCategory === cat ? "primary" : "default"}
+                    variant={activeCategory === cat ? "filled" : "outlined"}
+                    sx={{ fontWeight: 800, fontSize: "0.7rem", cursor: "pointer" }}
                   />
                 ))}
-              </div>
-            </div>
-          </div>
 
-          {/* Live Recent AC Submissions Feed */}
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Live Recent Accepted Submissions
-                </h2>
-                <p className="text-slate-500 text-xs mt-1">
-                  Authentic recent solved challenges from LeetCode & NeetCode profiles
-                </p>
-              </div>
-              <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
-                Daily Verified AC
-              </span>
-            </div>
+                <TextField
+                  placeholder="Search topics..."
+                  size="small"
+                  value={topicSearch}
+                  onChange={(e) => setTopicSearch(e.target.value)}
+                  slotProps={{
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Search className="w-4 h-4 text-slate-400" />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                  sx={{ width: { xs: "100%", sm: "200px" }, "& .MuiOutlinedInput-root": { borderRadius: "12px" } }}
+                />
+              </Box>
+            </Box>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {RECENT_ACCEPTED_PROBLEMS.map((prob) => (
-                <a
-                  key={prob.id}
-                  href={prob.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all hover:-translate-y-1 shadow-xs group flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-md border ${prob.difficultyColor}`}>
-                        {prob.difficulty}
-                      </span>
-                      <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-slate-400" /> {prob.timeAgo}
-                      </span>
-                    </div>
-
-                    <h3 className="font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors text-sm line-clamp-2">
-                      {prob.title}
-                    </h3>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1">
-                      {prob.tags.map((tag, idx) => (
-                        <span key={idx} className="text-[9px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-xs text-slate-500 group-hover:text-indigo-600 font-bold flex items-center gap-0.5">
-                      {prob.platform} <ExternalLink className="w-3 h-3 ml-0.5" />
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Topic Master Roadmap & Category Filters */}
-          <div className="mb-12">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-indigo-600" /> Topic Roadmap & Detail Explorer
-                </h2>
-                <p className="text-slate-500 text-xs mt-1">
-                  Filter algorithms by domain or search for specific data structures
-                </p>
-              </div>
-
-              {/* Category Filter Pills & Search */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-thin">
-                  {["All", "Linear", "Technique", "Hierarchical", "Advanced", "Completed"].map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setActiveCategory(cat)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                        activeCategory === cat
-                          ? "bg-indigo-600 text-white shadow-xs"
-                          : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="relative w-full sm:w-60">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    placeholder="Search topics..."
-                    value={topicSearch}
-                    onChange={(e) => setTopicSearch(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:border-indigo-500 shadow-xs transition-all"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Left Column: Topic List */}
-              <div className="lg:col-span-5 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
-                <div className="flex justify-between items-center text-xs font-extrabold uppercase tracking-widest text-slate-400 px-1 pb-2 border-b border-slate-100">
-                  <span>DSA Topics ({filteredTopics.length})</span>
-                  <span>Solved / Target</span>
-                </div>
-
-                <div className="max-h-[460px] overflow-y-auto pr-2 space-y-2 scrollbar-thin">
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "5fr 7fr" }, gap: 3 }}>
+              {/* Topic List */}
+              <Box sx={{ maxHeight: 420, overflowY: "auto", pr: 1 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                   {filteredTopics.map((topic) => (
-                    <button
+                    <Button
                       key={topic.key}
                       onClick={() => setSelectedTopic(topic.key)}
-                      className={`w-full p-3 rounded-xl border text-left text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
-                        selectedTopic === topic.key
-                          ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-600/20"
-                          : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
-                      }`}
+                      variant={selectedTopic === topic.key ? "contained" : "outlined"}
+                      color={selectedTopic === topic.key ? "primary" : "inherit"}
+                      sx={{
+                        justifyContent: "space-between",
+                        py: 1.2, px: 2,
+                        borderRadius: "14px",
+                        textTransform: "none",
+                        fontWeight: 800,
+                        fontSize: "0.8rem",
+                        borderColor: "#e2e8f0",
+                      }}
                     >
-                      <span className="flex items-center gap-2.5">
-                        {topic.completed ? (
-                          <CheckCircle2 className={`w-4 h-4 ${selectedTopic === topic.key ? "text-white" : "text-emerald-500"}`} />
-                        ) : (
-                          <Zap className={`w-4 h-4 ${selectedTopic === topic.key ? "text-white" : "text-amber-500 animate-pulse"}`} />
-                        )}
-                        <span className="font-bold">{topic.name}</span>
+                      <span className="flex items-center gap-2">
+                        {topic.completed ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Zap className="w-4 h-4 text-amber-500" />}
+                        {topic.name}
                       </span>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-md ${selectedTopic === topic.key ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
-                        {topic.solved} / {topic.total}
-                      </span>
-                    </button>
+                      <span className="text-[10px] opacity-80">{topic.solved} / {topic.total}</span>
+                    </Button>
                   ))}
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              {/* Right Column: Selected Topic Detail Card */}
-              <div className="lg:col-span-7 p-6 md:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between min-h-[460px]">
-                <div className="space-y-6">
-                  <div className="flex flex-wrap justify-between items-start gap-4 pb-4 border-b border-slate-100">
-                    <div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-700 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-md">
-                        {activeTopicInfo.category} • {activeTopicInfo.completed ? "Mastery Achieved" : "In Progress Focus"}
-                      </span>
-                      <h3 className="text-2xl font-black text-slate-900 mt-2">{activeTopicInfo.name}</h3>
-                    </div>
+              {/* Topic Details */}
+              <Paper elevation={0} sx={{ p: 3, borderRadius: "16px", backgroundColor: "#f8fafc", border: "1px solid #e2e8f0", display: "flex", flexDirection: "column", justify: "space-between" }}>
+                <Box>
+                  <Box sx={{ display: "flex", justify: "space-between", alignItems: "start", mb: 2 }}>
+                    <Box>
+                      <Chip label={activeTopicInfo.category} size="small" color="primary" sx={{ fontWeight: 800, fontSize: "0.65rem", mb: 0.5 }} />
+                      <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a" }}>{activeTopicInfo.name}</Typography>
+                    </Box>
+                    <Typography variant="h5" sx={{ fontWeight: 900, color: "#6366f1" }}>
+                      {((activeTopicInfo.solved / activeTopicInfo.total) * 100).toFixed(0)}%
+                    </Typography>
+                  </Box>
 
-                    <div className="text-right">
-                      <div className="text-3xl font-black text-indigo-600">
-                        {((activeTopicInfo.solved / activeTopicInfo.total) * 100).toFixed(0)}%
-                      </div>
-                      <div className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest">Completion</div>
-                    </div>
-                  </div>
+                  <Typography variant="body2" sx={{ color: "#475569", mb: 2, lineHeight: 1.6 }}>{activeTopicInfo.details}</Typography>
 
-                  <div>
-                    <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-2">Topical Scope & Focus Areas</h4>
-                    <p className="text-slate-650 text-sm leading-relaxed">{activeTopicInfo.details}</p>
-                  </div>
+                  <Box sx={{ mb: 2 }}>
+                    <LinearProgress variant="determinate" value={(activeTopicInfo.solved / activeTopicInfo.total) * 100} sx={{ height: 8, borderRadius: 4 }} />
+                  </Box>
 
-                  <div>
-                    <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-2">Practice Progress Bar</h4>
-                    <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
-                      <div
-                        className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
-                        style={{ width: `${(activeTopicInfo.solved / activeTopicInfo.total) * 100}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-[10px] text-slate-500 mt-2 font-bold">
-                      <span>Solved: {activeTopicInfo.solved} Challenges</span>
-                      <span>Target: {activeTopicInfo.total} Total</span>
-                    </div>
-                  </div>
+                  <Box sx={{ p: 2, borderRadius: "12px", backgroundColor: "#0f172a", color: "#6ee7b7", fontFamily: "monospace", fontSize: "0.75rem", overflowX: "auto" }}>
+                    <pre><code>{activeTopicInfo.codeSnippet}</code></pre>
+                  </Box>
+                </Box>
 
-                  {/* Code Snippet Preview */}
-                  <div>
-                    <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                      <Terminal className="w-3.5 h-3.5 text-indigo-600" /> C++ Core Code Snippet Preview
-                    </h4>
-                    <pre className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-emerald-300 text-xs font-mono overflow-x-auto">
-                      <code>{activeTopicInfo.codeSnippet}</code>
-                    </pre>
-                  </div>
-                </div>
-
-                <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-                  <span className="text-xs text-slate-500 font-medium">Read detailed study notes and blueprints</span>
-                  <Link
-                    href={`/dsa/${activeTopicInfo.key}`}
-                    className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-extrabold transition-all shadow-md shadow-indigo-600/20 flex items-center gap-2 group"
-                  >
-                    Read Study Notes
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Box sx={{ pt: 2, mt: 2, borderTop: "1px solid #e2e8f0", display: "flex", justify: "space-between", alignItems: "center" }}>
+                  <Typography variant="caption" sx={{ color: "#64748b" }}>Read full study guide</Typography>
+                  <Link href={`/dsa/${activeTopicInfo.key}`} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1">
+                    Read Study Notes <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+                </Box>
+              </Paper>
+            </Box>
+          </Paper>
 
-          {/* Interactive C++ Code Pattern Runner Playground */}
-          <div className="mb-12 p-6 md:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-                  <Code2 className="w-5 h-5 text-indigo-600" /> Must-Know C++ Algorithm Patterns & Interactive Runner
-                </h2>
-                <p className="text-slate-500 text-xs mt-1">
-                  Test and execute C++ STL algorithms in an interactive code runner widget
-                </p>
-              </div>
+          {/* Interactive C++ Code Runner */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
+                <Code2 className="w-5 h-5 text-indigo-600" /> Must-Know C++ Algorithm Patterns & Interactive Runner
+              </Typography>
 
-              {/* Pattern Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+              <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                 {CPP_PATTERNS.map((pattern) => (
-                  <button
+                  <Button
                     key={pattern.id}
-                    onClick={() => {
-                      setActivePatternTab(pattern.id);
-                      setExecutionOutput(null);
-                    }}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                      activePatternTab === pattern.id
-                        ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/20"
-                        : "bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200"
-                    }`}
+                    onClick={() => { setActivePatternTab(pattern.id); setExecutionOutput(null); }}
+                    variant={activePatternTab === pattern.id ? "contained" : "outlined"}
+                    size="small"
+                    sx={{ fontWeight: 800, borderRadius: "10px", fontSize: "0.7rem", textTransform: "none" }}
                   >
                     {pattern.title}
-                  </button>
+                  </Button>
                 ))}
-              </div>
-            </div>
+              </Box>
+            </Box>
 
-            {/* Interactive Code Runner Box */}
-            <div className="bg-slate-950 rounded-2xl border border-slate-800 p-5 md:p-6 shadow-xl">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-black text-white">{activePatternInfo.title}</h3>
-                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
-                      {activePatternInfo.difficulty}
-                    </span>
-                  </div>
-                  <p className="text-slate-400 text-xs mt-1">{activePatternInfo.useCase}</p>
-                </div>
+            <Box sx={{ p: 3, borderRadius: "16px", backgroundColor: "#0f172a", border: "1px solid #1e293b" }}>
+              <Box sx={{ display: "flex", justify: "space-between", alignItems: "center", mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ color: "#ffffff", fontWeight: 800 }}>{activePatternInfo.title}</Typography>
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  <Button variant="contained" color="success" size="small" startIcon={<Play className="w-3.5 h-3.5" />} onClick={handleRunCode} disabled={isExecuting} sx={{ fontWeight: 800, borderRadius: "10px", textTransform: "none" }}>
+                    {isExecuting ? "Executing..." : "Run Test Cases"}
+                  </Button>
+                  <Button variant="outlined" size="small" startIcon={copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />} onClick={() => handleCopyCode(activePatternInfo.code)} sx={{ fontWeight: 800, borderRadius: "10px", color: "#ffffff", borderColor: "#334155", textTransform: "none" }}>
+                    {copiedCode ? "Copied" : "Copy C++"}
+                  </Button>
+                </Box>
+              </Box>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handleRunCode}
-                    disabled={isExecuting}
-                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shadow-lg shadow-emerald-600/30 disabled:opacity-50"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-white" />
-                    {isExecuting ? "Executing STL..." : "Run Test Cases"}
-                  </button>
-
-                  <button
-                    onClick={() => handleCopyCode(activePatternInfo.code)}
-                    className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    {copiedCode ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-400" /> Copied!
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5 text-slate-400" /> Copy C++
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Code Editor */}
-              <pre className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-emerald-300 text-xs font-mono overflow-x-auto leading-relaxed scrollbar-thin mb-4">
+              <pre className="text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed p-3 bg-slate-900 rounded-xl mb-3">
                 <code>{activePatternInfo.code}</code>
               </pre>
 
-              {/* Live Terminal Output Console */}
               {executionOutput && (
-                <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-mono animate-fade-in">
-                  <div className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-widest mb-1 flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> C++ Compilation Output
-                  </div>
-                  <pre className="whitespace-pre-wrap leading-relaxed">{executionOutput}</pre>
-                </div>
+                <Box sx={{ p: 2, borderRadius: "12px", backgroundColor: "#064e3b", border: "1px solid #059669", color: "#6ee7b7", fontFamily: "monospace", fontSize: "0.75rem" }}>
+                  <pre>{executionOutput}</pre>
+                </Box>
               )}
-            </div>
-          </div>
+            </Box>
+          </Paper>
 
-          {/* Quick Links to DSA Subpages */}
-          <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-indigo-50/80 via-white to-purple-50/50 border border-indigo-100 shadow-sm">
-            <h3 className="text-sm font-black uppercase tracking-widest text-indigo-900 mb-4 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-indigo-600" /> Browse Detailed DSA Chapters
-            </h3>
-            <div className="flex flex-wrap gap-2.5">
-              {DSA_TOPICS.map((topic) => (
-                <Link
-                  key={topic.key}
-                  href={`/dsa/${topic.key}`}
-                  className="px-3.5 py-2 bg-white hover:bg-indigo-600 hover:text-white border border-indigo-100 rounded-xl text-xs font-bold text-indigo-600 transition-all shadow-xs"
-                >
-                  {topic.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
+        </Box>
+      </Box>
     </>
   );
 }

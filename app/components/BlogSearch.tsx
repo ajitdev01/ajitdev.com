@@ -2,7 +2,28 @@
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
-import { Search, Calendar, Clock, Tag, X } from "lucide-react";
+import {
+  Box,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+  TextField,
+  InputAdornment,
+  Pagination,
+  Modal,
+  IconButton,
+} from "@mui/material";
+import {
+  Search,
+  Calendar,
+  Clock,
+  Tag,
+  X,
+  ArrowRight,
+  BookOpen,
+  Sparkles,
+} from "lucide-react";
 import { BlogPost } from "@/lib/blog";
 import Fuse from "fuse.js";
 
@@ -16,14 +37,13 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [modalQuery, setModalQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const POSTS_PER_PAGE = 12;
+  const POSTS_PER_PAGE = 9;
 
   const modalInputRef = useRef<HTMLInputElement>(null);
 
-  // Reset page when category changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory]);
+  }, [selectedCategory, query]);
 
   const categories = ["All", ...Array.from(new Set(initialPosts.map((p) => p.category)))];
 
@@ -41,20 +61,14 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
     });
   }, [initialPosts]);
 
-  // Main Page filter
   const filteredPosts = useMemo(() => {
     let posts = initialPosts;
     if (query.trim() !== "") {
       const results = fuse.search(query);
       posts = results.map(r => r.item);
     }
-
     return posts.filter((post) => {
-      const matchesCategory =
-        selectedCategory === "All" ||
-        post.category.toLowerCase() === selectedCategory.toLowerCase();
-
-      return matchesCategory;
+      return selectedCategory === "All" || post.category.toLowerCase() === selectedCategory.toLowerCase();
     });
   }, [query, selectedCategory, initialPosts, fuse]);
 
@@ -65,391 +79,242 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-  // Modal fuzzy search results
   const modalResults = useMemo(() => {
-    if (modalQuery.trim() === "") {
-      return [];
-    }
-    const results = fuse.search(modalQuery);
-    return results.map(r => r.item);
+    if (modalQuery.trim() === "") return [];
+    return fuse.search(modalQuery).map(r => r.item);
   }, [modalQuery, fuse]);
 
-  // Handle Escape shortcut to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setIsOpen(true);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Autofocus modal input when it opens
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        modalInputRef.current?.focus();
-      }, 50);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
   const popularTerms = ["React", "DevOps", "Next.js", "Database", "AWS", "Security", "DSA"];
 
-  const handlePopularTermClick = (term: string) => {
-    setModalQuery(term);
-    setTimeout(() => {
-      modalInputRef.current?.focus();
-    }, 10);
-  };
-
-  // Helper function for rendering highlighted text
-  const highlightText = (text: string, highlight: string) => {
-    if (!highlight.trim()) {
-      return <span>{text}</span>;
-    }
-    const escapedHighlight = highlight.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-    const regex = new RegExp(`(${escapedHighlight})`, "gi");
-    const parts = text.split(regex);
-    return (
-      <span>
-        {parts.map((part, index) =>
-          regex.test(part) ? (
-            <mark key={index} className="bg-indigo-100 text-indigo-900 px-0.5 rounded font-semibold">
-              {part}
-            </mark>
-          ) : (
-            part
-          )
-        )}
-      </span>
-    );
-  };
-
-  // Recommendations for the modal suggestion state (when query is empty)
-  const recommendations = useMemo(() => {
-    return initialPosts.slice(0, 4);
-  }, [initialPosts]);
-
   return (
-    <div className="space-y-8">
-      {/* Search and Category Filter Section */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-        {/* Search Input Button */}
-        <div 
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
+      
+      {/* Search Input & Category Pills */}
+      <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center", justifyContent: "space-between", gap: 3 }}>
+        <TextField
+          placeholder="Search articles (Press Ctrl+K)..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           onClick={() => setIsOpen(true)}
-          className="relative w-full md:max-w-md cursor-pointer group"
-        >
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-hover:text-indigo-500 transition-colors">
-            <Search className="w-5 h-5" />
-          </span>
-          <input
-            type="text"
-            readOnly
-            placeholder="Search blogs by title, tags, or content..."
-            value={query}
-            className="w-full pl-10 pr-20 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white shadow-sm transition-all text-gray-800 text-sm cursor-pointer"
-          />
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-sans font-medium text-gray-400 bg-gray-50 border border-gray-200 rounded">
-              <span>Ctrl</span><span>K</span>
-            </kbd>
-          </div>
-        </div>
+          sx={{ width: { xs: "100%", md: "400px" } }}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search className="w-5 h-5 text-indigo-600" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Typography variant="caption" sx={{ fontWeight: 800, color: "#94a3b8", border: "1px solid #cbd5e1", px: 1, py: 0.2, borderRadius: "6px", fontSize: "0.65rem" }}>
+                    Ctrl K
+                  </Typography>
+                </InputAdornment>
+              ),
+              sx: { borderRadius: "18px", backgroundColor: "#ffffff", fontWeight: 700, cursor: "pointer" }
+            }
+          }}
+        />
 
-        {/* Category Pills */}
-        <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
+        {/* Categories Chips */}
+        <Paper elevation={0} sx={{ p: 1.5, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexWrap: "wrap", gap: 1 }}>
           {categories.map((category) => (
-            <button
+            <Chip
               key={category}
+              label={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all border ${
-                selectedCategory === category
-                  ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/20"
-                  : "bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:text-indigo-600"
-              }`}
-            >
-              {category}
-            </button>
+              color={selectedCategory === category ? "primary" : "default"}
+              variant={selectedCategory === category ? "filled" : "outlined"}
+              sx={{ fontWeight: 800, fontSize: "0.75rem", borderRadius: "12px", cursor: "pointer" }}
+            />
           ))}
-        </div>
-      </div>
+        </Paper>
+      </Box>
 
-      {/* Blogs Output Grid */}
+      {/* Blog Cards Grid */}
       {paginatedPosts.length > 0 ? (
-        <div className="space-y-10">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(3, 1fr)" }, gap: 4 }}>
             {paginatedPosts.map((post) => (
-              <article
+              <Paper
                 key={post.slug}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col h-full group"
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: "24px",
+                  border: "1px solid #e2e8f0",
+                  backgroundColor: "#ffffff",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  transition: "all 0.25s ease-out",
+                  "&:hover": { transform: "translateY(-6px)", boxShadow: "0 12px 30px rgba(0,0,0,0.06)", borderColor: "#cbd5e1" },
+                }}
               >
-                {/* Category tag */}
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">
-                      {post.category}
-                    </span>
-                    <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                      <Clock className="w-3.5 h-3.5" />
-                      {post.readingTime}
-                    </span>
-                  </div>
+                <Box>
+                  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
+                    <Chip label={post.category} color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
+                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, display: "flex", alignItems: "center", gap: 0.5 }}>
+                      <Clock className="w-3.5 h-3.5 text-indigo-600" /> {post.readingTime}
+                    </Typography>
+                  </Box>
 
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors mb-2.5 line-clamp-2">
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h3>
-
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {post.description}
-                  </p>
-
-                  <div className="mt-auto pt-4 border-t border-gray-100 flex flex-wrap gap-1.5">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center gap-1 text-[11px] text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded"
-                      >
-                        <Tag className="w-2.5 h-2.5 text-gray-400" />
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom bar */}
-                <div className="bg-gray-50 border-t border-gray-100 px-6 py-3 flex items-center justify-between text-xs text-gray-500">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {post.date}
-                  </span>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
-                  >
-                    Read Article →
+                  <Link href={`/blog/${post.slug}`} className="no-underline">
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 900,
+                        color: "#0f172a",
+                        fontSize: "1.05rem",
+                        mb: 1,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        "&:hover": { color: "#4f46e5" }
+                      }}
+                    >
+                      {post.title}
+                    </Typography>
                   </Link>
-                </div>
-              </article>
+
+                  <Typography variant="body2" sx={{ color: "#64748b", fontSize: "0.85rem", mb: 2.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {post.description}
+                  </Typography>
+
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.8, mb: 3 }}>
+                    {post.tags.slice(0, 3).map((tag) => (
+                      <Chip key={tag} label={`#${tag}`} size="small" variant="outlined" sx={{ fontWeight: 700, fontSize: "0.6rem", height: 22 }} />
+                    ))}
+                  </Box>
+                </Box>
+
+                <Box sx={{ pt: 2, borderTop: "1px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, display: "flex", alignItems: "center", gap: 0.5 }}>
+                    <Calendar className="w-3.5 h-3.5" /> {post.date}
+                  </Typography>
+                  <Link href={`/blog/${post.slug}`} className="no-underline">
+                    <Button
+                      size="small"
+                      endIcon={<ArrowRight className="w-4 h-4" />}
+                      sx={{ fontWeight: 900, textTransform: "none", color: "#4f46e5" }}
+                    >
+                      Read Article
+                    </Button>
+                  </Link>
+                </Box>
+              </Paper>
             ))}
-          </div>
+          </Box>
 
-          {/* Pagination Controls */}
+          {/* MUI Pagination */}
           {totalPages > 1 && (
-            <div className="flex flex-wrap justify-center items-center gap-2 pt-6 border-t border-gray-100">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors cursor-pointer"
-              >
-                &larr; Prev
-              </button>
-              
-              {Array.from({ length: totalPages }).map((_, idx) => {
-                const pageNum = idx + 1;
-                // Show page button if it is close to current page
-                const isNear = Math.abs(pageNum - currentPage) <= 1;
-                const isEdge = pageNum === 1 || pageNum === totalPages;
-                
-                if (isEdge || isNear) {
-                  return (
-                    <button
-                      key={pageNum}
-                      onClick={() => setCurrentPage(pageNum)}
-                      className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                        currentPage === pageNum
-                          ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/20"
-                          : "bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:text-indigo-600"
-                      }`}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                }
-                
-                if (pageNum === 2 || pageNum === totalPages - 1) {
-                  return <span key={pageNum} className="text-gray-400 text-xs px-1">...</span>;
-                }
-                return null;
-              })}
-
-              <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-600 disabled:opacity-40 hover:bg-gray-50 transition-colors cursor-pointer"
-              >
-                Next &rarr;
-              </button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="text-center py-20 bg-gray-50 border border-gray-200 rounded-2xl">
-          <p className="text-gray-500 text-base">No blog posts found matching your criteria.</p>
-        </div>
-      )}
-
-      {/* SEARCH MODAL */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4">
-          {/* Backdrop */}
-          <div 
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity"
-          />
-
-          {/* Modal content */}
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl border border-gray-200/80 shadow-2xl overflow-hidden flex flex-col max-h-[75vh] animate-in fade-in zoom-in-95 duration-150">
-            {/* Input Bar */}
-            <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100 bg-gray-50/50">
-              <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
-              <input
-                ref={modalInputRef}
-                type="text"
-                placeholder="Type to search articles..."
-                value={modalQuery}
-                onChange={(e) => setModalQuery(e.target.value)}
-                className="flex-1 bg-transparent focus:outline-none text-base text-gray-800 placeholder-gray-400"
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={(_, page) => setCurrentPage(page)}
+                color="primary"
+                size="large"
+                sx={{ "& .MuiPaginationItem-root": { fontWeight: 800, borderRadius: "10px" } }}
               />
-              {modalQuery && (
-                <button 
-                  onClick={() => setModalQuery("")}
-                  className="p-1 hover:bg-gray-200/60 rounded-full text-gray-400 hover:text-gray-600 transition-all"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[9px] font-sans font-medium text-gray-400 bg-white border border-gray-200 rounded shadow-sm">
-                ESC
-              </kbd>
-            </div>
-
-            {/* Modal Body */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {/* Popular Searches */}
-              <div>
-                <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2.5">
-                  Popular Queries
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {popularTerms.map((term) => (
-                    <button
-                      key={term}
-                      onClick={() => handlePopularTermClick(term)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
-                        modalQuery.toLowerCase() === term.toLowerCase()
-                          ? "bg-indigo-50 border-indigo-200 text-indigo-700"
-                          : "bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:text-indigo-600"
-                      }`}
-                    >
-                      {term}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Suggestions / Results */}
-              {modalQuery.trim() === "" ? (
-                <div>
-                  <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">
-                    Recommended Articles
-                  </h4>
-                  <div className="space-y-2">
-                    {recommendations.map((post) => (
-                      <Link
-                        key={`rec-${post.slug}`}
-                        href={`/blog/${post.slug}`}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/15 transition-all group"
-                      >
-                        <div className="flex flex-col gap-1 pr-4">
-                          <span className="text-xs font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                            {post.title}
-                          </span>
-                          <span className="text-[11px] text-gray-500 line-clamp-1">
-                            {post.description}
-                          </span>
-                        </div>
-                        <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded uppercase flex-shrink-0">
-                          {post.category}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : modalResults.length > 0 ? (
-                <div>
-                  <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">
-                    Search Results ({modalResults.length})
-                  </h4>
-                  <div className="space-y-2">
-                    {modalResults.map((post) => (
-                      <Link
-                        key={`res-${post.slug}`}
-                        href={`/blog/${post.slug}`}
-                        onClick={() => setIsOpen(false)}
-                        className="block p-3.5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/15 transition-all group"
-                      >
-                        <div className="flex items-center justify-between gap-3 mb-1.5">
-                          <h5 className="text-sm font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                            {highlightText(post.title, modalQuery)}
-                          </h5>
-                          <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded uppercase flex-shrink-0">
-                            {highlightText(post.category, modalQuery)}
-                          </span>
-                        </div>
-                        <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed mb-2.5">
-                          {highlightText(post.description, modalQuery)}
-                        </p>
-                        <div className="flex items-center gap-3 text-[10px] text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5" />
-                            {post.readingTime}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5" />
-                            {post.date}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-10 bg-gray-50 border border-gray-100 rounded-xl">
-                  <p className="text-sm text-gray-500 font-semibold mb-1">No articles found matching "{modalQuery}"</p>
-                  <p className="text-xs text-gray-400 mb-4">Try checking spelling or type another keyword.</p>
-                  <div className="flex justify-center gap-2">
-                    <button
-                      onClick={() => setModalQuery("")}
-                      className="px-3 py-1 bg-white border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 rounded-lg text-xs font-semibold text-gray-500 transition-colors"
-                    >
-                      Clear Search
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Modal Footer */}
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
-              <span className="flex items-center gap-1.5">
-                <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded font-bold shadow-xs">ESC</span>
-                to close
-              </span>
-              <span>
-                Search powered by <strong className="text-gray-500">Fuse.js</strong>
-              </span>
-            </div>
-          </div>
-        </div>
+            </Box>
+          )}
+        </Box>
+      ) : (
+        <Paper elevation={0} sx={{ p: 8, textAlign: "center", borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
+          <Typography variant="h6" sx={{ color: "#64748b", fontWeight: 800 }}>
+            No engineering articles found matching your criteria.
+          </Typography>
+        </Paper>
       )}
-    </div>
+
+      {/* MUI SEARCH MODAL */}
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <Box sx={{ position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)", width: { xs: "90%", sm: "600px" }, bgcolor: "background.paper", borderRadius: "24px", p: 3, boxShadow: 24 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, pb: 2, borderBottom: "1px solid #e2e8f0" }}>
+            <Search className="w-5 h-5 text-indigo-600" />
+            <TextField
+              fullWidth
+              variant="standard"
+              placeholder="Search articles by title, tag, or topic..."
+              value={modalQuery}
+              onChange={(e) => setModalQuery(e.target.value)}
+              autoFocus
+              slotProps={{
+                input: { disableUnderline: true, sx: { fontWeight: 800, fontSize: "1rem" } }
+              }}
+            />
+            <IconButton onClick={() => setIsOpen(false)} size="small">
+              <X className="w-5 h-5" />
+            </IconButton>
+          </Box>
+
+          <Box sx={{ mt: 3, maxHeight: "400px", overflowY: "auto" }}>
+            <Typography variant="caption" sx={{ fontWeight: 900, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "1px", mb: 1, display: "block" }}>
+              Popular Topics
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
+              {popularTerms.map((term) => (
+                <Chip
+                  key={term}
+                  label={term}
+                  onClick={() => setModalQuery(term)}
+                  variant="outlined"
+                  size="small"
+                  sx={{ fontWeight: 800, borderRadius: "8px", cursor: "pointer" }}
+                />
+              ))}
+            </Box>
+
+            <Typography variant="caption" sx={{ fontWeight: 900, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "1px", mb: 1.5, display: "block" }}>
+              {modalQuery.trim() === "" ? "Recommended Articles" : `Results (${modalResults.length})`}
+            </Typography>
+
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+              {(modalQuery.trim() === "" ? initialPosts.slice(0, 4) : modalResults).map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline" onClick={() => setIsOpen(false)}>
+                  <Paper
+                    elevation={0}
+                    sx={{
+                      p: 2,
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      textDecoration: "none",
+                      "&:hover": { backgroundColor: "#f8fafc", borderColor: "#c7d2fe" }
+                    }}
+                  >
+                    <Box>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a" }}>
+                        {post.title}
+                      </Typography>
+                      <Typography variant="caption" sx={{ color: "#64748b", display: "block" }}>
+                        {post.readingTime} · {post.date}
+                      </Typography>
+                    </Box>
+                    <Chip label={post.category} color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.6rem" }} />
+                  </Paper>
+                </Link>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      </Modal>
+
+    </Box>
   );
 }

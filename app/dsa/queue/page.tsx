@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Queue Data Structures Study Notes & scaling | Ajit Dev",
-  description: "FIFO buffers, priority queues, and double-ended queues. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Queue Data Structures Study Notes & LeetCode Practice | Ajit Dev",
+  description: "FIFO buffers, double-ended queues (deque) for sliding window maximums, and level order buffers in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/queue",
   },
 };
 
-export default function dsaQueuePage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/queue/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "queue",
-        "item": "https://ajitdev.com/dsa/queue",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Queue Data Structures guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Queue Data Structures."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaQueuePage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Queue Data Structures
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              FIFO buffers, priority queues, and double-ended queues.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Queue Data Structures</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="queue"
+      topicName="Queue Data Structures"
+      category="Linear Data Structures"
+      description="Queues operate on First-In, First-Out (FIFO) access order. Master level-order BFS tree traversals, double-ended queues (std::deque), and monotonic deques for sliding window maximum problems in C++."
+      timeComplexity="Push / Pop / Front: O(1)"
+      spaceComplexity="O(N) Queue Buffer"
+      solvedCount={15}
+      totalTarget={20}
+      codeTemplate={`// C++ Monotonic Deque Sliding Window Maximum Template\n#include <iostream>\n#include <vector>\n#include <deque>\nusing namespace std;\n\nvector<int> maxSlidingWindow(const vector<int>& nums, int k) {\n    deque<int> dq;\n    vector<int> res;\n    for (int i = 0; i < nums.size(); ++i) {\n        if (!dq.empty() && dq.front() == i - k) dq.pop_front(); // Evict stale index\n        while (!dq.empty() && nums[dq.back()] < nums[i]) dq.pop_back(); // Maintain monotonic order\n        dq.push_back(i);\n        if (i >= k - 1) res.push_back(nums[dq.front()]);\n    }\n    return res;\n}`}
+      concepts={[
+        "FIFO Discipline: First elements added are processed first, ideal for BFS shortest path exploration.",
+        "Double-Ended Queue (std::deque): Allows O(1) push and pop at both head and tail ends.",
+        "Monotonic Deque: Evicts stale indices and smaller values to extract max/min in sliding windows in O(1).",
+        "Circular Buffer Queue: Implements bounded memory queues with fixed array wrap-around pointers.",
+      ]}
+      proTips={[
+        "Store indices inside std::deque rather than raw values to easily verify window eviction criteria 'dq.front() == i - k'.",
+        "Use std::queue for standard BFS tree/graph traversals.",
+        "Ensure queue non-empty check before accessing q.front() or q.back().",
+      ]}
+      curatedProblems={[
+        { id: 225, title: "Implement Stack using Queues", difficulty: "Easy", tags: ["Queue", "Design"], link: "https://leetcode.com/problems/implement-stack-using-queues/" },
+        { id: 239, title: "Sliding Window Maximum", difficulty: "Hard", tags: ["Monotonic Deque"], link: "https://leetcode.com/problems/sliding-window-maximum/" },
+        { id: 622, title: "Design Circular Queue", difficulty: "Medium", tags: ["Queue", "Array"], link: "https://leetcode.com/problems/design-circular-queue/" },
+        { id: 994, title: "Rotting Oranges", difficulty: "Medium", tags: ["BFS", "Queue"], link: "https://leetcode.com/problems/rotting-oranges/" },
+      ]}
+      faqItems={[
+        {
+          question: "Why is std::deque preferred over std::vector for queues?",
+          answer: "std::vector popping from the front takes O(N) shift time. std::deque allocates chunked memory blocks allowing O(1) insertions and deletions at both ends.",
+        },
+        {
+          question: "How does Monotonic Deque achieve linear O(N) sliding window max?",
+          answer: "Each element is pushed once to the back of the deque and popped at most once from either front or back, guaranteeing linear total steps.",
+        },
+      ]}
+    />
   );
 }

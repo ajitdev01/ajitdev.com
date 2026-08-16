@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Tree Data Structures Study Notes & scaling | Ajit Dev",
-  description: "Hierarchical parent-child node maps, traversing structures, and paths mapping. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Tree Data Structures Study Notes & LeetCode Practice | Ajit Dev",
+  description: "Binary trees, DFS/BFS traversals, LCA lookups, and path sums in C++. Master class implementation notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/trees",
   },
 };
 
-export default function dsaTreesPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/trees/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "trees",
-        "item": "https://ajitdev.com/dsa/trees",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Tree Data Structures guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Tree Data Structures."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaTreesPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Tree Data Structures
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Hierarchical parent-child node maps, traversing structures, and paths mapping.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Tree Data Structures</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="trees"
+      topicName="Tree Data Structures"
+      category="Hierarchical Structures"
+      description="Trees are non-linear hierarchical data structures composed of connected parent and child nodes. Master Depth-First Search (Pre-order, In-order, Post-order) and Level-Order Breadth-First Search (BFS) traversals in C++."
+      timeComplexity="Traversal: O(N) | Height Search: O(H)"
+      spaceComplexity="Call Stack O(H) (H = height of tree)"
+      solvedCount={12}
+      totalTarget={30}
+      codeTemplate={`// C++ Binary Tree DFS Path Sum & Height Template\n#include <iostream>\n#include <algorithm>\nusing namespace std;\n\nstruct TreeNode {\n    int val;\n    TreeNode *left;\n    TreeNode *right;\n    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n};\n\nint maxPathSum(TreeNode* root, int& maxSum) {\n    if (!root) return 0;\n    int leftGain = max(0, maxPathSum(root->left, maxSum));\n    int rightGain = max(0, maxPathSum(root->right, maxSum));\n    \n    // Price of new path with current node as highest node\n    maxSum = max(maxSum, leftGain + rightGain + root->val);\n    \n    return root->val + max(leftGain, rightGain);\n}`}
+      concepts={[
+        "Depth-First Search (DFS): Explores as deep as possible down each branch before backtracking.",
+        "Breadth-First Search (BFS): Level-order traversal using queue buffer for shortest path depth.",
+        "Lowest Common Ancestor (LCA): Finding split ancestor node in O(N) single traversal.",
+        "Tree Diameter: Finding max distance between any two leaf nodes via bottom-up recursion.",
+      ]}
+      proTips={[
+        "Handle null tree nodes first: 'if (!root) return 0;' prevents null pointer dereference crashes.",
+        "Use pass-by-reference variables for global accumulators (e.g. maxDiameter, maxSum).",
+        "In skewed binary trees, recursion stack depth reaches O(N); consider iterative stack if limits are tight.",
+      ]}
+      curatedProblems={[
+        { id: 104, title: "Maximum Depth of Binary Tree", difficulty: "Easy", tags: ["Tree", "DFS"], link: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+        { id: 102, title: "Binary Tree Level Order Traversal", difficulty: "Medium", tags: ["Tree", "BFS"], link: "https://leetcode.com/problems/binary-tree-level-order-traversal/" },
+        { id: 236, title: "Lowest Common Ancestor of a Binary Tree", difficulty: "Medium", tags: ["Tree", "Recursion"], link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" },
+        { id: 124, title: "Binary Tree Maximum Path Sum", difficulty: "Hard", tags: ["Tree", "DFS"], link: "https://leetcode.com/problems/binary-tree-maximum-path-sum/" },
+      ]}
+      faqItems={[
+        {
+          question: "When should I use BFS instead of DFS for tree traversals?",
+          answer: "BFS is preferred for level-order processing, finding minimum depth or nearest targets, and scenarios where processing nodes layer by layer is required.",
+        },
+        {
+          question: "What is In-Order traversal used for in Binary Search Trees?",
+          answer: "In-Order traversal (Left -> Node -> Right) visits BST nodes in strictly sorted ascending order.",
+        },
+      ]}
+    />
   );
 }

@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Stack Data Structures Study Notes & scaling | Ajit Dev",
-  description: "LIFO queue memory arrays, matching brackets, and monotonic layouts. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Stack Data Structures Study Notes & LeetCode Practice | Ajit Dev",
+  description: "LIFO queue memory arrays, matching nested parentheses, and monotonic stack evaluation in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/stack",
   },
 };
 
-export default function dsaStackPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/stack/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "stack",
-        "item": "https://ajitdev.com/dsa/stack",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Stack Data Structures guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Stack Data Structures."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaStackPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Stack Data Structures
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              LIFO queue memory arrays, matching brackets, and monotonic layouts.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Stack Data Structures</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="stack"
+      topicName="Stack Data Structures"
+      category="Linear Data Structures"
+      description="Stacks enforce Last-In, First-Out (LIFO) access ordering. Master call stack evaluation, nested parentheses matching, infix-to-postfix conversion, and monotonic stack patterns for Next Greater Element problems in C++."
+      timeComplexity="Push / Pop / Top: O(1)"
+      spaceComplexity="O(N) Vector Buffer"
+      solvedCount={22}
+      totalTarget={25}
+      codeTemplate={`// C++ Monotonic Increasing Stack Template (Next Greater Element)\n#include <iostream>\n#include <vector>\n#include <stack>\nusing namespace std;\n\nvector<int> nextGreaterElement(const vector<int>& nums) {\n    int n = nums.size();\n    vector<int> res(n, -1);\n    stack<int> st; // Stores array indices\n    \n    for (int i = 0; i < n; ++i) {\n        while (!st.empty() && nums[st.top()] < nums[i]) {\n            res[st.top()] = nums[i];\n            st.pop();\n        }\n        st.push(i);\n    }\n    return res;\n}`}
+      concepts={[
+        "LIFO Discipline: Elements pushed last are popped first, making stacks ideal for recursive call modeling.",
+        "Monotonic Stacks: Maintains elements in strictly increasing or decreasing order to solve range query limits in O(N).",
+        "Parentheses Parsing: Validates nested brackets by matching opening braces against popped stack tops.",
+        "Min/Max Stack: Tracks minimum or maximum elements in O(1) time using auxiliary min stacks.",
+      ]}
+      proTips={[
+        "Always check 'st.empty()' before calling 'st.top()' or 'st.pop()' to avoid segmentation faults.",
+        "Store indices rather than raw values inside monotonic stacks for distance computation.",
+        "In histogram problems, push dummy zero-height elements to trigger remaining stack flushes.",
+      ]}
+      curatedProblems={[
+        { id: 20, title: "Valid Parentheses", difficulty: "Easy", tags: ["Stack", "String"], link: "https://leetcode.com/problems/valid-parentheses/" },
+        { id: 739, title: "Daily Temperatures", difficulty: "Medium", tags: ["Monotonic Stack"], link: "https://leetcode.com/problems/daily-temperatures/" },
+        { id: 155, title: "Min Stack", difficulty: "Medium", tags: ["Stack", "Design"], link: "https://leetcode.com/problems/min-stack/" },
+        { id: 84, title: "Largest Rectangle in Histogram", difficulty: "Hard", tags: ["Monotonic Stack"], link: "https://leetcode.com/problems/largest-rectangle-in-histogram/" },
+      ]}
+      faqItems={[
+        {
+          question: "How does a Monotonic Stack achieve O(N) overall time complexity?",
+          answer: "Even though there is a nested while loop inside the iteration, each element index is pushed onto the stack exactly once and popped at most once across the entire algorithm execution.",
+        },
+        {
+          question: "What is the difference between std::stack and std::vector in C++?",
+          answer: "std::stack is a container adapter (default container std::deque). It restricts interface access strictly to top(), push(), and pop() operations.",
+        },
+      ]}
+    />
   );
 }

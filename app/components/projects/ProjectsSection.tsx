@@ -1,9 +1,28 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from "react";
-import { FiChevronDown, FiChevronUp, FiStar, FiZap, FiGithub, FiExternalLink } from "@/lib/icons";
+import React, { useState, useMemo } from "react";
+import Link from "next/link";
+import {
+  Box,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import {
+  Search,
+  Star,
+  Zap,
+  ExternalLink,
+  Code,
+  Sparkles,
+  Flame,
+  Trophy,
+} from "lucide-react";
+import { FiGithub } from "@/lib/icons";
 import { projects } from "@/lib/projects";
-
 
 const filterCategories = [
   { id: "All", label: "All Projects" },
@@ -17,14 +36,8 @@ const filterCategories = [
 ];
 
 export default function ProjectsSection() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isMobileMenuOpen]);
 
   const filteredProjects = useMemo(() => {
     let list = projects;
@@ -58,184 +71,145 @@ export default function ProjectsSection() {
 
   return (
     <>
-      {/* === SEARCH INPUT === */}
-      <div className="relative w-full max-w-md mx-auto mb-10 group">
-        <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-blue-500 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </span>
-        <input
-          type="text"
+      {/* === MUI SEARCH INPUT === */}
+      <Box sx={{ maxWidth: "500px", mx: "auto", mb: 5 }}>
+        <TextField
+          fullWidth
+          size="medium"
           placeholder="Search projects by title, description, or stack..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-11 pr-10 py-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/90 backdrop-blur-sm shadow-md transition-all text-gray-800 text-sm outline-none"
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search className="w-5 h-5 text-indigo-600" />
+                </InputAdornment>
+              ),
+              sx: { borderRadius: "18px", backgroundColor: "#ffffff", fontWeight: 700, fontSize: "0.9rem" },
+            },
+          }}
         />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery("")}
-            className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        )}
-      </div>
-      {/* === MOBILE FILTER BUTTON === */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={isMobileMenuOpen ? "Close filter" : "Open project filter"}
-      >
-        {isMobileMenuOpen ? <FiChevronDown className="w-5 h-5" /> : <FiChevronUp className="w-5 h-5" />}
-      </button>
+      </Box>
 
-      {/* === MOBILE FILTER MENU === */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-40 rounded-t-2xl max-h-[60vh] overflow-y-auto">
-          <div className="p-6 space-y-5">
-            <h2 className="text-xl font-bold text-gray-900">Filter Projects</h2>
-            <div className="flex flex-wrap gap-3">
-              {filtersWithCounts.map(f => (
-                <button
-                  key={f.id}
-                  onClick={() => { setActiveFilter(f.id); setIsMobileMenuOpen(false); }}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeFilter === f.id
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
-                    : "bg-gray-100 text-gray-700"}`}
-                >
-                  {f.label} ({f.count})
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* === DESKTOP FILTER BAR === */}
-      <div className="hidden lg:flex flex-wrap justify-center gap-3 mb-16 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/60 shadow-md">
+      {/* === MUI CHIP FILTER BADGES === */}
+      <Paper elevation={0} sx={{ p: 2, mb: 6, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1 }}>
         {filtersWithCounts.map(f => (
-          <button
+          <Chip
             key={f.id}
+            label={`${f.label} (${f.count})`}
             onClick={() => setActiveFilter(f.id)}
-            className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeFilter === f.id
-              ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
-          >
-            {f.label} <span className="text-xs opacity-70">({f.count})</span>
-          </button>
+            color={activeFilter === f.id ? "primary" : "default"}
+            variant={activeFilter === f.id ? "filled" : "outlined"}
+            sx={{ fontWeight: 800, fontSize: "0.75rem", py: 2, px: 0.5, borderRadius: "12px", cursor: "pointer" }}
+          />
         ))}
-      </div>
+      </Paper>
 
-      {/* === PROJECTS GRID === */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 mb-16">
+      {/* === PROJECTS GRID (MUI PAPER CARDS) === */}
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(3, 1fr)", xl: "repeat(4, 1fr)" }, gap: 4, mb: 10 }}>
         {filteredProjects.map(project => {
           const ProjectIcon = project.icon;
           return (
-            <article
+            <Paper
               key={project.id}
-              className="relative group transition-all duration-300 hover:-translate-y-1.5"
+              elevation={0}
+              sx={{
+                borderRadius: "24px",
+                border: "1px solid #e2e8f0",
+                backgroundColor: "#ffffff",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                height: "100%",
+                transition: "all 0.25s ease-out",
+                "&:hover": { transform: "translateY(-6px)", boxShadow: "0 12px 30px rgba(0,0,0,0.06)", borderColor: "#cbd5e1" },
+              }}
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur transition duration-500" aria-hidden="true" />
+              <Box>
+                {/* Header Gradient */}
+                <Box className={`relative h-36 bg-gradient-to-r ${project.gradient} p-4 flex flex-col justify-between`}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
+                    <Chip label={project.category} size="small" sx={{ fontWeight: 800, fontSize: "0.65rem", backgroundColor: "rgba(0,0,0,0.4)", color: "#ffffff" }} />
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, backgroundColor: "rgba(0,0,0,0.4)", px: 1, py: 0.5, borderRadius: "12px" }}>
+                      <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+                      <Typography variant="caption" sx={{ color: "#ffffff", fontWeight: 800, fontSize: "0.65rem" }}>{project.stars}</Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ display: "flex", alignItems: "center", justifyCenter: "center", mx: "auto" }}>
+                    <ProjectIcon className="w-10 h-10 text-white/90" />
+                  </Box>
+                </Box>
 
-              <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                {/* Header gradient */}
-                <div className={`relative h-36 bg-gradient-to-r ${project.gradient} overflow-hidden flex-shrink-0`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" aria-hidden="true" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <ProjectIcon className="w-12 h-12 text-white/90" />
-                  </div>
-                  <div className="absolute top-3 left-3 flex flex-col gap-1">
-                    <span className="px-2.5 py-1 rounded-full text-xs font-semibold text-white bg-black/40 backdrop-blur-sm">
-                      {project.category}
-                    </span>
-                    {project.highlight && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-300 bg-black/40 backdrop-blur-sm">
-                        ★ FEATURED
-                      </span>
-                    )}
-                  </div>
-                  <div className="absolute top-3 right-3 flex items-center gap-1 text-white/90 bg-black/30 backdrop-blur-sm px-2 py-1 rounded-full">
-                    <FiStar className="w-3.5 h-3.5 text-yellow-300" />
-                    <span className="text-xs font-semibold">{project.stars}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <h2 className="text-lg font-bold text-gray-900 mb-1.5 line-clamp-1">
+                {/* Content Body */}
+                <Box sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", fontSize: "1rem", mb: 0.5 }} noWrap>
                     {project.title}
-                  </h2>
-                  <p className="text-gray-600 mb-3 text-sm leading-relaxed line-clamp-2">
-                    {project.shortDescription}
-                  </p>
+                  </Typography>
 
-                  {/* Tech stack */}
-                  <div className="mb-3 flex flex-wrap gap-1.5">
+                  <Typography variant="body2" sx={{ color: "#64748b", fontSize: "0.8rem", mb: 2, height: "40px", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                    {project.shortDescription}
+                  </Typography>
+
+                  {/* Tech Badges */}
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.8, mb: 2.5 }}>
                     {project.tech.slice(0, 4).map(tech => (
-                      <span key={tech} className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold">
-                        {tech}
-                      </span>
+                      <Chip key={tech} label={tech} size="small" variant="outlined" color="primary" sx={{ fontWeight: 800, fontSize: "0.6rem", height: 22 }} />
                     ))}
                     {project.tech.length > 4 && (
-                      <span className="px-2 py-0.5 bg-gray-105 text-gray-600 rounded-lg text-xs font-semibold">
-                        +{project.tech.length - 4}
-                      </span>
+                      <Chip label={`+${project.tech.length - 4}`} size="small" variant="outlined" sx={{ fontWeight: 800, fontSize: "0.6rem", height: 22 }} />
                     )}
-                  </div>
+                  </Box>
 
-                  {/* Features preview */}
-                  <div className="mb-4">
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <FiZap className="w-3.5 h-3.5 text-blue-550" />
-                      <span className="text-xs font-semibold text-gray-600 uppercase">Key Features</span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
+                  {/* Key Features */}
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 800, textTransform: "uppercase", fontSize: "0.6rem", display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+                      <Zap className="w-3 h-3 text-indigo-600" /> Key Highlights
+                    </Typography>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.8 }}>
                       {project.features.slice(0, 2).map(feat => (
-                        <span key={feat} className="px-2 py-0.5 bg-gray-100 text-gray-650 rounded text-xs">
-                          {feat}
-                        </span>
+                        <Chip key={feat} label={feat} size="small" sx={{ fontWeight: 700, fontSize: "0.65rem", backgroundColor: "#f1f5f9", color: "#334155" }} />
                       ))}
-                      {project.features.length > 2 && (
-                        <span className="px-2 py-0.5 bg-gray-100 text-gray-650 rounded text-xs">
-                          +{project.features.length - 2}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
 
-                  {/* CTA Buttons */}
-                  <div className="flex gap-2 mt-auto">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 h-10 inline-flex items-center justify-center gap-2 bg-gray-900 text-white rounded-xl text-sm font-semibold hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-750"
-                      aria-label={`View ${project.title} on GitHub`}
-                    >
-                      <FiGithub className="w-4 h-4" />
-                      Source
-                    </a>
-                    {project.liveDemo !== "#" && (
-                      <a
-                        href={project.liveDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        aria-label={`Live demo of ${project.title}`}
-                      >
-                        <FiExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </article>
+              {/* Card Footer Actions */}
+              <Box sx={{ p: 3, pt: 0, display: "flex", gap: 1.5 }}>
+                <Button
+                  component="a"
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="contained"
+                  fullWidth
+                  size="small"
+                  startIcon={<FiGithub className="w-4 h-4" />}
+                  sx={{ fontWeight: 800, borderRadius: "12px", textTransform: "none", backgroundColor: "#0f172a", "&:hover": { backgroundColor: "#1e293b" } }}
+                >
+                  GitHub Source
+                </Button>
+                {project.liveDemo !== "#" && (
+                  <Button
+                    component="a"
+                    href={project.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    sx={{ minWidth: "42px", p: 1, borderRadius: "12px" }}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                )}
+              </Box>
+            </Paper>
           );
         })}
-      </div>
+      </Box>
     </>
   );
 }

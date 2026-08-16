@@ -3,24 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-
-const FiAward = ({ className }: { className?: string }) => (
-  <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-  </svg>
-);
-
-const FiBriefcase = ({ className }: { className?: string }) => (
-  <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-  </svg>
-);
-
-const FiTrendingUp = ({ className }: { className?: string }) => (
-  <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-  </svg>
-);
+import { ArrowRight, Award, Briefcase, TrendingUp, CheckCircle2, Sparkles } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -31,7 +14,7 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.12, delayChildren: 0.15 }
   }
 };
 
@@ -45,17 +28,21 @@ export default function EducationSection() {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
-      className="py-20 bg-slate-50 border-t border-b border-slate-200/65 transition-colors duration-300"
+      className="py-24 bg-slate-50 border-t border-b border-slate-200/70 transition-colors duration-300 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-blue-100">
-            <FiAward className="w-3.5 h-3.5" /> Learning & Exposure
+      {/* Subtle Background Glow Circles */}
+      <div className="absolute top-1/4 left-10 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-100/40 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-50 text-blue-700 text-xs font-black rounded-full mb-3 uppercase tracking-wider border border-blue-200/60 shadow-xs">
+            <Award className="w-3.5 h-3.5 text-blue-600" /> Learning & Exposure
           </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">
             Education & Industry Exposure
           </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed">
+          <p className="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
             Theoretical baseline, professional engineering training, and real-world project delivery exposure.
           </p>
         </div>
@@ -63,109 +50,118 @@ export default function EducationSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1: Amity BCA */}
           <motion.div 
-            variants={fadeUp} 
-            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            variants={fadeUp}
+            whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center text-white mb-5 shadow-sm">
-                <FiAward />
+              <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center text-white mb-6 shadow-md shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                <Award className="w-6 h-6" />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
+                <span className="px-2.5 py-1 bg-blue-50 text-blue-700 text-[10px] font-black rounded-full border border-blue-200/60">
                   Cloud & Security
                 </span>
-                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
+                <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-black rounded-full border border-emerald-200/60">
                   Currently Enrolled
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-1">
+              <h3 className="text-xl font-black text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
                 Bachelor of Computer Applications (BCA)
               </h3>
-              <p className="text-indigo-600 font-semibold text-sm mb-4">
+              <p className="text-indigo-600 font-bold text-sm mb-4">
                 Amity University Online
               </p>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Academic program covering secure system designs, operating systems (Linux), databases, cloud security, and algorithmic logic.
               </p>
             </div>
+
+            {/* Dynamic Interactive Link Button Pill */}
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:underline mt-auto group/link"
+              className="group/btn w-full mt-auto inline-flex items-center justify-between px-5 py-3 rounded-2xl bg-blue-50/70 border border-blue-200/80 text-blue-700 font-extrabold text-xs transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-md hover:shadow-blue-600/20"
             >
-              Explore Coursework & Timeline
-              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+              <span>Explore Coursework & Timeline</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5" />
             </Link>
           </motion.div>
 
           {/* Card 2: Brainzima */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-purple-300 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white mb-5 shadow-sm">
-                <FiTrendingUp />
+              <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white mb-6 shadow-md shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                <TrendingUp className="w-6 h-6" />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded border border-purple-100/50">
+                <span className="px-2.5 py-1 bg-purple-50 text-purple-700 text-[10px] font-black rounded-full border border-purple-200/60">
                   ISO Certified
                 </span>
-                <span className="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded border border-amber-100/50">
+                <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-[10px] font-black rounded-full border border-amber-200/60">
                   Full Stack
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-1">
+              <h3 className="text-xl font-black text-slate-900 mb-1 group-hover:text-purple-600 transition-colors">
                 Practical Software Training
               </h3>
-              <p className="text-purple-600 font-semibold text-sm mb-4">
+              <p className="text-purple-600 font-bold text-sm mb-4">
                 Brainzima Innovation Institute
               </p>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Hands-on developer training specializing in python scripting, version control, API architecture, React/Next.js and MERN Stack.
               </p>
             </div>
+
+            {/* Dynamic Interactive Link Button Pill */}
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline mt-auto group/link"
+              className="group/btn w-full mt-auto inline-flex items-center justify-between px-5 py-3 rounded-2xl bg-purple-50/70 border border-purple-200/80 text-purple-700 font-extrabold text-xs transition-all duration-300 hover:bg-purple-600 hover:text-white hover:border-purple-600 hover:shadow-md hover:shadow-purple-600/20"
             >
-              View Practical Competency & Badges
-              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+              <span>View Practical Competency & Badges</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5" />
             </Link>
           </motion.div>
 
           {/* Card 3: Rexvel */}
           <motion.div 
             variants={fadeUp} 
-            className="group relative bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+            className="group relative bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white mb-5 shadow-sm">
-                <FiBriefcase />
+              <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white mb-6 shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
+                <Briefcase className="w-6 h-6" />
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded border border-emerald-100/50">
+                <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-black rounded-full border border-emerald-200/60">
                   Industry Exposure
                 </span>
-                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded border border-blue-100/50">
+                <span className="px-2.5 py-1 bg-blue-50 text-blue-700 text-[10px] font-black rounded-full border border-blue-200/60">
                   Real-World Projects
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-1">
+              <h3 className="text-xl font-black text-slate-900 mb-1 group-hover:text-emerald-600 transition-colors">
                 Project Exposure & SDLC
               </h3>
-              <p className="text-emerald-600 font-semibold text-sm mb-4">
+              <p className="text-emerald-600 font-bold text-sm mb-4">
                 Rexvel
               </p>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 Understanding client-focused requirements, team collaboration, versioning pipelines, and professional web development workflows.
               </p>
             </div>
+
+            {/* Dynamic Interactive Link Button Pill */}
             <Link 
               href="/education" 
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline mt-auto group/link"
+              className="group/btn w-full mt-auto inline-flex items-center justify-between px-5 py-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-emerald-700 font-extrabold text-xs transition-all duration-300 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 hover:shadow-md hover:shadow-emerald-600/20"
             >
-              Explore Industry Experience
-              <span className="transition-transform group-hover/link:translate-x-1">→</span>
+              <span>Explore Industry Experience</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5" />
             </Link>
           </motion.div>
         </div>

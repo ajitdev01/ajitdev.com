@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Binary Search Trees (BST) Study Notes & scaling | Ajit Dev",
-  description: "Ordered tree nodes, balance conditions, AVL models, and node operations. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Binary Search Trees (BST) Study Notes & LeetCode Practice | Ajit Dev",
+  description: "Ordered tree nodes, balance conditions, AVL models, successor queries, and BST invariants in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/bst",
   },
 };
 
-export default function dsaBstPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/bst/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "bst",
-        "item": "https://ajitdev.com/dsa/bst",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Binary Search Trees (BST) guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Binary Search Trees (BST)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaBstPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Binary Search Trees (BST)
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Ordered tree nodes, balance conditions, AVL models, and node operations.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Binary Search Trees (BST)</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="bst"
+      topicName="Binary Search Trees (BST)"
+      category="Hierarchical Structures"
+      description="Binary Search Trees maintain an ordered invariant: for every node, left child values are strictly smaller and right child values are strictly greater. Master search, insertion, node deletion, and BST validation in C++."
+      timeComplexity="Search / Insert / Delete: O(H) (Balanced O(log N))"
+      spaceComplexity="O(H) Call Stack"
+      solvedCount={10}
+      totalTarget={25}
+      codeTemplate={`// C++ Validate Binary Search Tree Invariant Template\n#include <iostream>\n#include <climits>\nusing namespace std;\n\nstruct TreeNode {\n    int val;\n    TreeNode *left, *right;\n    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n};\n\nbool isValidBST(TreeNode* root, long minVal = LONG_MIN, long maxVal = LONG_MAX) {\n    if (!root) return true;\n    if (root->val <= minVal || root->val >= maxVal) return false;\n    return isValidBST(root->left, minVal, root->val) && isValidBST(root->right, root->val, maxVal);\n}`}
+      concepts={[
+        "BST Invariant: Left subtree values < Node value < Right subtree values.",
+        "In-Order Sort Property: Traversing a valid BST in-order produces elements in strictly ascending sorted order.",
+        "Node Deletion (3 Cases): Leaf node (remove), single child (bypass), two children (replace with in-order successor).",
+        "Balanced BSTs: AVL and Red-Black trees auto-rotate to enforce O(log N) height limits.",
+      ]}
+      proTips={[
+        "Do not just check immediate left/right children; validate entire subtree range bounds [minVal, maxVal].",
+        "In-order traversal with a 'prev' node pointer is an elegant way to detect BST violations in O(N).",
+        "When deleting nodes with 2 children, find the smallest node in the right subtree (in-order successor).",
+      ]}
+      curatedProblems={[
+        { id: 98, title: "Validate Binary Search Tree", difficulty: "Medium", tags: ["BST", "DFS"], link: "https://leetcode.com/problems/validate-binary-search-tree/" },
+        { id: 700, title: "Search in a Binary Search Tree", difficulty: "Easy", tags: ["BST"], link: "https://leetcode.com/problems/search-in-a-binary-search-tree/" },
+        { id: 230, title: "Kth Smallest Element in a BST", difficulty: "Medium", tags: ["BST", "In-Order"], link: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/" },
+        { id: 450, title: "Delete Node in a BST", difficulty: "Medium", tags: ["BST", "Recursion"], link: "https://leetcode.com/problems/delete-node-in-a-bst/" },
+      ]}
+      faqItems={[
+        {
+          question: "Why can a naive BST degrade to O(N) time complexity?",
+          answer: "If elements are inserted in strictly sorted or reverse order, the tree degenerates into a linear linked list of height N, turning search operations into O(N).",
+        },
+        {
+          question: "How do I find the Kth smallest element in a BST in O(H + K)?",
+          answer: "Perform iterative in-order traversal using a stack. Decrement K at each visited node; when K reaches 0, the current node is the Kth smallest element.",
+        },
+      ]}
+    />
   );
 }

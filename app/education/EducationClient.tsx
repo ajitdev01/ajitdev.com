@@ -296,7 +296,7 @@ export default function EducationClient() {
         <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl" />
       </div>
 
-      <main className="flex-grow pt-16 relative z-10">
+      <main className="flex-grow pt-28 md:pt-32 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
 
           {/* ===== HERO SECTION ===== */}

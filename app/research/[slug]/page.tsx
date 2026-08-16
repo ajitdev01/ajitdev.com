@@ -1,12 +1,19 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+} from "@mui/material";
 import { ArrowLeft, BookOpen, Clock, Calendar, User } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
-import { notFound } from "next/navigation";
 import { RESEARCH_DB } from "@/lib/research";
 
-// Define the static slugs for SSG
 export async function generateStaticParams() {
   return Object.keys(RESEARCH_DB).map((slug) => ({
     slug,
@@ -30,7 +37,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
   };
 }
-
 
 export default async function ResearchDetailPage({ params }: PageProps) {
   const { slug } = await params;
@@ -67,122 +73,105 @@ export default async function ResearchDetailPage({ params }: PageProps) {
   };
 
   return (
-    <>
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#ffffff", pt: { xs: 16, md: 20 }, pb: 12 }}>
       <JSONLD schema={breadcrumbSchema} />
 
-      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen text-gray-800 relative overflow-hidden">
-        {/* Soft Background Glow */}
-        <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
-          <div className="absolute top-[5%] left-[10%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px]" />
-          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px]" />
-        </div>
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Back Nav */}
-          <Link
-            href="/research"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-650 transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+      <Container maxWidth="lg">
+        
+        {/* Navigation Link */}
+        <Link href="/research" className="no-underline">
+          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
             Back to Research List
-          </Link>
+          </Button>
+        </Link>
 
-          {/* Header Metadata */}
-          <div className="max-w-4xl mb-12 border-b border-gray-200 pb-8">
-            <div className="flex flex-wrap gap-4 items-center text-xs text-gray-500 mb-4">
-              <span className="px-2.5 py-1 bg-purple-50 text-purple-700 font-bold rounded-lg border border-purple-100 uppercase">
-                {paper.category}
-              </span>
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" />
-                {paper.date}
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                {paper.readTime}
-              </span>
-            </div>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight">
-              {paper.title}
-            </h1>
-            <p className="text-gray-655 text-sm sm:text-base leading-relaxed mt-4">
-              {paper.summary}
-            </p>
-          </div>
+        {/* Paper Header */}
+        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", mb: 6 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
+            <Chip label={paper.category} color="secondary" size="small" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Calendar className="w-3.5 h-3.5" />} label={paper.date} size="small" variant="outlined" sx={{ fontWeight: 700 }} />
+            <Chip icon={<Clock className="w-3.5 h-3.5" />} label={paper.readTime} size="small" variant="outlined" sx={{ fontWeight: 700 }} />
+          </Box>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            
-            {/* Sidebar Table of Contents */}
-            <aside className="lg:col-span-3 hidden lg:block sticky top-28 bg-white border border-gray-200 p-5 rounded-2xl shadow-sm">
-              <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
-                Table of Contents
-              </h3>
-              <nav aria-label="Table of contents navigation">
-                <ul className="space-y-3">
-                  {paper.sections.map((sect) => (
-                    <li key={sect.id}>
-                      <a
-                        href={`#${sect.id}`}
-                        className="text-xs text-gray-600 hover:text-indigo-650 transition-colors block leading-tight font-medium"
-                      >
-                        {sect.heading}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </aside>
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", fontSize: { xs: "1.8rem", md: "2.8rem" }, mb: 2, lineHeight: 1.25 }}>
+            {paper.title}
+          </Typography>
 
-            {/* Main Content Area */}
-            <article className="lg:col-span-9 space-y-10 max-w-none">
-              {paper.sections.map((sect) => (
-                <section key={sect.id} id={sect.id} className="scroll-mt-28 space-y-4">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 border-b border-gray-200 pb-2">
+          <Typography variant="h6" sx={{ color: "#475569", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1.6 }}>
+            {paper.summary}
+          </Typography>
+        </Paper>
+
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "3fr 9fr" }, gap: 6 }}>
+          
+          {/* Sidebar TOC */}
+          <Box sx={{ display: { xs: "none", lg: "block" } }}>
+            <Paper elevation={0} sx={{ p: 3, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", position: "sticky", top: 120 }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+                <BookOpen className="w-4 h-4 text-purple-600" /> Table of Contents
+              </Typography>
+              <Box component="nav" sx={{ display: "flex", flexDirection: "column", gap: 1.2 }}>
+                {paper.sections.map((sect) => (
+                  <a
+                    key={sect.id}
+                    href={`#${sect.id}`}
+                    className="text-xs font-bold text-slate-600 hover:text-purple-600 no-underline transition-colors leading-tight"
+                  >
                     {sect.heading}
-                  </h2>
-                  <div className="space-y-4 text-gray-700 text-sm sm:text-base leading-relaxed">
-                    {sect.paragraphs.map((p, idx) => (
-                      <p key={idx}>{p}</p>
-                    ))}
-                  </div>
-                  {sect.codeBlock && (
-                    <div className="relative rounded-xl overflow-hidden border border-gray-250 shadow-2xl bg-gray-950 p-4 font-mono text-xs text-slate-100">
-                      <div className="flex justify-between items-center text-[10px] text-slate-400 border-b border-white/10 pb-2 mb-3">
-                        <span>LANGUAGE: {sect.codeBlock.lang.toUpperCase()}</span>
-                        <span>READ-ONLY</span>
-                      </div>
-                      <pre className="overflow-x-auto whitespace-pre">
-                        <code>{sect.codeBlock.code}</code>
-                      </pre>
-                    </div>
-                  )}
-                </section>
-              ))}
+                  </a>
+                ))}
+              </Box>
+            </Paper>
+          </Box>
 
-              {/* Author Info footer */}
-              <div className="mt-12 p-6 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center font-bold text-indigo-600 text-sm">
+          {/* Main Paper Content */}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {paper.sections.map((sect) => (
+              <Box key={sect.id} id={sect.id} className="scroll-mt-28" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Typography variant="h5" component="h2" sx={{ fontWeight: 900, color: "#0f172a", borderBottom: "1px solid #e2e8f0", pb: 1 }}>
+                  {sect.heading}
+                </Typography>
+                {sect.paragraphs.map((p, idx) => (
+                  <Typography key={idx} variant="body1" sx={{ color: "#334155", lineHeight: 1.8, fontSize: "1rem" }}>
+                    {p}
+                  </Typography>
+                ))}
+                {sect.codeBlock && (
+                  <Paper elevation={0} sx={{ p: 3, borderRadius: "16px", backgroundColor: "#090d16", border: "1px solid #1e293b", fontFamily: "monospace", fontSize: "0.85rem", color: "#f1f5f9", overflowX: "auto" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", color: "#64748b", fontSize: "0.75rem", pb: 1, mb: 2, borderBottom: "1px solid #1e293b" }}>
+                      <span>LANGUAGE: {sect.codeBlock.lang.toUpperCase()}</span>
+                      <span>READ-ONLY</span>
+                    </Box>
+                    <pre style={{ margin: 0 }}>
+                      <code>{sect.codeBlock.code}</code>
+                    </pre>
+                  </Paper>
+                )}
+              </Box>
+            ))}
+
+            {/* Author Bio Paper */}
+            <Paper elevation={0} sx={{ p: 4, mt: 4, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc" }}>
+              <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+                <Box sx={{ width: 48, height: 48, borderRadius: "50%", backgroundColor: "#e0e7ff", color: "#4f46e5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, flexShrink: 0 }}>
                   AK
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1.5">
-                    Written by Ajit Kumar
-                    <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[9px] font-bold rounded-full border border-indigo-150">Cloud & Security Specialist</span>
-                  </h4>
-                  <p className="text-xs text-gray-600 mt-1">
-                    BCA cloud computing and security student, studying kernel namespaces, networking protocols, security pipelines, and competitive programming solutions.
-                  </p>
-                </div>
-              </div>
-            </article>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 900, color: "#0f172a" }}>
+                    Written by Ajit Kumar <Chip label="Cloud & Security Specialist" color="primary" size="small" sx={{ fontWeight: 800, ml: 1 }} />
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: "#64748b", mt: 0.5 }}>
+                    BCA cloud computing & security student studying kernel namespaces, networking protocols, security pipelines, and competitive programming.
+                  </Typography>
+                </Box>
+              </Box>
+            </Paper>
 
-          </div>
+          </Box>
 
-        </div>
-      </section>
-    </>
+        </Box>
+
+      </Container>
+    </Box>
   );
 }

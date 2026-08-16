@@ -1,7 +1,21 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Newspaper } from "lucide-react";
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+} from "@mui/material";
+import {
+  ArrowLeft,
+  Newspaper,
+  Cpu,
+  Shield,
+  Zap,
+} from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 import NewsFeed from "@/app/components/NewsFeed";
 
@@ -35,45 +49,55 @@ export default function TechNewsPage() {
   };
 
   return (
-    <>
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
       <JSONLD schema={breadcrumbSchema} />
 
-      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen text-gray-800 relative overflow-hidden">
-        {/* Soft Background Glow */}
-        <div className="fixed inset-0 pointer-events-none select-none z-0" aria-hidden="true">
-          <div className="absolute top-[15%] right-[20%] w-[500px] h-[500px] bg-pink-500/5 rounded-full blur-[100px]" />
-          <div className="absolute bottom-[15%] left-[20%] w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px]" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Back Nav */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+      <Container maxWidth="lg">
+        
+        {/* Navigation Link */}
+        <Link href="/" className="no-underline">
+          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
             Back to Home
-          </Link>
+          </Button>
+        </Link>
 
-          {/* Heading */}
-          <div className="max-w-3xl mb-12">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-50 text-pink-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wider border border-pink-100">
-              <Newspaper className="w-3.5 h-3.5" /> Industry Tracker
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
-              Real-time Technology News Feed
-            </h1>
-            <p className="text-gray-655 text-sm sm:text-base leading-relaxed mt-2">
-              Stay updated on system design guidelines, cloud security warnings, artificial intelligence breakthroughs, and package update announcements.
-            </p>
-          </div>
+        {/* Hero Banner Paper */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, sm: 5 },
+            mb: 6,
+            borderRadius: "24px",
+            border: "1px solid #e2e8f0",
+            background: "linear-gradient(135deg, #fce7f3 0%, #ffffff 50%, #eef2ff 100%)",
+            textAlign: "center",
+          }}
+        >
+          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#fce7f3", color: "#db2777", mb: 2 }}>
+            <Newspaper className="w-8 h-8" />
+          </Box>
 
-          <NewsFeed />
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+            Real-time Technology News Feed
+          </Typography>
 
-        </div>
-      </section>
-    </>
+          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+            Artificial Intelligence • Cloud & DevOps Security • Framework Releases & Vulnerability Alerts
+          </Typography>
+
+          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#db2777", mx: "auto", mb: 3 }} />
+
+          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
+            <Chip icon={<Cpu className="w-3.5 h-3.5 text-pink-600" />} label="AI & Machine Learning" color="secondary" size="small" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Shield className="w-3.5 h-3.5 text-emerald-600" />} label="Cloud Security & Threats" color="success" size="small" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Zap className="w-3.5 h-3.5 text-indigo-600" />} label="Software Engineering Release News" color="primary" size="small" sx={{ fontWeight: 800 }} />
+          </Box>
+        </Paper>
+
+        {/* Client News Feed Grid */}
+        <NewsFeed />
+
+      </Container>
+    </Box>
   );
 }
-

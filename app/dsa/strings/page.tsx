@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Strings Manipulation Study Notes & scaling | Ajit Dev",
-  description: "Pattern matching algorithms, rolling hashes, and subsegment parsing. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Strings Manipulation Study Notes & LeetCode Practice | Ajit Dev",
+  description: "Pattern matching algorithms (KMP, Rabin-Karp), rolling hashes, and palindrome checks in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/strings",
   },
 };
 
-export default function dsaStringsPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/strings/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "strings",
-        "item": "https://ajitdev.com/dsa/strings",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Strings Manipulation guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Strings Manipulation."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaStringsPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Strings Manipulation
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Pattern matching algorithms, rolling hashes, and subsegment parsing.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Strings Manipulation</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="strings"
+      topicName="Strings Manipulation"
+      category="Linear Data Structures"
+      description="Strings are character sequences. Master sliding window substring search, string matching algorithms (KMP, Rabin-Karp rolling hash), palindrome verification, and frequency map hashing in C++."
+      timeComplexity="Access: O(1) | Pattern Search: O(N + M)"
+      spaceComplexity="O(N) Character Allocation"
+      solvedCount={38}
+      totalTarget={40}
+      codeTemplate={`// C++ String Frequency Matching & Anagram Check Template\n#include <iostream>\n#include <string>\n#include <vector>\nusing namespace std;\n\nbool isAnagram(string s, string t) {\n    if (s.length() != t.length()) return false;\n    vector<int> count(26, 0);\n    for (int i = 0; i < s.length(); ++i) {\n        count[s[i] - 'a']++;\n        count[t[i] - 'a']--;\n    }\n    for (int c : count) if (c != 0) return false;\n    return true;\n}`}
+      concepts={[
+        "Frequency Array Vector: Uses 26-size integer array 'vector<int> count(26, 0)' for O(1) space ASCII hashing.",
+        "Sliding Window Substring: Solves longest substring without repeating characters in linear time.",
+        "KMP Pattern Search: Computes Longest Prefix Suffix (LPS) table to achieve O(N + M) substring matching.",
+        "Rabin-Karp Rolling Hash: Hashes pattern and text windows using polynomial rolling hash functions.",
+      ]}
+      proTips={[
+        "Prefer 'vector<int> count(26)' over std::unordered_map<char, int> when dealing strictly with lowercase English letters for O(1) stack speed.",
+        "Use std::string::reserve() when building large strings in loops to minimize re-allocations.",
+        "Beware of string concatenation 's += c' inside loops; it creates temporary string copies if not passed by reference.",
+      ]}
+      curatedProblems={[
+        { id: 125, title: "Valid Palindrome", difficulty: "Easy", tags: ["Two Pointers", "String"], link: "https://leetcode.com/problems/valid-palindrome/" },
+        { id: 3, title: "Longest Substring Without Repeating Characters", difficulty: "Medium", tags: ["Sliding Window", "String"], link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+        { id: 5, title: "Longest Palindromic Substring", difficulty: "Medium", tags: ["DP", "Two Pointers"], link: "https://leetcode.com/problems/longest-palindromic-substring/" },
+        { id: 214, title: "Shortest Palindrome (KMP LPS)", difficulty: "Hard", tags: ["KMP Algorithm", "String"], link: "https://leetcode.com/problems/shortest-palindrome/" },
+      ]}
+      faqItems={[
+        {
+          question: "How does the KMP algorithm eliminate redundant string comparisons?",
+          answer: "KMP precomputes an LPS (Longest Prefix Suffix) array. When a character mismatch occurs, KMP shifts the pattern using the LPS value instead of resetting the text index back.",
+        },
+        {
+          question: "Why is string immutability significant across programming languages?",
+          answer: "In languages like Java or Python, strings are immutable, making concatenation inside loops O(N^2). In C++, std::string is mutable and supports fast O(1) push_back operations.",
+        },
+      ]}
+    />
   );
 }

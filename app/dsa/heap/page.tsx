@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Heap & Priority Queues Study Notes & scaling | Ajit Dev",
-  description: "Min/Max binary heaps, bubble operations, and top-K elements extraction. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Heap & Priority Queues Study Notes & LeetCode Practice | Ajit Dev",
+  description: "Min/Max binary heaps, bubble operations, top-K elements extraction, and K-way merges in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/heap",
   },
 };
 
-export default function dsaHeapPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/heap/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "heap",
-        "item": "https://ajitdev.com/dsa/heap",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Heap & Priority Queues guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Heap & Priority Queues."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaHeapPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Heap & Priority Queues
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Min/Max binary heaps, bubble operations, and top-K elements extraction.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Heap & Priority Queues</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="heap"
+      topicName="Heap & Priority Queues"
+      category="Hierarchical Structures"
+      description="Binary Heaps are complete binary trees where parent nodes satisfy min-heap or max-heap invariants. Master std::priority_queue, top-K elements extraction, median finding streams, and K-way sorted merges in C++."
+      timeComplexity="Push / Pop: O(log K) | Top Access: O(1)"
+      spaceComplexity="O(K) Heap Memory"
+      solvedCount={8}
+      totalTarget={20}
+      codeTemplate={`// C++ Min-Heap Priority Queue for Top K Elements Template\n#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\n\nvector<int> findTopK(const vector<int>& nums, int k) {\n    // Min-heap keeps top K largest elements\n    priority_queue<int, vector<int>, greater<int>> minHeap;\n    for (int num : nums) {\n        minHeap.push(num);\n        if (minHeap.size() > k) {\n            minHeap.pop(); // Evict smallest element\n        }\n    }\n    \n    vector<int> res;\n    while (!minHeap.empty()) {\n        res.push_back(minHeap.top());\n        minHeap.pop();\n    }\n    return res;\n}`}
+      concepts={[
+        "Heap Property: Max-heap keeps root largest; Min-heap keeps root smallest.",
+        "Top-K Optimization: Use min-heap of size K to find K largest elements in O(N log K).",
+        "Dual-Heap Median Stream: Combines max-heap (lower half) and min-heap (upper half) for O(1) median access.",
+        "K-Way Array Merge: Min-heap of size K merges K sorted arrays in O(N log K).",
+      ]}
+      proTips={[
+        "Remember C++ std::priority_queue defaults to MAX-HEAP. Use 'greater<T>' comparator for MIN-HEAP.",
+        "Use custom comparator structs 'struct Compare' for priority queue custom sorting rules.",
+        "Build heaps from arrays in O(N) using std::make_heap or passing vectors directly.",
+      ]}
+      curatedProblems={[
+        { id: 215, title: "Kth Largest Element in an Array", difficulty: "Medium", tags: ["Heap", "Quickselect"], link: "https://leetcode.com/problems/kth-largest-element-in-an-array/" },
+        { id: 347, title: "Top K Frequent Elements", difficulty: "Medium", tags: ["Heap", "Hash Table"], link: "https://leetcode.com/problems/top-k-frequent-elements/" },
+        { id: 295, title: "Find Median from Data Stream", difficulty: "Hard", tags: ["Dual Heap"], link: "https://leetcode.com/problems/find-median-from-data-stream/" },
+        { id: 23, title: "Merge k Sorted Lists", difficulty: "Hard", tags: ["Min-Heap", "Linked List"], link: "https://leetcode.com/problems/merge-k-sorted-lists/" },
+      ]}
+      faqItems={[
+        {
+          question: "Why does a Min-Heap find K largest elements instead of a Max-Heap?",
+          answer: "By keeping a Min-Heap of size K, the smallest element among top candidates is always at the root. When size exceeds K, popping removes the smallest, leaving the K largest elements in the heap.",
+        },
+        {
+          question: "What is the time complexity of building a heap from an unsorted vector?",
+          answer: "Floyd's Heap Construction algorithm builds a heap bottom-up in O(N) linear time, whereas pushing N elements one by one takes O(N log N).",
+        },
+      ]}
+    />
   );
 }

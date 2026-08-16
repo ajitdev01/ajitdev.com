@@ -28,7 +28,7 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ip = getClientIp(request);
 
@@ -92,6 +92,8 @@ export function middleware(request: NextRequest) {
 
   return response;
 }
+
+export { proxy as middleware };
 
 export const config = {
   matcher: [

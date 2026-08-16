@@ -1,5 +1,20 @@
 import React from "react";
 import { Metadata } from "next";
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Chip,
+} from "@mui/material";
+import {
+  BookOpen,
+  Cloud,
+  ShieldCheck,
+  Code,
+  Globe,
+  Zap,
+} from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import BlogSearch from "@/app/components/BlogSearch";
 import JSONLD from "@/app/components/JSONLD";
@@ -65,24 +80,49 @@ export default function BlogArchivePage() {
   };
 
   return (
-    <>
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
       <JSONLD schema={breadcrumbSchema} />
       <JSONLD schema={faqSchema} />
-      
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Technical Blog
-            </h1>
-            <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-              Deep-dives into cloud engineering, container operations, system architecture, database performance, and type-safe frontends. Written by a MERN & Cloud Security developer from Katihar, Bihar.
-            </p>
-          </div>
 
-          <BlogSearch initialPosts={posts} />
-        </div>
-      </section>
-    </>
+      <Container maxWidth="lg">
+        
+        {/* ===== HERO BANNER PAPER ===== */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, sm: 5 },
+            mb: 6,
+            borderRadius: "24px",
+            border: "1px solid #e2e8f0",
+            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
+            textAlign: "center",
+          }}
+        >
+          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+            <BookOpen className="w-8 h-8" />
+          </Box>
+
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+            Technical Engineering Blog
+          </Typography>
+
+          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+            Cloud Security • DevOps & Containers • System Architecture • MERN & Next.js
+          </Typography>
+
+          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
+
+          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
+            <Chip icon={<Cloud className="w-3.5 h-3.5 text-blue-600" />} label="AWS & Cloud DevOps" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+            <Chip icon={<ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />} label="Cloud Security & Auditing" color="success" size="small" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Code className="w-3.5 h-3.5 text-indigo-600" />} label="Next.js & Type-Safe Systems" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+          </Box>
+        </Paper>
+
+        {/* ===== CLIENT SEARCH & ARTICLES GRID ===== */}
+        <BlogSearch initialPosts={posts} />
+
+      </Container>
+    </Box>
   );
 }

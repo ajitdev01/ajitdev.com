@@ -1,4 +1,26 @@
+import React from "react";
 import { Metadata } from "next";
+import Link from "next/link";
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Chip,
+  Button,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+import {
+  ArrowLeft,
+  Scale,
+  Shield,
+  CheckCircle2,
+  ChevronDown,
+  HelpCircle,
+  FileCheck,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Ajit Dev — DevOps Engineer Portfolio",
@@ -7,713 +29,140 @@ export const metadata: Metadata = {
     canonical: "https://ajitdev.com/terms",
   },
 };
-// ========== ENTERPRISE STRUCTURED DATA ==========
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "TermsOfService",
       "@id": "https://ajitdev.com/terms#terms",
-      "name": "Terms of Service | Ajit Dev — DevOps Engineer Portfolio India | Cloud Security Terms",
+      "name": "Terms of Service | Ajit Dev — DevOps Engineer Portfolio India",
       "url": "https://ajitdev.com/terms",
-      "description": "Complete terms and conditions for Ajit Dev's DevOps engineer portfolio. Covers intellectual property, acceptable use, liability, and legal compliance for cloud security portfolio visitors.",
+      "description": "Complete terms and conditions for Ajit Dev's DevOps engineer portfolio.",
       "inLanguage": ["en-IN", "en-US"],
       "dateModified": "2026-02-22",
-      "datePublished": "2024-01-15",
-      "version": "2.1",
-      "isPartOf": {
-        "@id": "https://ajitdev.com/#website"
-      },
-      "about": {
-        "@id": "https://ajitdev.com/#person"
-      },
-      "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "name": "Intellectual Property Clause",
-          "description": "Terms governing ownership of portfolio content and projects"
-        },
-        {
-          "@type": "WebPageElement",
-          "name": "Freelance Terms",
-          "description": "Conditions for project collaboration and consulting"
-        }
-      ],
-      "audience": {
-        "@type": "Audience",
-        "audienceType": ["Recruiters", "Clients", "Fellow Developers", "Technical Employers"]
-      },
-      "jurisdiction": {
-        "@type": "Country",
-        "name": "India",
-        "alternateName": "IN"
-      }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://ajitdev.com/#person",
-      "name": "Ajit Kumar",
-      "alternateName": "Ajit Dev",
-      "jobTitle": [
-        "DevOps Engineer",
-        "Cloud Security Architect",
-        "Full Stack Developer",
-        "Site Reliability Engineer"
-      ],
-      "worksFor": {
-        "@type": "Organization",
-        "name": "AjitDev Technologies",
-        "description": "DevOps consulting and cloud infrastructure solutions",
-        "foundingDate": "2023",
-        "email": ["support@ajitdev.com", "ajitk23192@gmail.com"],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Katihar",
-          "addressRegion": "Bihar",
-          "addressCountry": "India"
-        },
-        "sameAs": [
-          "https://github.com/ajitdev01",
-          "https://linkedin.com/in/ajitdev01",
-          "https://twitter.com/ajitdev01"
-        ]
-      },
-      "knowsAbout": [
-        "DevOps",
-        "Cloud Security",
-        "Kubernetes",
-        "Docker",
-        "AWS",
-        "Terraform",
-        "CI/CD",
-        "Full Stack Development",
-        "React",
-        "Node.js"
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://ajitdev.com/terms#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://ajitdev.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Legal",
-          "item": "https://ajitdev.com/legal"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Terms of Service",
-          "item": "https://ajitdev.com/terms"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://ajitdev.com/terms#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can I hire Ajit Kumar for DevOps consulting?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! Ajit is available for freelance DevOps consulting, cloud architecture, and full-stack development projects. Use the contact form to discuss your requirements.",
-            "url": "https://ajitdev.com/contact"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Are the portfolio projects open source?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Some projects are open source and available on GitHub. Each repository contains its own license terms. Contact for commercial usage permissions.",
-            "url": "https://github.com/ajitdev01"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens to my data when I contact you?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Your contact information is used only to respond to inquiries and is never sold. See our Privacy Policy for complete details.",
-            "url": "https://ajitdev.com/privacy"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer training or workshops?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, DevOps training and cloud security workshops are available for teams. Contact for customized training programs.",
-            "url": "https://ajitdev.com/contact"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use your code in my commercial project?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Each project has specific licensing terms. MIT-licensed repositories are free for commercial use with attribution. Contact for proprietary code usage.",
-            "url": "https://github.com/ajitdev01?tab=repositories"
-          }
-        }
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://ajitdev.com/#website",
-      "name": "Ajit Dev - DevOps Engineer Portfolio",
-      "url": "https://ajitdev.com",
-      "description": "Professional portfolio of Ajit Kumar, DevOps Engineer and Cloud Security Developer based in Katihar, Bihar, India",
-      "keywords": "DevOps engineer India, cloud security portfolio, full stack developer Bihar, Kubernetes expert, AWS consultant",
-      "inLanguage": "en",
-      "copyrightYear": "2026",
-      "copyrightHolder": {
-        "@id": "https://ajitdev.com/#person"
-      }
-    },
-    {
-      "@type": "Service",
-      "@id": "https://ajitdev.com/terms#services",
-      "name": "DevOps Consulting Services",
-      "description": "Professional DevOps engineering and cloud security consulting services",
-      "provider": {
-        "@id": "https://ajitdev.com/#person"
-      },
-      "serviceType": [
-        "DevOps Consulting",
-        "Cloud Architecture",
-        "Kubernetes Implementation",
-        "CI/CD Pipeline Setup",
-        "Infrastructure as Code",
-        "Cloud Security Audit"
-      ],
-      "areaServed": {
-        "@type": "Country",
-        "name": "India"
-      },
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://ajitdev.com/contact",
-        "availableLanguage": ["English", "Hindi"]
-      }
+      "datePublished": "2024-01-15"
     }
   ]
 };
 
-// ========== ANIMATION CLASSES (CSS-only, no JS) ==========
-const fadeInClass = "animate-[fadeInUp_0.6s_ease-out_both]";
-
-// ========== TERMS PAGE COMPONENT ==========
 export default function Terms() {
-  const currentYear = new Date().getFullYear();
-  const lastModified = "February 22, 2026";
-
   return (
-    <>
-      {/* JSON-LD Structured Data */}
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* ███████████████████████████ */}
-      {/* MAIN CONTENT - SEMANTIC     */}
-      {/* ███████████████████████████ */}
-      <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pt-28 pb-20">
-        <article className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container maxWidth="md">
+        
+        {/* Navigation Link */}
+        <Link href="/" className="no-underline">
+          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
+            Back to Home
+          </Button>
+        </Link>
 
-          {/* Breadcrumb Navigation */}
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-10"
-          >
-            <ol className="flex flex-wrap items-center text-sm text-gray-600 space-x-2">
-              <li>
-                <a href="/" className="hover:text-blue-600 transition-colors flex items-center">
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                  Home
-                </a>
-              </li>
-              <li><span className="text-gray-400">/</span></li>
+        {/* Hero Banner Paper */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, sm: 5 },
+            mb: 6,
+            borderRadius: "24px",
+            border: "1px solid #e2e8f0",
+            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
+            textAlign: "center",
+          }}
+        >
+          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+            <Scale className="w-8 h-8" />
+          </Box>
 
-              <li className="text-gray-900 font-medium" aria-current="page">
-                Terms of Service
-              </li>
-            </ol>
-          </nav>
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+            Terms of Service
+          </Typography>
 
-          {/* Hero Section with Trust Indicators */}
-          <div
-            className="mb-16"
-          >
-            <div className="text-center">
-              {/* Trust Badge Collection */}
-              <div className="flex flex-wrap justify-center gap-3 mb-6">
-                <span className="inline-flex items-center bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full text-sm font-medium">
-                  ⚖️ Legally Compliant
-                </span>
-                <span className="inline-flex items-center bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
-                  🔒 Indian IT Act 2000
-                </span>
-                <span className="inline-flex items-center bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
-                  ✅ GDPR Aligned
-                </span>
-                <span className="inline-flex items-center bg-purple-50 text-purple-700 px-4 py-2 rounded-full text-sm font-medium">
-                  🚀 Freelance Ready
-                </span>
-              </div>
+          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+            Ajit Kumar (@ajitdev01) • DevOps Engineer & Cloud Security Developer
+          </Typography>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Terms of <span className="text-blue-600">Service</span>
-              </h1>
+          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
 
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Clear, fair terms governing your interaction with
-                <strong className="text-gray-900"> Ajit Kumar's</strong> professional
-                <strong className="text-blue-600"> DevOps and Cloud Security portfolio</strong>.
-                Last updated <time dateTime="2026-02-22" className="font-medium">{lastModified}</time>.
-              </p>
+          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
+            <Chip icon={<FileCheck className="w-3.5 h-3.5 text-indigo-600" />} label="Legally Compliant" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Shield className="w-3.5 h-3.5 text-emerald-600" />} label="Indian IT Act 2000 & GDPR Aligned" color="success" size="small" sx={{ fontWeight: 800 }} />
+            <Chip icon={<CheckCircle2 className="w-3.5 h-3.5 text-amber-500" />} label="Freelance & Consulting Ready" color="warning" size="small" sx={{ fontWeight: 800 }} />
+          </Box>
+        </Paper>
 
-              {/* Quick Summary Card */}
-              <div
-                className="mt-10 max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 shadow-sm"
-              >
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <span className="text-3xl">📌</span>
-                  </div>
-                  <div className="ml-4 text-left">
-                    <h2 className="font-semibold text-gray-900 mb-2">Quick Summary (Plain English)</h2>
-                    <ul className="space-y-2 text-gray-700">
-                      <li className="flex items-start">
-                        <span className="text-green-500 mr-2">✓</span>
-                        <span>This is a portfolio site, not a commercial platform</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-green-500 mr-2">✓</span>
-                        <span>Projects are copyright of Ajit Kumar unless noted</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-green-500 mr-2">✓</span>
-                        <span>Contact form is for professional inquiries only</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-green-500 mr-2">✓</span>
-                        <span>No scraping or automated access allowed</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Content Section Papers */}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          
+          {/* Plain English Summary */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #c7d2fe", backgroundColor: "#eef2ff" }}>
+            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 1.5 }}>
+              📌 Quick Plain English Summary
+            </Typography>
+            <Box component="ul" sx={{ pl: 2.5, m: 0, color: "#334155", fontSize: "0.9rem", lineHeight: 1.8 }}>
+              <li>✓ This is an engineering portfolio showcasing software projects and cloud architectures.</li>
+              <li>✓ Code and content belong to Ajit Kumar unless designated with an open-source license.</li>
+              <li>✓ The contact form is for legitimate business and project inquiries.</li>
+            </Box>
+          </Paper>
 
-          {/* ███████████████████████████ */}
-          {/* TERMS CONTENT - LEGAL SEO  */}
-          {/* ███████████████████████████ */}
-          <div
-            className="space-y-12"
-          >
-            {/* Section 1: Acceptance */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">1</span>
-                Acceptance of Terms
-              </h2>
-              <div className="prose prose-lg max-w-none">
-                <p className="text-gray-700 leading-relaxed">
-                  By accessing or using <strong>ajitdev.com</strong> (the &quot;Website&quot;), you agree to be bound by these
-                  <strong> Terms of Service</strong> (&quot;Terms&quot;). If you disagree with any part, please discontinue use immediately.
-                  These terms apply to all visitors, including recruiters, potential clients, fellow developers, and collaborators.
-                </p>
-                <p className="text-gray-700 mt-4">
-                  This Website is the professional portfolio of <strong>Ajit Kumar</strong>, a
-                  <strong> DevOps Engineer and Full Stack Developer</strong> based in <strong>Katihar, Bihar, India</strong>.
-                  These terms govern your use of all content, project demonstrations, and communication channels.
-                </p>
-              </div>
-            </section>
+          {/* Section 1 */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
+            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
+              1. Acceptance of Terms
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8 }}>
+              By accessing or using <strong>ajitdev.com</strong>, you agree to be bound by these Terms of Service. This portfolio website is operated by <strong>Ajit Kumar</strong>, a DevOps Engineer and Full Stack Developer based in Katihar, Bihar, India.
+            </Typography>
+          </Paper>
 
-            {/* Section 2: Website Purpose */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">2</span>
-                Website Purpose & Use
-              </h2>
-              <div className="prose prose-lg max-w-none">
-                <p>
-                  This Website serves exclusively as a professional portfolio to:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 mt-4 text-gray-700">
-                  <li>Showcase <strong>DevOps engineering projects</strong> and cloud infrastructure work</li>
-                  <li>Demonstrate <strong>full stack development</strong> capabilities</li>
-                  <li>Provide professional contact information for collaboration opportunities</li>
-                  <li>Share technical knowledge and industry insights</li>
-                  <li>Facilitate <strong>freelance DevOps consulting</strong> inquiries</li>
-                </ul>
-                <p className="mt-4 text-gray-700">
-                  The content is for informational purposes only and does not constitute professional advice or an offer of employment.
-                </p>
-              </div>
-            </section>
+          {/* Section 2 */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
+            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
+              2. Intellectual Property Rights
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8 }}>
+              All project documentation, architecture diagrams, and custom code examples presented on this site remain the intellectual property of Ajit Kumar unless an explicit MIT, Apache, or GPL license is specified in the corresponding GitHub repository.
+            </Typography>
+          </Paper>
 
-            {/* Section 3: Intellectual Property */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">3</span>
-                Intellectual Property Rights
-              </h2>
+          {/* Section 3 FAQs Accordion */}
+          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
+            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 3, display: "flex", alignItems: "center", gap: 1 }}>
+              <HelpCircle className="w-5 h-5 text-indigo-600" /> Frequently Asked Questions
+            </Typography>
 
-              <div className="grid md:grid-cols-2 gap-6 mt-6">
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-xl mb-2 text-gray-900">© Portfolio Content</h3>
-                  <p className="text-gray-700">All project descriptions, code samples, architecture diagrams, and written content are the exclusive property of Ajit Kumar unless explicitly licensed otherwise.</p>
-                </div>
-                <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-xl mb-2 text-gray-900">🔧 Code Repositories</h3>
-                  <p className="text-gray-700">Public GitHub repositories may be open-sourced under MIT, GPL, or custom licenses. Check individual repositories for specific terms.</p>
-                </div>
-                <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-xl mb-2 text-gray-900">🎨 Brand Assets</h3>
-                  <p className="text-gray-700">Name, logo, and branding elements may not be reproduced without written permission.</p>
-                </div>
-                <div className="border-l-4 border-orange-500 pl-4">
-                  <h3 className="font-semibold text-xl mb-2 text-gray-900">📸 Screenshots</h3>
-                  <p className="text-gray-700">Portfolio screenshots may not be used in commercial materials without attribution and permission.</p>
-                </div>
-              </div>
+            <Accordion elevation={0} sx={{ border: "1px solid #e2e8f0", borderRadius: "14px !important", mb: 1.5 }}>
+              <AccordionSummary expandIcon={<ChevronDown className="w-4 h-4" />}>
+                <Typography sx={{ fontWeight: 800, color: "#0f172a" }}>Can I hire Ajit Kumar for DevOps or Full Stack consulting?</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" sx={{ color: "#64748b" }}>
+                  Yes! Ajit is available for full-time roles, contract work, and DevOps consulting. Contact support@ajitdev.com or use the contact form.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-              <div className="mt-6 bg-yellow-50 p-4 rounded-lg">
-                <p className="text-sm text-yellow-800">
-                  <strong>Note:</strong> Some project code may include third-party libraries subject to their own licenses.
-                  Always verify individual repository licensing.
-                </p>
-              </div>
-            </section>
+            <Accordion elevation={0} sx={{ border: "1px solid #e2e8f0", borderRadius: "14px !important" }}>
+              <AccordionSummary expandIcon={<ChevronDown className="w-4 h-4" />}>
+                <Typography sx={{ fontWeight: 800, color: "#0f172a" }}>Are the portfolio projects open source?</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" sx={{ color: "#64748b" }}>
+                  Public repositories are available on GitHub under open-source licenses. Refer to each repository's LICENSE file for commercial usage terms.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Paper>
 
-            {/* Section 4: Acceptable Use Policy */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">4</span>
-                Acceptable Use Policy
-              </h2>
+        </Box>
 
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-red-600 mb-2">❌ Prohibited Activities</h3>
-                  <ul className="grid md:grid-cols-2 gap-3 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Web scraping or automated data extraction</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Unauthorized reproduction of content</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Malware distribution or security testing</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Spamming contact forms</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Impersonation or fraudulent activity</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-red-500 mr-2">✗</span>
-                      <span>Commercial use without permission</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-green-600 mb-2">✅ Permitted Activities</h3>
-                  <ul className="grid md:grid-cols-2 gap-3 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span>Viewing for recruitment evaluation</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span>Learning from project examples</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span>Professional contact via forms</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">✓</span>
-                      <span>Sharing links with attribution</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* Section 5: Freelance & Consulting Terms */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">5</span>
-                Freelance & Consulting Services
-              </h2>
-
-              <div className="prose prose-lg max-w-none text-gray-700">
-                <p>
-                  Inquiries made through this Website regarding <strong>DevOps consulting, cloud architecture,
-                    or development services</strong> are subject to additional terms:
-                </p>
-
-                <div className="mt-4 space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-semibold text-gray-900">📋 Proposal Process:</p>
-                    <p className="text-sm">Project discussions via contact form initiate a formal proposal process. No work begins without a signed agreement.</p>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-semibold text-gray-900">💰 Payment Terms:</p>
-                    <p className="text-sm">All freelance work requires 50% advance payment (Indian clients) or 100% upfront (international) unless otherwise negotiated.</p>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-semibold text-gray-900">⚖️ Governing Law:</p>
-                    <p className="text-sm">All service agreements are governed by the laws of India, with jurisdiction in Katihar, Bihar.</p>
-                  </div>
-                </div>
-
-                <p className="mt-6 text-sm text-gray-600">
-                  <strong>Important:</strong> Submitting a contact form does not constitute a binding agreement.
-                  Formal contracts are executed separately.
-                </p>
-              </div>
-            </section>
-
-            {/* Section 6: Third-Party Links */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">6</span>
-                Third-Party Links & Services
-              </h2>
-
-              <p className="text-gray-700">This Website contains links to external platforms:</p>
-
-              <div className="overflow-x-auto mt-6">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Purpose</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Terms Apply</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200 text-gray-700">
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900 font-mono">GitHub</td>
-                      <td className="px-6 py-4">Code repositories, open-source projects</td>
-                      <td className="px-6 py-4"><a href="https://docs.github.com/en/site-policy/github-terms" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">GitHub Terms</a></td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900 font-mono">LinkedIn</td>
-                      <td className="px-6 py-4">Professional networking</td>
-                      <td className="px-6 py-4"><a href="https://www.linkedin.com/legal/user-agreement" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">LinkedIn Terms</a></td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900 font-mono">EmailJS</td>
-                      <td className="px-6 py-4">Contact form processing</td>
-                      <td className="px-6 py-4"><a href="https://www.emailjs.com/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">EmailJS Terms</a></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <p className="mt-6 text-sm text-gray-600">
-                I am not responsible for the content or practices of external websites.
-                Your interactions with these platforms are governed by their respective terms.
-              </p>
-            </section>
-
-            {/* Section 7: Limitation of Liability */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">7</span>
-                Limitation of Liability
-              </h2>
-
-              <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                <p className="font-semibold text-red-800 mb-2">⚠️ Disclaimer</p>
-                <p className="text-red-700">
-                  This Website and all content is provided &quot;AS IS&quot; without warranties of any kind.
-                  To the maximum extent permitted by law, Ajit Kumar disclaims all liability for:
-                </p>
-                <ul className="list-disc pl-6 mt-3 text-red-700 space-y-1">
-                  <li>Any errors or omissions in content</li>
-                  <li>Any damages arising from website use or inability to use</li>
-                  <li>Loss of data or profits from communication through this site</li>
-                  <li>Third-party actions or content</li>
-                </ul>
-                <p className="mt-4 text-sm text-red-600">
-                  Some jurisdictions may not allow certain liability limitations, so this may not apply to you.
-                </p>
-              </div>
-            </section>
-
-            {/* Section 8: Indemnification */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">8</span>
-                Indemnification
-              </h2>
-              <p className="text-gray-700">
-                You agree to indemnify and hold harmless Ajit Kumar from any claims, damages, or expenses
-                arising from your violation of these Terms or your use of this Website.
-              </p>
-            </section>
-
-            {/* Section 9: Governing Law */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">9</span>
-                Governing Law & Jurisdiction
-              </h2>
-              <div className="flex items-start">
-                <span className="text-4xl mr-4">🇮🇳</span>
-                <div>
-                  <p className="font-semibold text-gray-900 font-medium">These Terms are governed by the laws of India.</p>
-                  <p className="mt-2 text-gray-700">Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>Katihar, Bihar, India</strong>.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* Section 10: Changes to Terms */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">10</span>
-                Changes to Terms
-              </h2>
-              <p className="text-gray-700">
-                I reserve the right to modify these Terms at any time. Changes become effective immediately upon posting.
-                Your continued use of the Website constitutes acceptance of updated Terms.
-              </p>
-              <div className="mt-4 text-sm text-gray-600">
-                <strong>Current version:</strong> 2.1 | <strong>Last modified:</strong> {lastModified}
-              </div>
-            </section>
-
-            {/* Section 11: Contact Information */}
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-lg mr-3">11</span>
-                Contact Information
-              </h2>
-
-              <address className="not-italic bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-xl">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <p className="text-2xl font-semibold text-gray-900">Ajit Kumar</p>
-                    <p className="text-lg text-gray-700 mt-1">DevOps Engineer & Cloud Security Developer</p>
-                    <p className="text-gray-600 mt-2">Katihar, Bihar, India</p>
-
-                    <div className="mt-6 space-y-2">
-                      <p className="flex items-center flex-wrap gap-y-1">
-                        <span className="text-blue-600 w-6">📧</span>
-                        <a href="mailto:support@ajitdev.com" className="text-blue-600 hover:underline ml-2">
-                          support@ajitdev.com
-                        </a>
-                        <span className="text-gray-400 mx-2">/</span>
-                        <a href="mailto:ajitk23192@gmail.com" className="text-blue-600 hover:underline">
-                          ajitk23192@gmail.com
-                        </a>
-                      </p>
-                      <p className="flex items-center">
-                        <span className="text-blue-600 w-6">🌐</span>
-                        <a href="https://ajitdev.com" className="text-blue-600 hover:underline ml-2">
-                          https://ajitdev.com
-                        </a>
-                      </p>
-                      <p className="flex items-center">
-                        <span className="text-blue-600 w-6">🐙</span>
-                        <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-2 font-mono">
-                          github.com/ajitdev01
-                        </a>
-                      </p>
-                      <p className="flex items-center">
-                        <span className="text-blue-600 w-6">💼</span>
-                        <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-2 font-mono">
-                          linkedin.com/in/ajitdev01
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 md:mt-0 md:ml-8">
-                    <div className="bg-white p-6 rounded-lg shadow-sm">
-                      <p className="font-semibold text-gray-900 mb-2 font-medium">⏱️ Response Time</p>
-                      <p className="text-gray-600">Typically within 24-48 hours</p>
-                      <p className="text-xs text-gray-500 mt-2">For urgent matters, include &quot;URGENT&quot; in subject line</p>
-                    </div>
-                  </div>
-                </div>
-              </address>
-            </section>
-          </div>
-
-          {/* FAQ Section (Rendered for Users) */}
-          <section
-            className="mt-16"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-
-            <div className="space-y-4">
-              <details className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <summary className="font-semibold text-lg cursor-pointer">Can I hire you for DevOps consulting?</summary>
-                <p className="mt-4 text-gray-700">Yes! I&apos;m available for freelance DevOps consulting, cloud architecture, and full-stack development projects. Use the contact form to discuss your requirements.</p>
-              </details>
-
-              <details className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <summary className="font-semibold text-lg cursor-pointer">Are your projects open source?</summary>
-                <p className="mt-4 text-gray-700">Some projects are open source and available on GitHub with MIT licenses. Commercial usage requires attribution. Contact for proprietary code inquiries.</p>
-              </details>
-
-              <details className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <summary className="font-semibold text-lg cursor-pointer">What happens after I submit the contact form?</summary>
-                <p className="mt-4 text-gray-700">You&apos;ll receive a confirmation email, and I&apos;ll respond within 24-48 hours. No automated marketing, just professional communication.</p>
-              </details>
-            </div>
-          </section>
-
-          {/* Trust Seals Footer */}
-          <div
-            className="mt-20 text-center border-t border-gray-200 pt-10"
-          >
-            <p className="text-sm text-gray-500 mb-6">Trusted by recruiters and clients worldwide</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-              <span className="text-gray-400 font-medium">⚡ 10+ Cloud Projects</span>
-              <span className="text-gray-400 font-medium">🔒 Enterprise Security</span>
-              <span className="text-gray-400 font-medium">🇮🇳 India Based</span>
-              <span className="text-gray-400 font-medium">📋 IT Act Compliant</span>
-              <span className="text-gray-400 font-medium">🤝 50+ Happy Clients</span>
-            </div>
-            <p className="text-xs text-gray-400 mt-8">
-              © {currentYear} Ajit Kumar. All rights reserved. These terms are legally binding.
-            </p>
-          </div>
-
-        </article>
-      </main>
-    </>
+      </Container>
+    </Box>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import {
-  FiCode, FiServer, FiDatabase, FiCloud, FiChevronDown, FiChevronUp,
+  FiCode, FiServer, FiDatabase, FiCloud,
   FiLayers, FiGlobe, FiSmartphone, FiPackage, FiCpu, FiSend, FiLock,
   FiGitPullRequest, FiTool, FiGitBranch, FiTrendingUp, FiZap, FiBarChart2, FiActivity
 } from "@/lib/icons";
@@ -93,16 +93,16 @@ const skillCategories: SkillCategory[] = [
     icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
     color: "text-amber-600",
-    description: "450+ LeetCode problems — clean, optimized solutions",
-    proficiency: 85,
+    description: "632+ LeetCode & NeetCode problems — clean O(log N) solutions",
+    proficiency: 88,
     level: "Advanced",
     highlight: true,
     skills: [
-      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 90, level: "Expert", note: "450+ solved" },
+      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 92, level: "Expert", note: "514+ LC / 118 NC" },
       { name: "Recursion & Backtracking", icon: FiActivity, proficiency: 85, level: "Advanced" },
-      { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 78, level: "Proficient", note: "Active growth" },
-      { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 70, level: "Intermediate", note: "Daily practice" },
-      { name: "Time/Space Optimization", icon: FiZap, proficiency: 85, level: "Advanced" },
+      { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 80, level: "Advanced", note: "Active growth" },
+      { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 75, level: "Proficient", note: "Daily practice" },
+      { name: "Time/Space Optimization", icon: FiZap, proficiency: 88, level: "Advanced" },
     ],
   },
   {
@@ -129,14 +129,14 @@ const skillCategories: SkillCategory[] = [
     gradient: "from-indigo-500 to-blue-500",
     color: "text-indigo-600",
     description: "CI/CD, cloud basics, and clean version control",
-    proficiency: 75,
+    proficiency: 78,
     level: "Proficient",
     skills: [
       { name: "Git & GitHub Workflows", icon: FiGitBranch, proficiency: 90, level: "Expert" },
-      { name: "GitHub Actions (CI/CD)", icon: SiGithubactions, proficiency: 72, level: "Proficient" },
-      { name: "AWS (EC2, S3, IAM)", icon: SiAmazonaws, proficiency: 70, level: "Intermediate" },
+      { name: "GitHub Actions (CI/CD)", icon: SiGithubactions, proficiency: 75, level: "Proficient" },
+      { name: "AWS (EC2, S3, IAM)", icon: SiAmazonaws, proficiency: 72, level: "Proficient" },
       { name: "Vercel / Netlify", icon: FiCloud, proficiency: 88, level: "Advanced" },
-      { name: "Docker basics", icon: SiDocker, proficiency: 65, level: "Intermediate" },
+      { name: "Docker basics", icon: SiDocker, proficiency: 68, level: "Intermediate" },
     ],
   },
 ];
@@ -147,13 +147,22 @@ const filterLabels: Record<typeof FILTERS[number], string> = {
   Frontend: "Frontend",
   Backend: "Backend",
   FullStack: "Full Stack",
-  DSA: "DSA • 450+ Problems",
+  DSA: "DSA • 632+ Solved",
   Performance: "SEO • Performance",
   DevOps: "Deployment • Workflow"
 };
 
+const getLevelBadgeStyle = (level: string) => {
+  switch (level) {
+    case "Expert": return "bg-emerald-50 text-emerald-700 border-emerald-200";
+    case "Advanced": return "bg-indigo-50 text-indigo-700 border-indigo-200";
+    case "Proficient": return "bg-blue-50 text-blue-700 border-blue-200";
+    case "Intermediate": return "bg-amber-50 text-amber-700 border-amber-200";
+    default: return "bg-slate-50 text-slate-700 border-slate-200";
+  }
+};
+
 export default function SkillsSection() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<typeof FILTERS[number]>("All");
 
   const filteredSkills = useMemo(
@@ -161,127 +170,106 @@ export default function SkillsSection() {
     [activeCategory]
   );
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [isMobileMenuOpen]);
-
   return (
     <>
-      {/* ===== MOBILE FILTER BUTTON ===== */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-2xl z-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={isMobileMenuOpen ? "Close filter" : "Open filter"}
-      >
-        {isMobileMenuOpen ? <FiChevronDown className="w-5 h-5" /> : <FiChevronUp className="w-5 h-5" />}
-      </button>
-
-      {/* ===== MOBILE MENU ===== */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-40 rounded-t-2xl max-h-[60vh] overflow-y-auto">
-          <div className="p-6 space-y-5">
-            <h2 className="text-xl font-bold text-gray-900">Filter Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {FILTERS.map((f) => (
-                <button
-                  key={f}
-                  onClick={() => { setActiveCategory(f); setIsMobileMenuOpen(false); }}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md" : "bg-gray-100 text-gray-700"}`}
-                >
-                  {filterLabels[f]}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ===== DESKTOP FILTER ===== */}
-      <div className="hidden lg:flex flex-wrap justify-center gap-3 mb-16 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/60 shadow-md">
+      {/* ===== PURE TAILWIND CATEGORY FILTER BADGES ===== */}
+      <div className="p-3 mb-8 rounded-2xl border border-slate-200 bg-white flex flex-wrap justify-center gap-2 shadow-xs">
         {FILTERS.map((f) => (
           <button
             key={f}
             onClick={() => setActiveCategory(f)}
-            className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${activeCategory === f ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer select-none ${
+              activeCategory === f
+                ? "bg-indigo-600 text-white shadow-sm"
+                : "bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/80"
+            }`}
           >
             {filterLabels[f]}
           </button>
         ))}
       </div>
 
-      {/* ===== SKILLS GRID ===== */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      {/* ===== PURE TAILWIND SKILLS GRID ===== */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {filteredSkills.map((category) => {
           const CategoryIcon = category.icon;
           return (
-            <div key={category.title} className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur transition duration-500" aria-hidden="true" />
-              <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/60 p-8 shadow-md hover:shadow-xl transition-all duration-300">
-                <div className="flex items-start gap-4 mb-8 pb-6 border-b border-gray-100">
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-md`}>
-                    <CategoryIcon className="w-7 h-7 text-white" />
+            <div
+              key={category.title}
+              className="p-6 rounded-3xl border border-slate-200/90 bg-white flex flex-col justify-between h-full shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 group"
+            >
+              <div>
+                {/* Header */}
+                <div className="flex items-start gap-3.5 mb-5 pb-4 border-b border-slate-100">
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${category.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform duration-300`}>
+                    <CategoryIcon className="w-6 h-6 text-white" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h2 className="text-xl font-bold text-gray-900 mb-1">{category.title}</h2>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-1">
+                      <h3 className="font-black text-slate-900 text-base">
+                        {category.title}
+                      </h3>
                       {category.highlight && (
-                        <span className="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">CORE</span>
+                        <span className="px-2 py-0.5 text-[10px] font-black bg-amber-100 text-amber-800 rounded-md uppercase tracking-wider">
+                          CORE
+                        </span>
                       )}
                     </div>
-                    <p className="text-gray-600 text-sm">{category.description}</p>
+                    <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
+                      {category.description}
+                    </p>
                   </div>
                 </div>
 
-                <ul className="space-y-3 mb-8">
+                {/* Skill List */}
+                <div className="flex flex-col gap-2.5 mb-6">
                   {category.skills.map((skill) => {
                     const SkillIcon = typeof skill.icon === 'function' ? skill.icon : FiCode;
                     return (
-                      <li key={skill.name} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center">
-                            <SkillIcon className="w-4 h-4 text-gray-600" />
+                      <div
+                        key={skill.name}
+                        className="p-3 rounded-xl bg-slate-50/80 border border-slate-100 flex items-center justify-between gap-2 hover:bg-slate-100/70 transition-colors"
+                      >
+                        <div className="flex items-center gap-2.5 overflow-hidden flex-1">
+                          <div className="w-7 h-7 rounded-lg bg-white border border-slate-200/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                            <SkillIcon className="w-3.5 h-3.5 text-slate-600" />
                           </div>
-                          <div>
-                            <span className="font-medium text-gray-800 text-sm">
-                              {skill.name}
-                              {skill.highlight && <span className="ml-1 text-blue-500">★</span>}
-                            </span>
-                            {skill.note && <span className="text-xs text-gray-400 ml-2">({skill.note})</span>}
-                          </div>
+                          <span className="font-extrabold text-slate-800 text-xs truncate">
+                            {skill.name} {skill.highlight && <span className="text-amber-500">★</span>}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-gray-600 hidden sm:block">{skill.level}</span>
-                          <div className="w-14 h-1.5 bg-gray-200 rounded-full overflow-hidden" aria-hidden="true">
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-black border ${getLevelBadgeStyle(skill.level)}`}>
+                            {skill.level}
+                          </span>
+                          <div className="w-12 bg-slate-200 rounded-full h-1.5 overflow-hidden">
                             <div
+                              className="bg-indigo-600 h-full rounded-full transition-all duration-500"
                               style={{ width: `${skill.proficiency}%` }}
-                              className={`h-full rounded-full bg-gradient-to-r ${category.gradient}`}
                             />
                           </div>
                         </div>
-                      </li>
+                      </div>
                     );
                   })}
-                </ul>
+                </div>
+              </div>
 
-                <div className="pt-5 border-t border-gray-100">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-gray-600 uppercase">Proficiency</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className={`font-bold text-sm ${category.color}`}>{category.level}</span>
-                      <span className="text-xs text-gray-450">({category.proficiency}%)</span>
-                    </div>
-                  </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden" aria-hidden="true">
-                    <div
-                      style={{ width: `${category.proficiency}%` }}
-                      className={`h-full rounded-full bg-gradient-to-r ${category.gradient}`}
-                    />
-                  </div>
+              {/* Footer Category Mastery */}
+              <div className="pt-3.5 border-t border-slate-100">
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">
+                    Category Mastery
+                  </span>
+                  <span className="text-xs font-black text-indigo-600">
+                    {category.level} ({category.proficiency}%)
+                  </span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-indigo-500 to-purple-600 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${category.proficiency}%` }}
+                  />
                 </div>
               </div>
             </div>

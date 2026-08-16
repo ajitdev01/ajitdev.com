@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Arrays Data Structure Study Notes & scaling | Ajit Dev",
-  description: "Contiguous memory lists, sliding windows, and pointer operations. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Arrays Data Structure Study Notes & LeetCode Practice | Ajit Dev",
+  description: "Contiguous memory lists, sliding windows, prefix sums, and two-pointer operations in C++. Master class implementation notes, tradeoffs analysis, and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/arrays",
   },
 };
 
-export default function dsaArraysPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/arrays/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "arrays",
-        "item": "https://ajitdev.com/dsa/arrays",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Arrays Data Structure guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Arrays Data Structure."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaArraysPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Arrays Data Structure
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Contiguous memory lists, sliding windows, and pointer operations.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Arrays Data Structure</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="arrays"
+      topicName="Arrays Data Structure"
+      category="Linear Data Structures"
+      description="Arrays store elements in contiguous memory locations, providing O(1) random access by index. Master sliding window subsegments, prefix sum range queries, and two-pointer space optimizations in C++."
+      timeComplexity="Access: O(1) | Search: O(N) | Insertion: O(N)"
+      spaceComplexity="O(N) contiguous allocation"
+      solvedCount={45}
+      totalTarget={50}
+      codeTemplate={`// C++ Array Prefix Sum & Sliding Window Template\n#include <iostream>\n#include <vector>\n#include <numeric>\nusing namespace std;\n\n// Prefix Sum Setup for O(1) Range Queries\nvector<int> buildPrefixSum(const vector<int>& nums) {\n    int n = nums.size();\n    vector<int> pref(n + 1, 0);\n    for (int i = 0; i < n; ++i) {\n        pref[i + 1] = pref[i] + nums[i];\n    }\n    return pref;\n}\n\n// Query sum in range [L, R] inclusive\nint queryRange(const vector<int>& pref, int L, int R) {\n    return pref[R + 1] - pref[L];\n}`}
+      concepts={[
+        "Contiguous Memory Layout: Fast cache locality and instant O(1) index offset arithmetic.",
+        "Prefix Sum Arrays: Precomputing cumulative totals enables O(1) subarray sum queries.",
+        "Sliding Window Subsegments: Expands/contracts boundaries to solve min/max subsegments in O(N).",
+        "Two Pointers Technique: Eliminates nested loops by converging pointers from array ends.",
+      ]}
+      proTips={[
+        "Always handle out-of-bounds indexing by validating vector bounds (i >= 0 && i < n).",
+        "Use std::vector::reserve() when dynamically appending elements to prevent repeated reallocation overhead.",
+        "Prefer prefix sum over repeated loops when handling multiple range query constraints.",
+      ]}
+      curatedProblems={[
+        { id: 1, title: "Two Sum", difficulty: "Easy", tags: ["Array", "Hash Table"], link: "https://leetcode.com/problems/two-sum/" },
+        { id: 53, title: "Maximum Subarray (Kadane's Algo)", difficulty: "Medium", tags: ["Array", "DP"], link: "https://leetcode.com/problems/maximum-subarray/" },
+        { id: 238, title: "Product of Array Except Self", difficulty: "Medium", tags: ["Array", "Prefix Sum"], link: "https://leetcode.com/problems/product-of-array-except-self/" },
+        { id: 410, title: "Split Array Largest Sum", difficulty: "Hard", tags: ["Binary Search", "DP"], link: "https://leetcode.com/problems/split-array-largest-sum/" },
+      ]}
+      faqItems={[
+        {
+          question: "Why are arrays preferred for cache-heavy algorithms?",
+          answer: "Arrays store elements contiguously in memory. When the CPU accesses an array index, neighboring elements are loaded into L1/L2 cache lines simultaneously, resulting in minimal cache misses compared to node pointer lists.",
+        },
+        {
+          question: "How does Kadane's Algorithm optimize subarray search to O(N)?",
+          answer: "Kadane's algorithm maintains a current running sum and max sum. At each element, it decides whether to add the element to the current subarray or start a new subarray if the current sum becomes negative.",
+        },
+      ]}
+    />
   );
 }

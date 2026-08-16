@@ -1,9 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  FiFolder, FiBarChart2, FiTrendingUp, FiBook,
-  FiDatabase, FiGlobe, FiZap, FiMapPin, FiBriefcase
-} from "@/lib/icons";
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Chip,
+} from "@mui/material";
+import {
+  Folder,
+  BarChart3,
+  TrendingUp,
+  Book,
+  Database,
+  Globe,
+  Zap,
+  MapPin,
+  Briefcase,
+  Flame,
+  Award,
+  Trophy,
+} from "lucide-react";
 import ProjectsSection from "../components/projects/ProjectsSection";
 
 export const metadata: Metadata = {
@@ -19,208 +36,123 @@ export const metadata: Metadata = {
   },
 };
 
-// ========== STATS (DSA + Full Stack Focus) ==========
 const stats = [
-  { value: "450+", label: "LeetCode Problems", icon: FiBarChart2, gradient: "from-blue-500/15 to-cyan-500/15", color: "text-blue-600", highlight: true },
-  { value: "180+", label: "Day Streak", icon: FiTrendingUp, gradient: "from-emerald-500/15 to-teal-500/15", color: "text-emerald-600" },
-  { value: "8", label: "Live Projects", icon: FiFolder, gradient: "from-purple-500/15 to-violet-500/15", color: "text-purple-600" },
-  { value: "45+", label: "Lectures Created", icon: FiBook, gradient: "from-amber-500/15 to-orange-500/15", color: "text-amber-600" }
+  { value: "514+", label: "LeetCode Solved", icon: BarChart3, color: "#6366f1" },
+  { value: "231 Days", label: "Active Coding Streak", icon: Flame, color: "#10b981" },
+  { value: "8+", label: "Production Web Apps", icon: Folder, color: "#8b5cf6" },
+  { value: "118+", label: "NeetCode Solved", icon: Trophy, color: "#f59e0b" }
 ];
 
-// ========== PORTFOLIO HIGHLIGHTS ==========
 const highlights = [
-  { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: FiDatabase, gradient: "from-blue-500/15 to-cyan-500/15" },
-  { title: "DSA Problem Solving", description: "450+ LeetCode solutions", count: 1, icon: FiBarChart2, gradient: "from-amber-500/15 to-orange-500/15", highlight: true },
-  { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: FiGlobe, gradient: "from-rose-500/15 to-pink-500/15" },
-  { title: "Production Mindset", description: "Real-world scalable apps", count: 8, icon: FiZap, gradient: "from-emerald-500/15 to-teal-500/15" }
+  { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: Database, color: "primary" as const },
+  { title: "DSA Problem Solving", description: "632+ combined LeetCode & NeetCode", count: 1, icon: BarChart3, color: "warning" as const },
+  { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: Globe, color: "info" as const },
+  { title: "Production Mindset", description: "Real-world scalable web apps", count: 8, icon: Zap, color: "success" as const }
 ];
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white overflow-hidden">
-      {/* Background decoration */}
-      <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-        <div className="absolute top-3/4 left-1/2 w-96 h-96 bg-emerald-500/4 rounded-full blur-3xl" />
-      </div>
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <Container maxWidth="lg">
+        
+        {/* ===== HERO BANNER PAPER ===== */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, sm: 5 },
+            mb: 6,
+            borderRadius: "24px",
+            border: "1px solid #e2e8f0",
+            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
+            textAlign: "center",
+          }}
+        >
+          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+            <Folder className="w-8 h-8" />
+          </Box>
 
-      <main className="flex-grow pt-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+            Projects Portfolio
+          </Typography>
 
-          {/* === PAGE HEADER === */}
-          <section className="text-center mb-16">
-            <div className="inline-flex p-5 bg-gradient-to-r from-blue-100/60 to-indigo-100/60 rounded-2xl mb-6 border border-white/40">
-              <FiFolder className="text-4xl text-blue-600" />
-            </div>
+          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+            MERN • LAMP • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
+          </Typography>
 
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
-              Projects Portfolio
-            </h1>
+          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
 
-            <p className="text-xl text-gray-655 max-w-3xl mx-auto mb-6">
-              MERN • LAMP • Next.js • <span className="font-semibold text-amber-600">450+ DSA problems solved</span>
-            </p>
+          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
+            <Chip icon={<MapPin className="w-3.5 h-3.5 text-blue-600" />} label="Katihar, Bihar, India" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Briefcase className="w-3.5 h-3.5 text-emerald-600" />} label="Full Stack Engineer & Problem Solver" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+            <Chip icon={<Flame className="w-3.5 h-3.5 text-amber-500" />} label="231-Day Active Streak" color="success" size="small" sx={{ fontWeight: 800 }} />
+          </Box>
+        </Paper>
 
-            <div className="flex justify-center gap-3 mt-6 flex-wrap">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm text-gray-700">
-                <FiMapPin className="w-4 h-4 text-blue-500" />
-                Katihar, Bihar, India
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 text-sm shadow-sm text-gray-700">
-                <FiBriefcase className="w-4 h-4 text-emerald-500" />
-                Full Stack Engineer • Problem Solver
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full border border-amber-200 text-sm text-amber-700 shadow-sm">
-                <FiBarChart2 className="w-4 h-4" />
-                LeetCode 450+ • 180 Day Streak
-              </span>
-            </div>
+        {/* ===== CLIENT PROJECTS SECTION ===== */}
+        <ProjectsSection />
 
-            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto mt-8 rounded-full" />
-          </section>
+        {/* ===== STATS METRICS GRID ===== */}
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 3, mb: 8 }}>
+          {stats.map((s, i) => {
+            const StatIcon = s.icon;
+            return (
+              <Paper
+                key={i}
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: "20px",
+                  border: "1px solid #e2e8f0",
+                  backgroundColor: "#ffffff",
+                  textAlign: "center",
+                  transition: "transform 0.2s",
+                  "&:hover": { transform: "translateY(-4px)" },
+                }}
+              >
+                <Box sx={{ width: 40, height: 40, borderRadius: "12px", backgroundColor: "#f8fafc", color: s.color, display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 1.5 }}>
+                  <StatIcon className="w-5 h-5" />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 0.5 }}>{s.value}</Typography>
+                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{s.label}</Typography>
+              </Paper>
+            );
+          })}
+        </Box>
 
-          {/* === CLIENT PROJECTS COMPONENT === */}
-          <ProjectsSection />
+        {/* ===== PORTFOLIO HIGHLIGHTS GRID ===== */}
+        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 8 }}>
+          <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, textAlign: "center" }}>
+            Portfolio Highlights
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#64748b", mb: 4, textAlign: "center" }}>
+            Specialized engineering expertise across multiple domains
+          </Typography>
 
-          {/* === STATS SECTION === */}
-          <section className="mb-20">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-10 shadow-2xl">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-purple-500/10" aria-hidden="true" />
-              <div className="relative">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">Engineering Credentials</h2>
-                  <p className="text-gray-300">Proof of consistency, discipline, and real-world impact</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  {stats.map((stat, idx) => (
-                    <div key={idx} className="text-center">
-                      <div className={`text-3xl lg:text-4xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-                      <div className="text-gray-300 text-sm">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 3 }}>
+            {highlights.map((h, idx) => {
+              const HighlightIcon = h.icon;
+              return (
+                <Paper key={idx} elevation={0} sx={{ p: 2.5, borderRadius: "16px", backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
+                    <Box sx={{ p: 1, borderRadius: "10px", backgroundColor: "#ffffff", border: "1px solid #e2e8f0" }}>
+                      <HighlightIcon className="w-4 h-4 text-indigo-600" />
+                    </Box>
+                    <Box>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", fontSize: "0.85rem" }}>{h.title}</Typography>
+                      <Typography variant="caption" sx={{ color: "#64748b", fontSize: "0.7rem", display: "block" }}>{h.description}</Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ textAlign: "right" }}>
+                    <Typography variant="h6" component="span" sx={{ fontWeight: 900, color: "#4f46e5" }}>{h.count}</Typography>
+                    <Typography variant="caption" sx={{ color: "#64748b", ml: 0.5 }}>projects</Typography>
+                  </Box>
+                </Paper>
+              );
+            })}
+          </Box>
+        </Paper>
 
-          {/* === PORTFOLIO HIGHLIGHTS === */}
-          <section className="mb-20">
-            <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-10 border border-blue-100 shadow-lg">
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">Portfolio Highlights</h2>
-                <p className="text-gray-650 max-w-xl mx-auto">Specialized expertise across multiple domains</p>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                {highlights.map((h, idx) => {
-                  const HighlightIcon = h.icon;
-                  return (
-                    <div
-                      key={idx}
-                      className={`p-5 rounded-2xl bg-gradient-to-br ${h.gradient} border border-white/60 transition-transform duration-300 hover:scale-105 ${h.highlight ? 'ring-2 ring-amber-300/50' : ''}`}
-                    >
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-white/80 rounded-xl flex items-center justify-center">
-                          <HighlightIcon className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-gray-900 text-sm">{h.title}</p>
-                          <p className="text-xs text-gray-650">{h.description}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-bold text-gray-900">{h.count}</span>
-                        <span className="text-gray-650 text-sm ml-1">projects</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          {/* === DSA + CONSISTENCY SECTION === */}
-          <section className="mb-16">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 p-10 text-center border border-amber-200">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.15),transparent_40%)]" aria-hidden="true" />
-
-              <div className="relative z-10">
-                <div className="inline-flex p-4 bg-amber-100 rounded-2xl mb-5">
-                  <FiBarChart2 className="text-3xl text-amber-600" />
-                </div>
-
-                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                  450+ Problems Solved
-                </h3>
-
-                <p className="text-lg text-gray-655 max-w-3xl mx-auto leading-relaxed">
-                  Consistently improving problem-solving skills through daily DSA practice,
-                  maintaining a <span className="font-semibold text-amber-600">180+ day coding streak</span>,
-                  and solving challenges across multiple domains on LeetCode.
-                </p>
-
-                <div className="mt-8 flex flex-wrap justify-center gap-3">
-                  {["Arrays & Strings", "Hash Tables", "Binary Search", "Two Pointers", "Dynamic Programming", "Backtracking", "Problem Solving"].map(item => (
-                    <span key={item} className="px-4 py-2 bg-white shadow-sm rounded-full text-sm font-medium text-gray-700">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                  <div className="bg-white/70 rounded-2xl p-4">
-                    <h4 className="text-2xl font-bold text-amber-600">457+</h4>
-                    <p className="text-sm text-gray-650">Problems Solved</p>
-                  </div>
-
-                  <div className="bg-white/70 rounded-2xl p-4">
-                    <h4 className="text-2xl font-bold text-amber-600">180</h4>
-                    <p className="text-sm text-gray-655">Day Streak</p>
-                  </div>
-
-                  <div className="bg-white/70 rounded-2xl p-4">
-                    <h4 className="text-2xl font-bold text-amber-605">50</h4>
-                    <p className="text-sm text-gray-650">Hard Problems</p>
-                  </div>
-
-                  <div className="bg-white/70 rounded-2xl p-4">
-                    <h4 className="text-2xl font-bold text-amber-600">1580</h4>
-                    <p className="text-sm text-gray-650">Contest Rating</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* === CONTEXTUAL INTERNAL NAVIGATION === */}
-          <section className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
-              Explore Project Categories & Technical Case Studies
-            </h4>
-            <div className="flex flex-wrap gap-3 text-xs font-semibold">
-              <Link href="/projects/full-stack" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                Full Stack Projects
-              </Link>
-              <Link href="/projects/devops" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                DevOps & CI/CD Pipelines
-              </Link>
-              <Link href="/projects/cloud" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                AWS Cloud Infrastructure
-              </Link>
-              <Link href="/projects/security" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                Cloud Security & DevSecOps
-              </Link>
-              <Link href="/case-studies" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                Software Architecture Case Studies
-              </Link>
-              <Link href="/skills" className="px-3 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors shadow-xs">
-                Skills & Technologies
-              </Link>
-            </div>
-          </section>
-
-        </div>
-      </main>
-    </div>
+      </Container>
+    </Box>
   );
 }

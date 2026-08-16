@@ -1,146 +1,54 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
-import JSONLD from "@/app/components/JSONLD";
+import MuiTopicPage from "@/app/components/dsa/MuiTopicPage";
 
 export const metadata: Metadata = {
-  title: "Hashing & Hash Tables Study Notes & scaling | Ajit Dev",
-  description: "Key-value indexes, resolving collisions, and custom bucket hashes. Master class implementation notes, tradeoffs analysis, and scaling parameters in DSA.",
+  title: "Hashing & Hash Tables Study Notes & LeetCode Practice | Ajit Dev",
+  description: "O(1) average lookup maps, collision resolution, custom hash functions, and frequency sets in C++. Master class notes and LeetCode solutions.",
   alternates: {
     canonical: "https://ajitdev.com/dsa/hashing",
   },
 };
 
-export default function dsaHashingPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/dsa/hashing/#breadcrumb",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://ajitdev.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "DSA",
-        "item": "https://ajitdev.com/dsa",
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "hashing",
-        "item": "https://ajitdev.com/dsa/hashing",
-      },
-    ],
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is covered under this Hashing & Hash Tables guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "This guide covers implementation guidelines, common trade-offs, scalability checkpoints, and clean code configurations for Hashing & Hash Tables."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a repository mapping for this guide?",
-        "answer": {
-          "@type": "Answer",
-          "text": "Yes, public code scripts and configurations are shared on the ajitdev01 GitHub handle."
-        }
-      }
-    ]
-  };
-
+export default function DsaHashingPage() {
   return (
-    <>
-      <JSONLD schema={breadcrumbSchema} />
-      <JSONLD schema={faqSchema} />
-
-      <section className="py-16 md:py-24 bg-gray-50/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/dsa"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to DSA Hub
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/50 px-3 py-1 rounded-full border border-indigo-100/50">
-                Algorithms & Logic
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-              Hashing & Hash Tables
-            </h1>
-            <p className="text-gray-500 text-sm mt-2 leading-relaxed">
-              Key-value indexes, resolving collisions, and custom bucket hashes.
-            </p>
-          </div>
-
-          
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Algorithmic Study Guide & Progress</h2>
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          I solve problems in C++ daily. Under my public LeetCode handle <strong>ajitdev01</strong>, I have resolved 430+ challenges.
-          Here is my learning journal and notes on <strong>Hashing & Hash Tables</strong>:
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">Complexity & Performance</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              We analyze the best, average, and worst-case time complexity, optimizing algorithms to run within strict constraints.
-            </p>
-          </div>
-          <div className="p-5 border border-gray-100 rounded-xl bg-gray-50">
-            <h3 className="font-bold text-gray-900 mb-2">LeetCode Optimization Rules</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">
-              Utilize sliding windows, fast pointer lookups, and heap-based maps to avoid memory limits and exceed speed targets.
-            </p>
-          </div>
-        </div>
-        <div className="p-5 border border-indigo-100 rounded-xl bg-indigo-50/50">
-          <span className="text-indigo-950 font-bold text-sm block mb-1">Interactive Progress Tracker</span>
-          <p className="text-indigo-900 text-xs leading-relaxed">
-            Status: <span className="font-semibold text-emerald-600">Completed (30+ Problems Solved)</span>. Verified on LeetCode.
-          </p>
-        </div>
-      </div>
-    
-
-          {/* Contextual internal linking (10+ links across layout) */}
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Explore More Technical Guides</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
-              <Link href="/devops" className="hover:text-indigo-600 transition-colors">DevOps Engineering</Link>
-              <Link href="/aws" className="hover:text-indigo-600 transition-colors">AWS Operations</Link>
-              <Link href="/cloud-security" className="hover:text-indigo-600 transition-colors">Cloud Security</Link>
-              <Link href="/cyber-security" className="hover:text-indigo-600 transition-colors">Cybersecurity</Link>
-              <Link href="/docker" className="hover:text-indigo-600 transition-colors">Docker Containers</Link>
-              <Link href="/kubernetes" className="hover:text-indigo-600 transition-colors">Kubernetes Pods</Link>
-              <Link href="/terraform" className="hover:text-indigo-600 transition-colors">Terraform IaC</Link>
-              <Link href="/leetcode" className="hover:text-indigo-600 transition-colors">LeetCode Stats</Link>
-              <Link href="/dsa" className="hover:text-indigo-600 transition-colors">DSA Roadmap</Link>
-              <Link href="/system-design" className="hover:text-indigo-600 transition-colors">System Design</Link>
-              <Link href="/about" className="hover:text-indigo-600 transition-colors">About Ajit Dev</Link>
-              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact Me</Link>
-            </div>
-          </footer>
-        </div>
-      </section>
-    </>
+    <MuiTopicPage
+      topicKey="hashing"
+      topicName="Hashing & Hash Tables"
+      category="Linear Data Structures"
+      description="Hash tables convert keys into array indices using hash functions, offering O(1) expected time key-value lookups. Master std::unordered_map, custom hash functions for pair keys, collision handling, and frequency set indexing in C++."
+      timeComplexity="Average Access / Insert: O(1) | Worst Case: O(N)"
+      spaceComplexity="O(N) Hash Table Space"
+      solvedCount={30}
+      totalTarget={32}
+      codeTemplate={`// C++ Custom Hash Function for Unordered Map Pairs\n#include <iostream>\n#include <unordered_map>\nusing namespace std;\n\nstruct PairHash {\n    size_t operator()(const pair<int, int>& p) const {\n        return hash<int>()(p.first) ^ (hash<int>()(p.second) << 1);\n    }\n};\n\nvoid demoCustomHash() {\n    unordered_map<pair<int, int>, int, PairHash> gridMap;\n    gridMap[{0, 1}] = 42;\n}`}
+      concepts={[
+        "O(1) Average Lookup: Directly computes bucket index from key hash value.",
+        "Collision Resolution: Uses chaining (linked lists/vectors) or open addressing (linear probing).",
+        "Custom Pair Hashes: Requires explicit hash functor when using std::pair or custom structs in std::unordered_map.",
+        "Set Invariant: std::unordered_set guarantees O(1) element uniqueness verification.",
+      ]}
+      proTips={[
+        "Use 'map.reserve(N)' when inserting known element quantities to avoid rehashing overhead.",
+        "Prefer 'map.find(key) != map.end()' or 'map.count(key)' over 'map[key]' for read-only lookup.",
+        "When key order matters, use std::map (Red-Black Tree O(log N)) instead of std::unordered_map.",
+      ]}
+      curatedProblems={[
+        { id: 1, title: "Two Sum", difficulty: "Easy", tags: ["Hash Table", "Array"], link: "https://leetcode.com/problems/two-sum/" },
+        { id: 49, title: "Group Anagrams", difficulty: "Medium", tags: ["Hash Table", "String"], link: "https://leetcode.com/problems/group-anagrams/" },
+        { id: 128, title: "Longest Consecutive Sequence", difficulty: "Medium", tags: ["Hash Table", "Set"], link: "https://leetcode.com/problems/longest-consecutive-sequence/" },
+        { id: 146, title: "LRU Cache", difficulty: "Medium", tags: ["Hash Table", "Linked List"], link: "https://leetcode.com/problems/lru-cache/" },
+      ]}
+      faqItems={[
+        {
+          question: "Why does std::unordered_map have O(N) worst-case time complexity?",
+          answer: "If the hash function maps all keys to the same bucket index (hash collisions), the bucket degrades into a linear linked list requiring O(N) traversal.",
+        },
+        {
+          question: "How does an LRU Cache use Hashing and Doubly Linked Lists together?",
+          answer: "The hash table provides O(1) node lookup by key, while the doubly linked list maintains O(1) recent access ordering by moving accessed nodes to the head.",
+        },
+      ]}
+    />
   );
 }
