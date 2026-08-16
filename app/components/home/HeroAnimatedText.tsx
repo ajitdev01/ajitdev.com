@@ -22,7 +22,7 @@ export default function HeroAnimatedText() {
   }, []);
 
   return (
-    <div className="space-y-6 text-center lg:text-left relative">
+    <div className="space-y-6 text-center lg:text-left relative select-none">
       {/* Background Soft Glow */}
       <div className="absolute -top-16 -left-16 w-96 h-96 bg-indigo-100/60 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
       <div className="absolute top-1/3 -right-16 w-80 h-80 bg-purple-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -33,7 +33,7 @@ export default function HeroAnimatedText() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
         whileHover={{ scale: 1.02 }}
-        className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-slate-200/90 mx-auto lg:mx-0 shadow-2xs hover:border-indigo-300 transition-all duration-200 cursor-default select-none"
+        className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-slate-200/90 mx-auto lg:mx-0 shadow-2xs hover:border-indigo-300 transition-all duration-200 select-none"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -46,8 +46,8 @@ export default function HeroAnimatedText() {
       </motion.div>
 
       {/* Animated Headline */}
-      <div className="min-h-[90px] sm:min-h-[110px] md:min-h-[130px] flex items-center justify-center lg:justify-start">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-slate-900 font-sans">
+      <div className="min-h-[100px] sm:min-h-[110px] md:min-h-[130px] flex items-center justify-center lg:justify-start">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] text-slate-900 font-sans">
           <span className="relative inline-block pb-3">
             <AnimatePresence mode="wait">
               <motion.span
@@ -100,6 +100,7 @@ export default function HeroAnimatedText() {
     </div>
   );
 }
+
 
 
 

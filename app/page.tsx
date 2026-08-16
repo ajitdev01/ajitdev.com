@@ -122,11 +122,11 @@ export default function HomePage() {
         }}
       />
 
-      <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 14, md: 18 }, pb: 8 }}>
-        <Container maxWidth="lg">
+      <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 10, sm: 14, md: 18 }, pb: { xs: 4, md: 8 }, overflowX: "hidden" }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
 
           {/* Hero Section */}
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" }, gap: 6, alignItems: "center", mb: 10 }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" }, gap: { xs: 4, lg: 6 }, alignItems: "center", mb: { xs: 6, md: 10 }, select: "none" }}>
             {/* Left Content */}
             <Box sx={{ textAlign: { xs: "center", lg: "left" } }}>
               <HeroAnimatedText />
@@ -137,22 +137,22 @@ export default function HomePage() {
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: { xs: "center", lg: "flex-start" } }}>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <Tooltip title="GitHub @ajitdev01">
-                    <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs">
+                    <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none">
                       <FiGithub />
                     </a>
                   </Tooltip>
                   <Tooltip title="LinkedIn @ajitdev01">
-                    <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs">
+                    <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none">
                       <FiLinkedin />
                     </a>
                   </Tooltip>
                   <Tooltip title="LeetCode @ajitdev01">
-                    <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-black shadow-xs">
+                    <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-black shadow-xs select-none">
                       LC
                     </a>
                   </Tooltip>
                 </Box>
-                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>
+                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, select: "none" }}>
                   @ajitdev01 across all platforms
                 </Typography>
               </Box>
@@ -163,7 +163,7 @@ export default function HomePage() {
           </Box>
 
           {/* Stats Section */}
-          <Box sx={{ mb: 10 }}>
+          <Box sx={{ mb: { xs: 6, md: 10 } }}>
             <StatsSection />
           </Box>
 

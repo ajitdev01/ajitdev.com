@@ -61,6 +61,10 @@ export default function CodeSpace3D() {
   const rotateY = useTransform(mx, [-100, 100], [-12, 12]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Disable 3D tilt calculations on mobile / touch screens to prevent synthetic cursor/tilt glitches
+    if (typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches)) {
+      return;
+    }
     const rect = cardRef.current?.getBoundingClientRect();
     if (rect) {
       mx.set(e.clientX - rect.left - rect.width / 2);
@@ -170,7 +174,7 @@ export default function CodeSpace3D() {
   };
 
   return (
-    <div className="relative w-full max-w-lg mx-auto lg:mx-0">
+    <div className="relative w-full max-w-lg mx-auto lg:mx-0 select-none">
       <AnimatePresence mode="wait">
         {!isClosed ? (
           <motion.div
@@ -225,7 +229,7 @@ export default function CodeSpace3D() {
               <span className="font-mono text-[11px] font-bold">Build: Passing</span>
             </motion.div>
 
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white select-none">
               {/* ── Window chrome header bar ── */}
               <div 
                 className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-200"
@@ -263,7 +267,7 @@ export default function CodeSpace3D() {
               </div>
 
               {/* ── Code Editor Area ── */}
-              <div className="p-5 font-mono text-[13px] leading-6 bg-white min-h-[210px] space-y-0.5">
+              <div className="p-3 sm:p-5 font-mono text-[12px] sm:text-[13px] leading-6 bg-white min-h-[210px] space-y-0.5 overflow-x-auto select-none">
                 {CODE_LINES.map((line, idx) => {
                   const content = typedCode[idx];
                   const isActive = activeCodeLine === idx;
@@ -281,7 +285,7 @@ export default function CodeSpace3D() {
                       <span className={line.color}>
                         {content}
                         {isActive && (
-                          <span className="inline-block w-[2px] h-[13px] bg-indigo-500 align-middle ml-px animate-blink" />
+                          <span className="hidden sm:inline-block w-[2px] h-[13px] bg-indigo-500 align-middle ml-px animate-blink" />
                         )}
                       </span>
                     </div>
@@ -290,7 +294,7 @@ export default function CodeSpace3D() {
               </div>
 
               {/* ── Terminal Area ── */}
-              <div className="border-t border-slate-200 bg-slate-50 p-3 font-mono text-[12px] min-h-[120px]">
+              <div className="border-t border-slate-200 bg-slate-50 p-3 font-mono text-[11px] sm:text-[12px] min-h-[120px] select-none">
                 <div className="flex items-center gap-2 text-slate-400 text-[10px] font-semibold mb-2 uppercase tracking-widest">
                   <FiCommand />
                   Terminal Output
@@ -307,7 +311,7 @@ export default function CodeSpace3D() {
                     <div key={idx} className={`leading-5 ${line.color}`}>
                       {content}
                       {isActive && (
-                        <span className="inline-block w-[2px] h-[12px] bg-emerald-500 align-middle ml-px animate-blink" />
+                        <span className="hidden sm:inline-block w-[2px] h-[12px] bg-emerald-500 align-middle ml-px animate-blink" />
                       )}
                     </div>
                   );

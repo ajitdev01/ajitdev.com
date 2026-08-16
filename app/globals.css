@@ -128,3 +128,23 @@
 .animate-float-blob {
   animation: float-blob 12s ease-in-out infinite;
 }
+
+/* Mobile Touch & Cursor UI/UX Optimizations */
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overflow-x: hidden;
+}
+
+/* Prevent unwanted mobile text selection carets/cursors on interactive UI elements */
+button, a, [role="button"], .no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection specifically for body content */
+.selectable-text {
+  -webkit-user-select: text;
+  user-select: text;
+}
