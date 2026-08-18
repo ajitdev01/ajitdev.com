@@ -83,10 +83,8 @@ const Header = () => {
                 Full Stack · DevOps · Cloud Security
               </span>
             </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1.5 bg-slate-50/90 p-1.5 rounded-[22px] border border-slate-200/90">
+          </Link>          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-2 bg-white/95 p-1.5 rounded-full border border-slate-200/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.05)]">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.path;
               const IconComp = item.icon;
@@ -94,14 +92,21 @@ const Header = () => {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`inline-flex items-center gap-2 px-5 py-2 rounded-[16px] text-sm font-extrabold transition-all duration-250 ${
+                  className={`group relative inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-extrabold tracking-wide uppercase transition-all duration-300 ease-out select-none ${
                     isActive
-                      ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/35"
-                      : "text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 hover:-translate-y-0.5 hover:scale-[1.04] active:scale-98"
+                      ? "bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/35 scale-[1.03] ring-2 ring-indigo-400/25"
+                      : "text-slate-700 hover:text-indigo-600 hover:bg-indigo-50/90 hover:shadow-2xs hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95"
                   }`}
                 >
-                  <IconComp className="w-4 h-4" />
+                  <IconComp className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                    isActive ? "scale-110 text-white" : "group-hover:scale-115 group-hover:rotate-6 text-slate-500 group-hover:text-indigo-600"
+                  }`} />
                   <span>{item.name}</span>
+
+                  {/* Active Glowing Pill Accent */}
+                  {isActive && (
+                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-white/95 rounded-full shadow-xs" />
+                  )}
                 </Link>
               );
             })}
@@ -113,7 +118,7 @@ const Header = () => {
               onClick={() => setIsMobileOpen(true)}
               aria-label="Open mobile navigation menu"
               type="button"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-[14px] bg-slate-100 text-slate-900 hover:bg-indigo-50 hover:text-indigo-600 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-[14px] bg-white border border-slate-200 text-slate-800 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
             >
               <MenuIcon className="w-6 h-6" />
             </button>
@@ -143,7 +148,7 @@ const Header = () => {
                 onClick={() => setIsMobileOpen(false)}
                 aria-label="Close mobile navigation menu"
                 type="button"
-                className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:rotate-90 transition-all cursor-pointer"
               >
                 <CloseIcon className="w-5 h-5" />
               </button>
@@ -158,13 +163,13 @@ const Header = () => {
                     key={item.path}
                     href={item.path}
                     onClick={() => setIsMobileOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-[16px] text-sm font-extrabold transition-all ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-extrabold uppercase tracking-wide transition-all duration-200 ${
                       isActive
-                        ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30"
-                        : "text-slate-600 hover:bg-slate-100 hover:translate-x-1"
+                        ? "bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-500/30 scale-[1.01]"
+                        : "text-slate-700 hover:bg-indigo-50/90 hover:text-indigo-600 hover:translate-x-1"
                     }`}
                   >
-                    <IconComp className={`w-5 h-5 ${isActive ? "text-white" : "text-slate-500"}`} />
+                    <IconComp className={`w-4 h-4 transition-transform duration-200 ${isActive ? "text-white scale-110" : "text-slate-500"}`} />
                     <span>{item.name}</span>
                   </Link>
                 );
