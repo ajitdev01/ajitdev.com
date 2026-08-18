@@ -80,7 +80,7 @@ export default function ThirdPartyScripts() {
       {/* Cloudflare Web Analytics */}
       <Script
         src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"token": "3011d7a1a53748ac8d82869375ddcf22"}'
+        data-cf-beacon='{"token": "1e4f79e660144e27b1bccdcf48a0c738"}'
         strategy="lazyOnload"
       />
     </>
