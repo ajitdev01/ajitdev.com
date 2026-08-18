@@ -290,6 +290,7 @@ export default function CommandPalette() {
           {query && (
             <button
               onClick={() => setQuery("")}
+              aria-label="Clear search query"
               className="p-1 hover:bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-all"
             >
               <X className="w-3.5 h-3.5" />

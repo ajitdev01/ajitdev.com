@@ -94,7 +94,7 @@ export default function AboutMuiContent() {
 
           <Box sx={{ w: 80, h: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 700, maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}>
+          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 700, maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}>
             Full Stack Developer · DevOps Engineer
             <Box component="span" sx={{ display: "block", color: "#64748b", fontSize: "0.95rem", mt: 0.5 }}>
               MERN Stack · Next.js · AWS · Cloud Security

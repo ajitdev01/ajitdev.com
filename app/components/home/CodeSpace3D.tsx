@@ -239,6 +239,7 @@ export default function CodeSpace3D() {
                 {/* Red close dot */}
                 <button
                   onClick={() => setIsClosed(true)}
+                  aria-label="Close interactive window"
                   className="w-3 h-3 bg-red-400 hover:bg-red-500 rounded-full flex items-center justify-center border-0 p-0 cursor-pointer text-[8px] text-red-950 font-bold leading-none"
                 >
                   {controlHover && "×"}
@@ -260,6 +261,7 @@ export default function CodeSpace3D() {
                 <button
                   onClick={handleReplay}
                   disabled={isRunning}
+                  aria-label="Replay terminal animation"
                   className="ml-auto px-2.5 py-0.5 text-[10px] font-mono bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 rounded-md transition-all duration-150 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
                 >
                   {isRunning ? "Running..." : "▶ Replay"}

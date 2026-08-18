@@ -106,7 +106,7 @@ export default function BlogArchivePage() {
             Technical Engineering Blog
           </Typography>
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
             Cloud Security • DevOps & Containers • System Architecture • MERN & Next.js
           </Typography>
 

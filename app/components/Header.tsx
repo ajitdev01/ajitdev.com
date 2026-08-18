@@ -294,7 +294,7 @@ const Header = () => {
               Navigation Menu
             </Typography>
           </Box>
-          <IconButton onClick={toggleMobileDrawer(false)} sx={{ backgroundColor: "#f8fafc" }}>
+          <IconButton onClick={toggleMobileDrawer(false)} sx={{ backgroundColor: "#f8fafc" }} aria-label="Close mobile navigation menu">
             <CloseIcon className="w-5 h-5 text-slate-500" />
           </IconButton>
         </Box>

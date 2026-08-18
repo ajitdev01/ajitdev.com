@@ -132,7 +132,7 @@ export default function Footer() {
                 AK
               </Box>
               <Box>
-                <Typography variant="h6" sx={{ fontWeight: 900, color: "#ffffff", lineHeight: 1.2 }}>
+                <Typography variant="h6" component="p" sx={{ fontWeight: 900, color: "#ffffff", lineHeight: 1.2 }}>
                   {BRAND_INFO.name}
                 </Typography>
                 <Typography variant="caption" sx={{ color: "#818cf8", fontWeight: 800 }}>
@@ -163,6 +163,7 @@ export default function Footer() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={link.platform}
                       sx={{
                         color: "#94a3b8",
                         backgroundColor: "#0f172a",

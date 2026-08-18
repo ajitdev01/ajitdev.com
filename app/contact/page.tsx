@@ -130,7 +130,7 @@ export default function ContactPage() {
             Let&apos;s Connect
           </Typography>
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
             Full Stack Engineer • MERN • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
           </Typography>
 
