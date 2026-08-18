@@ -26,8 +26,8 @@ const CODE_LINES: TextLine[] = [
   { text: '  return "CAREER_GROWTH 🚀";', color: "text-purple-600 font-semibold" },
   { text: "};", color: "text-indigo-600" },
   { text: "", color: "" },
-  { text: "// 3000+ hours of coding", color: "text-slate-400 italic" },
-  { text: "// 99% client satisfaction", color: "text-slate-400 italic" },
+  { text: "// 3000+ hours of coding", color: "text-slate-600 italic" },
+  { text: "// 99% client satisfaction", color: "text-slate-600 italic" },
 ];
 
 const TERMINAL_LINES: TextLine[] = [
@@ -253,7 +253,7 @@ export default function CodeSpace3D() {
                   {controlHover && "+"}
                 </div>
 
-                <span className="ml-3 flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+                <span className="ml-3 flex items-center gap-1.5 text-xs text-slate-600 font-mono">
                   <span className="w-2 h-2 rounded-sm bg-indigo-400 inline-block" />
                   ajitdev_success.ts
                 </span>
@@ -262,7 +262,7 @@ export default function CodeSpace3D() {
                   onClick={handleReplay}
                   disabled={isRunning}
                   aria-label="Replay terminal animation"
-                  className="ml-auto px-2.5 py-0.5 text-[10px] font-mono bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 rounded-md transition-all duration-150 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
+                  className="ml-auto px-2.5 py-0.5 text-[10px] font-mono bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-md transition-all duration-150 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
                 >
                   {isRunning ? "Running..." : "▶ Replay"}
                 </button>
@@ -280,7 +280,7 @@ export default function CodeSpace3D() {
                   return (
                     <div key={idx} className="flex">
                       {/* Line Gutter */}
-                      <span className="w-7 shrink-0 text-slate-300 text-[11px] text-right pr-3 pt-[1px] select-none">
+                      <span className="w-7 shrink-0 text-slate-400 text-[11px] text-right pr-3 pt-[1px] select-none">
                         {idx + 1}
                       </span>
                       {/* Code string */}
@@ -297,7 +297,7 @@ export default function CodeSpace3D() {
 
               {/* ── Terminal Area ── */}
               <div className="border-t border-slate-200 bg-slate-50 p-3 font-mono text-[11px] sm:text-[12px] min-h-[120px] select-none">
-                <div className="flex items-center gap-2 text-slate-400 text-[10px] font-semibold mb-2 uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-slate-600 text-[10px] font-semibold mb-2 uppercase tracking-widest">
                   <FiCommand />
                   Terminal Output
                 </div>

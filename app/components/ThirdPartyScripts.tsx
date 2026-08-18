@@ -41,7 +41,7 @@ export default function ThirdPartyScripts() {
   return (
     <>
       {/* Google Tag Manager (client-side loader) */}
-      <Script id="gtm-script" strategy="afterInteractive">
+      <Script id="gtm-script" strategy="lazyOnload">
         {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -53,7 +53,7 @@ export default function ThirdPartyScripts() {
       </Script>
 
       {/* Microsoft Clarity Script */}
-      <Script id="clarity-script" strategy="afterInteractive">
+      <Script id="clarity-script" strategy="lazyOnload">
         {`
           (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
@@ -66,9 +66,9 @@ export default function ThirdPartyScripts() {
       {/* Google Analytics (gtag.js) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-648KHZ7K6T"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script id="google-analytics" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           if (typeof window.gtag !== 'function') {
@@ -84,7 +84,7 @@ export default function ThirdPartyScripts() {
       <Script
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon='{"token": "1e4f79e660144e27b1bccdcf48a0c738"}'
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
     </>
   );

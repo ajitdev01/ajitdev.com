@@ -93,8 +93,6 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
-export { proxy as middleware };
-
 export const config = {
   matcher: [
     // Apply to all paths except static assets, images, and next internals

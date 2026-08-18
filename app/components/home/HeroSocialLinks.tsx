@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import { Box, Typography, Tooltip } from "@mui/material";
 
 const FiGithub = ({ className }: { className?: string }) => (
   <svg className={className || "w-5 h-5"} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -17,45 +14,43 @@ const FiLinkedin = ({ className }: { className?: string }) => (
 
 export default function HeroSocialLinks() {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: { xs: "center", lg: "flex-start" } }}>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Tooltip title="GitHub @ajitdev01">
-          <a
-            href="https://github.com/ajitdev01"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub profile @ajitdev01"
-            className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none"
-          >
-            <FiGithub />
-          </a>
-        </Tooltip>
-        <Tooltip title="LinkedIn @ajitdev01">
-          <a
-            href="https://linkedin.com/in/ajitdev01"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn profile @ajitdev01"
-            className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none"
-          >
-            <FiLinkedin />
-          </a>
-        </Tooltip>
-        <Tooltip title="LeetCode @ajitdev01">
-          <a
-            href="https://leetcode.com/u/ajitdev01/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LeetCode profile @ajitdev01"
-            className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-black shadow-xs select-none"
-          >
-            LC
-          </a>
-        </Tooltip>
-      </Box>
-      <Typography variant="caption" sx={{ color: "#475569", fontWeight: 700, select: "none" }}>
+    <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start">
+      <div className="flex gap-2">
+        <a
+          href="https://github.com/ajitdev01"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile @ajitdev01"
+          title="GitHub @ajitdev01"
+          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none"
+        >
+          <FiGithub />
+        </a>
+        <a
+          href="https://linkedin.com/in/ajitdev01"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile @ajitdev01"
+          title="LinkedIn @ajitdev01"
+          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-xs select-none"
+        >
+          <FiLinkedin />
+        </a>
+        <a
+          href="https://leetcode.com/u/ajitdev01/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LeetCode profile @ajitdev01"
+          title="LeetCode @ajitdev01"
+          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-black shadow-xs select-none"
+        >
+          LC
+        </a>
+      </div>
+      <span className="text-xs font-bold text-slate-600 select-none">
         @ajitdev01 across all platforms
-      </Typography>
-    </Box>
+      </span>
+    </div>
   );
 }
+

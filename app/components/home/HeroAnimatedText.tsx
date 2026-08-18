@@ -89,7 +89,7 @@ export default function HeroAnimatedText() {
           Next.js
         </span>
         , and{" "}
-        <span className="text-pink-600 font-bold hover:text-pink-700 underline decoration-pink-300 decoration-2 underline-offset-4 transition-colors">
+        <span className="text-pink-700 font-bold hover:text-pink-800 underline decoration-pink-300 decoration-2 underline-offset-4 transition-colors">
           TypeScript
         </span>
         .

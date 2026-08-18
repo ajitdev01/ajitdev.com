@@ -32,8 +32,10 @@ export default function CommandPalette() {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 1. Fetch posts and projects search index on mount
+  // 1. Fetch posts and projects search index lazily when the palette is opened
   useEffect(() => {
+    if (!isOpen || blogPosts.length > 0) return;
+
     let active = true;
     const fetchSearchData = async () => {
       try {
@@ -56,7 +58,7 @@ export default function CommandPalette() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [isOpen, blogPosts.length]);
 
   // 2. Build the unified items list
   const allItems = useMemo<SearchItem[]>(() => {

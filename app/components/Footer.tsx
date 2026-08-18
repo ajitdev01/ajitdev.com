@@ -1,20 +1,6 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Grid,
-  Chip,
-  Button,
-  Divider,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
 import {
   Home,
   User,
@@ -30,7 +16,6 @@ import {
   Newspaper,
   Trophy,
   Heart,
-  ArrowUp,
   MessageCircle,
 } from "lucide-react";
 
@@ -108,168 +93,143 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Box component="footer" sx={{ backgroundColor: "#080c14", color: "#f8fafc", pt: 8, pb: 4, borderTop: "1px solid #1e293b" }}>
-      <Container maxWidth="lg">
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "5fr 3fr 4fr" }, gap: 6 }}>
+    <footer className="bg-[#080c14] text-slate-100 pt-16 pb-8 border-t border-slate-800/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* COLUMN 1: Brand Info & Socials */}
-          <Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-              <Box
-                sx={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: "14px",
-                  background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 900,
-                  boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
-                }}
-              >
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center font-black shadow-md shadow-indigo-600/30">
                 AK
-              </Box>
-              <Box>
-                <Typography variant="h6" component="p" sx={{ fontWeight: 900, color: "#ffffff", lineHeight: 1.2 }}>
+              </div>
+              <div>
+                <p className="font-black text-white text-lg leading-tight">
                   {BRAND_INFO.name}
-                </Typography>
-                <Typography variant="caption" sx={{ color: "#818cf8", fontWeight: 800 }}>
+                </p>
+                <span className="text-indigo-400 font-bold text-xs">
                   {BRAND_INFO.title}
-                </Typography>
-              </Box>
-            </Box>
+                </span>
+              </div>
+            </div>
 
-            <Typography variant="body2" sx={{ color: "#94a3b8", mb: 3, lineHeight: 1.7, fontSize: "0.88rem" }}>
+            <p className="text-slate-300 mb-6 leading-relaxed text-sm">
               {BRAND_INFO.description}
-            </Typography>
+            </p>
 
             {/* Trust Badges */}
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
-              <Chip icon={<Shield className="w-3.5 h-3.5 text-emerald-400" />} label="HTTPS Encrypted" size="small" variant="outlined" sx={{ borderColor: "#1e293b", color: "#cbd5e1", fontWeight: 700 }} />
-              <Chip icon={<Award className="w-3.5 h-3.5 text-indigo-400" />} label="MERN & DevOps" size="small" variant="outlined" sx={{ borderColor: "#1e293b", color: "#cbd5e1", fontWeight: 700 }} />
-              <Chip icon={<Globe className="w-3.5 h-3.5 text-amber-400" />} label="Katihar, Bihar, India" size="small" variant="outlined" sx={{ borderColor: "#1e293b", color: "#cbd5e1", fontWeight: 700 }} />
-            </Box>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-800 text-slate-300 text-xs font-bold bg-slate-900/50">
+                <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                HTTPS Encrypted
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-800 text-slate-300 text-xs font-bold bg-slate-900/50">
+                <Award className="w-3.5 h-3.5 text-indigo-400" />
+                MERN &amp; DevOps
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-800 text-slate-300 text-xs font-bold bg-slate-900/50">
+                <Globe className="w-3.5 h-3.5 text-amber-400" />
+                Katihar, Bihar, India
+              </span>
+            </div>
 
             {/* Social Icons */}
-            <Box sx={{ display: "flex", gap: 1 }}>
+            <div className="flex gap-2">
               {SOCIAL_LINKS.map((link) => {
                 const IconComp = link.icon;
                 return (
-                  <Tooltip key={link.platform} title={link.platform}>
-                    <IconButton
-                      component="a"
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.platform}
-                      sx={{
-                        color: "#94a3b8",
-                        backgroundColor: "#0f172a",
-                        border: "1px solid #1e293b",
-                        borderRadius: "12px",
-                        "&:hover": { color: "#ffffff", backgroundColor: "#4f46e5", borderColor: "#4f46e5" },
-                      }}
-                    >
-                      <IconComp className="w-4 h-4" />
-                    </IconButton>
-                  </Tooltip>
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.platform}
+                    title={link.platform}
+                    className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition-colors shadow-xs"
+                  >
+                    <IconComp className="w-4 h-4" />
+                  </a>
                 );
               })}
-            </Box>
-          </Box>
+            </div>
+          </div>
 
           {/* COLUMN 2: Quick Links */}
-          <Box>
-            <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#ffffff", textTransform: "uppercase", letterSpacing: "1px", mb: 2.5 }}>
+          <div className="lg:col-span-3">
+            <h3 className="font-black text-white text-xs uppercase tracking-wider mb-5">
               Quick Navigation
-            </Typography>
-            <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "flex", flexDirection: "column", gap: 1.2 }}>
+            </h3>
+            <ul className="space-y-2.5 list-none p-0 m-0">
               {NAV_LINKS.map((item) => {
                 const IconComp = item.icon;
                 return (
                   <li key={item.path}>
-                    <Link href={item.path} className="no-underline">
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#94a3b8",
-                          fontWeight: 700,
-                          fontSize: "0.85rem",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 1,
-                          "&:hover": { color: "#818cf8" },
-                        }}
-                      >
-                        <IconComp className="w-3.5 h-3.5 text-indigo-400" />
-                        {item.name}
-                      </Typography>
+                    <Link href={item.path} className="inline-flex items-center gap-2 text-slate-300 hover:text-indigo-400 font-bold text-sm transition-colors">
+                      <IconComp className="w-3.5 h-3.5 text-indigo-400" />
+                      {item.name}
                     </Link>
                   </li>
                 );
               })}
-            </Box>
-          </Box>
+            </ul>
+          </div>
 
           {/* COLUMN 3: Tech Stack & Contact */}
-          <Box>
-            <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#ffffff", textTransform: "uppercase", letterSpacing: "1px", mb: 2.5 }}>
-              Tech Stack & Contact
-            </Typography>
+          <div className="lg:col-span-4">
+            <h3 className="font-black text-white text-xs uppercase tracking-wider mb-5">
+              Tech Stack &amp; Contact
+            </h3>
             
-            <Paper elevation={0} sx={{ p: 2.5, borderRadius: "20px", backgroundColor: "#0f172a", border: "1px solid #1e293b", mb: 3 }}>
-              <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 800, display: "block", mb: 1.5, textTransform: "uppercase" }}>
+            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 mb-6">
+              <span className="text-slate-400 font-extrabold text-[11px] block mb-3 uppercase tracking-wider">
                 Core Skills
-              </Typography>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
+              </span>
+              <div className="flex flex-wrap gap-1.5">
                 {TECH_SKILLS.map((skill) => (
-                  <Chip
+                  <span
                     key={skill}
-                    label={skill}
-                    size="small"
-                    sx={{ backgroundColor: "#1e293b", color: "#e2e8f0", fontWeight: 700, fontSize: "0.7rem", borderRadius: "8px" }}
-                  />
+                    className="px-2 py-0.5 bg-slate-800 text-slate-200 font-bold text-xs rounded-md"
+                  >
+                    {skill}
+                  </span>
                 ))}
-              </Box>
-            </Paper>
+              </div>
+            </div>
 
-            <Typography variant="body2" sx={{ color: "#94a3b8", fontSize: "0.85rem", mb: 0.5 }}>
-              Email: <a href={`mailto:${BRAND_INFO.email}`} className="text-indigo-400 font-bold no-underline">{BRAND_INFO.email}</a>
-            </Typography>
-            <Typography variant="body2" sx={{ color: "#94a3b8", fontSize: "0.85rem" }}>
-              Location: <strong className="text-slate-300">{BRAND_INFO.location}</strong>
-            </Typography>
-          </Box>
+            <p className="text-slate-300 text-sm mb-1.5">
+              Email: <a href={`mailto:${BRAND_INFO.email}`} className="text-indigo-400 font-bold hover:underline">{BRAND_INFO.email}</a>
+            </p>
+            <p className="text-slate-300 text-sm">
+              Location: <strong className="text-slate-200">{BRAND_INFO.location}</strong>
+            </p>
+          </div>
 
-        </Box>
+        </div>
 
-        <Divider sx={{ my: 5, borderColor: "#1e293b" }} />
+        <div className="my-8 border-t border-slate-800/80" />
 
         {/* BOTTOM BAR */}
-        <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: "center", justifyContent: "space-between", gap: 2 }}>
-          <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, textAlign: { xs: "center", sm: "left" } }}>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-slate-400 font-bold text-xs text-center sm:text-left">
             © {currentYear} <strong>{BRAND_INFO.name}</strong> (@{BRAND_INFO.name.toLowerCase().replace(" ", "")}01). All rights reserved.
-          </Typography>
+          </p>
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, alignItems: "center" }}>
+          <div className="flex flex-wrap gap-4 items-center justify-center">
             {LEGAL_LINKS.map((link) => (
-              <Link key={link.path} href={link.path} className="no-underline">
-                <Typography variant="caption" sx={{ color: "#94a3b8", fontWeight: 700, "&:hover": { color: "#818cf8" } }}>
-                  {link.name}
-                </Typography>
+              <Link key={link.path} href={link.path} className="text-slate-300 hover:text-indigo-400 font-bold text-xs transition-colors">
+                {link.name}
               </Link>
             ))}
-            <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, display: "flex", alignItems: "center", gap: 0.5 }}>
+            <span className="text-slate-400 font-bold text-xs inline-flex items-center gap-1">
               Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> in India
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* Dynamic Back to Top Trigger */}
       <BackToTop />
-    </Box>
+    </footer>
   );
 }
+
