@@ -172,3 +172,133 @@ export function getBlogSchema(
     },
   };
 }
+
+/**
+ * Returns strongly typed TechArticle schema for research whitepapers
+ */
+export function getTechArticleSchema(paper: {
+  title: string;
+  summary: string;
+  slug: string;
+  date: string;
+  category: string;
+}): WithContext<any> {
+  const paperUrl = `${SITE_URL}/research/${paper.slug}`;
+  const publishDate = paper.date ? new Date(paper.date).toISOString() : new Date().toISOString();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${paperUrl}/#article`,
+    mainEntityOfPage: paperUrl,
+    headline: paper.title,
+    description: paper.summary,
+    url: paperUrl,
+    datePublished: publishDate,
+    dateModified: publishDate,
+    articleSection: paper.category,
+    inLanguage: "en-US",
+    author: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: BRAND.name,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: BRAND.name,
+      url: SITE_URL,
+    },
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/og-image.png`,
+      width: "1200",
+      height: "630",
+    },
+  };
+}
+
+/**
+ * Returns strongly typed ProfilePage schema
+ */
+export function getProfilePageSchema(
+  title: string = "Ajit Dev Profile",
+  description: string = BRAND.description,
+  url: string = `${SITE_URL}/about`
+): WithContext<any> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${url}/#profilepage`,
+    url: url,
+    name: title,
+    description: description,
+    mainEntity: {
+      "@id": `${SITE_URL}/#person`,
+    },
+  };
+}
+
+/**
+ * Returns strongly typed CollectionPage schema
+ */
+export function getCollectionPageSchema(
+  title: string,
+  description: string,
+  url: string
+): WithContext<any> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}/#collectionpage`,
+    url: url,
+    name: title,
+    description: description,
+    publisher: {
+      "@id": `${SITE_URL}/#person`,
+    },
+  };
+}
+
+/**
+ * Returns strongly typed ContactPage schema
+ */
+export function getContactPageSchema(): WithContext<any> {
+  const contactUrl = `${SITE_URL}/contact`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": `${contactUrl}/#contactpage`,
+    url: contactUrl,
+    name: "Contact Ajit Dev — Full Stack & DevOps Engineer",
+    description: "Contact details and collaboration channel for Ajit Dev in Katihar, Bihar, India.",
+    mainEntity: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: BRAND.name,
+      email: BRAND.email,
+      telephone: BRAND.phone,
+      url: SITE_URL,
+    },
+  };
+}
+
+/**
+ * Returns strongly typed EducationPage / EducationalOccupationalCredential schema
+ */
+export function getEducationPageSchema(): WithContext<any> {
+  const eduUrl = `${SITE_URL}/education`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "EducationEvent",
+    "@id": `${eduUrl}/#educationpage`,
+    url: eduUrl,
+    name: "Ajit Dev Education & Certifications Timeline",
+    description: "Academic qualification (BCA in Cloud Computing & Security) and professional certifications of Ajit Dev.",
+    performer: {
+      "@id": `${SITE_URL}/#person`,
+    },
+  };
+}
+

@@ -22,17 +22,35 @@ import {
   Trophy,
 } from "lucide-react";
 import ProjectsSection from "../components/projects/ProjectsSection";
+import JSONLD from "@/app/components/JSONLD";
+import { getCollectionPageSchema } from "@/lib/schema";
+import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Projects — AJITDEV",
-  description: "Explore production-grade full-stack MERN, Next.js, Docker, Kubernetes, AWS, and Cloud Security projects built by Ajit Dev (ajitdev01).",
+  title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
+  description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions demonstrating 5+ production apps.",
+  keywords: [...PAGE_KEYWORDS.projects],
   alternates: {
     canonical: "/projects",
   },
   openGraph: {
-    title: "Projects — AJITDEV",
-    description: "Explore production-grade full-stack MERN, Next.js, Docker, Kubernetes, AWS, and Cloud Security projects built by Ajit Dev (ajitdev01).",
+    title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
+    description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions demonstrating production-grade apps.",
     url: "https://ajitdev.com/projects",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Full Stack & DevOps Projects Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
+    description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 
@@ -51,8 +69,15 @@ const highlights = [
 ];
 
 export default function ProjectsPage() {
+  const collectionSchema = getCollectionPageSchema(
+    "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
+    "Browse Ajit Dev's production-grade projects including MERN/Next.js web applications and DevOps pipelines.",
+    "https://ajitdev.com/projects"
+  );
+
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <JSONLD schema={collectionSchema} />
       <Container maxWidth="lg">
         
         {/* ===== HERO BANNER PAPER ===== */}

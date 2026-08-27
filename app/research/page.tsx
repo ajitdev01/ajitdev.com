@@ -23,18 +23,46 @@ import {
 } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 import { RESEARCH_DB } from "@/lib/research";
+import { PAGE_KEYWORDS } from "@/lib/seo";
+import { getCollectionPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Technical Research & System Whitepapers | Ajit Dev",
-  description: "Read technical research articles by Ajit Kumar. Detailed publications on Docker internals, Kubernetes architectures, Linux kernel system calls, and Zero Trust security models.",
+  title: "Ajit Dev Research – Cloud Security & Systems Engineering",
+  description: "Explore Ajit Dev's research articles: deep dives on Docker containerization, Kubernetes, cloud security (Zero Trust, IAM), DevOps best practices, and system design.",
+  keywords: [...PAGE_KEYWORDS.research],
   alternates: {
-    canonical: "https://ajitdev.com/research",
+    canonical: "/research",
+  },
+  openGraph: {
+    title: "Ajit Dev Research – Cloud Security & Systems Engineering",
+    description: "Explore Ajit Dev's research articles: deep dives on Docker containerization, Kubernetes, cloud security (Zero Trust, IAM), DevOps best practices, and system design.",
+    url: "https://ajitdev.com/research",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Systems Engineering & Security Research",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev Research – Cloud Security & Systems Engineering",
+    description: "Explore Ajit Dev's research articles: deep dives on Docker, Kubernetes, Zero Trust, and AWS IAM.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 
 const RESEARCH_PAPERS = Object.values(RESEARCH_DB);
 
 export default function ResearchIndexPage() {
+  const collectionSchema = getCollectionPageSchema(
+    "Ajit Dev Research – Cloud Security & Systems Engineering",
+    "Explore Ajit Dev's research whitepapers on Docker containerization, Kubernetes, cloud security, and system architecture.",
+    "https://ajitdev.com/research"
+  );
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -57,6 +85,7 @@ export default function ResearchIndexPage() {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <JSONLD schema={collectionSchema} />
       <JSONLD schema={breadcrumbSchema} />
 
       <Container maxWidth="lg">

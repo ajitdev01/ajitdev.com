@@ -4,11 +4,34 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS } from "@/lib/seo";
+import { getCollectionPageSchema } from "@/lib/schema";
+
 export const metadata: Metadata = {
-  title: "Software System Architecture Case Studies | Ajit Dev",
-  description: "Read detailed technical case studies by Ajit Dev. Analysis of concurrent reservation APIs, AWS VPC subnets, weather trackers, and library systems.",
+  title: "Technical Case Studies – Ajit Dev",
+  description: "In-depth post-mortems by Ajit Dev: system architecture and design case studies (portfolio app, SaaS project, etc.) with insights on CI/CD, security, and performance.",
+  keywords: [...PAGE_KEYWORDS.caseStudies],
   alternates: {
-    canonical: "https://ajitdev.com/case-studies",
+    canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "Technical Case Studies – Ajit Dev",
+    description: "In-depth post-mortems by Ajit Dev: system architecture and design case studies with insights on CI/CD, security, and performance.",
+    url: "https://ajitdev.com/case-studies",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Technical Case Studies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Technical Case Studies – Ajit Dev",
+    description: "In-depth post-mortems by Ajit Dev: system architecture and design case studies.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 

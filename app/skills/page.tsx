@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Code,
@@ -17,6 +18,35 @@ import {
   Award,
 } from "lucide-react";
 import SkillsSection from "../components/skills/SkillsSection";
+import { PAGE_KEYWORDS } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Ajit Dev Skills – Full Stack & DevOps Engineer",
+  description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (632+ problems solved).",
+  keywords: [...PAGE_KEYWORDS.skills],
+  alternates: {
+    canonical: "/skills",
+  },
+  openGraph: {
+    title: "Ajit Dev Skills – Full Stack & DevOps Engineer",
+    description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (632+ problems solved).",
+    url: "https://ajitdev.com/skills",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Technical Skills Matrix",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev Skills – Full Stack & DevOps Engineer",
+    description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency.",
+    images: ["https://ajitdev.com/og-image.png"],
+  },
+};
 
 // ========== STRUCTURED DATA ==========
 const skillsForSchema = [

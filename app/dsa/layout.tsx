@@ -1,18 +1,48 @@
 import type { Metadata } from "next";
+import JSONLD from "@/app/components/JSONLD";
+import { getProfilePageSchema } from "@/lib/schema";
+import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Data Structures & Algorithms Hub",
-  description: "Data Structures & Algorithms problem-solving logs, LeetCode 450+ solved challenges, arrays, trees, graphs, and dynamic programming guides by Ajit Dev.",
+  title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
+  description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved (LeetCode/NeetCode), 231-day coding streak, and topic progress (C++, Python).",
+  keywords: [...PAGE_KEYWORDS.dsa],
   alternates: {
     canonical: "/dsa",
   },
   openGraph: {
-    title: "Data Structures & Algorithms Hub — AJITDEV",
-    description: "Data Structures & Algorithms problem-solving logs, LeetCode 450+ solved challenges by Ajit Dev.",
+    title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
+    description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved (LeetCode/NeetCode), 231-day coding streak, and topic progress (C++, Python).",
     url: "https://ajitdev.com/dsa",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev DSA Practice & Coding Streak Tracker",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
+    description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved, 231-day coding streak.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 
 export default function DsaLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const profileSchema = getProfilePageSchema(
+    "Ajit Dev DSA Tracker – 632 Solved",
+    "Ajit Dev's Data Structures & Algorithms practice profile: 632+ problems solved across LeetCode & NeetCode.",
+    "https://ajitdev.com/dsa"
+  );
+
+  return (
+    <>
+      <JSONLD schema={profileSchema} />
+      {children}
+    </>
+  );
 }
+

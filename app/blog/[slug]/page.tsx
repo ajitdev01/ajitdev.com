@@ -23,6 +23,7 @@ import {
 import { getPostBySlug, getPostSlugs, getPostsByCategory, getAllPosts } from "@/lib/blog";
 import { MDXComponents } from "@/app/components/MDXComponents";
 import JSONLD from "@/app/components/JSONLD";
+import { getBlogPostingSchema } from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -310,6 +311,7 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#ffffff", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <JSONLD schema={getBlogPostingSchema(post)} />
       <Container maxWidth="lg">
         
         {/* Navigation Link */}

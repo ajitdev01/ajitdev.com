@@ -13,6 +13,7 @@ import {
 import { ArrowLeft, BookOpen, Clock, Calendar, User } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 import { RESEARCH_DB } from "@/lib/research";
+import { getTechArticleSchema } from "@/lib/schema";
 
 export async function generateStaticParams() {
   return Object.keys(RESEARCH_DB).map((slug) => ({
@@ -33,7 +34,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${paper.title} | Ajit Dev Research`,
     description: paper.summary,
     alternates: {
-      canonical: `https://ajitdev.com/research/${slug}`,
+      canonical: `/research/${slug}`,
+    },
+    openGraph: {
+      title: `${paper.title} — Ajit Dev Research`,
+      description: paper.summary,
+      type: "article",
+      url: `https://ajitdev.com/research/${slug}`,
+      publishedTime: paper.date,
+      authors: ["https://ajitdev.com"],
+      images: [
+        {
+          url: "https://ajitdev.com/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: paper.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${paper.title} | Ajit Dev Research`,
+      description: paper.summary,
+      images: ["https://ajitdev.com/og-image.png"],
     },
   };
 }
@@ -45,6 +68,8 @@ export default async function ResearchDetailPage({ params }: PageProps) {
   if (!paper) {
     notFound();
   }
+
+  const techArticleSchema = getTechArticleSchema(paper);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -74,6 +99,7 @@ export default async function ResearchDetailPage({ params }: PageProps) {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#ffffff", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <JSONLD schema={techArticleSchema} />
       <JSONLD schema={breadcrumbSchema} />
 
       <Container maxWidth="lg">

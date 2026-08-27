@@ -79,6 +79,17 @@ export default function HomePage() {
                 }
               ],
               "sameAs": allSocialUrls
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://ajitdev.com/#website",
+              "url": "https://ajitdev.com",
+              "name": "AJITDEV",
+              "alternateName": "Ajit Dev Portfolio & Technical Engineering Hub",
+              "description": "Full Stack & DevOps Engineer Portfolio of Ajit Dev. Highlighting MERN, Next.js, Cloud Security, Docker, Kubernetes, and DSA (632+ solved).",
+              "publisher": {
+                "@id": "https://ajitdev.com/#person"
+              }
             }
           ]
         }}

@@ -18,18 +18,34 @@ import {
 import { getAllPosts } from "@/lib/blog";
 import BlogSearch from "@/app/components/BlogSearch";
 import JSONLD from "@/app/components/JSONLD";
+import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Blog — Technical Articles & Engineering Guides",
+  title: "Ajit Dev Technical Blog – DevOps, Coding, DSA",
   description:
-    "Explore Ajit Dev's (ajitdev01) technical tutorials on Next.js, MERN Stack, AWS, DevOps, Kubernetes CI/CD, Cloud Security, and System Design.",
+    "Read Ajit Dev's technical blog: tutorials and guides on Node.js, Next.js, Docker, Kubernetes, algorithms, and system design.",
+  keywords: [...PAGE_KEYWORDS.blog],
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Blog — AJITDEV",
-    description: "Explore Ajit Dev's (ajitdev01) technical tutorials on Next.js, MERN Stack, AWS, DevOps, Kubernetes CI/CD, Cloud Security, and System Design.",
+    title: "Ajit Dev Technical Blog – DevOps, Coding, DSA",
+    description: "Read Ajit Dev's technical blog: tutorials and guides on Node.js, Next.js, Docker, Kubernetes, algorithms, and system design.",
     url: "https://ajitdev.com/blog",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Technical Engineering Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev Technical Blog – DevOps, Coding, DSA",
+    description: "Read Ajit Dev's technical blog: tutorials and guides on Node.js, Next.js, Docker, Kubernetes, algorithms, and system design.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 

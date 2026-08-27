@@ -221,4 +221,36 @@ export const PAGE_KEYWORDS = {
     "India DevOps Engineer",
     ...SEO_KEYWORDS.brand.slice(0, 3),
   ],
+  research: [
+    "DevOps Research",
+    "Cloud Security Research",
+    "Docker Internals",
+    "Kubernetes Architecture",
+    "Zero Trust Security",
+    "AWS IAM Policy Evaluation",
+    ...SEO_KEYWORDS.brand.slice(0, 3),
+  ],
+  dsa: [
+    "Ajit Dev DSA",
+    "LeetCode Stats",
+    "Coding Practice Tracker",
+    "C++ DSA Solutions",
+    "Data Structures Algorithms India",
+    ...SEO_KEYWORDS.brand.slice(0, 3),
+  ],
+  education: [
+    "Ajit Dev Education",
+    "BCA Cloud Computing",
+    "Cloud Security Certification",
+    "Full Stack Training India",
+    ...SEO_KEYWORDS.brand.slice(0, 3),
+  ],
+  caseStudies: [
+    "Software Architecture Case Studies",
+    "System Design Post-Mortem",
+    "MERN Architecture Case Study",
+    "CI/CD Audit",
+    ...SEO_KEYWORDS.brand.slice(0, 3),
+  ],
 } as const;
+

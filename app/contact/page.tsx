@@ -20,17 +20,33 @@ import {
   ExternalLink,
 } from "lucide-react";
 import ContactForm from "../components/contact/ContactForm";
+import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact — AJITDEV",
-  description: "Get in touch with Ajit Dev (ajitdev01), a Full Stack Developer & DevOps Engineer based in Katihar, Bihar, India. Available for full-time and contract software roles.",
+  title: "Contact Ajit Dev – Hire Full Stack/DevOps Engineer",
+  description: "Get in touch with Ajit Dev (Katihar, Bihar, India) – Full-Stack & DevOps Engineer. Available for hire and technical collaborations.",
+  keywords: [...PAGE_KEYWORDS.contact],
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact — AJITDEV",
-    description: "Get in touch with Ajit Dev (ajitdev01), a Full Stack Developer & DevOps Engineer based in Katihar, Bihar, India.",
+    title: "Contact Ajit Dev – Hire Full Stack/DevOps Engineer",
+    description: "Get in touch with Ajit Dev (Katihar, Bihar, India) – Full-Stack & DevOps Engineer. Available for hire and technical collaborations.",
     url: "https://ajitdev.com/contact",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Ajit Dev — Full Stack & DevOps Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Ajit Dev – Hire Full Stack/DevOps Engineer",
+    description: "Get in touch with Ajit Dev (Katihar, Bihar, India) – Full-Stack & DevOps Engineer.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 

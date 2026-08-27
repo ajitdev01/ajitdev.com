@@ -18,16 +18,41 @@ import {
 } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 import NewsFeed from "@/app/components/NewsFeed";
+import { getCollectionPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Latest Technology News Feed | Ajit Dev",
-  description: "Browse the latest industry updates across Artificial Intelligence, Cloud Computing, Cybersecurity, DevOps tools, and Software Engineering frameworks.",
+  title: "Ajit Dev Tech News – Latest DevOps & Cloud News",
+  description: "Stay updated with real-time tech news on DevOps, cloud computing, and software development from trusted sources (powered by RSS).",
   alternates: {
-    canonical: "https://ajitdev.com/news",
+    canonical: "/news",
+  },
+  openGraph: {
+    title: "Ajit Dev Tech News – Latest DevOps & Cloud News",
+    description: "Stay updated with real-time tech news on DevOps, cloud computing, and software development from trusted sources.",
+    url: "https://ajitdev.com/news",
+    images: [
+      {
+        url: "https://ajitdev.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ajit Dev Real-time Technology News Feed",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ajit Dev Tech News – Latest DevOps & Cloud News",
+    description: "Stay updated with real-time tech news on DevOps, cloud computing, and software development.",
+    images: ["https://ajitdev.com/og-image.png"],
   },
 };
 
 export default function TechNewsPage() {
+  const collectionSchema = getCollectionPageSchema(
+    "Ajit Dev Tech News – Latest DevOps & Cloud News",
+    "Real-time technology news feed covering DevOps, Cloud Security, AI, and Software Engineering.",
+    "https://ajitdev.com/news"
+  );
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -50,6 +75,7 @@ export default function TechNewsPage() {
 
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+      <JSONLD schema={collectionSchema} />
       <JSONLD schema={breadcrumbSchema} />
 
       <Container maxWidth="lg">
