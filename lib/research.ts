@@ -878,5 +878,55 @@ export const RESEARCH_DB: Record<string, Paper> = {
         ]
       }
     ]
+  },
+  "cpp-oops-mastery": {
+    slug: "cpp-oops-mastery",
+    title: "Object-Oriented Programming (OOPS) Principles & Memory Engineering in C++",
+    summary: "An in-depth technical research whitepaper on C++ OOPS memory layouts, virtual method tables (vtable), dynamic dispatch, move semantics, and RAII memory safety.",
+    category: "Core Programming",
+    date: "August 2026",
+    readTime: "10 min read",
+    icon: Cpu,
+    sections: [
+      {
+        heading: "1. The Four Pillars of Object-Oriented Programming",
+        id: "four-pillars-oops",
+        paragraphs: [
+          "Object-Oriented Programming (OOPS) is a software design paradigm that models real-world entities into modular, reusable software units called Classes and Objects. The four core foundation pillars are:",
+          "- Encapsulation: Binding data members and functions inside a single class container while restricting direct external access using private/protected access specifiers.",
+          "- Abstraction: Hiding internal complex logic and exposing only necessary public interface methods to callers.",
+          "- Inheritance: Enabling child classes to inherit attributes and behavior from parent classes, facilitating code reuse.",
+          "- Polymorphism: Allowing functions or operators to exhibit multiple behaviors based on the caller context (Compile-time vs. Runtime polymorphism)."
+        ]
+      },
+      {
+        heading: "2. Under the Hood: Virtual Method Tables (Vtable & Vptr)",
+        id: "vtable-and-vptr",
+        paragraphs: [
+          "Runtime Polymorphism (Dynamic Dispatch) in C++ is implemented using compiler-generated Virtual Method Tables (`vtable`) and Virtual Pointers (`vptr`).",
+          "When a class declares a `virtual` function, the compiler inserts a hidden `vptr` pointer into each object instance pointing to the class's `vtable` array. At runtime, virtual function calls dereference the `vptr` to locate the exact overridden function address, enabling dynamic method invocation across class hierarchies."
+        ],
+        codeBlock: {
+          lang: "cpp",
+          code: "#include <iostream>\n#include <memory>\n\nclass BaseShape {\npublic:\n    virtual void draw() const {\n        std::cout << \"Drawing Base Shape\\n\";\n    }\n    virtual ~BaseShape() = default; // Virtual destructor prevents memory leaks\n};\n\nclass Circle : public BaseShape {\npublic:\n    void draw() const override {\n        std::cout << \"Drawing Circle with 10/10 OOPS Precision!\\n\";\n    }\n};\n\nint main() {\n    std::unique_ptr<BaseShape> shape = std::make_unique<Circle>();\n    shape->draw(); // Dynamic dispatch via vtable lookup\n    return 0;\n}"
+        }
+      },
+      {
+        heading: "3. RAII (Resource Acquisition Is Initialization) & Smart Pointers",
+        id: "raii-and-smart-pointers",
+        paragraphs: [
+          "C++ manages dynamic memory without a garbage collector using the RAII pattern. Resources (heap memory, file handles, mutex locks) are bound to object lifetimes: acquired in constructors and automatically released in destructors.",
+          "Modern C++ uses Smart Pointers (`std::unique_ptr` for single ownership and `std::shared_ptr` with reference counting) to guarantee zero memory leaks and exception safety."
+        ]
+      },
+      {
+        heading: "4. Conclusion & Real-World Impact",
+        id: "conclusion",
+        paragraphs: [
+          "Mastering C++ Object-Oriented Programming and memory engineering enables developers to build high-performance, deterministic systems—from operating system kernels and game engines to scalable backend services."
+        ]
+      }
+    ]
   }
 };
+

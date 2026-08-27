@@ -11,6 +11,26 @@ export interface NewsItem {
 
 export const NEWS_DATABASE: NewsItem[] = [
   {
+    id: 16,
+    title: "Ajit Dev Portfolio Launches Site-Wide Technical SEO Engine & C++ OOPS Whitepaper",
+    summary: "Ajit Dev has released a comprehensive technical SEO upgrade for ajitdev.com featuring native Next.js 16 metadata, strongly typed Schema.org JSON-LD graphs, and a masterclass on C++ Object-Oriented Programming (OOPS) & virtual function mechanics.",
+    category: "Programming",
+    source: "AJITDEV Engineering",
+    date: "August 27, 2026",
+    link: "https://ajitdev.com/blog/cpp-oops-complete-guide",
+    tag: "C++"
+  },
+  {
+    id: 17,
+    title: "C++26 Standard Draft Finalized with Native Reflection & Modern OOPS Memory Safety Contracts",
+    summary: "ISO C++ Committee finalized the feature set for C++26, introducing static reflection, inspect pattern matching, and enhanced RAII smart pointer bounds for high-performance systems engineering.",
+    category: "Programming",
+    source: "ISO C++ Committee",
+    date: "August 25, 2026",
+    link: "https://isocpp.org",
+    tag: "C++"
+  },
+  {
     id: 13,
     title: "Buddy CI/CD Introduces Native AI-Powered Pipeline Generator & Instant Docker Layer Caching",
     summary: "Buddy has launched its AI Pipeline Generator feature, which analyzes your repository structure and auto-generates optimized CI/CD pipelines in seconds. Combined with a new distributed Docker layer cache system, build times are reduced by up to 80% for Node.js, Python, and Go microservices.",

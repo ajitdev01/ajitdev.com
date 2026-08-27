@@ -187,10 +187,10 @@ const timelineData = [
   },
   {
     semester: "Semester 3",
-    title: "Advanced Programming",
-    sgpa: "In Progress",
-    description: "Object-Oriented Programming, Data Structures, and advanced web development concepts.",
-    skills: ["OOP Principles", "Data Structures", "React Basics", "REST Concepts"],
+    title: "Advanced Programming & OOP",
+    sgpa: "7.75 SGPA (10/10 Grade in OOPS)",
+    description: "Achieved 7.75 SGPA in 3rd Semester with a perfect 10/10 O Grade in Object-Oriented Programming (OOPS). Covered Data Structures & C++ STL algorithms.",
+    skills: ["OOPS Principles (10/10 Grade)", "Data Structures & C++ STL", "React Basics", "REST Concepts"],
     icon: FiCpu,
     gradient: "from-purple-500 to-pink-500",
     bgGradient: "from-purple-500/10 to-purple-500/10"
