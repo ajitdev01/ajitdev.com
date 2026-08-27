@@ -22,14 +22,14 @@ import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Ajit Dev Skills – Full Stack & DevOps Engineer",
-  description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (632+ problems solved).",
+  description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (641+ problems solved).",
   keywords: [...PAGE_KEYWORDS.skills],
   alternates: {
     canonical: "/skills",
   },
   openGraph: {
     title: "Ajit Dev Skills – Full Stack & DevOps Engineer",
-    description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (632+ problems solved).",
+    description: "Ajit Dev's technical skill matrix: React, Next.js, Node.js, AWS, Docker, Kubernetes, and advanced algorithm proficiency (641+ problems solved).",
     url: "https://ajitdev.com/skills",
     images: [
       {
@@ -57,10 +57,10 @@ const skillsForSchema = [
 ];
 
 const stats = [
-  { value: "514+", label: "LeetCode Solved", icon: BarChart3, color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-100" },
-  { value: "231 Days", label: "Active Coding Streak", icon: Flame, color: "text-amber-500", bg: "bg-amber-50 border-amber-100" },
-  { value: "118+", label: "NeetCode Solved", icon: Target, color: "text-purple-600", bg: "bg-purple-50 border-purple-100" },
-  { value: "118 Commits", label: "August 2026 Commits", icon: Code, color: "text-blue-600", bg: "bg-blue-50 border-blue-100" },
+  { value: "518+", label: "LeetCode Solved", icon: BarChart3, color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-100" },
+  { value: "242 Days", label: "Active Coding Streak", icon: Flame, color: "text-amber-500", bg: "bg-amber-50 border-amber-100" },
+  { value: "123+", label: "NeetCode Solved", icon: Target, color: "text-purple-600", bg: "bg-purple-50 border-purple-100" },
+  { value: "1,532+", label: "GitHub Contributions", icon: Code, color: "text-blue-600", bg: "bg-blue-50 border-blue-100" },
 ];
 
 const nextTargets = [
@@ -105,7 +105,7 @@ export default function SkillsPage() {
           </h1>
 
           <p className="text-slate-700 font-bold text-base mb-4">
-            MERN • LAMP • Next.js • C++ STL • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
+            MERN • LAMP • Next.js • C++ STL • <span className="text-amber-600 font-black">641+ DSA Problems Solved</span>
           </p>
 
           <div className="w-24 h-1 bg-indigo-600 rounded-full mx-auto mb-5" />
@@ -118,13 +118,13 @@ export default function SkillsPage() {
               <Briefcase className="w-3.5 h-3.5 text-emerald-600" /> Full Stack Engineer & Problem Solver
             </span>
             <span className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-700 text-xs font-bold inline-flex items-center gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-amber-500" /> 231-Day Active Streak
+              <Flame className="w-3.5 h-3.5 text-amber-500" /> 242-Day Active Streak
             </span>
           </div>
 
           <div className="p-5 rounded-2xl bg-white/80 border border-slate-200/80 max-w-3xl mx-auto text-slate-600 text-sm leading-relaxed">
             Full Stack Engineer with <strong className="text-slate-900 font-extrabold">production-grade expertise in MERN, LAMP, and Next.js</strong>.
-            Proven problem-solving ability with <strong className="text-amber-700 font-extrabold">632+ combined DSA problems solved</strong> across LeetCode & NeetCode and a continuous 231-day active streak.
+            Proven problem-solving ability with <strong className="text-amber-700 font-extrabold">641+ combined DSA problems solved</strong> across LeetCode & NeetCode and a continuous 242-day active streak.
             I build <strong className="text-slate-900 font-extrabold">scalable, SEO-optimized, high-performance web applications</strong> with clean architecture and modern best practices.
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function SkillsPage() {
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-extrabold text-slate-900 text-sm">DSA & Problem Solving</h4>
-                  <p className="text-slate-500 text-xs mt-0.5">632+ LeetCode & NeetCode problems — clean O(log N) optimized C++ STL solutions.</p>
+                  <p className="text-slate-500 text-xs mt-0.5">641+ LeetCode & NeetCode problems — clean O(log N) optimized C++ STL solutions.</p>
                 </div>
               </div>
 
@@ -189,7 +189,7 @@ export default function SkillsPage() {
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-extrabold text-slate-900 text-sm">Consistency × Discipline</h4>
-                  <p className="text-slate-500 text-xs mt-0.5">231-day active coding streak — balancing development, DSA, and cloud security.</p>
+                  <p className="text-slate-500 text-xs mt-0.5">242-day active coding streak — balancing development, DSA, and cloud security.</p>
                 </div>
               </div>
             </div>

@@ -2,6 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 const FiBriefcase = ({ className }: { className?: string }) => (
   <svg className={className || "w-5 h-5"} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,10 +44,42 @@ const staggerContainer = {
 
 export default function StatsSection() {
   const stats = [
-    { value: "450+", label: "LeetCode Solved", icon: FiAward, description: "Strong algorithmic logic" },
-    { value: "5+", label: "Production Apps", icon: FiBriefcase, description: "MERN & Next.js systems" },
-    { value: "180+", label: "Coding Streak", icon: FiUsers, description: "Consistent daily practice" },
-    { value: "100%", label: "Success Rate", icon: FiCheckCircle, description: "On-time delivery" },
+    {
+      value: "518+",
+      label: "LeetCode Solved",
+      icon: FiAward,
+      description: "Strong algorithmic logic",
+      href: "https://leetcode.com/u/ajitdev01/",
+      isExternal: true,
+      badge: "Rank #192,927"
+    },
+    {
+      value: "5+",
+      label: "Production Apps",
+      icon: FiBriefcase,
+      description: "MERN & Next.js systems",
+      href: "/projects",
+      isExternal: false,
+      badge: "Full Stack"
+    },
+    {
+      value: "242+",
+      label: "Coding Streak",
+      icon: FiUsers,
+      description: "Consistent daily practice",
+      href: "https://leetcode.com/u/ajitdev01/",
+      isExternal: true,
+      badge: "200 Days Badge"
+    },
+    {
+      value: "100%",
+      label: "Success Rate",
+      icon: FiCheckCircle,
+      description: "On-time delivery",
+      href: "/contact",
+      isExternal: false,
+      badge: "Verified"
+    },
   ];
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -61,21 +95,54 @@ export default function StatsSection() {
     >
       {stats.map((stat) => {
         const Icon = stat.icon;
+        const CardContent = (
+          <div className="group relative bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm hover:shadow-lg hover:border-indigo-300 transition-all duration-300 h-full flex flex-col justify-between cursor-pointer">
+            {stat.badge && (
+              <span className="absolute top-2 right-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                {stat.badge}
+              </span>
+            )}
+            <div>
+              <div className="flex justify-center mb-2">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 group-hover:from-indigo-200 group-hover:to-purple-200 flex items-center justify-center transition-all duration-300">
+                  <Icon className="w-5 h-5 text-indigo-600" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-gray-900 flex items-center justify-center gap-1">
+                {stat.value}
+                {stat.isExternal && (
+                  <ExternalLink className="w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+                )}
+              </div>
+              <div className="text-xs font-bold text-gray-700 mt-0.5">{stat.label}</div>
+            </div>
+            <div className="text-[10px] text-gray-400 mt-1 font-medium group-hover:text-indigo-500 transition-colors">
+              {stat.description}
+            </div>
+          </div>
+        );
+
         return (
           <motion.div
             key={stat.label}
             variants={fadeUp}
             whileHover={{ scale: 1.02, y: -4 }}
-            className="group relative bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm hover:shadow-lg hover:border-indigo-200 transition-all duration-300"
           >
-            <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 group-hover:from-indigo-200 group-hover:to-purple-200 flex items-center justify-center transition-all duration-300 animate-none">
-                <Icon className="w-5 h-5 text-indigo-600" />
-              </div>
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{stat.label}</div>
-            <div className="text-[10px] text-gray-400 mt-1">{stat.description}</div>
+            {stat.isExternal ? (
+              <a
+                href={stat.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`View ${stat.label} on LeetCode @ajitdev01`}
+                className="block h-full no-underline"
+              >
+                {CardContent}
+              </a>
+            ) : (
+              <Link href={stat.href} className="block h-full no-underline">
+                {CardContent}
+              </Link>
+            )}
           </motion.div>
         );
       })}

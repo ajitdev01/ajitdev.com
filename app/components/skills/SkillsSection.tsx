@@ -93,12 +93,12 @@ const skillCategories: SkillCategory[] = [
     icon: FiBarChart2,
     gradient: "from-amber-500 to-orange-500",
     color: "text-amber-600",
-    description: "632+ LeetCode & NeetCode problems — clean O(log N) solutions",
+    description: "641+ LeetCode & NeetCode problems — clean O(log N) solutions",
     proficiency: 88,
     level: "Advanced",
     highlight: true,
     skills: [
-      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 92, level: "Expert", note: "514+ LC / 118 NC" },
+      { name: "Arrays, Strings, Hashing", icon: FiCode, proficiency: 92, level: "Expert", note: "518+ LC / 123 NC" },
       { name: "Recursion & Backtracking", icon: FiActivity, proficiency: 85, level: "Advanced" },
       { name: "Trees & Graphs", icon: FiGitBranch, proficiency: 80, level: "Advanced", note: "Active growth" },
       { name: "Dynamic Programming", icon: FiTrendingUp, proficiency: 75, level: "Proficient", note: "Daily practice" },
@@ -147,7 +147,7 @@ const filterLabels: Record<typeof FILTERS[number], string> = {
   Frontend: "Frontend",
   Backend: "Backend",
   FullStack: "Full Stack",
-  DSA: "DSA • 632+ Solved",
+  DSA: "DSA • 641+ Solved",
   Performance: "SEO • Performance",
   DevOps: "Deployment • Workflow"
 };

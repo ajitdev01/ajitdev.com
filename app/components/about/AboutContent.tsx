@@ -184,7 +184,7 @@ export default function AboutContent() {
                 </Link>
                 <Link href="/dsa">
                   <Button variant="outline" size="small" className="gap-2">
-                    <Trophy className="w-4 h-4 text-amber-500" /> Explore DSA Dashboard (632 Solved) <ArrowRight className="w-3.5 h-3.5" />
+                    <Trophy className="w-4 h-4 text-amber-500" /> Explore DSA Dashboard (641 Solved) <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
               </div>

@@ -6,7 +6,7 @@ import JSONLD from "@/app/components/JSONLD";
 
 export const metadata: Metadata = {
   title: "LeetCode DSA Statistics & Metrics | Ajit Dev",
-  description: "Review Ajit Dev's LeetCode coding stats. Solved 450+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
+  description: "Review Ajit Dev's LeetCode coding stats. Solved 518+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
   alternates: {
     canonical: "https://ajitdev.com/leetcode",
   },
@@ -42,7 +42,7 @@ export default function LeetcodePage() {
         "name": "What is Ajit Dev's LeetCode handle?",
         "answer": {
           "@type": "Answer",
-          "text": "His public LeetCode handle is ajitdev01, showing 450+ solved problems."
+          "text": "His public LeetCode handle is ajitdev01, showing 518+ solved problems."
         }
       }
     ]
@@ -93,11 +93,17 @@ export default function LeetcodePage() {
               We track problem solving daily to train memory optimization and fast algorithm coding.
             </p>
 
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Recommended Learning Resources</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Public LeetCode Profile</h3>
             <div className="flex flex-wrap gap-2 mb-6">
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">LeetCode Profile link</span>
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">Algorithms Code Library</span>
-              <span className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-xs font-medium text-gray-500">Contest Rating Trackers</span>
+              <a
+                href="https://leetcode.com/u/ajitdev01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-xl text-xs transition-colors shadow-xs"
+              >
+                View Official LeetCode Profile (@ajitdev01)
+              </a>
+              <span className="px-3 py-2 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium text-gray-500">518 Solved • 242 Streak</span>
             </div>
           </div>
 

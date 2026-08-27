@@ -9,8 +9,8 @@ export default function CodingJourneyTimeline() {
     {
       year: "2026",
       title: "TOP 1% PORTFOLIO & DSA MASTERY",
-      subtitle: "LeetCode 450+ & Systems Engineering",
-      desc: "Achieved 450+ solved challenges on LeetCode with 180+ consecutive practice days. Implemented technical systems research across 28 computer science topics including DevSecOps, caching layers, and reverse proxies.",
+      subtitle: "LeetCode 518+ & Systems Engineering",
+      desc: "Achieved 518+ solved challenges on LeetCode with 242+ consecutive practice days. Implemented technical systems research across 28 computer science topics including DevSecOps, caching layers, and reverse proxies.",
       icon: Trophy,
       color: "border-indigo-500 text-indigo-600 bg-indigo-50",
     },

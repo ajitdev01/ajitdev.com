@@ -7,12 +7,12 @@ import { Award, Flame, Star, ArrowRight, Zap, Target } from "lucide-react";
 
 export default function DsaHighlightsSection() {
   const stats = {
-    solved: 450,
+    solved: 518,
     total: 1200,
-    streak: 180,
-    easy: 180,
-    medium: 220,
-    hard: 50,
+    streak: 242,
+    easy: 177,
+    medium: 249,
+    hard: 92,
   };
 
   // SVG parameters for Solved Circle gauge
@@ -167,7 +167,7 @@ export default function DsaHighlightsSection() {
             </div>
 
             <a
-              href="https://leetcode.com/ajitdev01"
+              href="https://leetcode.com/u/ajitdev01/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-indigo-650 bg-indigo-50 border border-indigo-150 hover:bg-indigo-650 hover:text-white rounded-xl transition-all"

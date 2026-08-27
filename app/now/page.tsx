@@ -173,11 +173,11 @@ export default function NowPage() {
               </div>
 
               <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                Consistently refining Data Structures & Algorithms expertise on LeetCode (450+ problems solved across Trees, Graphs, Dynamic Programming, Arrays, and Strings).
+                Consistently refining Data Structures & Algorithms expertise on LeetCode (518+ problems solved across Trees, Graphs, Dynamic Programming, Arrays, and Strings).
               </p>
 
               <div className="flex flex-wrap gap-2 text-xs font-semibold">
-                <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">450+ LeetCode Solved</span>
+                <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">518+ LeetCode Solved</span>
                 <span className="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-lg">System Design</span>
                 <span className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg">Low-Level Design</span>
               </div>

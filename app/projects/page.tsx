@@ -46,15 +46,15 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { value: "514+", label: "LeetCode Solved", icon: BarChart3, color: "#6366f1" },
-  { value: "231 Days", label: "Active Coding Streak", icon: Flame, color: "#10b981" },
+  { value: "518+", label: "LeetCode Solved", icon: BarChart3, color: "#6366f1" },
+  { value: "242 Days", label: "Active Coding Streak", icon: Flame, color: "#10b981" },
   { value: "8+", label: "Production Web Apps", icon: Folder, color: "#8b5cf6" },
-  { value: "118+", label: "NeetCode Solved", icon: Trophy, color: "#f59e0b" }
+  { value: "123+", label: "NeetCode Solved", icon: Trophy, color: "#f59e0b" }
 ];
 
 const highlights = [
   { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: Database },
-  { title: "DSA Problem Solving", description: "632+ combined LeetCode & NeetCode", count: 1, icon: BarChart3 },
+  { title: "DSA Problem Solving", description: "641+ combined LeetCode & NeetCode", count: 1, icon: BarChart3 },
   { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: Globe },
   { title: "Production Mindset", description: "Real-world scalable web apps", count: 8, icon: Zap }
 ];
@@ -82,7 +82,7 @@ export default function ProjectsPage() {
           </h1>
 
           <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
-            MERN • LAMP • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
+            MERN • LAMP • Next.js • <span className="text-amber-600 font-black">641+ DSA Problems Solved</span>
           </p>
 
           <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
               <Briefcase className="w-3.5 h-3.5 text-emerald-600" /> Full Stack Engineer &amp; Problem Solver
             </Badge>
             <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-amber-500" /> 231-Day Active Streak
+              <Flame className="w-3.5 h-3.5 text-amber-500" /> 242-Day Active Streak
             </Badge>
           </div>
         </Card>

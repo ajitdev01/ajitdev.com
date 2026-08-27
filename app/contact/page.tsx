@@ -131,7 +131,7 @@ export default function ContactPage() {
           </h1>
 
           <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
-            Full Stack Engineer • MERN • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
+            Full Stack Engineer • MERN • Next.js • <span className="text-amber-600 font-black">641+ DSA Problems Solved</span>
           </p>
 
           <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />

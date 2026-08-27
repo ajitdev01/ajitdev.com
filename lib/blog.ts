@@ -402,7 +402,7 @@ const PAGES_CONFIG: Record<string, any> = {
   },
   "leetcode": {
     title: "LeetCode DSA Statistics & Metrics | Ajit Dev",
-    desc: "Review Ajit Dev's LeetCode coding stats. Solved 450+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
+    desc: "Review Ajit Dev's LeetCode coding stats. Solved 518+ problems, algorithm complexity optimizations, tree/graph structures, and competitive contest ratings.",
     h1: "LeetCode DSA Metrics",
     category: "Algorithms",
     icon: "Activity",
@@ -410,7 +410,7 @@ const PAGES_CONFIG: Record<string, any> = {
     roadmap: ["Array Complexity Checks", "Dynamic Stack Traversal", "Graph Depth Search", "Dynamic Programming Memoization"],
     resources: ["LeetCode Profile link", "Algorithms Code Library", "Contest Rating Trackers"],
     notes: "We track problem solving daily to train memory optimization and fast algorithm coding.",
-    faq: [{ q: "What is Ajit Dev's LeetCode handle?", a: "His public LeetCode handle is ajitdev01, showing 450+ solved problems." }]
+    faq: [{ q: "What is Ajit Dev's LeetCode handle?", a: "His public LeetCode handle is ajitdev01, showing 518+ solved problems." }]
   }
 };
 
@@ -1094,7 +1094,7 @@ Leverage GitHub Actions pipelines to compile static react bundles and scan conta
 *   **Official Documentation**: Explore official guidelines and specifications.
 *   **Ajit Dev GitHub**: Download my custom templates and Dockerfiles from my [GitHub profile](https://github.com/ajitdev01).
 *   **System Design Playbooks**: Read my high-level design (HLD) notes under \`/system-design\`.
-*   **DSA Practice**: Track my daily 450+ problems solved on my [LeetCode profile](https://leetcode.com/ajitdev01).
+*   **DSA Practice**: Track my daily 518+ problems solved on my [LeetCode profile](https://leetcode.com/u/ajitdev01/).
 
 ---
 

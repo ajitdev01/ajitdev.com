@@ -17,9 +17,9 @@ const ACTIVITY_DATA: number[] = Array.from({ length: 140 }, (_, i) => ACTIVITY_P
 export default function GithubActivityMock() {
 
   const stats = [
-    { label: "Total Contributions", value: "1,450+", icon: GitPullRequest },
-    { label: "Active Repositories", value: "18", icon: Code },
-    { label: "Global Stars Peak", value: "12", icon: Star },
+    { label: "Total Contributions", value: "1,532+", icon: GitPullRequest },
+    { label: "Public Repositories", value: "17", icon: Code },
+    { label: "Coding Streak", value: "243 Days", icon: Star },
   ];
 
   return (

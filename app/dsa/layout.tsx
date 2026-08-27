@@ -4,15 +4,15 @@ import { getProfilePageSchema } from "@/lib/schema";
 import { PAGE_KEYWORDS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
-  description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved (LeetCode/NeetCode), 231-day coding streak, and topic progress (C++, Python).",
+  title: "Ajit Dev DSA Tracker – 641 Solved (LeetCode, NeetCode)",
+  description: "Ajit Dev's Data Structures & Algorithms profile: 641+ problems solved (LeetCode/NeetCode), 242-day coding streak, and topic progress (C++, Python).",
   keywords: [...PAGE_KEYWORDS.dsa],
   alternates: {
     canonical: "/dsa",
   },
   openGraph: {
-    title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
-    description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved (LeetCode/NeetCode), 231-day coding streak, and topic progress (C++, Python).",
+    title: "Ajit Dev DSA Tracker – 641 Solved (LeetCode, NeetCode)",
+    description: "Ajit Dev's Data Structures & Algorithms profile: 641+ problems solved (LeetCode/NeetCode), 242-day coding streak, and topic progress (C++, Python).",
     url: "https://ajitdev.com/dsa",
     images: [
       {
@@ -25,16 +25,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ajit Dev DSA Tracker – 632 Solved (LeetCode, NeetCode)",
-    description: "Ajit Dev's Data Structures & Algorithms profile: 632+ problems solved, 231-day coding streak.",
+    title: "Ajit Dev DSA Tracker – 641 Solved (LeetCode, NeetCode)",
+    description: "Ajit Dev's Data Structures & Algorithms profile: 641+ problems solved, 242-day coding streak.",
     images: ["https://ajitdev.com/og-image.png"],
   },
 };
 
 export default function DsaLayout({ children }: { children: React.ReactNode }) {
   const profileSchema = getProfilePageSchema(
-    "Ajit Dev DSA Tracker – 632 Solved",
-    "Ajit Dev's Data Structures & Algorithms practice profile: 632+ problems solved across LeetCode & NeetCode.",
+    "Ajit Dev DSA Tracker – 641 Solved",
+    "Ajit Dev's Data Structures & Algorithms practice profile: 641+ problems solved across LeetCode & NeetCode.",
     "https://ajitdev.com/dsa"
   );
 

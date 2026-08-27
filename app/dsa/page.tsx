@@ -46,19 +46,19 @@ const LEETCODE_PROFILE = {
   name: "AJIT DEV",
   username: "ajitdev01",
   profileUrl: "https://leetcode.com/u/ajitdev01/",
-  globalRank: "194,317",
+  globalRank: "192,927",
   contestRating: 1510,
   contestsAttended: 3,
-  totalSolved: 514,
-  easySolved: 174,
+  totalSolved: 518,
+  easySolved: 177,
   medSolved: 249,
-  hardSolved: 91,
+  hardSolved: 92,
   badgesCount: 7,
   latestBadge: "200 Days Badge 2026",
-  annualSubmissions: 1450,
-  activeDays: 231,
-  currentStreak: 231,
-  cppSolvedCount: 474,
+  annualSubmissions: 1466,
+  activeDays: 242,
+  currentStreak: 242,
+  cppSolvedCount: 478,
 };
 
 // Authentic NeetCode (@MoltenJinchuriki774) Data
@@ -66,12 +66,12 @@ const NEETCODE_PROFILE = {
   name: "AJIT DEV",
   username: "MoltenJinchuriki774",
   profileUrl: "https://neetcode.io/user/MoltenJinchuriki774",
-  percentile: "Top 5.8%",
-  totalSolved: 118,
-  easySolved: 45,
-  medSolved: 56,
-  hardSolved: 17,
-  currentStreak: 110,
+  percentile: "Top 4.7%",
+  totalSolved: 123,
+  easySolved: 48,
+  medSolved: 57,
+  hardSolved: 18,
+  currentStreak: 121,
 };
 
 // Authentic GitHub (@ajitdev01) Data
@@ -79,29 +79,41 @@ const GITHUB_PROFILE = {
   name: "AJIT DEV",
   username: "ajitdev01",
   profileUrl: "https://github.com/ajitdev01",
-  organization: "Brainzima",
-  augustCommits: 118,
+  organization: "BRAINZIMA INNOVATION PVT LTD",
+  totalContributions: 1532,
+  publicRepos: 17,
+  followers: 14,
+  following: 3,
+  currentStreak: 243,
+  stars: 27,
   topRepos: [
+    {
+      name: "ajitdev.com",
+      commits: 120,
+      description: "Personal portfolio live website built with Next.js 16, TypeScript, and Tailwind CSS.",
+      language: "TypeScript",
+      link: "https://github.com/ajitdev01/ajitdev.com",
+    },
     {
       name: "DSA-Journey-2026",
       commits: 63,
-      description: "Daily C++ Data Structures & Algorithms solutions, LeetCode logs, and optimization notes.",
+      description: "Structured Data Structures and Algorithms practice with clean, optimized solutions.",
       language: "C++",
       link: "https://github.com/ajitdev01/DSA-Journey-2026",
     },
     {
-      name: "CollegeSure-Web",
-      commits: 30,
-      description: "Full-stack web application platform for college admission analytics & student portal.",
-      language: "TypeScript",
-      link: "https://github.com/rahman4ktr/CollegeSure-Web",
-    },
-    {
       name: "neetcode-submissions",
       commits: 21,
-      description: "NeetCode 150 & NeetCode All practice solutions, pointer algorithms, and tree guides.",
+      description: "My NeetCode.io problem submissions, pointer algorithms, and tree guides.",
       language: "C++",
       link: "https://github.com/ajitdev01/neetcode-submissions",
+    },
+    {
+      name: "typescript-zero-to-advanced",
+      commits: 18,
+      description: "TypeScript learning journey from beginner to advanced level with structured examples.",
+      language: "TypeScript",
+      link: "https://github.com/ajitdev01/typescript-zero-to-advanced",
     },
     {
       name: "python-core-to-advanced",
@@ -110,17 +122,24 @@ const GITHUB_PROFILE = {
       language: "Python",
       link: "https://github.com/ajitdev01/python-core-to-advanced",
     },
+    {
+      name: "lamp-project",
+      commits: 25,
+      description: "Full-stack LAMP Web Application using Linux, Apache, MySQL, and PHP.",
+      language: "PHP",
+      link: "https://github.com/ajitdev01/lamp-project",
+    },
   ],
 };
 
 // Gamified Achievement Badges
 const ACHIEVEMENT_BADGES = [
   { id: 1, title: "200 Days Badge 2026", category: "LeetCode Featured", color: "#f59e0b", icon: Trophy, desc: "Achieved 200+ active practice days in 2026" },
-  { id: 2, title: "231-Day Streak Champion", category: "Consistency Log", color: "#10b981", icon: Flame, desc: "Maintained continuous daily coding streak" },
-  { id: 3, title: "500+ Solved Club", category: "Problem Solving", color: "#6366f1", icon: Target, desc: "Resolved 514 LeetCode + 118 NeetCode problems" },
-  { id: 4, title: "C++ Engine Specialist", category: "Primary Stack", color: "#3b82f6", icon: Cpu, desc: "474 problems solved with optimized C++ STL" },
-  { id: 5, title: "Contest Rating 1510", category: "Competitive Rank", color: "#8b5cf6", icon: Zap, desc: "Global Rank #194,317 across 3 contests" },
-  { id: 6, title: "Top 5.8% NeetCode", category: "NeetCode All", color: "#14b8a6", icon: Award, desc: "118 NeetCode problems solved with 67d streak" },
+  { id: 2, title: "242-Day Streak Champion", category: "Consistency Log", color: "#10b981", icon: Flame, desc: "Maintained continuous daily coding streak" },
+  { id: 3, title: "500+ Solved Club", category: "Problem Solving", color: "#6366f1", icon: Target, desc: "Resolved 518 LeetCode + 123 NeetCode problems" },
+  { id: 4, title: "C++ Engine Specialist", category: "Primary Stack", color: "#3b82f6", icon: Cpu, desc: "478 problems solved with optimized C++ STL" },
+  { id: 5, title: "Contest Rating 1510", category: "Competitive Rank", color: "#8b5cf6", icon: Zap, desc: "Global Rank #192,927 across 3 contests" },
+  { id: 6, title: "Top 4.7% NeetCode", category: "NeetCode All", color: "#14b8a6", icon: Award, desc: "123 NeetCode problems solved with 121d streak" },
 ];
 
 // Skill Metrics
@@ -251,7 +270,7 @@ export default function DsaDashboardPage() {
       const total = NEETCODE_PROFILE.totalSolved;
       return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: NEETCODE_PROFILE.currentStreak, platformName: "NeetCode Metrics", subtext: `Percentile: ${NEETCODE_PROFILE.percentile}` };
     } else if (platformTab === "3") {
-      return { total: GITHUB_PROFILE.augustCommits, easy: GITHUB_PROFILE.topRepos[0].commits, med: GITHUB_PROFILE.topRepos[1].commits, hard: GITHUB_PROFILE.topRepos[2].commits, easyPct: 53, medPct: 25, hardPct: 22, streak: 231, platformName: "GitHub Commits", subtext: `@${GITHUB_PROFILE.organization}` };
+      return { total: GITHUB_PROFILE.totalContributions, easy: GITHUB_PROFILE.topRepos[0].commits, med: GITHUB_PROFILE.topRepos[1].commits, hard: GITHUB_PROFILE.topRepos[2].commits, easyPct: 53, medPct: 25, hardPct: 22, streak: GITHUB_PROFILE.currentStreak, platformName: "GitHub Activity", subtext: `@${GITHUB_PROFILE.username}` };
     } else {
       const easy = LEETCODE_PROFILE.easySolved + NEETCODE_PROFILE.easySolved;
       const med = LEETCODE_PROFILE.medSolved + NEETCODE_PROFILE.medSolved;
@@ -358,16 +377,16 @@ export default function DsaDashboardPage() {
             <Tabs value={platformTab} onValueChange={setPlatformTab} className="w-full">
               <TabsList className="bg-transparent border-0 h-auto p-0 gap-1 flex-wrap w-full">
                 <TabsTrigger value="0" className="py-2.5 px-4 text-xs font-extrabold">
-                  <Layers className="w-4 h-4 mr-1.5" /> Combined Overview (632)
+                  <Layers className="w-4 h-4 mr-1.5" /> Combined Overview (641)
                 </TabsTrigger>
                 <TabsTrigger value="1" className="py-2.5 px-4 text-xs font-extrabold">
-                  <Trophy className="w-4 h-4 mr-1.5" /> LeetCode (514 Solved)
+                  <Trophy className="w-4 h-4 mr-1.5" /> LeetCode (518 Solved)
                 </TabsTrigger>
                 <TabsTrigger value="2" className="py-2.5 px-4 text-xs font-extrabold">
-                  <Target className="w-4 h-4 mr-1.5" /> NeetCode (118 Solved)
+                  <Target className="w-4 h-4 mr-1.5" /> NeetCode (123 Solved)
                 </TabsTrigger>
                 <TabsTrigger value="3" className="py-2.5 px-4 text-xs font-extrabold">
-                  <FiGithub className="w-4 h-4 mr-1.5" /> GitHub (118 Commits)
+                  <FiGithub className="w-4 h-4 mr-1.5" /> GitHub (17 Repositories)
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -521,7 +540,7 @@ export default function DsaDashboardPage() {
                   <FolderGit2 className="w-5 h-5 text-slate-900" /> Active GitHub Repositories
                 </h3>
                 <p className="text-xs font-bold text-slate-500 mt-1">
-                  118 commits created across 4 primary repositories in August 2026 (@{GITHUB_PROFILE.username})
+                  1,532+ total contributions across 17 public repositories (@{GITHUB_PROFILE.username})
                 </p>
               </div>
               <a href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer">

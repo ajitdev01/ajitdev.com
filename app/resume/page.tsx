@@ -269,7 +269,7 @@ export default function ResumePage() {
                     Results-driven Full Stack Engineer with hands-on LAMP Stack production experience and a strong foundation in
                     MERN Stack, Next.js, and cloud-native infrastructure. Engineered 4+ production-grade web applications covering
                     authentication systems, admin dashboards, CMS portals, and REST API integrations. Proficient in Docker, AWS,
-                    Terraform, and GitHub Actions CI/CD with a DevSecOps mindset. 450+ LeetCode problems solved; advancing in
+                    Terraform, and GitHub Actions CI/CD with a DevSecOps mindset. 518+ LeetCode problems solved; advancing in
                     System Design, Distributed Systems, and Cloud Security.
                   </p>
                 </div>
@@ -295,13 +295,13 @@ export default function ResumePage() {
                       4+ production-grade web applications covering authentication systems, admin dashboards,
                       CMS portals, and REST API integrations. Proficient in Docker, AWS, Terraform, and
                       GitHub Actions CI/CD pipelines with a security-first DevSecOps mindset. Active competitive
-                      programmer with 450+ LeetCode problems solved, continuously advancing in System Design,
+                      programmer with 518+ LeetCode problems solved, continuously advancing in System Design,
                       Distributed Systems, and Cloud Security.
                     </p>
                     {/* Stat badges */}
                     <div className="mt-4 grid grid-cols-4 gap-2 max-w-lg">
-                      <StatBadge value="450+" label="LeetCode" icon={<Leetcode className="w-3.5 h-3.5" />} />
-                      <StatBadge value="180+" label="Day Streak" icon={<Zap className="w-3 h-3" />} />
+                      <StatBadge value="518+" label="LeetCode" icon={<Leetcode className="w-3.5 h-3.5" />} />
+                      <StatBadge value="242+" label="Day Streak" icon={<Zap className="w-3 h-3" />} />
                       <StatBadge value="4+" label="Live Projects" icon={<Globe className="w-3 h-3" />} />
                       <StatBadge value="6mo" label="Eng. XP" icon={<Briefcase className="w-3 h-3" />} />
                     </div>
@@ -526,7 +526,7 @@ export default function ResumePage() {
                   {/* Screen list */}
                   <ul className="space-y-2 print:hidden">
                     {[
-                      { label: "450+ LeetCode Problems Solved", sub: "180+ Day Active Streak" },
+                      { label: "518+ LeetCode Problems Solved", sub: "242+ Day Active Streak" },
                       { label: "4+ Live Production Projects", sub: "LAMP · MERN · Next.js" },
                       { label: "6 Months Full Stack Engineering", sub: "PHP · MySQL · REST APIs" },
                       { label: "RexVel Web Solution Contributor", sub: "rexvel.com" },
@@ -549,7 +549,7 @@ export default function ResumePage() {
                   {/* Print compact list */}
                   <ul className="hidden print:block print:space-y-0.5">
                     {[
-                      "450+ LeetCode Problems · 180+ Day Streak",
+                      "518+ LeetCode Problems · 242+ Day Streak",
                       "4+ Live Production Projects (LAMP · MERN · Next.js)",
                       "6 Months Full Stack Engineering (PHP · MySQL · REST APIs)",
                       "RexVel Web Solution Contributor — rexvel.com",
