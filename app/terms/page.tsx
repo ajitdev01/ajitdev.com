@@ -1,23 +1,15 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-  Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import {
   ArrowLeft,
   Scale,
   Shield,
   CheckCircle2,
-  ChevronDown,
   HelpCircle,
   FileCheck,
 } from "lucide-react";
@@ -48,121 +40,123 @@ const structuredData = {
 
 export default function Terms() {
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <Container maxWidth="md">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
         {/* Navigation Link */}
-        <Link href="/" className="no-underline">
-          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
-            Back to Home
-          </Button>
-        </Link>
+        <div className="mb-6">
+          <Link href="/">
+            <Button variant="ghost" size="small" className="gap-2 text-slate-500 font-extrabold">
+              <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Home
+            </Button>
+          </Link>
+        </div>
 
-        {/* Hero Banner Paper */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+        {/* Hero Banner Card */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-indigo-100 text-indigo-600 mb-4">
             <Scale className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
             Terms of Service
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
-            Ajit Kumar (@ajitdev01) • DevOps Engineer & Cloud Security Developer
-          </Typography>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
+            Ajit Kumar (@ajitdev01) • DevOps Engineer &amp; Cloud Security Developer
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<FileCheck className="w-3.5 h-3.5 text-indigo-600" />} label="Legally Compliant" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Shield className="w-3.5 h-3.5 text-emerald-600" />} label="Indian IT Act 2000 & GDPR Aligned" color="success" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<CheckCircle2 className="w-3.5 h-3.5 text-amber-500" />} label="Freelance & Consulting Ready" color="warning" size="small" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <FileCheck className="w-3.5 h-3.5 text-indigo-600" /> Legally Compliant
+            </Badge>
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-emerald-600" /> Indian IT Act 2000 &amp; GDPR Aligned
+            </Badge>
+            <Badge variant="warning" className="py-1 px-3 text-xs gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-amber-500" /> Freelance &amp; Consulting Ready
+            </Badge>
+          </div>
+        </Card>
 
-        {/* Content Section Papers */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {/* Content Section Cards */}
+        <div className="flex flex-col gap-6">
           
           {/* Plain English Summary */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #c7d2fe", backgroundColor: "#eef2ff" }}>
-            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 1.5 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-indigo-200 bg-indigo-50/60 shadow-xs">
+            <h2 className="text-lg font-black text-slate-900 mb-3">
               📌 Quick Plain English Summary
-            </Typography>
-            <Box component="ul" sx={{ pl: 2.5, m: 0, color: "#334155", fontSize: "0.9rem", lineHeight: 1.8 }}>
-              <li>✓ This is an engineering portfolio showcasing software projects and cloud architectures.</li>
-              <li>✓ Code and content belong to Ajit Kumar unless designated with an open-source license.</li>
-              <li>✓ The contact form is for legitimate business and project inquiries.</li>
-            </Box>
-          </Paper>
+            </h2>
+            <ul className="list-none p-0 m-0 space-y-2 text-sm font-medium text-slate-700 leading-relaxed">
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-600 font-black">✓</span> This is an engineering portfolio showcasing software projects and cloud architectures.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-600 font-black">✓</span> Code and content belong to Ajit Kumar unless designated with an open-source license.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-indigo-600 font-black">✓</span> The contact form is for legitimate business and project inquiries.
+              </li>
+            </ul>
+          </Card>
 
           {/* Section 1 */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-3">
               1. Acceptance of Terms
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8 }}>
-              By accessing or using <strong>ajitdev.com</strong>, you agree to be bound by these Terms of Service. This portfolio website is operated by <strong>Ajit Kumar</strong>, a DevOps Engineer and Full Stack Developer based in Katihar, Bihar, India.
-            </Typography>
-          </Paper>
+            </h2>
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base font-medium">
+              By accessing or using <strong className="text-slate-900 font-extrabold">ajitdev.com</strong>, you agree to be bound by these Terms of Service. This portfolio website is operated by <strong className="text-slate-900 font-extrabold">Ajit Kumar</strong>, a DevOps Engineer and Full Stack Developer based in Katihar, Bihar, India.
+            </p>
+          </Card>
 
           {/* Section 2 */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-3">
               2. Intellectual Property Rights
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8 }}>
+            </h2>
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base font-medium">
               All project documentation, architecture diagrams, and custom code examples presented on this site remain the intellectual property of Ajit Kumar unless an explicit MIT, Apache, or GPL license is specified in the corresponding GitHub repository.
-            </Typography>
-          </Paper>
+            </p>
+          </Card>
 
           {/* Section 3 FAQs Accordion */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 3, display: "flex", alignItems: "center", gap: 1 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-indigo-600" /> Frequently Asked Questions
-            </Typography>
+            </h2>
 
-            <Accordion elevation={0} sx={{ border: "1px solid #e2e8f0", borderRadius: "14px !important", mb: 1.5 }}>
-              <AccordionSummary expandIcon={<ChevronDown className="w-4 h-4" />}>
-                <Typography sx={{ fontWeight: 800, color: "#0f172a" }}>Can I hire Ajit Kumar for DevOps or Full Stack consulting?</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body2" sx={{ color: "#64748b" }}>
+            <Accordion type="single">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  Can I hire Ajit Kumar for DevOps or Full Stack consulting?
+                </AccordionTrigger>
+                <AccordionContent>
                   Yes! Ajit is available for full-time roles, contract work, and DevOps consulting. Contact support@ajitdev.com or use the contact form.
-                </Typography>
-              </AccordionDetails>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2">
+                <AccordionTrigger>
+                  Are the portfolio projects open source?
+                </AccordionTrigger>
+                <AccordionContent>
+                  Public repositories are available on GitHub under open-source licenses. Refer to each repository&apos;s LICENSE file for commercial usage terms.
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
+          </Card>
 
-            <Accordion elevation={0} sx={{ border: "1px solid #e2e8f0", borderRadius: "14px !important" }}>
-              <AccordionSummary expandIcon={<ChevronDown className="w-4 h-4" />}>
-                <Typography sx={{ fontWeight: 800, color: "#0f172a" }}>Are the portfolio projects open source?</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body2" sx={{ color: "#64748b" }}>
-                  Public repositories are available on GitHub under open-source licenses. Refer to each repository's LICENSE file for commercial usage terms.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </Paper>
+        </div>
 
-        </Box>
-
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

@@ -1,30 +1,22 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-  Button,
   Table,
+  TableHeader,
   TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
   TableRow,
-} from "@mui/material";
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
 import {
   ArrowLeft,
   ShieldCheck,
   Lock,
-  Mail,
   FileText,
-  UserCheck,
-  Eye,
-  Server,
-  Key,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -59,128 +51,132 @@ const structuredData = {
 
 export default function PrivacyPage() {
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <Container maxWidth="md">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
         {/* Navigation Link */}
-        <Link href="/" className="no-underline">
-          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
-            Back to Home
-          </Button>
-        </Link>
+        <div className="mb-6">
+          <Link href="/">
+            <Button variant="ghost" size="small" className="gap-2 text-slate-500 font-extrabold">
+              <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Home
+            </Button>
+          </Link>
+        </div>
 
-        {/* Hero Banner Paper */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #f0fdf4 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0f2fe", color: "#0284c7", mb: 2 }}>
+        {/* Hero Banner Card */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-emerald-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-sky-100 text-sky-600 mb-4">
             <ShieldCheck className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
             Privacy Policy
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
-            Ajit Kumar (@ajitdev01) • DevOps Engineer & Cloud Security Developer • Katihar, Bihar, India
-          </Typography>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
+            Ajit Kumar (@ajitdev01) • DevOps Engineer &amp; Cloud Security Developer • Katihar, Bihar, India
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#0284c7", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-sky-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<Lock className="w-3.5 h-3.5 text-emerald-600" />} label="GDPR-Ready • 100% Transparency" color="success" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<ShieldCheck className="w-3.5 h-3.5 text-blue-600" />} label="HTTPS/TLS 1.3 Encrypted" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<FileText className="w-3.5 h-3.5 text-indigo-600" />} label="Last Modified: February 2026" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-emerald-600" /> GDPR-Ready • 100% Transparency
+            </Badge>
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-sky-600" /> HTTPS/TLS 1.3 Encrypted
+            </Badge>
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-indigo-600" /> Last Modified: February 2026
+            </Badge>
+          </div>
+        </Card>
 
-        {/* Content Section Papers */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {/* Content Section Cards */}
+        <div className="flex flex-col gap-6">
           
           {/* Section 1 */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
-              1. Introduction & Transparency
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8, mb: 2 }}>
-              Welcome to <strong>ajitdev.com</strong> — the professional portfolio of <strong>Ajit Kumar</strong>, a <strong>DevOps Engineer and Full Stack Developer</strong> based in <strong>Katihar, Bihar, India</strong>.
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.8 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-3">
+              1. Introduction &amp; Transparency
+            </h2>
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base font-medium mb-3">
+              Welcome to <strong className="text-slate-900 font-extrabold">ajitdev.com</strong> — the professional portfolio of <strong className="text-slate-900 font-extrabold">Ajit Kumar</strong>, a <strong className="text-slate-900 font-extrabold">DevOps Engineer and Full Stack Developer</strong> based in <strong className="text-slate-900 font-extrabold">Katihar, Bihar, India</strong>.
+            </p>
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base font-medium">
               Whether you are evaluating my cloud security portfolio, hiring for full stack engineering roles, or exploring DSA solutions, your data is handled with the same security principles applied to production server infrastructure.
-            </Typography>
-          </Paper>
+            </p>
+          </Card>
 
           {/* Section 2 */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 2 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-3">
               2. Information Collected
-            </Typography>
-            <Box component="ul" sx={{ pl: 2.5, m: 0, color: "#475569", fontSize: "0.95rem", lineHeight: 1.8 }}>
-              <li><strong>Contact Form:</strong> Name, email address, subject line, and message content submitted voluntarily.</li>
-              <li><strong>Direct Email:</strong> Messages sent directly to <code>support@ajitdev.com</code> or <code>ajitk23192@gmail.com</code>.</li>
-              <li><strong>Technical Logs:</strong> Anonymized browser headers, device types, and HTTPS access logs.</li>
-            </Box>
-          </Paper>
+            </h2>
+            <ul className="list-disc pl-5 space-y-2 text-sm font-medium text-slate-600 leading-relaxed">
+              <li><strong className="text-slate-900 font-extrabold">Contact Form:</strong> Name, email address, subject line, and message content submitted voluntarily.</li>
+              <li><strong className="text-slate-900 font-extrabold">Direct Email:</strong> Messages sent directly to <code className="bg-slate-100 px-1.5 py-0.5 rounded-md font-mono text-xs text-indigo-600">support@ajitdev.com</code> or <code className="bg-slate-100 px-1.5 py-0.5 rounded-md font-mono text-xs text-indigo-600">ajitk23192@gmail.com</code>.</li>
+              <li><strong className="text-slate-900 font-extrabold">Technical Logs:</strong> Anonymized browser headers, device types, and HTTPS access logs.</li>
+            </ul>
+          </Card>
 
           {/* Section 3 Table */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 3 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-xl font-black text-slate-900 mb-4">
               3. Third-Party Service Providers
-            </Typography>
-            <TableContainer component={Paper} elevation={0} sx={{ border: "1px solid #f1f5f9", borderRadius: "16px" }}>
-              <Table size="small">
-                <TableHead sx={{ backgroundColor: "#f8fafc" }}>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 900, color: "#0f172a" }}>Service</TableCell>
-                    <TableCell sx={{ fontWeight: 900, color: "#0f172a" }}>Purpose</TableCell>
-                    <TableCell sx={{ fontWeight: 900, color: "#0f172a" }}>Data Shared</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 800, color: "#0f172a" }}>Resend / Nodemailer</TableCell>
-                    <TableCell sx={{ color: "#475569" }}>Contact form transmission</TableCell>
-                    <TableCell sx={{ color: "#475569" }}>Name, Email, Message</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 800, color: "#0f172a" }}>Vercel Hosting</TableCell>
-                    <TableCell sx={{ color: "#475569" }}>Edge deployment</TableCell>
-                    <TableCell sx={{ color: "#475569" }}>Temporary HTTPS access logs</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
+            </h2>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-black text-slate-900">Service</TableHead>
+                  <TableHead className="font-black text-slate-900">Purpose</TableHead>
+                  <TableHead className="font-black text-slate-900">Data Shared</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-extrabold text-slate-900">Resend / Nodemailer</TableCell>
+                  <TableCell>Contact form transmission</TableCell>
+                  <TableCell>Name, Email, Message</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-extrabold text-slate-900">Vercel Hosting</TableCell>
+                  <TableCell>Edge deployment</TableCell>
+                  <TableCell>Temporary HTTPS access logs</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Card>
 
           {/* Section 4 Security */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#0f172a", color: "#f8fafc" }}>
-            <Typography variant="h6" sx={{ fontWeight: 900, color: "#ffffff", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
-              <Lock className="w-5 h-5 text-emerald-400" /> 4. Security & Zero-Trust Best Practices
-            </Typography>
-            <Box component="ul" sx={{ pl: 2.5, m: 0, fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 2, color: "#cbd5e1" }}>
-              <li>✓ TLS 1.3 / HTTPS Strict Transport Security (HSTS)</li>
-              <li>✓ Zero persistent database storage for form submissions</li>
-              <li>✓ Zero third-party advertising tracking cookies</li>
-              <li>✓ Minimal data retention & automated log expiration</li>
-            </Box>
-          </Paper>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-800 bg-slate-950 text-white shadow-xs">
+            <h2 className="text-xl font-black text-white mb-4 flex items-center gap-2">
+              <Lock className="w-5 h-5 text-emerald-400" /> 4. Security &amp; Zero-Trust Best Practices
+            </h2>
+            <ul className="list-none p-0 m-0 space-y-2 font-mono text-xs sm:text-sm text-slate-300">
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> TLS 1.3 / HTTPS Strict Transport Security (HSTS)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Zero persistent database storage for form submissions
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Zero third-party advertising tracking cookies
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Minimal data retention &amp; automated log expiration
+              </li>
+            </ul>
+          </Card>
 
-        </Box>
+        </div>
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

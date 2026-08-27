@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-  Button,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Mail,
   MapPin,
@@ -17,7 +12,6 @@ import {
   Globe,
   Code,
   FileText,
-  ExternalLink,
 } from "lucide-react";
 import ContactForm from "../components/contact/ContactForm";
 import { PAGE_KEYWORDS } from "@/lib/seo";
@@ -102,7 +96,7 @@ const contactInfo = [
 
 export default function ContactPage() {
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -124,111 +118,113 @@ export default function ContactPage() {
         }}
       />
 
-      <Container maxWidth="lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ===== HERO BANNER PAPER ===== */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+        {/* HERO BANNER CARD */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-indigo-100 text-indigo-600 mb-4">
             <Mail className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
             Let&apos;s Connect
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
             Full Stack Engineer • MERN • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
-          </Typography>
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<MapPin className="w-3.5 h-3.5 text-blue-600" />} label="Katihar, Bihar, India" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Globe className="w-3.5 h-3.5 text-emerald-600" />} label="Available Worldwide • Remote" color="success" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Clock className="w-3.5 h-3.5 text-amber-500" />} label="Response: 24 Hours" variant="outlined" size="small" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-blue-600" /> Katihar, Bihar, India
+            </Badge>
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-emerald-600" /> Available Worldwide • Remote
+            </Badge>
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-amber-500" /> Response: 24 Hours
+            </Badge>
+          </div>
+        </Card>
 
-        {/* ===== CONTACT FORM SECTION ===== */}
-        <Box sx={{ mb: 8 }}>
+        {/* CONTACT FORM SECTION */}
+        <div className="mb-12">
           <ContactForm />
-        </Box>
+        </div>
 
-        {/* ===== CONTACT INFO & SOCIALS GRID ===== */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 4 }}>
-          {/* Contact Details Paper */}
-          <Paper elevation={0} sx={{ p: 4, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 3 }}>
+        {/* CONTACT INFO & SOCIALS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Contact Details Card */}
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h3 className="text-xl font-black text-slate-900 mb-6">
               Contact Information
-            </Typography>
+            </h3>
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <div className="flex flex-col gap-4">
               {contactInfo.map((item, idx) => {
                 const IconComp = item.icon;
                 return (
-                  <Box key={idx} sx={{ display: "flex", alignItems: "center", gap: 2, p: 2, borderRadius: "16px", backgroundColor: "#f8fafc", border: "1px solid #f1f5f9" }}>
-                    <Box sx={{ p: 1.5, borderRadius: "12px", backgroundColor: "#eef2ff", color: "#4f46e5" }}>
+                  <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="p-3 rounded-xl bg-indigo-50 text-indigo-600 shrink-0">
                       <IconComp className="w-4 h-4" />
-                    </Box>
-                    <Box>
-                      <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 800, textTransform: "uppercase", fontSize: "0.65rem", display: "block" }}>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
                         {item.title}
-                      </Typography>
+                      </span>
                       {item.link ? (
                         <a href={item.link} className="text-sm font-extrabold text-slate-900 hover:text-indigo-600 transition-colors">
                           {item.content}
                         </a>
                       ) : (
-                        <Typography variant="body2" sx={{ fontWeight: 800, color: "#0f172a" }}>
+                        <span className="text-sm font-extrabold text-slate-900 block">
                           {item.content}
-                        </Typography>
+                        </span>
                       )}
-                      <Typography variant="caption" sx={{ color: "#64748b", fontSize: "0.7rem", display: "block" }}>
+                      <span className="text-xs font-medium text-slate-500 block">
                         {item.description}
-                      </Typography>
-                    </Box>
-                  </Box>
+                      </span>
+                    </div>
+                  </div>
                 );
               })}
-            </Box>
-          </Paper>
+            </div>
+          </Card>
 
-          {/* Connect Online Paper */}
-          <Paper elevation={0} sx={{ p: 4, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 3 }}>
+          {/* Connect Online Card */}
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h3 className="text-xl font-black text-slate-900 mb-6">
               Connect Online (@ajitdev01)
-            </Typography>
+            </h3>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
-              <Button component="a" href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<FiGithub className="w-4 h-4" />} sx={{ p: 2, borderRadius: "16px", fontWeight: 800, textTransform: "none", justifyContent: "start" }}>
-                GitHub
-              </Button>
-              <Button component="a" href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<FiLinkedin className="w-4 h-4" />} sx={{ p: 2, borderRadius: "16px", fontWeight: 800, textTransform: "none", justifyContent: "start" }}>
-                LinkedIn
-              </Button>
-              <Button component="a" href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<Code className="w-4 h-4" />} sx={{ p: 2, borderRadius: "16px", fontWeight: 800, textTransform: "none", justifyContent: "start" }}>
-                LeetCode
-              </Button>
+            <div className="grid grid-cols-2 gap-4">
+              <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="no-underline">
+                <Button variant="outline" className="w-full h-12 justify-start font-extrabold text-slate-800 border-slate-200 gap-2">
+                  <FiGithub className="w-4 h-4" /> GitHub
+                </Button>
+              </a>
+              <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="no-underline">
+                <Button variant="outline" className="w-full h-12 justify-start font-extrabold text-slate-800 border-slate-200 gap-2">
+                  <FiLinkedin className="w-4 h-4 text-blue-600" /> LinkedIn
+                </Button>
+              </a>
+              <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="no-underline">
+                <Button variant="outline" className="w-full h-12 justify-start font-extrabold text-slate-800 border-slate-200 gap-2">
+                  <Code className="w-4 h-4 text-amber-500" /> LeetCode
+                </Button>
+              </a>
               <Link href="/resume" className="no-underline">
-                <Button variant="outlined" fullWidth startIcon={<FileText className="w-4 h-4" />} sx={{ p: 2, borderRadius: "16px", fontWeight: 800, textTransform: "none", justifyContent: "start" }}>
-                  Resume CV
+                <Button variant="outline" className="w-full h-12 justify-start font-extrabold text-slate-800 border-slate-200 gap-2">
+                  <FileText className="w-4 h-4 text-indigo-600" /> Resume CV
                 </Button>
               </Link>
-            </Box>
-          </Paper>
-        </Box>
+            </div>
+          </Card>
+        </div>
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

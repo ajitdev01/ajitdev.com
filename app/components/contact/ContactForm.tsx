@@ -1,18 +1,13 @@
 'use client';
 
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Chip,
-  Button,
-  TextField,
-  InputAdornment,
-  CircularProgress,
-  Alert,
-  Modal,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Alert } from "@/components/ui/alert";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   User,
   Mail,
@@ -24,6 +19,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Info,
+  Loader2,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -86,196 +82,181 @@ export default function ContactForm() {
 
   return (
     <>
-      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "4fr 8fr" }, gap: 4 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Side: Quick response block */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-          <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+        <div className="lg:col-span-4 flex flex-col gap-6">
+          <Card className="p-6 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <div className="flex items-center gap-2 mb-4">
               <Zap className="w-5 h-5 text-indigo-600" />
-              <Typography variant="subtitle1" sx={{ fontWeight: 900, color: "#0f172a" }}>
+              <h3 className="font-black text-slate-900 text-base">
                 Quick Response Ideas
-              </Typography>
-            </Box>
+              </h3>
+            </div>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+            <div className="flex flex-wrap gap-2">
               {quickResponses.map((response, idx) => (
-                <Chip
+                <Badge
                   key={idx}
-                  label={response}
+                  variant="outline"
                   onClick={() => handleSubjectClick(response)}
-                  variant="outlined"
-                  color="primary"
-                  sx={{ fontWeight: 700, fontSize: "0.75rem", borderRadius: "10px", py: 1.8, "&:hover": { backgroundColor: "#eef2ff" } }}
-                />
+                  className="py-1.5 px-3 text-xs font-bold border-indigo-200 text-indigo-700 bg-indigo-50/50 hover:bg-indigo-100/80 cursor-pointer transition-colors"
+                >
+                  {response}
+                </Badge>
               ))}
-            </Box>
-          </Paper>
+            </div>
+          </Card>
 
-          <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
-              <Box sx={{ p: 1.5, borderRadius: "14px", backgroundColor: "#eef2ff", color: "#4f46e5" }}>
+          <Card className="p-6 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-2xl bg-indigo-50 text-indigo-600 shrink-0">
                 <Info className="w-5 h-5" />
-              </Box>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", mb: 0.5 }}>
+              </div>
+              <div>
+                <h4 className="font-black text-slate-900 text-sm mb-1">
                   What happens next?
-                </Typography>
-                <Typography variant="caption" sx={{ color: "#64748b", lineHeight: 1.6, display: "block" }}>
-                  Your message is delivered straight to <strong className="text-slate-900">support@ajitdev.com</strong>. I personally respond within 24 hours.
-                </Typography>
-              </Box>
-            </Box>
-          </Paper>
-        </Box>
+                </h4>
+                <p className="text-xs font-medium text-slate-500 leading-relaxed">
+                  Your message is delivered straight to <strong className="text-slate-900 font-extrabold">support@ajitdev.com</strong>. I personally respond within 24 hours.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
 
-        {/* Right Side: The Contact Form (MUI Paper) */}
-        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 0.5 }}>
-            Send a Direct Message
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#64748b", mb: 4 }}>
-            Fill out the form below and I&apos;ll get back to you within 24 hours.
-          </Typography>
+        {/* Right Side: The Contact Form */}
+        <div className="lg:col-span-8">
+          <Card className="p-6 sm:p-10 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <h2 className="text-2xl font-black text-slate-900 mb-1">
+              Send a Direct Message
+            </h2>
+            <p className="text-sm font-medium text-slate-500 mb-8">
+              Fill out the form below and I&apos;ll get back to you within 24 hours.
+            </p>
 
-          <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 3 }}>
-              {/* Name Field */}
-              <TextField
-                fullWidth
-                label="Full Name *"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                placeholder="John Doe"
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <User className="w-4 h-4 text-indigo-600" />
-                      </InputAdornment>
-                    ),
-                    sx: { borderRadius: "14px", fontWeight: 700 }
-                  }
-                }}
-              />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Name Field */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                    Full Name <span className="text-rose-500">*</span>
+                  </label>
+                  <Input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="John Doe"
+                    startAdornment={<User className="w-4 h-4 text-indigo-600" />}
+                  />
+                </div>
 
-              {/* Email Field */}
-              <TextField
-                fullWidth
-                type="email"
-                label="Email Address *"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                placeholder="john@example.com"
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Mail className="w-4 h-4 text-indigo-600" />
-                      </InputAdornment>
-                    ),
-                    sx: { borderRadius: "14px", fontWeight: 700 }
-                  }
-                }}
-              />
-            </Box>
+                {/* Email Field */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                    Email Address <span className="text-rose-500">*</span>
+                  </label>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="john@example.com"
+                    startAdornment={<Mail className="w-4 h-4 text-indigo-600" />}
+                  />
+                </div>
+              </div>
 
-            {/* Subject Field */}
-            <TextField
-              fullWidth
-              label="Subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleInputChange}
-              placeholder="e.g., Full Stack Project Inquiry, Job Opportunity"
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Tag className="w-4 h-4 text-indigo-600" />
-                    </InputAdornment>
-                  ),
-                  sx: { borderRadius: "14px", fontWeight: 700 }
-                }
-              }}
-            />
+              {/* Subject Field */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  Subject
+                </label>
+                <Input
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Full Stack Project Inquiry, Job Opportunity"
+                  startAdornment={<Tag className="w-4 h-4 text-indigo-600" />}
+                />
+              </div>
 
-            {/* Message Field */}
-            <TextField
-              fullWidth
-              multiline
-              rows={5}
-              label="Message *"
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              required
-              placeholder="Tell me about your project, opportunity, or what you'd like to discuss..."
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start" sx={{ alignSelf: "flex-start", mt: 1.5 }}>
-                      <MessageSquare className="w-4 h-4 text-indigo-600" />
-                    </InputAdornment>
-                  ),
-                  sx: { borderRadius: "14px", fontWeight: 700 }
-                }
-              }}
-            />
+              {/* Message Field */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  Message <span className="text-rose-500">*</span>
+                </label>
+                <Textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={5}
+                  placeholder="Tell me about your project, opportunity, or what you'd like to discuss..."
+                  startAdornment={<MessageSquare className="w-4 h-4 text-indigo-600" />}
+                />
+              </div>
 
-            {/* Error Message */}
-            {error && (
-              <Alert severity="error" icon={<AlertCircle className="w-5 h-5" />} sx={{ borderRadius: "14px", fontWeight: 700 }}>
-                {error}
-              </Alert>
-            )}
+              {/* Error Message */}
+              {error && (
+                <Alert variant="destructive" icon={<AlertCircle className="w-5 h-5 text-rose-600" />}>
+                  {error}
+                </Alert>
+              )}
 
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={isLoading}
-              variant="contained"
-              size="large"
-              startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <Send className="w-5 h-5" />}
-              endIcon={!isLoading && <ArrowRight className="w-4 h-4" />}
-              sx={{
-                py: 1.8,
-                borderRadius: "16px",
-                fontWeight: 900,
-                fontSize: "1rem",
-                textTransform: "none",
-                backgroundColor: "#4f46e5",
-                "&:hover": { backgroundColor: "#4338ca" }
-              }}
-            >
-              {isLoading ? "Sending message..." : "Send Message"}
-            </Button>
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                disabled={isLoading}
+                variant="default"
+                size="large"
+                className="w-full py-4 rounded-2xl text-base font-black shadow-md shadow-indigo-500/20"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                    Sending message...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 mr-2" />
+                    Send Message
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
 
-            <Typography variant="caption" sx={{ color: "#64748b", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", gap: 0.5 }}>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Your message is secure and will be sent directly to my inbox.
-            </Typography>
-          </Box>
-        </Paper>
+              <p className="text-xs font-semibold text-slate-500 text-center flex items-center justify-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                Your message is secure and will be sent directly to my inbox.
+              </p>
+            </form>
+          </Card>
+        </div>
 
-      </Box>
+      </div>
 
       {/* Success Modal */}
-      <Modal open={showSuccessModal} onClose={() => setShowSuccessModal(false)}>
-        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: { xs: "90%", sm: 400 }, bgcolor: "background.paper", borderRadius: "24px", p: 4, textAlign: "center", boxShadow: 24 }}>
-          <Box sx={{ width: 64, height: 64, borderRadius: "50%", backgroundColor: "#dcfce7", color: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 2 }}>
+      <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+        <DialogContent onClose={() => setShowSuccessModal(false)} className="text-center p-8">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
             <CheckCircle2 className="w-8 h-8" />
-          </Box>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 1 }}>Message Sent!</Typography>
-          <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>Thank you for reaching out. I&apos;ll get back to you within 24 hours.</Typography>
-          <Button variant="contained" fullWidth onClick={() => setShowSuccessModal(false)} sx={{ borderRadius: "14px", fontWeight: 800, textTransform: "none", py: 1.2, backgroundColor: "#4f46e5" }}>
+          </div>
+          <h3 className="text-2xl font-black text-slate-900 mb-2">Message Sent!</h3>
+          <p className="text-xs sm:text-sm font-medium text-slate-500 mb-6">
+            Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+          </p>
+          <Button
+            variant="default"
+            className="w-full py-3 rounded-2xl font-extrabold"
+            onClick={() => setShowSuccessModal(false)}
+          >
             Got it!
           </Button>
-        </Box>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

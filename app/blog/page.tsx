@@ -1,19 +1,12 @@
 import React from "react";
 import { Metadata } from "next";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   BookOpen,
   Cloud,
   ShieldCheck,
   Code,
-  Globe,
-  Zap,
 } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import BlogSearch from "@/app/components/BlogSearch";
@@ -96,49 +89,45 @@ export default function BlogArchivePage() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <JSONLD schema={breadcrumbSchema} />
       <JSONLD schema={faqSchema} />
 
-      <Container maxWidth="lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ===== HERO BANNER PAPER ===== */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+        {/* HERO BANNER CARD */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-indigo-100 text-indigo-600 mb-4">
             <BookOpen className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
             Technical Engineering Blog
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
-            Cloud Security • DevOps & Containers • System Architecture • MERN & Next.js
-          </Typography>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
+            Cloud Security • DevOps &amp; Containers • System Architecture • MERN &amp; Next.js
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<Cloud className="w-3.5 h-3.5 text-blue-600" />} label="AWS & Cloud DevOps" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />} label="Cloud Security & Auditing" color="success" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Code className="w-3.5 h-3.5 text-indigo-600" />} label="Next.js & Type-Safe Systems" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <Cloud className="w-3.5 h-3.5 text-blue-600" /> AWS &amp; Cloud DevOps
+            </Badge>
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Cloud Security &amp; Auditing
+            </Badge>
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <Code className="w-3.5 h-3.5 text-indigo-600" /> Next.js &amp; Type-Safe Systems
+            </Badge>
+          </div>
+        </Card>
 
-        {/* ===== CLIENT SEARCH & ARTICLES GRID ===== */}
+        {/* CLIENT SEARCH & ARTICLES GRID */}
         <BlogSearch initialPosts={posts} />
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

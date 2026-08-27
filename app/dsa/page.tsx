@@ -2,18 +2,12 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import {
-  Box,
-  Typography,
-  Paper,
-  Chip,
-  Tabs,
-  Tab,
-  Button,
-  LinearProgress,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import {
   ArrowLeft,
   BookOpen,
@@ -43,7 +37,7 @@ import JSONLD from "@/app/components/JSONLD";
 
 const FiGithub = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
   </svg>
 );
 
@@ -140,12 +134,12 @@ const SKILL_METRICS = [
 
 // Recent Accepted Submissions
 const RECENT_ACCEPTED_PROBLEMS = [
-  { id: 1, title: "Split Array Largest Sum", platform: "LeetCode", difficulty: "Hard", color: "error", tags: ["Binary Search", "DP"], timeAgo: "7h ago", link: "https://leetcode.com/problems/split-array-largest-sum/" },
-  { id: 2, title: "Longest Subsequence With Non-Zero Bitwise XOR", platform: "LeetCode", difficulty: "Medium", color: "warning", tags: ["Bit Manipulation", "Greedy"], timeAgo: "1d ago", link: "https://leetcode.com/u/ajitdev01/" },
-  { id: 3, title: "Maximum Length Substring With Two Occurrences", platform: "LeetCode", difficulty: "Easy", color: "success", tags: ["Sliding Window", "Hash Table"], timeAgo: "2d ago", link: "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/" },
-  { id: 4, title: "N-Queens", platform: "LeetCode", difficulty: "Hard", color: "error", tags: ["Backtracking", "Recursion"], timeAgo: "3d ago", link: "https://leetcode.com/problems/n-queens/" },
-  { id: 5, title: "3Sum Solution Using Two Pointer Technique", platform: "NeetCode", difficulty: "Medium", color: "warning", tags: ["Two Pointers", "Sorting"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
-  { id: 6, title: "Two Sum - Brute Force & Hash Table Approach", platform: "NeetCode", difficulty: "Easy", color: "success", tags: ["Arrays & Hashing"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
+  { id: 1, title: "Split Array Largest Sum", platform: "LeetCode", difficulty: "Hard", variant: "destructive" as const, tags: ["Binary Search", "DP"], timeAgo: "7h ago", link: "https://leetcode.com/problems/split-array-largest-sum/" },
+  { id: 2, title: "Longest Subsequence With Non-Zero Bitwise XOR", platform: "LeetCode", difficulty: "Medium", variant: "warning" as const, tags: ["Bit Manipulation", "Greedy"], timeAgo: "1d ago", link: "https://leetcode.com/u/ajitdev01/" },
+  { id: 3, title: "Maximum Length Substring With Two Occurrences", platform: "LeetCode", difficulty: "Easy", variant: "success" as const, tags: ["Sliding Window", "Hash Table"], timeAgo: "2d ago", link: "https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/" },
+  { id: 4, title: "N-Queens", platform: "LeetCode", difficulty: "Hard", variant: "destructive" as const, tags: ["Backtracking", "Recursion"], timeAgo: "3d ago", link: "https://leetcode.com/problems/n-queens/" },
+  { id: 5, title: "3Sum Solution Using Two Pointer Technique", platform: "NeetCode", difficulty: "Medium", variant: "warning" as const, tags: ["Two Pointers", "Sorting"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
+  { id: 6, title: "Two Sum - Brute Force & Hash Table Approach", platform: "NeetCode", difficulty: "Easy", variant: "success" as const, tags: ["Arrays & Hashing"], timeAgo: "NeetCode 150", link: "https://neetcode.io/user/MoltenJinchuriki774" },
 ];
 
 // DSA Topics
@@ -186,7 +180,7 @@ const HEATMAP_SEED = [
 const DSA_HEATMAP_GRID: string[] = Array.from({ length: 364 }, (_, i) => HEATMAP_SEED[i % HEATMAP_SEED.length]);
 
 export default function DsaDashboardPage() {
-  const [platformTab, setPlatformTab] = useState<number>(0);
+  const [platformTab, setPlatformTab] = useState<string>("0");
   const [selectedTopic, setSelectedTopic] = useState<string>("arrays");
   const [topicSearch, setTopicSearch] = useState<string>("");
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -242,27 +236,23 @@ export default function DsaDashboardPage() {
     ],
   };
 
-  // Stats calculation by MUI tab index
+  // Stats calculation by tab index
   const stats = useMemo(() => {
-    if (platformTab === 1) {
-      // LeetCode
+    if (platformTab === "1") {
       const easy = LEETCODE_PROFILE.easySolved;
       const med = LEETCODE_PROFILE.medSolved;
       const hard = LEETCODE_PROFILE.hardSolved;
       const total = LEETCODE_PROFILE.totalSolved;
       return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: LEETCODE_PROFILE.currentStreak, platformName: "LeetCode Metrics", subtext: `Rank #${LEETCODE_PROFILE.globalRank}` };
-    } else if (platformTab === 2) {
-      // NeetCode
+    } else if (platformTab === "2") {
       const easy = NEETCODE_PROFILE.easySolved;
       const med = NEETCODE_PROFILE.medSolved;
       const hard = NEETCODE_PROFILE.hardSolved;
       const total = NEETCODE_PROFILE.totalSolved;
       return { total, easy, med, hard, easyPct: (easy / total) * 100, medPct: (med / total) * 100, hardPct: (hard / total) * 100, streak: NEETCODE_PROFILE.currentStreak, platformName: "NeetCode Metrics", subtext: `Percentile: ${NEETCODE_PROFILE.percentile}` };
-    } else if (platformTab === 3) {
-      // GitHub
+    } else if (platformTab === "3") {
       return { total: GITHUB_PROFILE.augustCommits, easy: GITHUB_PROFILE.topRepos[0].commits, med: GITHUB_PROFILE.topRepos[1].commits, hard: GITHUB_PROFILE.topRepos[2].commits, easyPct: 53, medPct: 25, hardPct: 22, streak: 231, platformName: "GitHub Commits", subtext: `@${GITHUB_PROFILE.organization}` };
     } else {
-      // Combined
       const easy = LEETCODE_PROFILE.easySolved + NEETCODE_PROFILE.easySolved;
       const med = LEETCODE_PROFILE.medSolved + NEETCODE_PROFILE.medSolved;
       const hard = LEETCODE_PROFILE.hardSolved + NEETCODE_PROFILE.hardSolved;
@@ -275,113 +265,118 @@ export default function DsaDashboardPage() {
     <>
       <JSONLD schema={breadcrumbSchema} />
 
-      {/* Main Container - Added pt: { xs: 16, md: 20 } to clear top fixed navbar completely */}
-      <Box sx={{ pt: { xs: 16, md: 20 }, pb: { xs: 8, md: 12 }, px: { xs: 2, sm: 4, lg: 8 }, minHeight: "100vh", backgroundColor: "#f8fafc" }}>
-        <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
+      <div className="pt-32 md:pt-40 pb-24 px-4 sm:px-8 min-h-screen bg-slate-50">
+        <div className="max-w-[1200px] mx-auto">
 
           {/* Top Back Navigation */}
-          <Box sx={{ mb: 4 }}>
+          <div className="mb-6">
             <Link
               href="/"
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-indigo-600 transition-colors bg-white border border-slate-200 px-4 py-2 rounded-full shadow-xs"
             >
               <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Home
             </Link>
-          </Box>
+          </div>
 
-          {/* Hero Header Paper */}
-          <Paper
-            elevation={0}
-            sx={{
-              p: { xs: 3, sm: 5 },
-              mb: 4,
-              borderRadius: "24px",
-              border: "1px solid #e2e8f0",
-              background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
-            }}
-          >
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mb: 2 }}>
-              <Chip icon={<Sparkles className="w-3.5 h-3.5 text-indigo-600" />} label="Competitive Coding Engine" color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
-              <Chip icon={<Flame className="w-3.5 h-3.5 text-amber-500" />} label={`${LEETCODE_PROFILE.currentStreak}-Day Active Streak`} color="success" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
-              <Chip icon={<Cpu className="w-3.5 h-3.5 text-blue-600" />} label={`C++ STL (${LEETCODE_PROFILE.cppSolvedCount} AC)`} variant="outlined" size="small" sx={{ fontWeight: 800, fontSize: "0.7rem" }} />
-            </Box>
+          {/* Hero Header Card */}
+          <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 shadow-xs">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="primary" className="py-1 px-3 text-xs gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> Competitive Coding Engine
+              </Badge>
+              <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+                <Flame className="w-3.5 h-3.5 text-amber-500" /> {LEETCODE_PROFILE.currentStreak}-Day Active Streak
+              </Badge>
+              <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-blue-600" /> C++ STL ({LEETCODE_PROFILE.cppSolvedCount} AC)
+              </Badge>
+            </div>
 
-            <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1.5, fontSize: { xs: "1.8rem", md: "2.5rem" } }}>
-              Data Structures & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-600">Algorithms Master Engine</span>
-            </Typography>
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">
+              Data Structures &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-600">Algorithms Master Engine</span>
+            </h1>
 
-            <Typography variant="body1" sx={{ color: "#475569", lineHeight: 1.7, maxWidth: "800px", mb: 3 }}>
+            <p className="text-slate-600 leading-relaxed max-w-[800px] mb-6 font-medium text-sm sm:text-base">
               Official engineering progress ledger of <strong>Ajit Dev</strong>. Real-time problem solving, time complexity optimization, and live logs across <strong>LeetCode</strong>, <strong>NeetCode</strong>, and <strong>GitHub</strong>.
-            </Typography>
+            </p>
 
             {/* Profile Links */}
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
-              <Button component="a" href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="outlined" color="warning" size="small" startIcon={<Trophy className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px" }}>
-                LeetCode: @{LEETCODE_PROFILE.username}
-              </Button>
+            <div className="flex flex-wrap gap-3">
+              <a href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="small" className="gap-1.5 border-amber-300 text-amber-800 hover:bg-amber-50">
+                  <Trophy className="w-4 h-4 text-amber-500" /> LeetCode: @{LEETCODE_PROFILE.username} <ExternalLink className="w-3 h-3" />
+                </Button>
+              </a>
 
-              <Button component="a" href={NEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="outlined" color="success" size="small" startIcon={<Target className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px" }}>
-                NeetCode: @{NEETCODE_PROFILE.username}
-              </Button>
+              <a href={NEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="small" className="gap-1.5 border-emerald-300 text-emerald-800 hover:bg-emerald-50">
+                  <Target className="w-4 h-4 text-emerald-600" /> NeetCode: @{NEETCODE_PROFILE.username} <ExternalLink className="w-3 h-3" />
+                </Button>
+              </a>
 
-              <Button component="a" href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="contained" color="inherit" size="small" startIcon={<FiGithub className="w-4 h-4" />} endIcon={<ExternalLink className="w-3 h-3" />} sx={{ fontWeight: 800, borderRadius: "12px", backgroundColor: "#0f172a", color: "#ffffff" }}>
-                GitHub: @{GITHUB_PROFILE.username}
-              </Button>
-            </Box>
-          </Paper>
+              <a href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="default" size="small" className="gap-1.5 bg-slate-900 hover:bg-slate-800 text-white">
+                  <FiGithub className="w-4 h-4" /> GitHub: @{GITHUB_PROFILE.username} <ExternalLink className="w-3 h-3" />
+                </Button>
+              </a>
+            </div>
+          </Card>
 
           {/* Achievement Badges Row */}
-          <Box sx={{ mb: 4 }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-              <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", display: "flex", alignItems: "center", gap: 1 }}>
-                <Trophy className="w-4 h-4 text-amber-500" /> Verified Badges & Highlights
-              </Typography>
-              <Chip label={`${ACHIEVEMENT_BADGES.length} Badges`} size="small" color="primary" variant="outlined" sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
-            </Box>
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <Trophy className="w-4 h-4 text-amber-500" /> Verified Badges &amp; Highlights
+              </span>
+              <Badge variant="outline" className="text-[10px] font-extrabold">
+                {ACHIEVEMENT_BADGES.length} Badges
+              </Badge>
+            </div>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)", lg: "repeat(6, 1fr)" }, gap: 2 }}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {ACHIEVEMENT_BADGES.map((badge) => {
                 const IconComp = badge.icon;
                 return (
-                  <Paper key={badge.id} elevation={0} sx={{ p: 2, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", transition: "transform 0.2s", "&:hover": { transform: "translateY(-4px)" } }}>
-                    <Box sx={{ width: 32, height: 32, borderRadius: "10px", backgroundColor: badge.color, color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", mb: 1.5 }}>
+                  <Card key={badge.id} className="p-4 rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 shadow-xs">
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white mb-3" style={{ backgroundColor: badge.color }}>
                       <IconComp className="w-4 h-4" />
-                    </Box>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 800, fontSize: "0.75rem", color: "#0f172a", lineHeight: 1.3 }}>
+                    </div>
+                    <h4 className="font-extrabold text-xs text-slate-900 leading-snug">
                       {badge.title}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: "#64748b", fontSize: "0.65rem", display: "block", mt: 0.5, lineHeight: 1.3 }}>
+                    </h4>
+                    <p className="text-[10px] font-medium text-slate-500 mt-1 leading-tight">
                       {badge.desc}
-                    </Typography>
-                  </Paper>
+                    </p>
+                  </Card>
                 );
               })}
-            </Box>
-          </Box>
+            </div>
+          </div>
 
           {/* Platform Switcher Tabs */}
-          <Paper elevation={0} sx={{ borderRadius: "20px", border: "1px solid #e2e8f0", mb: 4, overflow: "hidden", backgroundColor: "#ffffff" }}>
-            <Tabs
-              value={platformTab}
-              onChange={(_, val) => setPlatformTab(val)}
-              variant="scrollable"
-              scrollButtons="auto"
-              sx={{
-                "& .MuiTab-root": { textTransform: "none", fontWeight: 800, fontSize: "0.85rem", py: 2, px: 3, whiteSpace: "nowrap" },
-              }}
-            >
-              <Tab icon={<Layers className="w-4 h-4" />} iconPosition="start" label="Combined Overview (632)" />
-              <Tab icon={<Trophy className="w-4 h-4" />} iconPosition="start" label="LeetCode (514 Solved)" />
-              <Tab icon={<Target className="w-4 h-4" />} iconPosition="start" label="NeetCode (118 Solved)" />
-              <Tab icon={<FiGithub className="w-4 h-4" />} iconPosition="start" label="GitHub (118 Commits)" />
+          <Card className="rounded-2xl border border-slate-200 mb-8 p-1.5 bg-white shadow-xs">
+            <Tabs value={platformTab} onValueChange={setPlatformTab} className="w-full">
+              <TabsList className="bg-transparent border-0 h-auto p-0 gap-1 flex-wrap w-full">
+                <TabsTrigger value="0" className="py-2.5 px-4 text-xs font-extrabold">
+                  <Layers className="w-4 h-4 mr-1.5" /> Combined Overview (632)
+                </TabsTrigger>
+                <TabsTrigger value="1" className="py-2.5 px-4 text-xs font-extrabold">
+                  <Trophy className="w-4 h-4 mr-1.5" /> LeetCode (514 Solved)
+                </TabsTrigger>
+                <TabsTrigger value="2" className="py-2.5 px-4 text-xs font-extrabold">
+                  <Target className="w-4 h-4 mr-1.5" /> NeetCode (118 Solved)
+                </TabsTrigger>
+                <TabsTrigger value="3" className="py-2.5 px-4 text-xs font-extrabold">
+                  <FiGithub className="w-4 h-4 mr-1.5" /> GitHub (118 Commits)
+                </TabsTrigger>
+              </TabsList>
             </Tabs>
-          </Paper>
+          </Card>
 
-          {/* Key Metrics Grid - Pure Tailwind CSS Difficulty Card */}
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "repeat(3, 1fr)" }, gap: 3, mb: 4 }}>
-            {/* Pure Tailwind Difficulty Breakdown Card */}
+          {/* Key Metrics Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            {/* Difficulty Breakdown Card */}
             <div className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
-              {/* Header */}
               <div className="flex items-center justify-between mb-4 gap-2">
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
@@ -392,10 +387,8 @@ export default function DsaDashboardPage() {
                 </span>
               </div>
 
-              {/* Donut & Progress Bars */}
               <div className="flex flex-col sm:flex-row items-center gap-6 my-2">
-                {/* SVG Donut */}
-                <div className="relative w-28 h-28 flex-shrink-0">
+                <div className="relative w-28 h-28 shrink-0">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                     <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" strokeWidth="3.8" />
                     <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" strokeWidth="3.8" strokeDasharray={`${stats.easyPct} ${100 - stats.easyPct}`} strokeDashoffset="0" />
@@ -408,9 +401,7 @@ export default function DsaDashboardPage() {
                   </div>
                 </div>
 
-                {/* Easy / Med / Hard Bars */}
                 <div className="w-full flex-1 flex flex-col gap-3">
-                  {/* Easy */}
                   <div>
                     <div className="flex justify-between items-center text-xs mb-1">
                       <span className="font-extrabold text-emerald-700 flex items-center gap-1.5">
@@ -420,12 +411,9 @@ export default function DsaDashboardPage() {
                         {stats.easy} <span className="text-slate-400 font-semibold text-[11px]">({stats.easyPct.toFixed(0)}%)</span>
                       </span>
                     </div>
-                    <div className="w-full bg-emerald-50 rounded-full h-2 overflow-hidden">
-                      <div className="bg-emerald-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.easyPct}%` }}></div>
-                    </div>
+                    <Progress value={stats.easyPct} className="h-2 bg-emerald-50" indicatorClassName="bg-emerald-500" />
                   </div>
 
-                  {/* Medium */}
                   <div>
                     <div className="flex justify-between items-center text-xs mb-1">
                       <span className="font-extrabold text-amber-700 flex items-center gap-1.5">
@@ -435,12 +423,9 @@ export default function DsaDashboardPage() {
                         {stats.med} <span className="text-slate-400 font-semibold text-[11px]">({stats.medPct.toFixed(0)}%)</span>
                       </span>
                     </div>
-                    <div className="w-full bg-amber-50 rounded-full h-2 overflow-hidden">
-                      <div className="bg-amber-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.medPct}%` }}></div>
-                    </div>
+                    <Progress value={stats.medPct} className="h-2 bg-amber-50" indicatorClassName="bg-amber-500" />
                   </div>
 
-                  {/* Hard */}
                   <div>
                     <div className="flex justify-between items-center text-xs mb-1">
                       <span className="font-extrabold text-rose-700 flex items-center gap-1.5">
@@ -450,14 +435,11 @@ export default function DsaDashboardPage() {
                         {stats.hard} <span className="text-slate-400 font-semibold text-[11px]">({stats.hardPct.toFixed(0)}%)</span>
                       </span>
                     </div>
-                    <div className="w-full bg-rose-50 rounded-full h-2 overflow-hidden">
-                      <div className="bg-rose-500 h-2 rounded-full transition-all duration-500" style={{ width: `${stats.hardPct}%` }}></div>
-                    </div>
+                    <Progress value={stats.hardPct} className="h-2 bg-rose-50" indicatorClassName="bg-rose-500" />
                   </div>
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-2 text-xs font-semibold text-slate-500">
                 <div>
                   Active Streak: <span className="font-black text-emerald-600">{stats.streak} Days</span>
@@ -469,314 +451,307 @@ export default function DsaDashboardPage() {
             </div>
 
             {/* Algorithmic Proficiency Card */}
-            <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justify: "space-between", boxShadow: "0 2px 10px rgba(0,0,0,0.02)" }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "0.5px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+            <Card className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2 mb-4">
                   <BarChart3 className="w-4 h-4 text-indigo-600" /> Algorithmic Proficiency
-                </Typography>
+                </h3>
 
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                <div className="flex flex-col gap-3">
                   {SKILL_METRICS.slice(0, 3).map((skill, idx) => (
-                    <Box key={idx}>
-                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
-                        <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {skill.topic}
-                        </Typography>
-                        <Typography variant="caption" sx={{ fontWeight: 900, color: "#0f172a", flexShrink: 0, ml: 1 }}>
-                          {skill.rating}%
-                        </Typography>
-                      </Box>
-                      <LinearProgress variant="determinate" value={skill.rating} sx={{ height: 6, borderRadius: 3, backgroundColor: "#f1f5f9", "& .MuiLinearProgress-bar": { backgroundColor: skill.color, borderRadius: 3 } }} />
-                    </Box>
+                    <div key={idx}>
+                      <div className="flex justify-between items-center mb-1 text-xs font-bold text-slate-700">
+                        <span className="truncate">{skill.topic}</span>
+                        <span className="font-black text-slate-900 ml-2">{skill.rating}%</span>
+                      </div>
+                      <Progress value={skill.rating} className="h-2 bg-slate-100" indicatorClassName="bg-indigo-600" />
+                    </div>
                   ))}
-                </Box>
-              </Box>
+                </div>
+              </div>
 
-              <Box sx={{ pt: 1.5, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1 }}>
-                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>Primary Language</Typography>
-                <Typography variant="caption" sx={{ color: "#2563eb", fontWeight: 900, display: "flex", alignItems: "center", gap: 0.5 }}>
+              <div className="pt-3 border-t border-slate-100 flex justify-between items-center mt-3 text-xs font-bold text-slate-500">
+                <span>Primary Language</span>
+                <span className="text-indigo-600 font-black flex items-center gap-1">
                   <Cpu className="w-3.5 h-3.5" /> C++ (474 AC)
-                </Typography>
-              </Box>
-            </Paper>
+                </span>
+              </div>
+            </Card>
 
             {/* Milestone Roadmap */}
-            <Paper elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justify: "space-between", boxShadow: "0 2px 10px rgba(0,0,0,0.02)" }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "0.5px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
-                  <TrendingUp className="w-4 h-4 text-purple-600" /> Topic & Rank Goals
-                </Typography>
+            <Card className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2 mb-4">
+                  <TrendingUp className="w-4 h-4 text-purple-600" /> Topic &amp; Rank Goals
+                </h3>
 
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <Box>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155" }}>Completed Topics</Typography>
-                      <Typography variant="caption" sx={{ fontWeight: 900, color: "#10b981", flexShrink: 0 }}>11 / 16 (68%)</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={68} color="success" sx={{ height: 6, borderRadius: 3 }} />
-                  </Box>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <div className="flex justify-between items-center mb-1 text-xs font-bold text-slate-700">
+                      <span>Completed Topics</span>
+                      <span className="font-black text-emerald-600">11 / 16 (68%)</span>
+                    </div>
+                    <Progress value={68} className="h-2 bg-slate-100" indicatorClassName="bg-emerald-500" />
+                  </div>
 
-                  <Box>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5, gap: 1 }}>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: "#334155" }}>Knight Badge Goal</Typography>
-                      <Typography variant="caption" sx={{ fontWeight: 900, color: "#6366f1", flexShrink: 0 }}>1510 / 1800 (84%)</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={84} color="primary" sx={{ height: 6, borderRadius: 3 }} />
-                  </Box>
-                </Box>
-              </Box>
+                  <div>
+                    <div className="flex justify-between items-center mb-1 text-xs font-bold text-slate-700">
+                      <span>Knight Badge Goal</span>
+                      <span className="font-black text-indigo-600">1510 / 1800 (84%)</span>
+                    </div>
+                    <Progress value={84} className="h-2 bg-slate-100" indicatorClassName="bg-indigo-600" />
+                  </div>
+                </div>
+              </div>
 
-              <Box sx={{ pt: 1.5, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1 }}>
-                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>LeetCode Handle</Typography>
-                <a href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-indigo-600 hover:underline">
+              <div className="pt-3 border-t border-slate-100 flex justify-between items-center mt-3 text-xs font-bold text-slate-500">
+                <span>LeetCode Handle</span>
+                <a href={LEETCODE_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 font-extrabold hover:underline">
                   Verify Profile &rarr;
                 </a>
-              </Box>
-            </Paper>
-          </Box>
+              </div>
+            </Card>
+          </div>
 
           {/* GitHub Active Repositories Showcase */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
-            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
-              <Box>
-                <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white mb-8 shadow-xs">
+            <div className="flex flex-wrap justify-between items-center mb-6 gap-3">
+              <div>
+                <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
                   <FolderGit2 className="w-5 h-5 text-slate-900" /> Active GitHub Repositories
-                </Typography>
-                <Typography variant="caption" sx={{ color: "#64748b", display: "block", mt: 0.5 }}>
+                </h3>
+                <p className="text-xs font-bold text-slate-500 mt-1">
                   118 commits created across 4 primary repositories in August 2026 (@{GITHUB_PROFILE.username})
-                </Typography>
-              </Box>
-              <Button component="a" href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer" variant="contained" size="small" startIcon={<FiGithub className="w-4 h-4" />} sx={{ fontWeight: 800, borderRadius: "12px", backgroundColor: "#0f172a", textTransform: "none" }}>
-                View All Repos
-              </Button>
-            </Box>
+                </p>
+              </div>
+              <a href={GITHUB_PROFILE.profileUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="default" size="small" className="bg-slate-900 hover:bg-slate-800 text-white gap-1.5">
+                  <FiGithub className="w-4 h-4" /> View All Repos
+                </Button>
+              </a>
+            </div>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" }, gap: 2 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {GITHUB_PROFILE.topRepos.map((repo, idx) => (
-                <Paper key={idx} elevation={0} component="a" href={repo.link} target="_blank" rel="noopener noreferrer" sx={{ p: 2.5, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", transition: "all 0.2s", textDecoration: "none", display: "flex", flexDirection: "column", justify: "space-between", "&:hover": { borderColor: "#94a3b8", backgroundColor: "#ffffff" } }}>
-                  <Box>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
-                      <Chip label={repo.name} size="small" sx={{ fontWeight: 800, fontSize: "0.65rem", backgroundColor: "#0f172a", color: "#ffffff" }} />
-                      <Chip label={repo.language} size="small" variant="outlined" sx={{ fontWeight: 800, fontSize: "0.6rem" }} />
-                    </Box>
-                    <Typography variant="body2" sx={{ color: "#475569", fontSize: "0.75rem", lineHeight: 1.5, mb: 2 }}>
-                      {repo.description}
-                    </Typography>
-                  </Box>
+                <a key={idx} href={repo.link} target="_blank" rel="noopener noreferrer" className="no-underline">
+                  <Card className="p-5 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white transition-all hover:border-slate-300 flex flex-col justify-between h-full shadow-none">
+                    <div>
+                      <div className="flex justify-between items-center mb-3">
+                        <Badge variant="primary" className="text-[10px] bg-slate-900">{repo.name}</Badge>
+                        <Badge variant="outline" className="text-[9px]">{repo.language}</Badge>
+                      </div>
+                      <p className="text-xs font-medium text-slate-600 leading-relaxed mb-4">
+                        {repo.description}
+                      </p>
+                    </div>
 
-                  <Box sx={{ pt: 1.5, borderTop: "1px solid #e2e8f0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography variant="caption" sx={{ fontWeight: 800, color: "#334155", display: "flex", alignItems: "center", gap: 0.5 }}>
-                      <GitCommit className="w-3.5 h-3.5 text-indigo-600" /> {repo.commits} Commits
-                    </Typography>
-                    <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
-                  </Box>
-                </Paper>
+                    <div className="pt-3 border-t border-slate-200 flex justify-between items-center text-xs font-extrabold text-slate-700">
+                      <span className="flex items-center gap-1">
+                        <GitCommit className="w-3.5 h-3.5 text-indigo-600" /> {repo.commits} Commits
+                      </span>
+                      <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
+                    </div>
+                  </Card>
+                </a>
               ))}
-            </Box>
-          </Paper>
+            </div>
+          </Card>
 
           {/* 365-Day Activity Grid */}
-          <Paper elevation={0} sx={{ p: 3, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", display: "flex", alignItems: "center", gap: 1 }}>
+          <Card className="p-6 rounded-3xl border border-slate-200 bg-white mb-8 shadow-xs">
+            <div className="flex justify-between items-center mb-4">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
                   <Flame className="w-4 h-4 text-emerald-600" /> 365-Day Practice Activity Heatmap
-                </Typography>
-                <Typography variant="caption" sx={{ color: "#64748b" }}>
-                  Active practice days logged: <strong>{LEETCODE_PROFILE.activeDays} Days</strong>
-                </Typography>
-              </Box>
-            </Box>
+                </h3>
+                <p className="text-xs font-medium text-slate-500 mt-1">
+                  Active practice days logged: <strong className="text-slate-900 font-extrabold">{LEETCODE_PROFILE.activeDays} Days</strong>
+                </p>
+              </div>
+            </div>
 
-            <Box sx={{ overflowX: "auto", pb: 1 }}>
-              <Box sx={{ display: "grid", gridAutoFlow: "column", gridTemplateRows: "repeat(7, 1fr)", gap: 0.8, width: "max-content" }}>
+            <div className="overflow-x-auto pb-2">
+              <div className="grid grid-flow-col grid-rows-7 gap-1 w-max">
                 {DSA_HEATMAP_GRID.map((level, i) => (
-                  <Box key={i} className={`w-2.5 h-2.5 rounded-xs transition-all hover:scale-150 ${level}`} title={`Day ${i + 1}`} />
+                  <div key={i} className={`w-2.5 h-2.5 rounded-xs transition-all hover:scale-150 ${level}`} title={`Day ${i + 1}`} />
                 ))}
-              </Box>
-            </Box>
-          </Paper>
+              </div>
+            </div>
+          </Card>
 
           {/* Recent AC Submissions */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+          <div className="mb-8">
+            <h3 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Live Recent Accepted Submissions
-            </Typography>
+            </h3>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 2 }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {RECENT_ACCEPTED_PROBLEMS.map((prob) => (
-                <Paper key={prob.id} elevation={0} component="a" href={prob.link} target="_blank" rel="noopener noreferrer" sx={{ p: 2.5, borderRadius: "16px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", transition: "all 0.2s", textDecoration: "none", "&:hover": { borderColor: "#6366f1", boxShadow: "0 4px 12px rgba(99, 102, 241, 0.08)" } }}>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-                    <Chip label={prob.difficulty} size="small" color={prob.color as any} sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
-                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{prob.timeAgo}</Typography>
-                  </Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: "#0f172a", mb: 1.5 }}>{prob.title}</Typography>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pt: 1, borderTop: "1px solid #f1f5f9" }}>
-                    <Typography variant="caption" sx={{ fontWeight: 700, color: "#64748b" }}>{prob.platform}</Typography>
-                    <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
-                  </Box>
-                </Paper>
+                <a key={prob.id} href={prob.link} target="_blank" rel="noopener noreferrer" className="no-underline">
+                  <Card className="p-5 rounded-2xl border border-slate-200 bg-white hover:border-indigo-500 transition-all hover:shadow-md">
+                    <div className="flex justify-between items-center mb-2">
+                      <Badge variant={prob.variant} className="text-[10px]">
+                        {prob.difficulty}
+                      </Badge>
+                      <span className="text-xs font-bold text-slate-400">{prob.timeAgo}</span>
+                    </div>
+                    <h4 className="font-extrabold text-slate-900 text-sm mb-3">{prob.title}</h4>
+                    <div className="flex justify-between items-center pt-2 border-t border-slate-100 text-xs font-bold text-slate-500">
+                      <span>{prob.platform}</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
+                    </div>
+                  </Card>
+                </a>
               ))}
-            </Box>
-          </Box>
+            </div>
+          </div>
 
           {/* Topic Roadmap & Explorer */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 4 }}>
-            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
-              <Box>
-                <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
-                  <BookOpen className="w-5 h-5 text-indigo-600" /> Topic Roadmap & Detail Explorer
-                </Typography>
-                <Typography variant="caption" sx={{ color: "#64748b" }}>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white mb-8 shadow-xs">
+            <div className="flex flex-wrap justify-between items-center mb-6 gap-3">
+              <div>
+                <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-indigo-600" /> Topic Roadmap &amp; Detail Explorer
+                </h3>
+                <p className="text-xs font-bold text-slate-500 mt-1">
                   Filter algorithms by domain or search for specific data structures
-                </Typography>
-              </Box>
+                </p>
+              </div>
 
-              <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 1 }}>
-                {["All", "Linear", "Technique", "Hierarchical", "Advanced", "Completed"].map((cat) => (
-                  <Chip
-                    key={cat}
-                    label={cat}
-                    size="small"
-                    onClick={() => setActiveCategory(cat)}
-                    color={activeCategory === cat ? "primary" : "default"}
-                    variant={activeCategory === cat ? "filled" : "outlined"}
-                    sx={{ fontWeight: 800, fontSize: "0.7rem", cursor: "pointer" }}
-                  />
-                ))}
-
-                <TextField
-                  placeholder="Search topics..."
-                  size="small"
-                  value={topicSearch}
-                  onChange={(e) => setTopicSearch(e.target.value)}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Search className="w-4 h-4 text-slate-400" />
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                  sx={{ width: { xs: "100%", sm: "200px" }, "& .MuiOutlinedInput-root": { borderRadius: "12px" } }}
-                />
-              </Box>
-            </Box>
-
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "5fr 7fr" }, gap: 3 }}>
-              {/* Topic List */}
-              <Box sx={{ maxHeight: 420, overflowY: "auto", pr: 1 }}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                  {filteredTopics.map((topic) => (
-                    <Button
-                      key={topic.key}
-                      onClick={() => setSelectedTopic(topic.key)}
-                      variant={selectedTopic === topic.key ? "contained" : "outlined"}
-                      color={selectedTopic === topic.key ? "primary" : "inherit"}
-                      sx={{
-                        justifyContent: "space-between",
-                        py: 1.2, px: 2,
-                        borderRadius: "14px",
-                        textTransform: "none",
-                        fontWeight: 800,
-                        fontSize: "0.8rem",
-                        borderColor: "#e2e8f0",
-                      }}
+              <div className="flex flex-wrap items-center gap-2">
+                {["All", "Linear", "Technique", "Hierarchical", "Advanced", "Completed"].map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <Badge
+                      key={cat}
+                      onClick={() => setActiveCategory(cat)}
+                      variant={isActive ? "primary" : "outline"}
+                      className="py-1 px-3 text-xs font-extrabold cursor-pointer"
                     >
-                      <span className="flex items-center gap-2">
-                        {topic.completed ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Zap className="w-4 h-4 text-amber-500" />}
-                        {topic.name}
-                      </span>
-                      <span className="text-[10px] opacity-80">{topic.solved} / {topic.total}</span>
-                    </Button>
-                  ))}
-                </Box>
-              </Box>
+                      {cat}
+                    </Badge>
+                  );
+                })}
+
+                <div className="w-full sm:w-[200px]">
+                  <Input
+                    placeholder="Search topics..."
+                    value={topicSearch}
+                    onChange={(e) => setTopicSearch(e.target.value)}
+                    startAdornment={<Search className="w-4 h-4 text-slate-400" />}
+                    className="h-9 text-xs rounded-xl"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Topic List */}
+              <div className="lg:col-span-5 max-h-[420px] overflow-y-auto pr-1 flex flex-col gap-1.5">
+                {filteredTopics.map((topic) => (
+                  <Button
+                    key={topic.key}
+                    onClick={() => setSelectedTopic(topic.key)}
+                    variant={selectedTopic === topic.key ? "contained" : "outline"}
+                    className={`justify-between py-2.5 px-4 rounded-2xl text-xs font-extrabold border-slate-200 ${
+                      selectedTopic === topic.key ? "bg-indigo-600 text-white" : "bg-white text-slate-800"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      {topic.completed ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Zap className="w-4 h-4 text-amber-500" />}
+                      {topic.name}
+                    </span>
+                    <span className="text-[10px] opacity-80">{topic.solved} / {topic.total}</span>
+                  </Button>
+                ))}
+              </div>
 
               {/* Topic Details */}
-              <Paper elevation={0} sx={{ p: 3, borderRadius: "16px", backgroundColor: "#f8fafc", border: "1px solid #e2e8f0", display: "flex", flexDirection: "column", justify: "space-between" }}>
-                <Box>
-                  <Box sx={{ display: "flex", justify: "space-between", alignItems: "start", mb: 2 }}>
-                    <Box>
-                      <Chip label={activeTopicInfo.category} size="small" color="primary" sx={{ fontWeight: 800, fontSize: "0.65rem", mb: 0.5 }} />
-                      <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a" }}>{activeTopicInfo.name}</Typography>
-                    </Box>
-                    <Typography variant="h5" sx={{ fontWeight: 900, color: "#6366f1" }}>
+              <Card className="lg:col-span-7 p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between shadow-none">
+                <div>
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <Badge variant="primary" className="text-[10px] mb-1">{activeTopicInfo.category}</Badge>
+                      <h4 className="text-lg font-black text-slate-900">{activeTopicInfo.name}</h4>
+                    </div>
+                    <span className="text-2xl font-black text-indigo-600">
                       {((activeTopicInfo.solved / activeTopicInfo.total) * 100).toFixed(0)}%
-                    </Typography>
-                  </Box>
+                    </span>
+                  </div>
 
-                  <Typography variant="body2" sx={{ color: "#475569", mb: 2, lineHeight: 1.6 }}>{activeTopicInfo.details}</Typography>
+                  <p className="text-xs font-medium text-slate-600 mb-4 leading-relaxed">{activeTopicInfo.details}</p>
 
-                  <Box sx={{ mb: 2 }}>
-                    <LinearProgress variant="determinate" value={(activeTopicInfo.solved / activeTopicInfo.total) * 100} sx={{ height: 8, borderRadius: 4 }} />
-                  </Box>
+                  <div className="mb-4">
+                    <Progress value={(activeTopicInfo.solved / activeTopicInfo.total) * 100} className="h-2 bg-slate-200" indicatorClassName="bg-indigo-600" />
+                  </div>
 
-                  <Box sx={{ p: 2, borderRadius: "12px", backgroundColor: "#0f172a", color: "#6ee7b7", fontFamily: "monospace", fontSize: "0.75rem", overflowX: "auto" }}>
+                  <div className="p-4 rounded-xl bg-slate-950 text-emerald-300 font-mono text-xs overflow-x-auto">
                     <pre><code>{activeTopicInfo.codeSnippet}</code></pre>
-                  </Box>
-                </Box>
+                  </div>
+                </div>
 
-                <Box sx={{ pt: 2, mt: 2, borderTop: "1px solid #e2e8f0", display: "flex", justify: "space-between", alignItems: "center" }}>
-                  <Typography variant="caption" sx={{ color: "#64748b" }}>Read full study guide</Typography>
-                  <Link href={`/dsa/${activeTopicInfo.key}`} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1">
-                    Read Study Notes <ChevronRight className="w-3.5 h-3.5" />
+                <div className="pt-4 mt-4 border-t border-slate-200 flex justify-between items-center">
+                  <span className="text-xs font-bold text-slate-500">Read full study guide</span>
+                  <Link href={`/dsa/${activeTopicInfo.key}`}>
+                    <Button variant="default" size="small" className="gap-1 rounded-xl">
+                      Read Study Notes <ChevronRight className="w-3.5 h-3.5" />
+                    </Button>
                   </Link>
-                </Box>
-              </Paper>
-            </Box>
-          </Paper>
+                </div>
+              </Card>
+            </div>
+          </Card>
 
           {/* Interactive C++ Code Runner */}
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 4 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-            <Box sx={{ display: "flex", flexWrap: "wrap", justify: "space-between", alignItems: "center", mb: 3, gap: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", display: "flex", alignItems: "center", gap: 1 }}>
-                <Code2 className="w-5 h-5 text-indigo-600" /> Must-Know C++ Algorithm Patterns & Interactive Runner
-              </Typography>
+          <Card className="p-6 md:p-8 rounded-3xl border border-slate-200 bg-white shadow-xs">
+            <div className="flex flex-wrap justify-between items-center mb-6 gap-3">
+              <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                <Code2 className="w-5 h-5 text-indigo-600" /> Must-Know C++ Algorithm Patterns &amp; Interactive Runner
+              </h3>
 
-              <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+              <div className="flex gap-1.5 flex-wrap">
                 {CPP_PATTERNS.map((pattern) => (
                   <Button
                     key={pattern.id}
                     onClick={() => { setActivePatternTab(pattern.id); setExecutionOutput(null); }}
-                    variant={activePatternTab === pattern.id ? "contained" : "outlined"}
+                    variant={activePatternTab === pattern.id ? "default" : "outline"}
                     size="small"
-                    sx={{ fontWeight: 800, borderRadius: "10px", fontSize: "0.7rem", textTransform: "none" }}
+                    className="text-[11px] font-extrabold rounded-xl"
                   >
                     {pattern.title}
                   </Button>
                 ))}
-              </Box>
-            </Box>
+              </div>
+            </div>
 
-            <Box sx={{ p: 3, borderRadius: "16px", backgroundColor: "#0f172a", border: "1px solid #1e293b" }}>
-              <Box sx={{ display: "flex", justify: "space-between", alignItems: "center", mb: 2 }}>
-                <Typography variant="subtitle2" sx={{ color: "#ffffff", fontWeight: 800 }}>{activePatternInfo.title}</Typography>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Button variant="contained" color="success" size="small" startIcon={<Play className="w-3.5 h-3.5" />} onClick={handleRunCode} disabled={isExecuting} sx={{ fontWeight: 800, borderRadius: "10px", textTransform: "none" }}>
-                    {isExecuting ? "Executing..." : "Run Test Cases"}
+            <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800">
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-sm font-extrabold text-white">{activePatternInfo.title}</span>
+                <div className="flex gap-2">
+                  <Button variant="contained" size="small" onClick={handleRunCode} disabled={isExecuting} className="bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5">
+                    <Play className="w-3.5 h-3.5" /> {isExecuting ? "Executing..." : "Run Test Cases"}
                   </Button>
-                  <Button variant="outlined" size="small" startIcon={copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />} onClick={() => handleCopyCode(activePatternInfo.code)} sx={{ fontWeight: 800, borderRadius: "10px", color: "#ffffff", borderColor: "#334155", textTransform: "none" }}>
+                  <Button variant="outline" size="small" onClick={() => handleCopyCode(activePatternInfo.code)} className="border-slate-700 text-white hover:bg-slate-800 gap-1.5">
+                    {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     {copiedCode ? "Copied" : "Copy C++"}
                   </Button>
-                </Box>
-              </Box>
+                </div>
+              </div>
 
-              <pre className="text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed p-3 bg-slate-900 rounded-xl mb-3">
+              <pre className="text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed p-4 bg-slate-900 rounded-xl mb-3">
                 <code>{activePatternInfo.code}</code>
               </pre>
 
               {executionOutput && (
-                <Box sx={{ p: 2, borderRadius: "12px", backgroundColor: "#064e3b", border: "1px solid #059669", color: "#6ee7b7", fontFamily: "monospace", fontSize: "0.75rem" }}>
-                  <pre>{executionOutput}</pre>
-                </Box>
+                <div className="p-4 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-300 font-mono text-xs">
+                  <pre className="whitespace-pre-wrap">{executionOutput}</pre>
+                </div>
               )}
-            </Box>
-          </Paper>
+            </div>
+          </Card>
 
-        </Box>
-      </Box>
+        </div>
+      </div>
     </>
   );
 }

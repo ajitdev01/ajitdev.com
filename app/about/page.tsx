@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AboutMuiContent from "@/app/components/about/AboutMuiContent";
+import AboutContent from "@/app/components/about/AboutContent";
 import JSONLD from "@/app/components/JSONLD";
 import { getProfilePageSchema } from "@/lib/schema";
 import { PAGE_KEYWORDS } from "@/lib/seo";
@@ -43,7 +43,7 @@ export default function AboutPage() {
   return (
     <>
       <JSONLD schema={profileSchema} />
-      <AboutMuiContent />
+      <AboutContent />
     </>
   );
 }

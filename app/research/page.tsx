@@ -1,25 +1,17 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-  Button,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
   BookOpen,
   ArrowRight,
   Shield,
   Cpu,
-  Layers,
-  Key,
   Terminal,
   Clock,
-  Calendar,
 } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 import { RESEARCH_DB } from "@/lib/research";
@@ -84,109 +76,98 @@ export default function ResearchIndexPage() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <JSONLD schema={collectionSchema} />
       <JSONLD schema={breadcrumbSchema} />
 
-      <Container maxWidth="lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Link */}
-        <Link href="/" className="no-underline">
-          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
-            Back to Home
-          </Button>
-        </Link>
+        <div className="mb-6">
+          <Link href="/">
+            <Button variant="ghost" size="small" className="gap-2 text-slate-500 font-extrabold">
+              <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Home
+            </Button>
+          </Link>
+        </div>
 
-        {/* Hero Banner Paper */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #f3e8ff 0%, #ffffff 50%, #eef2ff 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#f3e8ff", color: "#9333ea", mb: 2 }}>
+        {/* Hero Banner Card */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 via-white to-indigo-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-purple-100 text-purple-600 mb-4">
             <BookOpen className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
-            Systems Engineering & Security Research
-          </Typography>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
+            Systems Engineering &amp; Security Research
+          </h1>
 
-          <Typography variant="h6" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
             Whitepapers • Docker Internals • Linux Kernel Namespaces • Zero-Trust IAM Architectures
-          </Typography>
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#9333ea", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-purple-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<Cpu className="w-3.5 h-3.5 text-purple-600" />} label="Virtualization & Containers" color="secondary" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Shield className="w-3.5 h-3.5 text-emerald-600" />} label="Zero Trust Security" color="success" size="small" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Terminal className="w-3.5 h-3.5 text-indigo-600" />} label="Linux Cgroups & Namespaces" color="primary" size="small" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="secondary" className="py-1 px-3 text-xs gap-1.5">
+              <Cpu className="w-3.5 h-3.5 text-purple-600" /> Virtualization &amp; Containers
+            </Badge>
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-emerald-600" /> Zero Trust Security
+            </Badge>
+            <Badge variant="primary" className="py-1 px-3 text-xs gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-indigo-600" /> Linux Cgroups &amp; Namespaces
+            </Badge>
+          </div>
+        </Card>
 
         {/* Research Papers Grid */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(3, 1fr)" }, gap: 4 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {RESEARCH_PAPERS.map((paper) => {
             const IconComp = paper.icon;
             return (
-              <Paper
+              <Card
                 key={paper.slug}
-                elevation={0}
-                sx={{
-                  p: 3,
-                  borderRadius: "24px",
-                  border: "1px solid #e2e8f0",
-                  backgroundColor: "#ffffff",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "all 0.25s ease-out",
-                  "&:hover": { transform: "translateY(-6px)", boxShadow: "0 12px 30px rgba(0,0,0,0.06)", borderColor: "#cbd5e1" },
-                }}
+                className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between transition-all duration-250 hover:-translate-y-1.5 hover:shadow-lg hover:border-slate-300"
               >
-                <Box>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                    <Chip label={paper.category} color="secondary" size="small" sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
-                    <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{paper.date}</Typography>
-                  </Box>
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <Badge variant="secondary" className="text-[10px] font-extrabold">
+                      {paper.category}
+                    </Badge>
+                    <span className="text-xs font-bold text-slate-400">{paper.date}</span>
+                  </div>
 
-                  <Box sx={{ width: 44, height: 44, borderRadius: "14px", backgroundColor: "#f3e8ff", color: "#9333ea", display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                  <div className="w-11 h-11 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4">
                     <IconComp className="w-5 h-5" />
-                  </Box>
+                  </div>
 
                   <Link href={`/research/${paper.slug}`} className="no-underline">
-                    <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", fontSize: "1.05rem", mb: 1, "&:hover": { color: "#9333ea" } }}>
+                    <h3 className="font-black text-slate-900 text-lg leading-snug mb-2 hover:text-purple-600 transition-colors">
                       {paper.title}
-                    </Typography>
+                    </h3>
                   </Link>
 
-                  <Typography variant="body2" sx={{ color: "#64748b", fontSize: "0.85rem", mb: 2, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                  <p className="text-xs sm:text-sm font-medium text-slate-500 line-clamp-3 leading-relaxed mb-4">
                     {paper.summary}
-                  </Typography>
-                </Box>
+                  </p>
+                </div>
 
-                <Box sx={{ pt: 2, borderTop: "1px solid #f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700, display: "flex", alignItems: "center", gap: 0.5 }}>
-                    <Clock className="w-3.5 h-3.5" /> {paper.readTime}
-                  </Typography>
+                <div className="pt-3 border-t border-slate-100 flex justify-between items-center">
+                  <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-slate-400" /> {paper.readTime}
+                  </span>
                   <Link href={`/research/${paper.slug}`} className="no-underline">
-                    <Button size="small" endIcon={<ArrowRight className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#9333ea" }}>
-                      Read Article
+                    <Button variant="link" size="sm" className="gap-1 font-extrabold text-purple-600">
+                      Read Article <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
-                </Box>
-              </Paper>
+                </div>
+              </Card>
             );
           })}
-        </Box>
+        </div>
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

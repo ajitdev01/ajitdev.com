@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Folder,
   BarChart3,
-  TrendingUp,
-  Book,
   Database,
   Globe,
   Zap,
   MapPin,
   Briefcase,
   Flame,
-  Award,
   Trophy,
 } from "lucide-react";
 import ProjectsSection from "../components/projects/ProjectsSection";
@@ -62,10 +53,10 @@ const stats = [
 ];
 
 const highlights = [
-  { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: Database, color: "primary" as const },
-  { title: "DSA Problem Solving", description: "632+ combined LeetCode & NeetCode", count: 1, icon: BarChart3, color: "warning" as const },
-  { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: Globe, color: "info" as const },
-  { title: "Production Mindset", description: "Real-world scalable web apps", count: 8, icon: Zap, color: "success" as const }
+  { title: "MERN Stack Mastery", description: "Full-stack JavaScript applications", count: 4, icon: Database },
+  { title: "DSA Problem Solving", description: "632+ combined LeetCode & NeetCode", count: 1, icon: BarChart3 },
+  { title: "SEO Engineering", description: "Structured data & Core Web Vitals", count: 1, icon: Globe },
+  { title: "Production Mindset", description: "Real-world scalable web apps", count: 8, icon: Zap }
 ];
 
 export default function ProjectsPage() {
@@ -76,108 +67,98 @@ export default function ProjectsPage() {
   );
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <JSONLD schema={collectionSchema} />
-      <Container maxWidth="lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ===== HERO BANNER PAPER ===== */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, sm: 5 },
-            mb: 6,
-            borderRadius: "24px",
-            border: "1px solid #e2e8f0",
-            background: "linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f0fdf4 100%)",
-            textAlign: "center",
-          }}
-        >
-          <Box sx={{ display: "inline-flex", p: 2, borderRadius: "20px", backgroundColor: "#e0e7ff", color: "#4f46e5", mb: 2 }}>
+        {/* HERO BANNER CARD */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-center shadow-xs">
+          <div className="inline-flex p-4 rounded-2xl bg-indigo-100 text-indigo-600 mb-4">
             <Folder className="w-8 h-8" />
-          </Box>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, fontSize: { xs: "2rem", md: "3rem" } }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2">
             Projects Portfolio
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" component="p" sx={{ color: "#334155", fontWeight: 800, mb: 3 }}>
+          <p className="text-sm sm:text-base font-extrabold text-slate-700 mb-4">
             MERN • LAMP • Next.js • <span className="text-amber-600 font-black">632+ DSA Problems Solved</span>
-          </Typography>
+          </p>
 
-          <Box sx={{ width: 96, height: 4, borderRadius: 2, backgroundColor: "#6366f1", mx: "auto", mb: 3 }} />
+          <div className="w-24 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1.5 }}>
-            <Chip icon={<MapPin className="w-3.5 h-3.5 text-blue-600" />} label="Katihar, Bihar, India" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Briefcase className="w-3.5 h-3.5 text-emerald-600" />} label="Full Stack Engineer & Problem Solver" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
-            <Chip icon={<Flame className="w-3.5 h-3.5 text-amber-500" />} label="231-Day Active Streak" color="success" size="small" sx={{ fontWeight: 800 }} />
-          </Box>
-        </Paper>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-blue-600" /> Katihar, Bihar, India
+            </Badge>
+            <Badge variant="outline" className="py-1 px-3 text-xs gap-1.5">
+              <Briefcase className="w-3.5 h-3.5 text-emerald-600" /> Full Stack Engineer &amp; Problem Solver
+            </Badge>
+            <Badge variant="success" className="py-1 px-3 text-xs gap-1.5">
+              <Flame className="w-3.5 h-3.5 text-amber-500" /> 231-Day Active Streak
+            </Badge>
+          </div>
+        </Card>
 
-        {/* ===== CLIENT PROJECTS SECTION ===== */}
+        {/* CLIENT PROJECTS SECTION */}
         <ProjectsSection />
 
-        {/* ===== STATS METRICS GRID ===== */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 3, mb: 8 }}>
+        {/* STATS METRICS GRID */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {stats.map((s, i) => {
             const StatIcon = s.icon;
             return (
-              <Paper
+              <Card
                 key={i}
-                elevation={0}
-                sx={{
-                  p: 3,
-                  borderRadius: "20px",
-                  border: "1px solid #e2e8f0",
-                  backgroundColor: "#ffffff",
-                  textAlign: "center",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "translateY(-4px)" },
-                }}
+                className="p-6 rounded-2xl border border-slate-200 bg-white text-center transition-all hover:-translate-y-1 shadow-xs"
               >
-                <Box sx={{ width: 40, height: 40, borderRadius: "12px", backgroundColor: "#f8fafc", color: s.color, display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 1.5 }}>
+                <div
+                  className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center mx-auto mb-3"
+                  style={{ color: s.color }}
+                >
                   <StatIcon className="w-5 h-5" />
-                </Box>
-                <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 0.5 }}>{s.value}</Typography>
-                <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{s.label}</Typography>
-              </Paper>
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-1">{s.value}</h3>
+                <p className="text-xs font-extrabold text-slate-500">{s.label}</p>
+              </Card>
             );
           })}
-        </Box>
+        </div>
 
-        {/* ===== PORTFOLIO HIGHLIGHTS GRID ===== */}
-        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 8 }}>
-          <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 1, textAlign: "center" }}>
+        {/* PORTFOLIO HIGHLIGHTS GRID */}
+        <Card className="p-6 md:p-10 rounded-3xl border border-slate-200 bg-white mb-12 shadow-xs">
+          <h2 className="text-2xl font-black text-slate-900 mb-1 text-center">
             Portfolio Highlights
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#64748b", mb: 4, textAlign: "center" }}>
+          </h2>
+          <p className="text-sm font-medium text-slate-500 mb-8 text-center">
             Specialized engineering expertise across multiple domains
-          </Typography>
+          </p>
 
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" }, gap: 3 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {highlights.map((h, idx) => {
               const HighlightIcon = h.icon;
               return (
-                <Paper key={idx} elevation={0} sx={{ p: 2.5, borderRadius: "16px", backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
-                    <Box sx={{ p: 1, borderRadius: "10px", backgroundColor: "#ffffff", border: "1px solid #e2e8f0" }}>
+                <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 rounded-xl bg-white border border-slate-200 shrink-0">
                       <HighlightIcon className="w-4 h-4 text-indigo-600" />
-                    </Box>
-                    <Box>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", fontSize: "0.85rem" }}>{h.title}</Typography>
-                      <Typography variant="caption" sx={{ color: "#64748b", fontSize: "0.7rem", display: "block" }}>{h.description}</Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ textAlign: "right" }}>
-                    <Typography variant="h6" component="span" sx={{ fontWeight: 900, color: "#4f46e5" }}>{h.count}</Typography>
-                    <Typography variant="caption" sx={{ color: "#64748b", ml: 0.5 }}>projects</Typography>
-                  </Box>
-                </Paper>
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">{h.title}</h4>
+                      <p className="text-[11px] font-medium text-slate-500">{h.description}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xl font-black text-indigo-600">{h.count}</span>
+                    <span className="text-xs font-semibold text-slate-400 ml-1">projects</span>
+                  </div>
+                </div>
               );
             })}
-          </Box>
-        </Paper>
+          </div>
+        </Card>
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }

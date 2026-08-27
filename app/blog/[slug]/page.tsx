@@ -3,22 +3,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  Chip,
-  Button,
-} from "@mui/material";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
   Calendar,
   Clock,
-  Tag,
   BookOpen,
   ArrowRight,
-  User,
 } from "lucide-react";
 import { getPostBySlug, getPostSlugs, getPostsByCategory, getAllPosts } from "@/lib/blog";
 import { MDXComponents } from "@/app/components/MDXComponents";
@@ -222,60 +215,62 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
     const posts = getPostsByCategory(slug);
 
     return (
-      <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc", pt: { xs: 16, md: 20 }, pb: 12 }}>
-        <Container maxWidth="lg">
-          <Link href="/blog" className="no-underline">
-            <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
-              Back to Blog Archive
-            </Button>
-          </Link>
+      <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6">
+            <Link href="/blog">
+              <Button variant="ghost" size="small" className="gap-2 text-slate-500 font-extrabold">
+                <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Blog Archive
+              </Button>
+            </Link>
+          </div>
 
-          <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", mb: 6 }}>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "capitalize", mb: 1 }}>
-              {resolvedParams.slug.replace("-", " ")} Guides & Playbooks
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#64748b", lineHeight: 1.7 }}>
+          <Card className="p-6 md:p-10 rounded-3xl border border-slate-200 bg-white mb-8 shadow-xs">
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 capitalize mb-2">
+              {resolvedParams.slug.replace("-", " ")} Guides &amp; Playbooks
+            </h1>
+            <p className="text-slate-600 font-medium leading-relaxed text-base">
               {info.desc}
-            </Typography>
-          </Paper>
+            </p>
+          </Card>
 
           {posts.length > 0 ? (
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(3, 1fr)" }, gap: 4 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <Paper key={post.slug} elevation={0} sx={{ p: 3, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                  <Box>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                      <Chip label={post.category} color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.65rem" }} />
-                      <Typography variant="caption" sx={{ color: "#64748b", fontWeight: 700 }}>{post.readingTime}</Typography>
-                    </Box>
+                <Card key={post.slug} className="p-6 rounded-3xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
+                  <div>
+                    <div className="flex justify-between items-center mb-3">
+                      <Badge variant="primary" className="text-[10px] font-extrabold">{post.category}</Badge>
+                      <span className="text-xs font-bold text-slate-500">{post.readingTime}</span>
+                    </div>
                     <Link href={`/blog/${post.slug}`} className="no-underline">
-                      <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a", fontSize: "1.05rem", mb: 1, "&:hover": { color: "#4f46e5" } }}>
+                      <h3 className="font-black text-slate-900 text-lg mb-2 hover:text-indigo-600 transition-colors leading-snug">
                         {post.title}
-                      </Typography>
+                      </h3>
                     </Link>
-                    <Typography variant="body2" sx={{ color: "#64748b", fontSize: "0.85rem", mb: 2 }}>
+                    <p className="text-xs sm:text-sm font-medium text-slate-500 mb-4 line-clamp-3 leading-relaxed">
                       {post.description}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ pt: 2, borderTop: "1px solid #f1f5f9", textAlign: "right" }}>
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-100 text-right">
                     <Link href={`/blog/${post.slug}`} className="no-underline">
-                      <Button size="small" endIcon={<ArrowRight className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#4f46e5" }}>
-                        Read Article
+                      <Button variant="link" size="sm" className="gap-1 font-extrabold text-indigo-600">
+                        Read Article <ArrowRight className="w-4 h-4" />
                       </Button>
                     </Link>
-                  </Box>
-                </Paper>
+                  </div>
+                </Card>
               ))}
-            </Box>
+            </div>
           ) : (
-            <Paper elevation={0} sx={{ p: 6, textAlign: "center", borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff" }}>
-              <Typography variant="h6" sx={{ color: "#64748b", fontWeight: 800 }}>
+            <Card className="p-12 text-center rounded-3xl border border-slate-200 bg-white">
+              <p className="text-base font-extrabold text-slate-500">
                 No articles published in this category yet. Stay tuned!
-              </Typography>
-            </Paper>
+              </p>
+            </Card>
           )}
-        </Container>
-      </Box>
+        </div>
+      </div>
     );
   }
 
@@ -301,144 +296,149 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
   }
 
   const allPosts = getAllPosts();
-  const currentIdx = allPosts.findIndex((p) => p.slug === post.slug);
-  const prevPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
-  const nextPost = currentIdx < allPosts.length - 1 ? allPosts[currentIdx + 1] : null;
 
   const relatedPosts = allPosts
     .filter((p) => p.slug !== post.slug && (p.category.toLowerCase() === post.category.toLowerCase() || p.tags.some((t) => post.tags.some(pt => pt.toLowerCase() === t.toLowerCase()))))
     .slice(0, 3);
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#ffffff", pt: { xs: 16, md: 20 }, pb: 12 }}>
+    <div className="min-h-screen bg-white pt-32 md:pt-40 pb-24">
       <JSONLD schema={getBlogPostingSchema(post)} />
-      <Container maxWidth="lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Link */}
-        <Link href="/blog" className="no-underline">
-          <Button startIcon={<ArrowLeft className="w-4 h-4" />} sx={{ fontWeight: 800, textTransform: "none", color: "#64748b", mb: 3 }}>
-            Back to Blog Archive
-          </Button>
-        </Link>
+        <div className="mb-6">
+          <Link href="/blog">
+            <Button variant="ghost" size="small" className="gap-2 text-slate-500 font-extrabold">
+              <ArrowLeft className="w-4 h-4 text-indigo-600" /> Back to Blog Archive
+            </Button>
+          </Link>
+        </div>
 
-        {/* Article Header Paper */}
-        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", mb: 6 }}>
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
-            <Chip label={post.category} color="primary" size="small" sx={{ fontWeight: 800 }} />
+        {/* Article Header Card */}
+        <Card className="p-6 sm:p-10 mb-8 rounded-3xl border border-slate-200 bg-slate-50 shadow-xs">
+          <div className="flex flex-wrap gap-2 mb-3">
+            <Badge variant="primary" className="font-extrabold">{post.category}</Badge>
             {post.difficulty && (
-              <Chip label={`Difficulty: ${post.difficulty}`} color="success" size="small" variant="outlined" sx={{ fontWeight: 800 }} />
+              <Badge variant="success" className="font-extrabold">Difficulty: {post.difficulty}</Badge>
             )}
-            <Chip icon={<Calendar className="w-3.5 h-3.5" />} label={`Published: ${post.date}`} size="small" variant="outlined" sx={{ fontWeight: 700 }} />
-            <Chip icon={<Clock className="w-3.5 h-3.5" />} label={`Reading Time: ${post.readingTime}`} size="small" variant="outlined" sx={{ fontWeight: 700 }} />
-          </Box>
+            <Badge variant="outline" className="font-bold gap-1">
+              <Calendar className="w-3.5 h-3.5" /> Published: {post.date}
+            </Badge>
+            <Badge variant="outline" className="font-bold gap-1">
+              <Clock className="w-3.5 h-3.5" /> Reading Time: {post.readingTime}
+            </Badge>
+          </div>
 
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 900, color: "#0f172a", fontSize: { xs: "1.8rem", md: "2.8rem" }, mb: 2, lineHeight: 1.25 }}>
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-3 leading-tight">
             {post.title}
-          </Typography>
+          </h1>
 
-          <Typography variant="h6" sx={{ color: "#475569", fontWeight: 700, fontSize: "1.1rem", mb: 3, lineHeight: 1.6 }}>
+          <p className="text-base sm:text-lg font-bold text-slate-600 mb-4 leading-relaxed">
             {post.description}
-          </Typography>
+          </p>
 
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.8 }}>
+          <div className="flex flex-wrap gap-1.5">
             {post.tags.map((tag) => (
-              <Chip key={tag} label={`#${tag}`} size="small" variant="outlined" sx={{ fontWeight: 700, fontSize: "0.7rem" }} />
+              <Badge key={tag} variant="outline" className="text-[11px] font-bold">
+                #{tag}
+              </Badge>
             ))}
-          </Box>
-        </Paper>
+          </div>
+        </Card>
 
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: headings.length > 0 ? "3fr 9fr" : "1fr" }, gap: 6 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* TOC Sidebar */}
           {headings.length > 0 && (
-            <Box sx={{ display: { xs: "none", lg: "block" } }}>
-              <Paper elevation={0} sx={{ p: 3, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc", position: "sticky", top: 120 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", textTransform: "uppercase", letterSpacing: "1px", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+            <div className="hidden lg:block lg:col-span-3">
+              <Card className="p-6 rounded-2xl border border-slate-200 bg-slate-50 sticky top-32 shadow-xs">
+                <span className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5 mb-3">
                   <BookOpen className="w-4 h-4 text-indigo-600" /> Table of Contents
-                </Typography>
-                <Box component="nav" sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                </span>
+                <nav className="flex flex-col gap-2">
                   {headings.map((h) => (
                     <a
                       key={h.id}
                       href={`#${h.id}`}
-                      className="text-xs font-bold text-slate-600 hover:text-indigo-600 no-underline transition-colors"
+                      className="text-xs font-bold text-slate-600 hover:text-indigo-600 no-underline transition-colors leading-snug"
                       style={{ paddingLeft: h.level === 3 ? "12px" : "0px" }}
                     >
                       {h.text}
                     </a>
                   ))}
-                </Box>
-              </Paper>
-            </Box>
+                </nav>
+              </Card>
+            </div>
           )}
 
           {/* Article Body */}
-          <Box>
-            <Box className="prose prose-indigo max-w-none">
+          <div className={headings.length > 0 ? "lg:col-span-9" : "lg:col-span-12"}>
+            <div className="prose prose-indigo max-w-none">
               <MDXRemote source={post.content} components={MDXComponents} />
-            </Box>
+            </div>
 
-            {/* Author Bio Paper */}
-            <Paper elevation={0} sx={{ p: 4, mt: 8, borderRadius: "24px", border: "1px solid #e2e8f0", backgroundColor: "#f8fafc" }}>
-              <Box sx={{ display: "flex", gap: 3, alignItems: "start" }}>
-                <Box sx={{ width: 52, height: 52, borderRadius: "16px", backgroundColor: "#4f46e5", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, flexShrink: 0 }}>
+            {/* Author Bio Card */}
+            <Card className="p-6 md:p-8 mt-12 rounded-3xl border border-slate-200 bg-slate-50 shadow-xs">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg shrink-0">
                   AD
-                </Box>
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 900, color: "#0f172a" }}>
+                </div>
+                <div>
+                  <h4 className="text-lg font-black text-slate-900">
                     Ajit Dev <span className="text-slate-500 font-bold text-sm">(@ajitdev01)</span>
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#64748b", mt: 0.5, mb: 2 }}>
-                    Full Stack Developer, DevOps Engineer & Cloud Security Specialist from Katihar, Bihar, India.
-                  </Typography>
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                    {[
-                      { name: "GitHub", url: "https://github.com/ajitdev01" },
-                      { name: "LinkedIn", url: "https://linkedin.com/in/ajitdev01" },
-                      { name: "LeetCode", url: "https://leetcode.com/ajitdev01" },
-                    ].map((link) => (
-                      <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="text-xs font-extrabold text-indigo-600 hover:underline">
-                        {link.name}
-                      </a>
-                    ))}
-                  </Box>
-                </Box>
-              </Box>
-            </Paper>
+                  </h4>
+                  <p className="text-xs sm:text-sm font-medium text-slate-600 mt-1 mb-3">
+                    Full Stack Developer, DevOps Engineer &amp; Cloud Security Specialist from Katihar, Bihar, India.
+                  </p>
+                  <div className="flex flex-wrap gap-3 text-xs font-extrabold text-indigo-600">
+                    <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      LinkedIn
+                    </a>
+                    <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      LeetCode
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Card>
 
             {/* Related Articles */}
             {relatedPosts.length > 0 && (
-              <Box sx={{ mt: 8 }}>
-                <Typography variant="h5" sx={{ fontWeight: 900, color: "#0f172a", mb: 3 }}>
+              <div className="mt-12">
+                <h3 className="text-2xl font-black text-slate-900 mb-6">
                   Related Engineering Articles
-                </Typography>
-                <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" }, gap: 3 }}>
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {relatedPosts.map((rp) => (
-                    <Paper key={rp.slug} elevation={0} sx={{ p: 3, borderRadius: "20px", border: "1px solid #e2e8f0", backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                      <Box>
-                        <Chip label={rp.category} color="primary" size="small" sx={{ fontWeight: 800, fontSize: "0.6rem", mb: 1 }} />
+                    <Card key={rp.slug} className="p-5 rounded-2xl border border-slate-200 bg-white flex flex-col justify-between shadow-xs">
+                      <div>
+                        <Badge variant="primary" className="text-[10px] mb-2">{rp.category}</Badge>
                         <Link href={`/blog/${rp.slug}`} className="no-underline">
-                          <Typography variant="subtitle2" sx={{ fontWeight: 900, color: "#0f172a", "&:hover": { color: "#4f46e5" }, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", mb: 1 }}>
+                          <h4 className="font-black text-slate-900 text-sm line-clamp-2 hover:text-indigo-600 transition-colors mb-2">
                             {rp.title}
-                          </Typography>
+                          </h4>
                         </Link>
-                      </Box>
+                      </div>
                       <Link href={`/blog/${rp.slug}`} className="no-underline">
-                        <Button size="small" endIcon={<ArrowRight className="w-3.5 h-3.5" />} sx={{ fontWeight: 800, textTransform: "none", color: "#4f46e5", p: 0 }}>
-                          Read Article
+                        <Button variant="link" size="sm" className="gap-1 p-0 text-indigo-600 font-extrabold">
+                          Read Article <ArrowRight className="w-3.5 h-3.5" />
                         </Button>
                       </Link>
-                    </Paper>
+                    </Card>
                   ))}
-                </Box>
-              </Box>
+                </div>
+              </div>
             )}
 
-          </Box>
+          </div>
 
-        </Box>
+        </div>
 
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 }
