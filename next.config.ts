@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://static.cloudflareinsights.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*.githubusercontent.com https://img.youtube.com https://www.clarity.ms https://*.clarity.ms https://c.bing.com https://*.bing.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://*.doubleclick.net; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://stats.g.doubleclick.net https://*.doubleclick.net https://*.google.com https://*.clarity.ms https://cloudflareinsights.com https://*.cloudflareinsights.com https://c.bing.com https://*.bing.com; frame-src 'self' https://www.youtube.com https://www.googletagmanager.com; object-src 'none'; upgrade-insecure-requests;",
+    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://static.cloudflareinsights.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*.githubusercontent.com https://img.youtube.com https://www.clarity.ms https://*.clarity.ms https://c.bing.com https://*.bing.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://*.doubleclick.net https://*.google.com https://*.gstatic.com https://*.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://stats.g.doubleclick.net https://*.doubleclick.net https://*.google.com https://*.clarity.ms https://cloudflareinsights.com https://*.cloudflareinsights.com https://c.bing.com https://*.bing.com; frame-src 'self' https://www.youtube.com https://www.googletagmanager.com https://www.google.com https://*.google.com https://maps.google.com https://*.google.co.in; object-src 'none'; upgrade-insecure-requests;",
   },
   {
     key: 'Strict-Transport-Security',
@@ -11,7 +11,7 @@ const securityHeaders = [
   },
   {
     key: 'X-Frame-Options',
-    value: 'DENY',
+    value: 'SAMEORIGIN',
   },
   {
     key: 'X-Content-Type-Options',
@@ -27,11 +27,7 @@ const securityHeaders = [
   },
   {
     key: 'Cross-Origin-Opener-Policy',
-    value: 'same-origin',
-  },
-  {
-    key: 'Cross-Origin-Resource-Policy',
-    value: 'same-origin',
+    value: 'same-origin-allow-popups',
   },
 ];
 
