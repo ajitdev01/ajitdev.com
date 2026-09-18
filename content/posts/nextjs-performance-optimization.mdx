@@ -1,0 +1,44 @@
+---
+title: "Next.js Core Web Vitals: Reaching 100/100 PageSpeed & Lighthouse Scores"
+description: "An optimization guide on tuning Next.js layouts, loading static resources with custom prioritization, optimizing images, and reducing server execution delays."
+date: "2026-06-15"
+category: "Next.js"
+tags: ["Next.js", "React", "PageSpeed", "Lighthouse", "Web Performance"]
+faq:
+  - question: "What is Largest Contentful Paint (LCP)?"
+    answer: "LCP measures the time it takes for the primary, largest visual element on the page (usually a header banner or hero image) to render completely."
+  - question: "How do you optimize fonts in Next.js?"
+    answer: "By using the next/font module, which downloads Google Fonts at build time and embeds them locally to avoid render-blocking network hits."
+  - question: "Why should we avoid Cumulative Layout Shift (CLS)?"
+    answer: "CLS measures unexpected page content movements during loading. It occurs when layout spaces are not reserved for loading components like pictures or widgets."
+---
+
+Lighthouse audit scores directly impact search index priority and user interaction conversions. Modern web architectures require strict asset loading strategies to maintain responsive viewports on slower mobile connections.
+
+## 1. Asset Optimization Strategies
+
+To achieve a 100/100 Lighthouse score, Next.js implements several features:
+* **next/font**: Subsets fonts and automatically compiles styles locally.
+* **next/image**: Serves compressed AVIF/WebP formats with explicit dimension overrides.
+* **next/script**: Defers non-essential Javascript (like analytics trackers) using the `afterInteractive` strategy.
+
+```typescript
+import Image from 'next/image';
+
+export default function HeroImage() {
+  return (
+    <Image 
+      src="/hero-banner.png" 
+      alt="Ajit Dev — Full Stack Portfolio Banner" 
+      width={1200} 
+      height={630} 
+      priority
+      className="rounded-xl shadow-lg"
+    />
+  );
+}
+```
+
+## 2. Server vs Client Component Hydration
+
+By using Server Components (`RSC`) by default, we execute logic on the server and transmit static layout structures, preventing client-side hydrations of unchanged layouts. This drastically reduces the total JS bundle size.

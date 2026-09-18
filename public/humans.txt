@@ -1,0 +1,22 @@
+/* TEAM */
+Chef / Developer: Ajit Kumar (ajitdev01)
+Contact: support@ajitdev.com
+Twitter: @ajitdev01
+From: Katihar, Bihar, India
+
+/* THANKS */
+Google DeepMind
+Vercel Developer Community
+Tailwind CSS Creators
+Framer Motion Creators
+
+/* SITE */
+Standards: HTML5, CSS3, ESNext
+Components: Next.js 16 (App Router), React 19, TypeScript
+Styling: Tailwind CSS v4, Vanilla CSS
+Animation: Framer Motion
+Hosting: Vercel Cloud Platform
+Speed metrics: PageSpeed Optimization, Edge Caching, CDN
+Security standards: Content Security Policy, RFC 9116 security.txt
+PWA features: Service Worker Offline Caching, Native Manifest
+Telemetry: GA4, Microsoft Clarity, Vercel Telemetry

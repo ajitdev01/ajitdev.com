@@ -1,0 +1,189 @@
+---
+title: "The Comprehensive DSA Playbook: From Basic Arrays to Advanced Segment Trees"
+description: "An expert-level compilation of Data Structures and Algorithms (DSA). Complexity analysis, tree/graph structures, backtracking, dynamic programming, and dynamic union-find algorithms."
+date: "2026-06-22"
+updatedDate: "2026-06-26"
+category: "DSA"
+tags: ["DSA", "Algorithms", "Data Structures", "LeetCode", "C++"]
+difficulty: "Hard"
+estimatedReadingTime: "35 min read"
+faq:
+  - question: "What is Time Complexity?"
+    answer: "Time complexity represents the mathematical model describing the growth rate of algorithm execution time relative to input data size, typically modeled using Big O notation."
+  - question: "How does Dynamic Programming work?"
+    answer: "Dynamic Programming breaks down complex challenges into overlapping subproblems, solving each once and saving solutions inside memoization tables to save computation time."
+  - question: "When is a Segment Tree used?"
+    answer: "Segment Trees are deployed to process range queries (sum, min, max) and point updates on array lists in fast logarithmic time."
+---
+
+## Key Takeaways (TL;DR)
+* **Big O Bounds**: Always analyze algorithms based on worst-case bounds. Standard arrays allow O(1) lookups but O(N) linear insertions.
+* **Divide & Conquer**: Recursion combined with partitions underpins sorting algorithms (QuickSort, MergeSort) and search structures.
+* **Index Offsets**: Pointer algorithms (Two-Pointer, Sliding Window) optimize O(N²) quadratic loops down to linear O(N) times.
+
+---
+
+## 1. Complexity Analysis & Big O Notation
+We analyze algorithms by tracking execution bounds relative to input sizes:
+* **O(1) - Constant**: Constant execution time (hash table lookups, basic operations).
+* **O(log N) - Logarithmic**: Data sets are split in halves (Binary Search, Heap operations).
+* **O(N) - Linear**: Elements are checked sequentially (Linear Search, single loops).
+* **O(N log N) - Linear-Logarithmic**: Standard sorting algorithms (MergeSort, HeapSort).
+* **O(N²) - Quadratic**: Nested loops checking item pairs (BubbleSort, nested operations).
+
+---
+
+## 2. Linear Structures & Optimization Patterns
+
+### Arrays & Strings
+Contiguous memory configurations. Accessing offsets is constant, while inserting items requires shifting elements.
+
+### Two-Pointer & Sliding Window
+Instead of checking nested indices, we maintain boundaries using pointer variables:
+* **Two-Pointer**: Pointers start at opposite ends or adjacent slots.
+* **Sliding Window**: A subarray window expands and contracts dynamically as it moves.
+
+```cpp
+// C++ Two-Pointer example: Checking palindrome
+#include <iostream>
+#include <string>
+
+bool isPalindrome(const std::string& str) {
+    int left = 0;
+    int right = str.length() - 1;
+    while (left < right) {
+        if (str[left] != str[right]) return false;
+        left++;
+        right--;
+    }
+    return true;
+}
+```
+
+### Hashing
+Map keys to bucket index coordinates. Yields fast O(1) average insertions, deletions, and searches.
+
+---
+
+## 3. Nodes and Queues: Linked Lists, Stacks, and Queues
+
+### Linked Lists
+Data elements (nodes) linked together via pointers.
+* Singly, doubly, and circular chains.
+* Fast insertion at head without elements shifting.
+
+### Stacks & Queues
+* **Stack**: Last-In-First-Out (LIFO) array buffer. Operations: `push`, `pop`, `peek`.
+* **Queue**: First-In-First-Out (FIFO) buffer. Operations: `enqueue`, `dequeue`.
+
+---
+
+## 4. Hierarchical Non-Linear Structures: Trees & Graphs
+
+### Trees & BST
+* **Binary Trees**: Each node has at most two children.
+* **Binary Search Trees (BST)**: Left child < parent < right child.
+* **Heaps (Priority Queues)**: Min/Max heaps satisfy the heap order property.
+* **Tries (Prefix Trees)**: Trees optimized for character/string dictionary search operations.
+
+```cpp
+// BST Node definition
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+```
+
+### Graphs
+Represent nodes (vertices) connected by paths (edges):
+* Represented via adjacency lists or matrices.
+* **Traversals**: Breadth-First Search (BFS) and Depth-First Search (DFS).
+* **Shortest Paths**: Dijkstra's algorithm.
+
+---
+
+## 5. Algorithmic Paradigms
+
+### Backtracking
+Systematically try potential solutions, returning and restoring states if a path fails (e.g. N-Queens, Sudoku).
+
+### Greedy Algorithms
+Make the locally optimal choice at each stage in the hope of finding a global optimum (e.g. Huffman coding, Dijkstra).
+
+### Dynamic Programming (DP)
+Memoize subproblem values to avoid duplicate operations.
+
+```cpp
+// DP Fibonacci (Tabulation)
+#include <iostream>
+#include <vector>
+
+int fib(int n) {
+    if (n <= 1) return n;
+    std::vector<int> dp(n + 1);
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
+```
+
+---
+
+## 6. Advanced Structures: Segment Trees & Union Find
+
+### Segment Tree
+An array-represented tree used for range query and updates.
+
+```cpp
+// C++ Segment Tree Range Sum Query snippet
+#include <vector>
+
+class SegmentTree {
+private:
+    std::vector<int> tree;
+    int n;
+
+    void build(const std::vector<int>& arr, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = arr[start];
+            return;
+        }
+        int mid = (start + end) / 2;
+        build(arr, 2 * node, start, mid);
+        build(arr, 2 * node + 1, mid + 1, end);
+        tree[node] = tree[2 * node] + tree[2 * node + 1];
+    }
+
+public:
+    SegmentTree(const std::vector<int>& arr) {
+        n = arr.size();
+        tree.resize(4 * n, 0);
+        build(arr, 1, 0, n - 1);
+    }
+};
+```
+
+### Union Find (Disjoint Set Union)
+Maintains partitions of elements, offering fast path compression operations to verify set structures in near-constant time.
+
+---
+
+## 7. DSA Practice & LeetCode Interview Prep
+1. **How do you detect a cycle in a Linked List?**
+   * Use Floyd's cycle detection algorithm (slow and fast pointers. If they meet, a cycle exists).
+2. **What is the difference between BFS and DFS on a graph?**
+   * BFS explores neighbor nodes layer-by-layer (using a Queue), while DFS explores path depth first (using a Stack or Recursion).
+3. **What is the space complexity of a recursive algorithm?**
+   * It is determined by the maximum depth of the call stack frames, proportional to O(D) where D is the recursive depth.
+
+---
+
+## 8. References
+* Cormen, T. H. (2009). *Introduction to Algorithms*. MIT Press.
+* NeetCode DSA roadmaps and benchmarks.
+* LeetCode competitive problem catalog guides.

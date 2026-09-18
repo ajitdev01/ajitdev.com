@@ -1,0 +1,196 @@
+---
+title: "The Complete Java Roadmap: From JVM Internals to Spring Boot Architectures"
+description: "A comprehensive developer's handbook to Java. Deep-dive into JVM heap architectures, Collections framework, functional Streams, Garbage Collection, multithreading, and Spring Boot backends."
+date: "2026-06-24"
+updatedDate: "2026-06-26"
+category: "Java"
+tags: ["Java", "JVM", "Collections", "Streams API", "Spring Boot"]
+difficulty: "Medium"
+estimatedReadingTime: "25 min read"
+faq:
+  - question: "What is the difference between JDK, JRE, and JVM?"
+    answer: "JVM executes bytecode; JRE bundles the JVM and runtime libraries to run applications; JDK contains JRE and development tools (compilers) to build applications."
+  - question: "How does Garbage Collection work in Java?"
+    answer: "Java tracks object references. The Garbage Collector automatically searches the heap for unreferenced objects and sweeps them to release memory."
+  - question: "What are Java Streams?"
+    answer: "Streams provide a functional programming way to process data collections sequentially or in parallel using pipeline operators (filter, map, reduce)."
+---
+
+## Key Takeaways (TL;DR)
+* **Write Once, Run Anywhere**: Java source code compiles into platform-neutral bytecode, which executes inside the JVM.
+* **Heap vs Stack in Java**: All objects are allocated on the Heap, while local variables and method call records occupy Stack frames.
+* **Spring Boot Ecosystem**: Simplifies enterprise Java apps by providing dependency injection, autoconfiguration, and built-in servers (Tomcat).
+
+---
+
+## 1. Java Architecture: JDK vs JRE vs JVM
+
+Understanding Java requires tracing how code compiles and executes:
+1. **JVM (Java Virtual Machine)**: The execution engine. It loads, verifies, compiles (JIT), and executes bytecode.
+2. **JRE (Java Runtime Environment)**: Provides the software package containing the JVM, base packages, and core classes.
+3. **JDK (Java Development Kit)**: The complete SDK, wrapping the JRE along with developer tools like `javac` (compiler) and `jdb` (debugger).
+
+```
+[Java Code (.java)] ──► javac Compiler ──► [Bytecode (.class)] ──► JVM Executed
+```
+
+---
+
+## 2. Object Oriented Java Coding Standards
+
+Java enforces class-based development. Every program consists of structured classes.
+
+```java
+package com.ajitdev;
+
+public class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void displayDetails() {
+        System.out.println("Employee Name: " + name + ", Salary: $" + salary);
+    }
+
+    public static void main(String[] args) {
+        Employee emp = new Employee("Ajit Dev", 85000);
+        emp.displayDetails();
+    }
+}
+```
+
+---
+
+## 3. Collections Framework & Algorithms
+
+The Collections framework inside `java.util` offers standardized data collections:
+* `List`: Ordered lists (`ArrayList`, `LinkedList`).
+* `Set`: Unordered, unique collections (`HashSet`, `TreeSet`).
+* `Map`: Key-value pairs (`HashMap`, `TreeMap`).
+
+```java
+import java.util.*;
+
+public class CollectionDemo {
+    public static void main(String[] args) {
+        List<String> skills = new ArrayList<>();
+        skills.add("Java");
+        skills.add("Spring Boot");
+        skills.add("AWS");
+
+        Collections.sort(skills);
+        System.out.println("Sorted Skills: " + skills);
+    }
+}
+```
+
+---
+
+## 4. Java Streams API (Functional Pipelines)
+
+Introduced in Java 8, Streams allow declarative processing of collections.
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamsDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 15, 20, 25, 30);
+        
+        // Filter out odd numbers and double the values
+        List<Integer> results = numbers.stream()
+                                       .filter(n -> n % 2 == 0)
+                                       .map(n -> n * 2)
+                                       .collect(Collectors.toList());
+                                       
+        System.out.println("Transformed: " + results);
+    }
+}
+```
+
+---
+
+## 5. Garbage Collection & Memory Management
+
+JVM memory is split into:
+* **Stack**: Holds local variables and call frames.
+* **Heap**: Stores all objects. The Heap is further divided into:
+  * *Young Generation*: Holds new objects (Eden space, Survivor spaces).
+  * *Old Generation*: Holds long-surviving objects.
+  * *Metaspace*: Holds class metadata.
+
+Garbage Collection sweeps the heap automatically. Major GC algorithms include G1 (Garbage First) and ZGC (Z Garbage Collector), which optimize pauses.
+
+---
+
+## 6. Concurrency & Multithreading
+
+Java supports concurrent threading using the `Thread` class, `Runnable` interface, and the modern `ExecutorService` framework.
+
+```java
+import java.util.concurrent.*;
+
+public class ConcurrencyDemo {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        
+        executor.submit(() -> System.out.println("Thread 1 running task"));
+        executor.submit(() -> System.out.println("Thread 2 running task"));
+        
+        executor.shutdown();
+    }
+}
+```
+
+---
+
+## 7. Spring Boot Basics for Enterprise Backends
+
+Spring Boot is an extension of the Spring Framework, designed to set up production-ready web servers with minimal config:
+* **Dependency Injection (DI)**: Injects object dependencies at runtime (using `@Autowired`).
+* **Autoconfiguration**: Automatically configures database connections, servers, and security based on jar dependencies.
+
+```java
+package com.ajitdev.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class DemoApplication {
+
+    @GetMapping("/api/greet")
+    public String greet() {
+        return "Hello from Spring Boot, powered by Ajit Dev!";
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+```
+
+---
+
+## 8. Java Technical Interview Questions
+1. **What is the difference between `equals()` and `==`?**
+   * `==` checks reference equality (are they the same object in memory), whereas `equals()` checks logical value equality.
+2. **What is a thread-safe Singleton in Java?**
+   * A class designed to have only one instance, constructed using a private constructor and instantiated lazily within a thread-safe double-checked locking block.
+3. **What are Checked vs Unchecked Exceptions?**
+   * Checked exceptions are validated by the compiler at compile time and must be handled (with `try-catch` or `throws`), while Unchecked exceptions (`RuntimeException`) are evaluated at runtime.
+
+---
+
+## 9. References
+* Bloch, J. (2018). *Effective Java (3rd Edition)*. Addison-Wesley.
+* Oracle Java SE standard specification documentation.
+* Spring Boot Official Reference Manual.

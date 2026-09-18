@@ -1,0 +1,170 @@
+---
+title: "The Comprehensive DevOps Roadmap: Containerization to Declarative Cloud Pipelines"
+description: "A production-grade playbook for DevOps. Master Docker containerization, Kubernetes clusters, Terraform IaC, GitHub Actions, Linux administration, and Nginx configurations."
+date: "2026-06-17"
+updatedDate: "2026-06-26"
+category: "DevOps"
+tags: ["DevOps", "Docker", "Kubernetes", "Terraform", "CI/CD"]
+difficulty: "Hard"
+estimatedReadingTime: "28 min read"
+faq:
+  - question: "What is Infrastructure as Code (IaC)?"
+    answer: "Infrastructure as Code allows developers to provision and manage cloud infrastructure using declarative configuration files (like Terraform), enabling version control and repeatable setups."
+  - question: "What is the difference between Docker and a Virtual Machine?"
+    answer: "Virtual Machines run a complete guest operating system on top of a hypervisor, whereas Docker containers share the host OS kernel, making them much lighter and faster."
+  - question: "Why run Nginx in front of application servers?"
+    answer: "Nginx acts as a reverse proxy, handling SSL termination, load balancing, rate limiting, and caching, which reduces load on the backend application."
+---
+
+## Key Takeaways (TL;DR)
+* **Automation Over Manual Action**: DevOps aims to automate code compilation, testing, packaging, and infrastructure provisioning, eliminating manual steps.
+* **Declarative Configurations**: Define desired final states (e.g. Terraform manifests, Kubernetes deployments) and let the platforms resolve differences.
+* **Continuous Security (DevSecOps)**: Integrate automated dependency checking and container image scanning directly into delivery pipelines.
+
+---
+
+## 1. Containerization: Production-Grade Docker Configurations
+
+Docker wraps applications in container packages. To secure deployments, we write optimized multi-stage build files:
+
+```dockerfile
+# Stage 1: Build react assets
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Minimal runtime footprint
+FROM nginx:alpine
+COPY --from=builder /app/out /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+---
+
+## 2. Container Orchestration: Kubernetes Cluster Architecture
+
+Kubernetes coordinates container clusters:
+* **Control Plane (Master)**: Manages cluster state (`kube-apiserver`, `etcd`, `kube-scheduler`).
+* **Worker Nodes**: Execute pods, managed by the local `kubelet` agent.
+* **Pods**: The smallest deployable units containing one or more containers.
+
+```yaml
+# Simple Kubernetes Deployment Manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ajitdev-api-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-server
+  template:
+    metadata:
+      labels:
+        app: api-server
+    spec:
+      containers:
+      - name: api
+        image: ajitdev/api-server:latest
+        ports:
+        - containerPort: 8080
+```
+
+---
+
+## 3. Infrastructure as Code (IaC): Terraform Architectures
+
+Terraform automates cloud setup using HashiCorp Configuration Language (HCL).
+
+```hcl
+# AWS VPC Creation with Terraform
+resource "aws_vpc" "prod_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "prod-vpc"
+    Env  = "production"
+  }
+}
+```
+
+---
+
+## 4. Continuous Integration & Delivery: GitHub Actions & Jenkins
+
+### GitHub Actions (YAML Workflows)
+Automate builds, unit tests, and deployments directly from repository commits.
+
+```yaml
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        
+    - name: Install and Test
+      run: |
+        npm ci
+        npm run test
+        
+    - name: Deploy to Cloud
+      run: echo "Triggering deployment action..."
+```
+
+---
+
+## 5. Linux Administration & Nginx Reverse Proxy Hardening
+
+### Linux
+Operating system operations: permissions, shell scripts, firewalls (ufw), and services management (systemd).
+
+### Nginx reverse proxy configuration
+```nginx
+server {
+    listen 80;
+    server_name ajitdev.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+---
+
+## 6. DevOps Technical Interview Questions
+1. **What is the difference between rolling updates and blue-green deployments?**
+   * Rolling updates replace old pods with new ones gradually, while blue-green deployments provision a complete new parallel environment (green) and switch the load balancer route instantly.
+2. **What is a Terraform State file and how do you secure it?**
+   * The state file (`terraform.tfstate`) maps configuration resources to real-world infrastructure. It is secured by using remote backends (like AWS S3) with encryption and state locking enabled.
+3. **What is a git merge conflict and how is it resolved?**
+   * A conflict occurs when parallel branches change the same lines of code. It is resolved by manually reviewing the conflicting blocks, selecting the correct lines, and committing the resolution.
+
+---
+
+## 7. References
+* Humble, J. (2010). *Continuous Delivery*. Addison-Wesley.
+* Terraform Official Modules Registry.
+* Kubernetes Docs.

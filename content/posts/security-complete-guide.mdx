@@ -1,0 +1,110 @@
+---
+title: "The Application Security Handbook: Hardening APIs against OWASP Vulnerabilities"
+description: "An expert-level playbook for web application security. Mitigating OWASP Top 10 vulnerabilities, XSS, SQL injections, CSRF, securing JWT tokens, and designing robust auth systems."
+date: "2026-06-15"
+updatedDate: "2026-06-26"
+category: "Cyber Security"
+tags: ["Security", "OWASP", "JWT", "Authentication", "Web Security"]
+difficulty: "Hard"
+estimatedReadingTime: "25 min read"
+faq:
+  - question: "What is Cross-Site Scripting (XSS)?"
+    answer: "XSS is a vulnerability where an attacker injects malicious client-side scripts into web pages viewed by other users, compromising cookies or sessions."
+  - question: "How does SQL Injection work?"
+    answer: "SQL Injection occurs when user inputs are concatenated directly into SQL queries instead of using parameterized inputs, allowing attackers to run arbitrary database commands."
+  - question: "Why are HTTP-only cookies preferred for storing JWTs?"
+    answer: "HTTP-only cookies cannot be read by client-side JavaScript, which protects JWT session tokens from being stolen via XSS attacks."
+---
+
+## Key Takeaways (TL;DR)
+* **Never Trust User Input**: Always sanitize, escape, and validate all input strings on the server.
+* **Harden JWT Transport**: Sign JWTs with strong keys, set short expiration times, and store them inside secure, HTTP-only cookies.
+* **Enforce HTTPS**: Always encrypt data in transit using TLS, and set HTTP Strict Transport Security (HSTS) headers.
+
+---
+
+## 1. The OWASP Top 10 Security Risks
+
+The Open Web Application Security Project (OWASP) lists the most critical web vulnerabilities:
+1. **Broken Access Control**: Users accessing endpoints or records outside their permissions boundary.
+2. **Cryptographic Failures**: Using weak hashing algorithms (like MD5) or transmitting sensitive data in clear text.
+3. **Injection**: SQL, NoSQL, or Command Injection due to unvalidated inputs.
+4. **Insecure Design**: Logic flaws in app workflows before coding starts.
+5. **Security Misconfiguration**: Default passwords, open ports, or verbose error pages.
+
+---
+
+## 2. Injection Vulnerabilities: SQLi & Cross-Site Scripting (XSS)
+
+### SQL Injection (SQLi)
+Concatenating raw inputs allows command overrides:
+```sql
+-- Vulnerable query construction
+SELECT * FROM users WHERE username = 'admin' OR '1'='1' AND password = '...';
+```
+* **Mitigation**: Always use **Prepared Statements / Parameterized Queries** or database ORMs (like Mongoose or Sequelize).
+
+### Cross-Site Scripting (XSS)
+Attackers inject scripts that run in other users' browsers:
+* **Stored XSS**: Malicious script is saved in the database (e.g., in a comment field).
+* **Reflected XSS**: Script is reflected off a web server (e.g., in search query parameters).
+* **Mitigation**: Sanitize inputs and set strict **Content Security Policies (CSP)**.
+
+---
+
+## 3. Cross-Site Request Forgery (CSRF)
+
+CSRF forces a user's browser to execute unwanted actions on a trusted site where they are authenticated:
+* **Mitigation**: Use anti-CSRF tokens validating client requests, and set the `SameSite` cookie attribute to `Strict` or `Lax`.
+
+---
+
+## 4. Securing Session States: JWT Best Practices
+
+JSON Web Tokens (JWT) are stateless tokens signed cryptographically:
+* **Signature Algorithm**: Use robust algorithms like `RS256` (asymmetric private/public keys) or `HS256`.
+* **Cookie Storage**:
+  ```javascript
+  res.cookie("token", jwtToken, {
+    httpOnly: true, // Prevents XSS script access
+    secure: true,   // Transmit only over HTTPS
+    sameSite: "strict" // Prevents CSRF queries
+  });
+  ```
+
+---
+
+## 5. Designing Authentication & Authorization Models
+
+* **Authentication (AuthN)**: Verifying who a user is (passwords hashed with `bcrypt`/`Argon2`, Multi-Factor Auth).
+* **Authorization (AuthZ)**: Verifying what actions a user is allowed to perform (Role-Based Access Control - RBAC, or Attribute-Based Access Control - ABAC).
+
+---
+
+## 6. Security Hardening Checklist for Express / Node Backends
+
+Use Helmet middleware to automatically set secure HTTP response headers:
+```javascript
+const express = require("express");
+const helmet = require("helmet");
+
+const app = express();
+app.use(helmet()); // Sets HSTS, CSP, X-Content-Type-Options, etc.
+```
+
+---
+
+## 7. Security Technical Interview Questions
+1. **What is the difference between encryption, hashing, and encoding?**
+   * Encryption is two-way (data can be decrypted using a key). Hashing is one-way (creates a fixed-length signature, cannot be reversed). Encoding is simply a format conversion (like Base64) for data transfer, not a security mechanism.
+2. **What is a Replay Attack and how is it prevented?**
+   * An attack where a valid data transmission is intercepted and re-sent later. It is prevented by using timestamp signatures, nonces (numbers used once), and HTTPS.
+3. **What is Least Privilege Access?**
+   * A security model where users or systems are granted only the minimum permissions necessary to complete their specific tasks.
+
+---
+
+## 8. References
+* OWASP Top 10 Vulnerabilities Guide.
+* IETF RFC 7519 specification guidelines for JSON Web Tokens.
+* HTML5 Security Hardening Guidelines by Mozilla.

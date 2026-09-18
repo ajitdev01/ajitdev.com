@@ -1,0 +1,109 @@
+---
+title: "Database Architectures: Indexing Keys, MongoDB Design, Sharding, and Redis Caching"
+description: "A production-grade playbook for selecting, designing, and scaling databases. Deep-dive into B-Tree indexes, NoSQL document modeling, cluster sharding, and cache eviction patterns."
+date: "2026-06-25"
+category: "database"
+tags: ["SQL", "MongoDB", "Redis", "System Design", "Databases"]
+difficulty: "Hard"
+version: "1.0.0"
+lastReviewed: "2026-06-25"
+prerequisites: ["system-design-complete-guide"]
+series: "Data Architectures"
+featured: true
+subcategory: "Databases"
+faq:
+  - question: "Why does indexing speed up reads but slow down writes?"
+    answer: "Indexes are auxiliary structures (like B-Trees) that must be updated whenever data changes. Thus, while reads locate records quickly, writes incur the overhead of index maintenance."
+  - question: "When should I choose MongoDB over PostgreSQL?"
+    answer: "Choose MongoDB for hierarchical documents, unstructured payload schemas, and high-volume horizontal write-scaling. Choose PostgreSQL for ACID transactions, strict data schemas, and complex relational queries."
+  - question: "What is Cache Penetration vs Cache Stampede?"
+    answer: "Cache Penetration is when queries request keys that don't exist in the database (resolved with Bloom Filters). Cache Stampede is when many concurrent requests query a cache key simultaneously right after it expires."
+---
+
+Data management is the core bottleneck of distributed software systems. Building a system that scales requires a deep understanding of relational storage engines, NoSQL document schemas, scaling strategies, and high-performance memory caches.
+
+## 1. SQL Query Indexing: How B-Trees Work
+
+Relational databases like MySQL and PostgreSQL utilize **B-Trees** (specifically B+ Trees) to store indices. A B+ Tree organizes data in a balanced search tree where all data rows are referenced in leaf nodes.
+
+```
+                  ┌───────────────┐
+                  │     Root      │
+                  │    [ 50 ]     │
+                  └───────┬───────┘
+                          │
+             ┌────────────┴────────────┐
+             ▼                         ▼
+      ┌─────────────┐           ┌─────────────┐
+      │ Internal 1  │           │ Internal 2  │
+      │  [ 20|35 ]  │           │  [ 65|80 ]  │
+      └──────┬──────┘           └──────┬──────┘
+             │                         │
+      ┌──────┴──────┬──────┐    ┌──────┴──────┬──────┐
+      ▼             ▼      ▼    ▼             ▼      ▼
+    [10..19]     [20..34] ... [50..64]     [65..79] ...
+```
+
+When you execute a query using an indexed field, the complexity is $O(\log N)$ instead of an $O(N)$ full table scan.
+
+> [!TIP]
+> Always inspect queries using the `EXPLAIN` keyword to verify that your queries are hitting the indexes you created.
+
+```sql
+EXPLAIN SELECT id, title FROM posts WHERE category = 'devops';
+```
+
+## 2. MongoDB Document Design & Sharding
+
+In MongoDB, documents are stored in BSON format. Unlike normalized relational tables, MongoDB documents allow embedding arrays and sub-objects, which matches the object models inside your application.
+
+### Designing for Scale
+*   **One-to-Few Relationship**: Embed the child data directly in the parent document (e.g. FAQ questions inside a blog post).
+*   **One-to-Many Relationship**: Store references to children in the parent document, or references to the parent inside child documents to prevent exceeding the 16MB document size limit.
+
+### Horizontal Scaling: Sharding
+Sharding distributes collection data across a cluster of independent machines using a **Shard Key**. MongoDB uses the shard key to route operations to target nodes:
+
+```
+                  ┌───────────────┐
+                  │  Application  │
+                  └───────┬───────┘
+                          │
+                  ┌───────▼───────┐
+                  │    Mongos     │ (Router)
+                  └───────┬───────┘
+            ┌─────────────┼─────────────┐
+            ▼             ▼             ▼
+       ┌─────────┐   ┌─────────┐   ┌─────────┐
+       │ Shard A │   │ Shard B │   │ Shard C │
+       │ [0..30] │   │[31..60] │   │ [61..+] │
+       └─────────┘   └─────────┘   └─────────┘
+```
+
+## 3. Redis In-Memory Caching & Eviction
+
+Redis acts as a sub-millisecond memory store. A common architecture pattern is the **Cache-Aside Pattern**:
+
+1. Application queries Redis.
+2. If cache hit: Return data.
+3. If cache miss: Query database, update Redis, and return data.
+
+```javascript
+import { createClient } from 'redis';
+
+const client = createClient();
+await client.connect();
+
+async function getOrSetCache(key, dbQueryFn, ttl = 3600) {
+  const cachedData = await client.get(key);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+
+  const freshData = await dbQueryFn();
+  await client.setEx(key, ttl, JSON.stringify(freshData));
+  return freshData;
+}
+```
+
+To avoid filling RAM, always configure a key eviction policy like **LRU** (Least Recently Used) or **LFU** (Least Frequently Used) in your `redis.conf` configuration.

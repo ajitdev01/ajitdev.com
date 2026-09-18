@@ -1,0 +1,40 @@
+name: Integration & Delivery pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 20.x ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type checking
+        run: npx tsc --noEmit
+
+      - name: ESLint checking
+        run: npm run lint
+
+      - name: Build compilation checks
+        run: npm run build
+
+      - name: Run dependency audit
+        run: npm audit --audit-level=high
+        continue-on-error: true # Let audit report warning without blocking pipeline deployment if minor vulnerabilities occur

@@ -1,0 +1,161 @@
+---
+title: "The React Developer Roadmap: Component Paradigms & Server Hydrations"
+description: "A comprehensive developer's playbook for React. Exploring state machines, hooks, Context APIs, rendering optimizations, memoization, and React Server Components (RSC)."
+date: "2026-06-19"
+updatedDate: "2026-06-26"
+category: "React"
+tags: ["React", "Hooks", "Context API", "Memoization", "React Server Components"]
+difficulty: "Medium"
+estimatedReadingTime: "24 min read"
+faq:
+  - question: "What are React Server Components (RSC)?"
+    answer: "Server Components are a new architecture where components run exclusively on the server, sending pre-rendered markup to the client, which significantly reduces JavaScript bundle sizes."
+  - question: "When should I use useMemo or useCallback?"
+    answer: "Use them to optimize performance: useMemo memoizes computed values; useCallback memoizes function definitions. This prevents unnecessary re-renders of children."
+  - question: "How does the virtual DOM work in React?"
+    answer: "React maintains a virtual representation of the DOM. When state changes, React compares the new virtual DOM with the previous one (reconciliation) and updates only the modified nodes."
+---
+
+## Key Takeaways (TL;DR)
+* **Declarative Rendering**: React reconciles virtual rendering trees against the actual DOM, optimizing updates to improve speed.
+* **Component Isolation**: Separate business logic into custom Hooks, keeping components focused on rendering.
+* **Bundle Footprint Optimization**: Leverage React Server Components to load heavy modules on the server without sending them to the client.
+
+---
+
+## 1. Introduction: Declarative UI & Reconciliation
+
+React uses a declarative approach, meaning you describe *what* the UI should look like for a given state, rather than manually updating DOM elements.
+* **Virtual DOM**: React constructs a virtual node tree in memory.
+* **Reconciliation (Fiber)**: On state changes, React compares the new tree with the old one (diffing) and batches updates to minimize reflows.
+
+---
+
+## 2. React Hooks System Reference
+
+Hooks enable functional components to manage local state, context, references, and lifecycles:
+* `useState`: Manages local component state.
+* `useEffect`: Runs side-effects (fetching data, setting up subscriptions) after rendering.
+* `useContext`: Subscribes to context providers without drilling props down multiple levels.
+* `useRef`: Retains persistent values that do not trigger re-renders, or accesses actual DOM elements.
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+export default function UserProfiler({ userId }) {
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    fetch(`/api/users/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (active) setProfile(data);
+      });
+
+    return () => {
+      active = false; // Cleanup to prevent state updates on unmounted component
+    };
+  }, [userId]);
+
+  if (!profile) return <div>Loading...</div>;
+  return <h1>Profile: {profile.name}</h1>;
+}
+```
+
+---
+
+## 3. Context API & Global State Management
+
+The Context API provides a way to share values between components without explicitly passing props down through every level of the tree.
+
+```jsx
+import React, { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext(null);
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("dark");
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export function ThemeButton() {
+  const { theme, setTheme } = useContext(ThemeContext);
+  return (
+    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+      Current Mode: {theme}
+    </button>
+  );
+}
+```
+
+---
+
+## 4. Performance & Memoization (useMemo, useCallback, React.memo)
+
+Re-rendering components unnecessarily causes latency. React provides three tools to optimize this:
+1. **`React.memo`**: A higher-order component that skips rendering a component if its props haven't changed.
+2. **`useMemo`**: Cache the result of expensive calculations.
+3. **`useCallback`**: Cache a function definition to prevent child components from re-rendering when the parent state changes.
+
+```jsx
+import React, { useState, useMemo, useCallback } from "react";
+
+export function Calculator() {
+  const [num, setNum] = useState(0);
+  const [theme, setTheme] = useState("light");
+
+  // useMemo prevents recalculating on theme changes
+  const computedValue = useMemo(() => {
+    return expensiveCalculation(num);
+  }, [num]);
+
+  // useCallback prevents re-creating the function on render
+  const handleNumChange = useCallback((e) => {
+    setNum(Number(e.target.value));
+  }, []);
+
+  return (
+    <div>
+      <input type="number" value={num} onChange={handleNumChange} />
+      <p>Result: {computedValue}</p>
+    </div>
+  );
+}
+
+function expensiveCalculation(n) {
+  let count = 0;
+  for (let i = 0; i < 1000000000; i++) { count += n; }
+  return count;
+}
+```
+
+---
+
+## 5. React Server Components (RSC) Architecture
+
+Next.js App Router utilizes React Server Components:
+* **Server Components**: Run exclusively on the server. They can fetch data directly from databases, read filesystem files, and do not add to the client-side JavaScript bundle.
+* **Client Components**: Declared with `"use client"`. They are sent to the client to run interactive features (using hooks like `useState`, `useEffect`).
+
+---
+
+## 6. React Technical Interview Questions
+1. **What is prop drilling and how is it resolved?**
+   * Prop drilling refers to passing props through multiple nested components. It is resolved using the Context API or state managers like Zustand/Redux.
+2. **Why shouldn't you update state directly in React?**
+   * React state is read-only. Modifying state directly bypasses the reconciliation engine, meaning React won't detect the change or trigger a re-render.
+3. **What is the difference between `useEffect` and `useLayoutEffect`?**
+   * `useEffect` runs asynchronously after the browser paints the screen, while `useLayoutEffect` runs synchronously before the browser paints, which is useful for measuring layout.
+
+---
+
+## 7. References
+* Abramov, D. (2019). *Overreacted: A Complete Guide to useEffect*.
+* React Official Documentation.
+* Vercel Next.js documentation and design guides.
+---

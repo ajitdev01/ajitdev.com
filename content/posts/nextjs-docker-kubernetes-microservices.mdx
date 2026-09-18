@@ -1,0 +1,213 @@
+---
+title: "Building Production-Grade Microservices with Next.js 15, Docker & Kubernetes"
+description: "A complete DevOps playbook for containerizing Next.js 15 App Router applications using standalone multi-stage Dockerfiles, Docker Compose orchestrations, and Kubernetes (K8s) EKS deployment manifests."
+date: "2026-08-13"
+updatedDate: "2026-08-13"
+category: "DevOps"
+tags: ["Next.js", "Docker", "Kubernetes", "DevOps", "Microservices", "Cloud Security"]
+difficulty: "Hard"
+estimatedReadingTime: "28 min read"
+faq:
+  - question: "Why use Next.js standalone output mode for Docker containers?"
+    answer: "Next.js standalone mode automatically traces dependencies and creates a minimal node_modules payload, reducing Docker image size from ~1GB to under 120MB."
+  - question: "How do you handle environment variables in Next.js Docker images?"
+    answer: "Build-time variables (NEXT_PUBLIC_*) are injected during docker build, while server-side runtime variables are mounted via Kubernetes ConfigMaps and Secrets."
+---
+
+## Key Takeaways (TL;DR)
+* **Minimal Images**: Use Next.js `output: 'standalone'` and Alpine Node.js base images to shrink Docker payload size down to ~120MB.
+* **Non-Root Execution**: Run containers under a non-root Linux user (`nextjs:nodejs`) for zero-trust container security.
+* **K8s Resilience**: Define Liveness and Readiness probes to guarantee zero-downtime rolling updates in Kubernetes clusters.
+
+---
+
+## 1. Next.js 15 Standalone Configuration
+
+To minimize container size, configure `next.config.ts` (or `next.config.js`) to output standalone server bundles:
+
+```typescript
+// next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "standalone",
+  reactStrictMode: true,
+  poweredByHeader: false, // Security hardening
+};
+
+export default nextConfig;
+```
+
+---
+
+## 2. Optimized Multi-Stage Dockerfile
+
+Multi-stage builds separate build dependencies from runtime payloads, ensuring dev SDKs never leak into production containers.
+
+```dockerfile
+# ============================================
+# STAGE 1: Dependency Resolver
+# ============================================
+FROM node:20-alpine AS deps
+RUN apk add --no-libc-dev libc6-compat
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# ============================================
+# STAGE 2: Standalone Builder
+# ============================================
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Environment build args for public client routes
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# ============================================
+# STAGE 3: Production Runner (Hardened)
+# ============================================
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Create unprivileged system user for container security
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+
+# Set ownership permissions for standalone output
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+```
+
+---
+
+## 3. Kubernetes Deployment & Service Manifests
+
+Deploy your Next.js microservice into a Kubernetes cluster using clean declarative YAML manifests.
+
+```yaml
+# k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-microservice
+  namespace: production
+  labels:
+    app: nextjs-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nextjs-web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: nextjs-web
+    spec:
+      containers:
+        - name: nextjs-app
+          image: registry.ajitdev.com/nextjs-web:v1.2.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          # Health Probes for Zero-Downtime Rollouts
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          envFrom:
+            - configMapRef:
+                name: nextjs-config
+            - secretRef:
+                name: nextjs-secrets
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-service
+  namespace: production
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: nextjs-web
+```
+
+---
+
+## 4. Production Health Check Route
+
+Create a lightweight health route at `app/api/health/route.ts` for Kubernetes liveness checks:
+
+```typescript
+// app/api/health/route.ts
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    },
+    { status: 200 }
+  );
+}
+```
+
+---
+
+## 5. Security & Deployment Best Practices
+1. **Never run containers as root**: Operating under `USER nextjs` prevents malicious exploits from gaining host root access.
+2. **Set resource limits**: Prevent out-of-memory (OOM) crashes by defining strict `memory` and `cpu` limits in Kubernetes spec.
+3. **Use Ingress TLS**: Terminate HTTPS certificates at the Ingress controller level (Cert-Manager + Nginx Ingress).
+
+---
+
+## 6. References
+* Next.js Documentation: Advanced Features - Standalone Output.
+* Docker Docs: Multi-stage builds for Node.js workloads.
+* Kubernetes Guides: Managing Deployments, Probes, and Rolling Updates.

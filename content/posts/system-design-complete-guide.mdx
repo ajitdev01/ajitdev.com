@@ -1,0 +1,110 @@
+---
+title: "The Distributed System Design Blueprint: Architecting for High Availability & Scaling"
+description: "An expert-level system design playbook. Learn database scaling, load balancing configurations, caching patterns (Redis), message queues (Kafka), CDN routing, and microservices decoupling."
+date: "2026-06-14"
+updatedDate: "2026-06-26"
+category: "System Design"
+tags: ["System Design", "Distributed Systems", "Scaling", "Database", "Microservices"]
+difficulty: "Hard"
+estimatedReadingTime: "26 min read"
+faq:
+  - question: "What is the CAP Theorem?"
+    answer: "The CAP Theorem states that in a distributed network split, a system can guarantee at most two out of three properties: Consistency, Availability, and Partition Tolerance."
+  - question: "What is the difference between SQL and NoSQL database scaling?"
+    answer: "SQL databases scale vertically (adding more CPU/RAM) and use replication/sharding; NoSQL databases are designed to scale horizontally by partitioning document keys across nodes."
+  - question: "Why use a Load Balancer?"
+    answer: "A load balancer distributes incoming application traffic across multiple backend servers to prevent overload, maximize throughput, and guarantee high availability."
+---
+
+## Key Takeaways (TL;DR)
+* **Design for Failure**: Assume hardware nodes will fail. Build redundancy, auto-recovery mechanisms, and stateless APIs.
+* **Cache Aggressively**: Read-heavy workloads should hit memory caches (Redis) to avoid database locks and minimize latency.
+* **Asynchronous Processing**: Decouple slow, heavy computing tasks using message queues (RabbitMQ/Kafka) to keep user request pipelines responsive.
+
+---
+
+## 1. Core Scaling Concepts: Horizontal vs Vertical
+
+When user traffic grows, systems must scale:
+* **Vertical Scaling (Scale-Up)**: Adding compute resources (CPU, RAM, Storage) to a single machine. Limited by hardware boundaries and single point of failure (SPOF) risks.
+* **Horizontal Scaling (Scale-Out)**: Adding more server nodes to the pool. Requires a **Load Balancer** to distribute traffic, enabling unlimited scaling and high availability.
+
+---
+
+## 2. Traffic Distribution: Load Balancing & Reverse Proxies
+
+### Load Balancer (LB)
+Distributes incoming requests across backend nodes.
+* **Algorithms**: Round Robin, Least Connections, IP Hash.
+* **Health Checks**: Continuously polls backend health, removing unhealthy nodes from the active pool.
+
+### Reverse Proxy
+Acts as a gatekeeper in front of backends, handling:
+* SSL/TLS Termination.
+* Request routing and header modifications.
+* Basic security checks and static file caching.
+
+---
+
+## 3. Storage Architecture: Database Partitioning & Indexing
+
+To handle massive write/read loops, databases must scale beyond single nodes:
+* **Replication**: Primary-Replica topologies where writes go to the primary node and read traffic is distributed among replicas.
+* **Sharding (Horizontal Partitioning)**: Splitting a database table horizontally across separate database engines based on a **Shard Key**.
+* **Indexes**: Creating indexes on query search keys dramatically decreases search latency at the cost of slight write overhead.
+
+---
+
+## 4. Latency Mitigation: Distributed Caching (Redis/Memcached)
+
+Caching stores frequently accessed data in fast in-memory tables:
+* **Cache Patterns**:
+  * *Cache-Aside*: App checks the cache. If a miss occurs, it queries the database and updates the cache.
+  * *Write-Through*: App writes to the cache, which writes to the database immediately.
+* **Eviction Policies**: LRU (Least Recently Used), LFU (Least Frequently Used) to discard old keys when cache memory limit is hit.
+
+---
+
+## 5. decoupling: Message Queues & Event-Driven Flows
+
+Instead of synchronous blocking API calls, systems communicate asynchronously using message brokers (RabbitMQ, Apache Kafka):
+* **Producer**: Sends messages to the queue.
+* **Broker**: Manages the message queue logs on disk.
+* **Consumer**: Subscribes and processes messages at its own pace.
+* **Benefits**: Dampens traffic spikes (throttling), decouples services, and increases system fault tolerance.
+
+---
+
+## 6. Global Reach: Content Delivery Networks (CDN)
+
+CDNs are networks of global proxy edge servers:
+* **Static Assets**: Images, scripts, video segments are cached close to users.
+* **Dynamic Content Optimization**: Routes request paths through optimized CDN fiber networks, minimizing connection setup delays.
+
+---
+
+## 7. System Design Case Study: Scaling a Chat App (like WhatsApp)
+
+### Core Components:
+1. **Client**: Connects via WebSockets for real-time bidirectional communication.
+2. **Gateway Service**: Maintains active WebSocket connections.
+3. **Session Store (Redis)**: Tracks active users and their connected gateway nodes.
+4. **Message Service**: Routes messages. If a receiver is offline, saves to database.
+5. **Database (Cassandra/NoSQL)**: High-write throughput object storage for message histories.
+
+---
+
+## 8. System Design Technical Interview Questions
+1. **How do you choose a Shard Key?**
+   * A good shard key distributes data and queries evenly across all database shard nodes, preventing "hot spots" (nodes handling disproportionate workloads).
+2. **What is Database Normalization vs Denormalization?**
+   * Normalization organizes tables to minimize data redundancy, optimizing writes. Denormalization intentionally adds redundant data to speed up complex queries by avoiding joins.
+3. **What is Consistent Hashing?**
+   * A hashing scheme used in distributed caches where node changes (scaling up/down) require remapping only a fraction of keys, preventing massive cache misses.
+
+---
+
+## 9. References
+* Kleppmann, M. (2017). *Designing Data-Intensive Applications*. O'Reilly.
+* The System Design Primer (GitHub Repository guides).
+* High Scalability architecture blog articles.

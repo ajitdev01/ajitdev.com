@@ -1,0 +1,367 @@
+---
+title: "Buddy CI/CD Complete Guide: Visual Pipelines, Docker Caching & Zero-Downtime Deployments"
+description: "A production-grade walkthrough of Buddy CI/CD for web developers and DevOps engineers. Learn to build visual pipelines, sandbox actions, cache Docker layers, and deploy to AWS, Vercel, and Kubernetes with zero downtime."
+date: "2026-07-22"
+updatedDate: "2026-07-22"
+category: "DevOps"
+tags: ["Buddy", "CI/CD", "DevOps", "Docker", "Deployment", "GitHub", "Kubernetes", "AWS"]
+difficulty: "Medium"
+estimatedReadingTime: "22 min read"
+faq:
+  - question: "What is Buddy CI/CD?"
+    answer: "Buddy is a visual, Git-based continuous integration and delivery platform that lets developers build, test, and deploy applications through intuitive drag-and-drop pipeline builders. It supports Docker, Kubernetes, AWS, Vercel, and 100+ deployment integrations."
+  - question: "How does Buddy compare to GitHub Actions?"
+    answer: "Buddy offers a visual GUI pipeline builder which reduces YAML configuration overhead. It provides faster Docker layer caching, sandboxed actions, and a more developer-friendly interface. GitHub Actions is better for open-source projects with marketplace reuse."
+  - question: "Is Buddy free?"
+    answer: "Buddy has a free tier for up to 5 projects and 120 pipeline executions per month. Paid plans start from $75/month for unlimited pipelines and team collaboration features."
+  - question: "Does Buddy support Kubernetes deployments?"
+    answer: "Yes. Buddy has native Kubernetes deployment actions for rolling updates, Helm chart releases, and kubectl apply workflows, supporting both cloud-managed clusters (EKS, GKE, AKS) and self-managed clusters."
+---
+
+## Key Takeaways (TL;DR)
+
+* **Visual Pipeline Builder**: Buddy provides a drag-and-drop UI to construct CI/CD workflows without writing lengthy YAML manifests.
+* **Smart Docker Caching**: Buddy caches Docker image layers between pipeline runs, reducing build time by up to 80%.
+* **Sandboxed Actions**: Every pipeline action runs inside an isolated Docker container, ensuring zero environment contamination.
+* **100+ Integrations**: Supports AWS, GCP, Azure, DigitalOcean, Kubernetes, Vercel, Netlify, and custom SSH server deployments.
+
+---
+
+## 1. What is Buddy CI/CD?
+
+Buddy is a modern continuous integration and delivery platform that makes DevOps accessible to development teams. Unlike Jenkins (which requires heavy XML configuration) or GitHub Actions (which demands YAML expertise), Buddy uses a **visual GUI builder** where you connect pipeline steps like building blocks.
+
+### Core Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Pipeline** | A sequence of automated actions triggered by a Git push, schedule, or API event |
+| **Action** | A single step in a pipeline (e.g., `Build Docker Image`, `Run Tests`, `Deploy to AWS`) |
+| **Sandbox** | Each action runs in an isolated Docker container with its own filesystem and environment |
+| **Trigger** | Events that start pipelines: `push`, `pull request`, `schedule`, `manual`, `API call` |
+
+---
+
+## 2. Setting Up Your First Buddy Pipeline
+
+### Step 1: Connect Your Repository
+
+After signing up at [buddy.works](https://buddy.works), connect your GitHub, GitLab, or Bitbucket repository:
+
+1. Go to **Projects → Add a new project**
+2. Select your Git provider
+3. Choose the repository to integrate with Buddy
+
+### Step 2: Create a Pipeline
+
+```yaml
+# buddy.yml — declarative pipeline config (alternative to GUI)
+- pipeline: "Production Deployment"
+  trigger_mode: ON_EVERY_PUSH
+  refs:
+    - refs/heads/main
+  actions:
+    - action: "Install Dependencies"
+      type: BUILD
+      docker_image_name: node
+      docker_image_tag: "20-alpine"
+      execute_commands:
+        - npm ci
+        - npm run lint
+        - npm run build
+```
+
+### Step 3: Add a Docker Build Action
+
+```dockerfile
+# Optimized Dockerfile for Buddy's layer caching
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+---
+
+## 3. Smart Docker Layer Caching
+
+Buddy's **Build Cache** feature stores Docker image layers between pipeline executions. This dramatically cuts build times.
+
+### How Caching Works
+
+```
+Without cache: npm ci (2 min 30s) + Docker build (4 min) = 6m 30s total
+With Buddy cache: npm ci (8s) + Docker build (45s) = 53s total (87% faster)
+```
+
+### Enabling Cache in Buddy
+
+In the **Build Docker Image** action:
+
+1. Toggle **Cache Docker layers** → ON
+2. Set **Cache key** to `package-lock.json` hash
+3. Buddy automatically stores layer snapshots in its distributed cache
+
+---
+
+## 4. Environment Variables & Secrets
+
+Buddy provides project-level and pipeline-level variable stores.
+
+```bash
+# Set secrets in Buddy UI: Variables → Add Variable
+NEXT_PUBLIC_GA_ID=G-XXXXXXXX
+DATABASE_URL=postgresql://...
+AWS_ACCESS_KEY_ID=AKIAXXXXXXXX
+AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxx
+VERCEL_TOKEN=xxxxxxxx
+```
+
+**Best Practices:**
+- Mark sensitive variables as **Encrypted** (stored in AES-256 encrypted storage)
+- Use variable groups to share common secrets across projects
+- Reference them inside actions as `$VARIABLE_NAME`
+
+---
+
+## 5. Deploying to Vercel with Buddy
+
+```yaml
+# buddy.yml — Vercel deployment action
+- action: "Deploy to Vercel Production"
+  type: VERCEL
+  token: "$VERCEL_TOKEN"
+  project: "ajitdev-portfolio"
+  team: "ajitdev01"
+  scope: "production"
+  cache: false
+```
+
+This triggers a Vercel deployment via the Vercel REST API, streams build logs directly in Buddy's interface, and fails the pipeline if the deployment returns an error.
+
+---
+
+## 6. Deploying to AWS EC2 with Zero Downtime
+
+### Blue-Green Deployment Strategy
+
+```yaml
+# buddy.yml — Zero-downtime EC2 deployment
+- action: "SSH Deploy to EC2 (Blue-Green)"
+  type: SSH_COMMANDS
+  host: "$EC2_HOST"
+  port: "22"
+  login: "ec2-user"
+  authentication_mode: PRIVATE_KEY
+  private_key: "$EC2_PRIVATE_KEY"
+  commands:
+    - docker pull ajitdev/api:latest
+    - docker stop api-green || true
+    - docker rm api-green || true
+    - docker run -d --name api-green -p 3001:3000 ajitdev/api:latest
+    - curl --retry 5 --retry-delay 3 http://localhost:3001/healthz
+    - docker stop api-blue || true
+    - docker rename api-green api-blue
+    - echo "Blue-green deployment successful"
+```
+
+### Health Check Implementation
+
+```typescript
+// app/api/healthz/route.ts — Health check endpoint
+import { NextResponse } from 'next/server';
+
+export async function GET() {
+  return NextResponse.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    version: process.env.npm_package_version ?? '1.0.0',
+  });
+}
+
+export const runtime = 'edge';
+```
+
+---
+
+## 7. Kubernetes Deployment with Buddy
+
+```yaml
+# buddy.yml — Kubernetes rolling update
+- action: "Deploy to EKS"
+  type: KUBERNETES_APPLY_DEPLOYMENT_CONFIGURATION
+  auth_mode: KUBERNETES_CERTIFICATE
+  server: "$EKS_SERVER_URL"
+  client_ca: "$EKS_CA"
+  client_cert: "$EKS_CERT"
+  client_key: "$EKS_KEY"
+  config_path: "k8s/deployment.yaml"
+  record: true
+```
+
+```yaml
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ajitdev-web
+  namespace: production
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ajitdev-web
+  template:
+    metadata:
+      labels:
+        app: ajitdev-web
+    spec:
+      containers:
+      - name: web
+        image: ajitdev/web:${BUDDY_EXECUTION_ID}
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /api/healthz
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+```
+
+---
+
+## 8. Full Production Pipeline Example
+
+```yaml
+# Complete buddy.yml for a Next.js application
+- pipeline: "Full Production Pipeline"
+  trigger_mode: ON_EVERY_PUSH
+  refs:
+    - refs/heads/main
+
+  actions:
+    # Step 1: Install and test
+    - action: "Lint & Type Check"
+      type: BUILD
+      docker_image_name: node
+      docker_image_tag: "20-alpine"
+      cached_dirs:
+        - path: node_modules
+          key: package-lock.json
+      execute_commands:
+        - npm ci
+        - npx tsc --noEmit
+        - npm run lint
+
+    # Step 2: Security scan
+    - action: "Vulnerability Scan"
+      type: BUILD
+      docker_image_name: aquasec/trivy
+      docker_image_tag: latest
+      execute_commands:
+        - trivy fs --severity HIGH,CRITICAL .
+
+    # Step 3: Build Docker image
+    - action: "Build Docker Image"
+      type: DOCKERFILE
+      dockerfile_path: Dockerfile
+      image_name: "ajitdev/web"
+      image_tag: "$BUDDY_EXECUTION_REVISION"
+      cache_build_args: true
+
+    # Step 4: Push to registry
+    - action: "Push to DockerHub"
+      type: DOCKER_PUSH
+      docker_image_name: "ajitdev/web"
+      docker_image_tag: "$BUDDY_EXECUTION_REVISION"
+      login: "$DOCKER_USERNAME"
+      password: "$DOCKER_PASSWORD"
+
+    # Step 5: Deploy to production
+    - action: "Deploy to Vercel"
+      type: VERCEL
+      token: "$VERCEL_TOKEN"
+      project: "ajitdev-portfolio"
+      scope: "production"
+
+    # Step 6: Notify Slack
+    - action: "Slack Deployment Notification"
+      type: SLACK
+      webhook_url: "$SLACK_WEBHOOK"
+      channel: "#deployments"
+      content: "✅ Production deployment completed for commit $BUDDY_EXECUTION_REVISION"
+```
+
+---
+
+## 9. Monitoring Pipeline Performance
+
+Buddy's **Execution History** tab shows:
+- Pipeline duration per run
+- Step-level timing breakdown
+- Cache hit/miss ratio
+- Failed step logs with full Docker output
+
+### Setting Up Alerts
+
+```yaml
+# Enable failure notifications
+- action: "Alert on Failure"
+  type: EMAIL
+  recipients:
+    - "ajitk23192@gmail.com"
+  subject: "⚠️ Pipeline Failed: $BUDDY_PIPELINE_NAME"
+  body: "Execution $BUDDY_EXECUTION_ID failed at step: $BUDDY_FAILED_ACTION"
+  trigger: ON_FAILURE
+```
+
+---
+
+## 10. Buddy vs GitHub Actions: Quick Reference
+
+| Feature | Buddy | GitHub Actions |
+|---------|-------|----------------|
+| UI Builder | ✅ Visual GUI | ❌ YAML only |
+| Docker Cache | ✅ Smart layer cache | ⚠️ Manual setup needed |
+| Build Speed | ✅ ~80% faster | Standard |
+| Pricing | $75/month unlimited | Free for public repos |
+| Marketplace | 100+ integrations | 16,000+ actions |
+| Self-hosted | ✅ Supported | ✅ Supported |
+| Open Source | ❌ Commercial | ✅ Open source workflows |
+
+---
+
+## References
+
+* Buddy Official Documentation — [buddy.works/docs](https://buddy.works/docs)
+* Docker Multi-Stage Builds — [docs.docker.com](https://docs.docker.com)
+* Kubernetes Rolling Updates — [kubernetes.io/docs](https://kubernetes.io/docs)
+* AWS EC2 Blue-Green Deployments — AWS Architecture Center

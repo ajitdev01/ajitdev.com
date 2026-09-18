@@ -1,0 +1,83 @@
+---
+title: "C++ Object-Oriented Programming (OOPS) Masterclass: Classes, Virtual Tables & Memory Management"
+description: "Master C++ Object-Oriented Programming (OOPS). Deep dive into Class Encapsulation, Abstraction, Inheritance, Virtual Method Tables (vtable), Dynamic Dispatch, RAII, and Smart Pointers."
+date: "2026-08-27"
+updatedDate: "2026-08-27"
+category: "cpp"
+tags: ["C++", "OOPS", "Object-Oriented Programming", "Memory Management", "Algorithms", "STL"]
+readingTime: "8 min read"
+difficulty: "Advanced"
+estimatedReadingTime: "8 min read"
+featured: true
+---
+
+# C++ Object-Oriented Programming (OOPS) Masterclass
+
+Object-Oriented Programming (OOPS) is a dominant software design pattern for building high-performance, maintainable systems in C++. This comprehensive guide breaks down the core pillars of OOPS and analyzes memory mechanics, virtual method dispatch (`vtable`), and modern RAII memory safety.
+
+---
+
+## 1. The Four Core Pillars of OOPS
+
+### Encapsulation
+Encapsulation binds data variables and functions inside class constructs while restricting arbitrary access via `private`, `protected`, and `public` access specifiers.
+
+### Abstraction
+Abstraction exposes essential interface signatures while hiding internal algorithms and implementation details from caller modules.
+
+### Inheritance
+Inheritance allows derived classes to re-use and extend member attributes and functions from parent base classes.
+
+### Polymorphism
+Polymorphism permits functions to operate differently based on context:
+- **Compile-time Polymorphism**: Function overloading and Operator overloading.
+- **Runtime Polymorphism**: Virtual function overrides using dynamic dispatch.
+
+---
+
+## 2. Virtual Method Tables (`vtable`) & Dynamic Dispatch
+
+When a C++ class defines a `virtual` method, the compiler generates a hidden pointer called `vptr` inside every object instance. The `vptr` references a static lookup table known as the `vtable` containing memory function pointers for overridden methods.
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class BaseEngine {
+public:
+    virtual void start() const {
+        std::cout << "Starting Base Engine...\n";
+    }
+    virtual ~BaseEngine() = default; // Essential virtual destructor
+};
+
+class HighPerformanceEngine : public BaseEngine {
+public:
+    void start() const override {
+        std::cout << "Starting High Performance C++ OOPS Engine (10/10 O Grade Precision)!\n";
+    }
+};
+
+int main() {
+    std::unique_ptr<BaseEngine> engine = std::make_unique<HighPerformanceEngine>();
+    engine->start(); // Dynamic dispatch via vtable lookup
+    return 0;
+}
+```
+
+---
+
+## 3. RAII & Smart Pointer Memory Safety
+
+Resource Acquisition Is Initialization (RAII) ensures that resources (heap allocation, file streams, mutex locks) are bound to stack object lifetimes.
+
+- **`std::unique_ptr`**: Single-owner exclusive pointer with zero overhead.
+- **`std::shared_ptr`**: Reference-counted shared ownership pointer.
+
+---
+
+## 4. Key Takeaways
+
+1. Use `virtual` destructors in base classes to prevent memory leaks during polymorphic deletions.
+2. Prefer `std::unique_ptr` over raw `new`/`delete` pointers.
+3. Leverage move semantics (`std::move`) to eliminate unnecessary deep copies.

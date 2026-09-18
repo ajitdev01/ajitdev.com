@@ -1,0 +1,107 @@
+---
+title: "The Cloud Engineering Playbook: AWS Infrastructures & Serverless Paradigms"
+description: "A comprehensive guide to AWS cloud engineering. Architecting VPC subnets, securing IAM roles, scaling EC2 workloads, storing data in S3, global caching with CloudFront, and deploy serverless Lambdas."
+date: "2026-06-16"
+updatedDate: "2026-06-26"
+category: "Cloud"
+tags: ["Cloud", "AWS", "VPC", "Serverless", "CloudFront"]
+difficulty: "Medium"
+estimatedReadingTime: "24 min read"
+faq:
+  - question: "What is an AWS VPC?"
+    answer: "A Virtual Private Cloud (VPC) is a logically isolated virtual network that you define in AWS to launch resources in your own isolated space."
+  - question: "What is the difference between S3 and EBS?"
+    answer: "S3 is object storage accessible via HTTP APIs from anywhere; EBS is block-level storage mounted directly to EC2 instances as local hard drives."
+  - question: "How does AWS Lambda billing work?"
+    answer: "Lambda charges you based on the number of requests and the duration (gigabyte-seconds of compute resource utilization) of execution."
+---
+
+## Key Takeaways (TL;DR)
+* **Isolated Cloud Networks**: Always deploy database nodes in private subnets, routing outbound traffic through a NAT Gateway in public subnets.
+* **Least Privilege Access**: Apply IAM roles and permission boundaries explicitly, avoiding root user credentials for API calls.
+* **Edge Caching**: Use CloudFront to cache static media close to clients globally, reducing latency and backend compute load.
+
+---
+
+## 1. Compute: Amazon Elastic Compute Cloud (EC2)
+
+EC2 provides resizable virtual computing capacity (instances) in the cloud:
+* **Instance Types**: Optimized for compute (C series), memory (R series), storage (I series), or general use (T/M series).
+* **Auto Scaling Group**: Scales instance counts up or down dynamically based on CPU or network triggers.
+* **Security Groups**: Stateful host firewalls that control inbound and outbound traffic.
+
+---
+
+## 2. Storage: Simple Storage Service (S3)
+
+S3 is object-level storage designed for high durability (99.999999999%):
+* **Storage Tiers**: Standard (frequent access), Intelligent-Tiering (automatic lifecycle optimization), Glacier (deep archiving).
+* **Security**: Enforce encryption (SSE-S3/SSE-KMS), block public access, and write tight bucket policies.
+
+---
+
+## 3. Access Management: AWS IAM Security
+
+Identity and Access Management controls authentication and authorization:
+* **Users & Groups**: Human accounts or system applications.
+* **Roles**: Assumed by services (like EC2 or Lambda) to make authorized AWS API calls temporarily.
+* **Policies**: Declarative JSON files defining allowed or denied actions.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "arn:aws:s3:::ajitdev-static-assets/*"
+    }
+  ]
+}
+```
+
+---
+
+## 4. Isolation: Virtual Private Cloud (VPC) Subnets
+
+A VPC allows you to design your own isolated network:
+* **Public Subnets**: Route outbound traffic to an Internet Gateway (IGW).
+* **Private Subnets**: Do not have a direct route to the IGW. Outbound calls are routed through a NAT Gateway.
+* **Route Tables**: Define where network traffic from subnets is routed.
+
+---
+
+## 5. Global Content Delivery: CloudFront CDN
+
+CloudFront is AWS's Content Delivery Network (CDN):
+* **Edge Locations**: Global datacenters that cache files close to users to reduce latency.
+* **Origin**: The resource (S3 bucket, ALB, or EC2 instance) serving the original files.
+* **SSL/TLS**: Terminate secure traffic at edge locations to optimize connection speeds.
+
+---
+
+## 6. Serverless: AWS Lambda Operations
+
+Lambda runs code in response to events without provisioning servers:
+* **Triggers**: API Gateway, S3 file uploads, DynamoDB streams, or SQS queues.
+* **Ephemeral Compute**: Lambda runs functions inside containers that spin up on demand and spin down after execution.
+* **Cold Starts**: The initial delay when a function runs for the first time after being idle.
+
+---
+
+## 7. Cloud Engineering Interview Questions
+1. **What is the difference between stateless and stateful firewalls in AWS?**
+   * Security Groups are stateful (inbound approvals automatically allow outbound return traffic). Network ACLs (NACLs) are stateless (rules must be configured explicitly for both directions).
+2. **What is a NAT Gateway and why is it preferred over a NAT Instance?**
+   * A NAT Gateway is a managed AWS service that scales automatically to handle high traffic without requiring manual scaling or software updates, unlike NAT Instances.
+3. **What is IAM double-checking (Evaluation Logic)?**
+   * AWS checks permissions: an explicit Deny rule always overrides any Allow rules. If no rule is matching, the request is denied by default.
+
+---
+
+## 8. References
+* AWS Well-Architected Framework guidelines.
+* Amazon S3 Security Best Practices.
+* AWS Serverless Application Model (SAM) specifications.

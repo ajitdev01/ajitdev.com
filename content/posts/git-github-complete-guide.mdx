@@ -1,0 +1,116 @@
+---
+title: "Git & GitHub: Branching Strategies, Conflict Resolution, SSH Keys, and Actions CI/CD"
+description: "A developer playbook for professional version control and automation. Learn how to manage trunk-based branches, resolve rebase conflicts, configure secure SSH keys, and write YAML pipelines."
+date: "2026-06-25"
+category: "programming"
+tags: ["Git", "GitHub", "DevOps", "CI/CD", "Programming"]
+difficulty: "Medium"
+version: "1.0.0"
+lastReviewed: "2026-06-25"
+prerequisites: ["devops-complete-roadmap"]
+series: "Development Workflows"
+featured: false
+subcategory: "Git & Workflows"
+faq:
+  - question: "What is the difference between Merge and Rebase?"
+    answer: "Merge combines target branch history via a merge commit, preserving historical chronology. Rebase rewrites commits on top of the target branch, producing a linear Git history."
+  - question: "How does SSH key authentication work in Git?"
+    answer: "SSH uses public-key cryptography. You generate a keypair locally, add the public key to GitHub, and sign handshakes with your private key to authenticate securely."
+  - question: "What is Git Reflog?"
+    answer: "Git Reflog records changes made to the tips of branches, allowing you to recover deleted branches or lost commits that were rewritten."
+---
+
+In software engineering, version control is the baseline of team collaboration. Mastering Git CLI, understanding branching topologies, and automating deployment loops using GitHub workflows are mandatory requirements for any professional developer.
+
+## 1. Collaborative Branching Strategies
+
+Three main branching styles dominate production engineering:
+
+1. **Git Flow**: Employs multiple stable branches (`main`, `develop`, `release/*`, `feature/*`, `hotfix/*`). Great for scheduled releases.
+2. **GitHub Flow**: Uses light, short-lived branch structures (`main`, `feature/*`). Feature branches are merged into `main` after pull request reviews.
+3. **Trunk-Based Development**: Developers merge small, frequent updates directly into the single trunk (`main`), using feature flags to disable untested code paths.
+
+```
+Trunk-based:
+──[main]─────●──────────●──────────●───
+              \        /          /
+               └[feat]┘  └[feat2]┘
+```
+
+## 2. Resolving Git Merge and Rebase Conflicts
+
+Rebasing updates your branch with target commits by placing your active commits on top of the branch tip:
+
+```bash
+git checkout feature/api
+git rebase main
+```
+
+If a conflict occurs:
+1. Git halts and reports conflicting lines.
+2. Open files and choose between head changes (`<<<<<<<`) and incoming changes (`>>>>>>>`).
+3. Save edits, add files, and continue the rebase:
+
+```bash
+git add file.js
+git rebase --continue
+```
+
+## 3. Configuring SSH Keys for GitHub Access
+
+SSH offers passwordless, secure access keys. To generate an SSH key using the Ed25519 algorithm:
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Start the ssh-agent and load your key:
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Copy the public key content and add it inside your GitHub Account Settings:
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+## 4. Automated CI/CD Pipelines via GitHub Actions
+
+GitHub Actions run automated workloads triggered by branch updates. Workflows are defined inside `.github/workflows/` using YAML configuration:
+
+```yaml
+# .github/workflows/ci.yml
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Setup NodeJS Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run Test Suite
+      run: npm run test
+
+    - name: Verify Bundle Compilation
+      run: npm run build
+```
+
+This workflow runs quality checks automatically on every pull request, safeguarding your main branch from compiler errors.

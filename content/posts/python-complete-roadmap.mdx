@@ -1,0 +1,157 @@
+---
+title: "The Python Developer Roadmap: From Syntax Basics to FastAPI Implementations"
+description: "A comprehensive developer's guide to Python. Deep-dive into scopes, Object-Oriented design, decorators, iterators, generators, packages, virtual environments, and modern FastAPI development."
+date: "2026-06-23"
+updatedDate: "2026-06-26"
+category: "Python"
+tags: ["Python", "Decorators", "Generators", "FastAPI", "Django"]
+difficulty: "Easy"
+estimatedReadingTime: "20 min read"
+faq:
+  - question: "What is a Python Decorator?"
+    answer: "A decorator is a function that takes another function as an argument and extends its behavior without modifying its source code."
+  - question: "What is the difference between a list and a generator?"
+    answer: "A list stores all its elements in memory at once; a generator calculates and yields elements lazily on demand, saving massive memory."
+  - question: "Why use virtual environments in Python?"
+    answer: "Virtual environments isolate project-specific dependencies, preventing conflicts between global packages and local configurations."
+---
+
+## Key Takeaways (TL;DR)
+* **Dynamic, Interpreted**: Python provides dynamic typing and executes code line-by-line via the interpreter, offering speed of development at a minor cost to compute speed.
+* **Laziness via Generators**: Generators (`yield`) enable memory-efficient computations on large datasets.
+* **Modern APIs**: FastAPI utilizes type hints to automatically build Swagger docs and run asynchronous request loops.
+
+---
+
+## 1. Syntax, Scopes, Variables, and Control Loops
+
+Python's design emphasizes clean readability and strict indentation block rules.
+
+```python
+# Function scopes and variable definition
+def analyze_scores(scores):
+    passing_score = 50
+    for score in scores:
+        if score >= passing_score:
+            print(f"Score {score} is Passing")
+        else:
+            print(f"Score {score} is Failing")
+
+analyze_scores([70, 45, 90])
+```
+
+---
+
+## 2. Object Oriented Programming (OOP) in Python
+
+Python supports full object-oriented abstractions, constructors (`__init__`), and inheritance patterns.
+
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def make_sound(self):
+        pass
+
+class Dog(Animal):
+    def make_sound(self):
+        return "Woof!"
+
+my_dog = Dog("Rex")
+print(f"{my_dog.name} says {my_dog.make_sound()}")
+```
+
+---
+
+## 3. Advanced Concepts: Decorators, Generators, and Iterators
+
+### Decorators
+A decorator wraps a function, modifying or logging its execution behavior.
+
+```python
+def log_execution(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling function: {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_execution
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Ajit"))
+```
+
+### Generators
+Generators return an iterator yielding elements one at a time using `yield`.
+
+```python
+def fibonacci(limit):
+    a, b = 0, 1
+    while a < limit:
+        yield a
+        a, b = b, a + b
+
+for num in fibonacci(10):
+    print(num, end=" ")
+print()
+```
+
+### Iterators
+Any object implementing `__iter__()` and `__next__()` can be iterated over.
+
+---
+
+## 4. Packaging, Modules, and Virtual Environments
+
+Python manages imports using:
+1. **Modules**: Individual `.py` files.
+2. **Packages**: Folders containing an `__init__.py` file and submodules.
+3. **Virtual Environments**: Tool boundaries (`venv` / `virtualenv`) that isolate package versions.
+
+```bash
+# Setup isolated virtual environment
+python -m venv env
+# Activate it on Windows
+.\env\Scripts\activate
+# Install required dependencies
+pip install fastapi uvicorn
+```
+
+---
+
+## 5. FastAPI & Django Web Frameworks
+
+### FastAPI (Async APIs)
+FastAPI is an async framework leveraging Python type hints to generate REST APIs.
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI, designed by Ajit Dev!"}
+```
+
+### Django (Full-stack Ecosystem)
+Django is a full-featured batteries-included framework deploying an Object-Relational Mapper (ORM), admin dashboard panels, and templates out of the box.
+
+---
+
+## 6. Python Interview Questions
+1. **What is PEP 8?**
+   * PEP 8 is Python's style guide, providing formatting recommendations (like 4 spaces per indentation tier).
+2. **What does the `self` keyword represent?**
+   * `self` represents the specific instance of the class being operated on.
+3. **How does Python handle memory management?**
+   * Python uses automatic reference counting and a cyclic garbage collector to clean up unreachable heap objects.
+
+---
+
+## 7. References
+* Lutz, M. (2013). *Learning Python*. O'Reilly Media.
+* Python Software Foundation Documentation guides.
+* FastAPI Documentation and Tutorials guides.

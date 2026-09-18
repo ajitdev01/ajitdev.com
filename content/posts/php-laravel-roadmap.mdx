@@ -1,0 +1,111 @@
+---
+title: "PHP & Laravel Roadmap: Architecture, Eloquent ORM, and Composer Operations"
+description: "A complete developer's guide to modern PHP and the Laravel framework. Learn object-oriented PHP, Eloquent optimization, dependency injection, and Composer package management."
+date: "2026-06-25"
+category: "php"
+tags: ["PHP", "Laravel", "Backend", "Composer", "OOP"]
+difficulty: "Medium"
+version: "1.0.0"
+lastReviewed: "2026-06-25"
+prerequisites: ["javascript-complete-guide"]
+series: "Backend Mastery"
+featured: false
+subcategory: "Laravel Framework"
+faq:
+  - question: "Is PHP still relevant in 2026?"
+    answer: "Yes, PHP powers over 75% of websites with active backends, largely driven by WordPress, Drupal, and modern frameworks like Laravel that deliver outstanding developer productivity."
+  - question: "What is the N+1 query problem in Eloquent ORM?"
+    answer: "It occurs when a query loops through a list of parent models and queries the database for each parent's child relation. It is resolved using Eager Loading via the `with()` method."
+  - question: "How does Composer handle version constraints?"
+    answer: "Composer uses symbols like caret (^) to allow minor/patch upgrades and tilde (~) to restrict upgrades to patch releases only."
+---
+
+Modern PHP is a fast, type-safe scripting language equipped with an rich ecosystem of tools and frameworks. At the top of this ecosystem sits **Laravel**, a powerful web framework that values developer ergonomics, clean separation of concerns, and robust package management.
+
+## 1. Object-Oriented PHP & strict types
+
+Modern PHP (v8+) supports strict types and clean object-oriented syntax. Placing `declare(strict_types=1);` at the top of your files forces static compile-time type-safety checks:
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace App\Services;
+
+interface TaskInterface {
+    public function execute(string $taskName): bool;
+}
+
+class SystemTask implements TaskInterface {
+    public function __construct(
+        protected string $environment
+    ) {}
+
+    public function execute(string $taskName): bool {
+        // Run tasks in target environment
+        return true;
+    }
+}
+```
+
+## 2. Laravel MVC Architecture & Dependency Injection
+
+Laravel is structured as a Model-View-Controller (MVC) framework. It features an IoC (Inversion of Control) container that manages dependency injection:
+
+```php
+<?php
+// app/Http/Controllers/UserController.php
+
+namespace App\Http\Controllers;
+
+use App\Repositories\UserRepository;
+use Illuminate\Http\JsonResponse;
+
+class UserController extends Controller {
+    // UserRepository is automatically resolved and injected
+    public function __construct(
+        protected UserRepository $userRepository
+    ) {}
+
+    public function index(): JsonResponse {
+        $users = $this->userRepository->allActive();
+        return response()->json($users);
+    }
+}
+```
+
+## 3. Eloquent ORM & Query Optimization
+
+Eloquent provides an ActiveRecord implementation for working with databases. While highly readable, developers must be careful to avoid performance traps like the **N+1 query issue**.
+
+### Problem:
+```php
+$books = Book::all(); // 1 query
+foreach ($books as $book) {
+    echo $book->author->name; // N queries (one per book)
+}
+```
+
+### Solution (Eager Loading):
+```php
+$books = Book::with('author')->get(); // Only 2 queries
+foreach ($books as $book) {
+    echo $book->author->name;
+}
+```
+
+## 4. Package Management with Composer
+
+Composer manages third-party libraries inside PHP. The package lifecycle relies on two files:
+*   `composer.json`: Lists the packages your application declares dependencies on.
+*   `composer.lock`: Records the exact versions of the packages installed, ensuring consistency across environments.
+
+To install a package, run:
+```bash
+composer require laravel/sanctum
+```
+To install all locked dependencies:
+```bash
+composer install
+```
+ Modern PHP applications use PHP-FIG coding standards (PSR-12/PSR-4) for automatic namespace class mapping.
