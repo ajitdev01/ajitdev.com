@@ -84,32 +84,31 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const gmailUser = process.env.GMAIL_USER;
-    const gmailPass = process.env.GMAIL_PASS;
-    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || gmailUser;
+    const gmailUser = (
+      process.env.GMAIL_USER ||
+      "nilam23192@gmail.com"
+    ).replace(/^["']|["']$/g, "").trim();
 
-    if (!gmailUser || !gmailPass || !receiverEmail) {
-      console.warn("Contact mail service not configured: GMAIL_USER or GMAIL_PASS missing.");
-      return apiError(
-        "Mail service is currently unavailable. Please reach out directly to support@ajitdev.com.",
-        503,
-        "SERVICE_UNAVAILABLE"
-      );
-    }
+    const gmailPass = (
+      process.env.GMAIL_PASS ||
+      "ofnf fyke xqow qrep"
+    ).replace(/^["']|["']$/g, "").replace(/\s+/g, "").trim();
 
-    // Setup Nodemailer Gmail transporter with direct SSL on port 465 (reliable on Vercel/cloud)
-    const cleanedPass = gmailPass.replace(/\s+/g, "");
+    const receiverEmail = (
+      process.env.CONTACT_RECEIVER_EMAIL ||
+      "ajitk23192@gmail.com, nilam23192@gmail.com"
+    ).replace(/^["']|["']$/g, "").trim();
+
+    // Setup Nodemailer Gmail transporter with fallback and TLS resiliency
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      service: "gmail",
       auth: {
-        user: gmailUser.trim(),
-        pass: cleanedPass,
+        user: gmailUser,
+        pass: gmailPass,
       },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
     const mailSubject = subject
