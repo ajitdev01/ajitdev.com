@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=AJIT%20DEV&fontSize=80&fontAlignY=38&animation=fadeIn&fontColor=ffffff&desc=ajitdev.com%20—%20Personal%20Developer%20Platform&descSize=20&descAlignY=60&descColor=4ECDC4" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=240&section=header&text=AJIT%20DEV&fontSize=90&fontAlignY=38&animation=fadeIn&fontColor=ffffff&desc=ajitdev.com%20—%20Personal%20Developer%20Platform&descSize=22&descAlignY=60&descColor=4ECDC4" />
 </div>
 
 <h2 align="center">
@@ -25,20 +25,22 @@
 
 ---
 
-## 📌 Table of Contents
+## 📋 Table of Contents
 
-- [About the Platform](#-about-the-platform)
-- [Project Overview](#-project-overview)
-- [Platform Features](#-platform-features)
-- [Tech Stack](#-tech-stack)
-- [Website Structure & Routes](#-website-structure--routes)
-- [SEO Architecture](#-seo-architecture)
-- [Performance Targets](#-performance-targets)
-- [Getting Started](#-getting-started)
-- [Project Structure](#-project-structure)
-- [Future Roadmap](#-future-roadmap)
-- [Personal Brand Keywords](#-personal-brand-keywords)
-- [Connect With Me](#-connect-with-me)
+| # | Section | Description |
+|:-:|:--------|:------------|
+| 1 | [About the Platform](#-about-the-platform) | What is ajitdev.com? |
+| 2 | [Platform Overview](#-platform-overview) | Seven platforms in one |
+| 3 | [Platform Features](#-platform-features) | Detailed feature breakdown |
+| 4 | [Tech Stack](#️-tech-stack) | Full technology breakdown |
+| 5 | [Website Structure & Routes](#️-website-structure--routes) | All pages & routing |
+| 6 | [SEO Architecture](#-seo-architecture) | Full SEO implementation |
+| 7 | [Performance Targets](#-performance-targets) | Lighthouse & Core Web Vitals |
+| 8 | [Getting Started](#-getting-started) | Local setup guide |
+| 9 | [Project Structure](#-project-structure) | Codebase file tree |
+| 10 | [Future Roadmap](#️-future-roadmap) | Milestones & phases |
+| 11 | [Brand Keywords](#️-personal-brand-keywords) | SEO keyword strategy |
+| 12 | [Connect With Me](#-connect-with-me) | All social links |
 
 ---
 
@@ -53,9 +55,9 @@ This is not just a portfolio. It is a complete **developer authority platform** 
 
 ---
 
-## 🚀 Project Overview
+## 🚀 Platform Overview
 
-`ajitdev.com` serves as **seven platforms in one** — each designed to deliver genuine value to developers, recruiters, and learners:
+`ajitdev.com` serves as **seven platforms in one** — each delivering genuine value to developers, recruiters, and learners:
 
 <table>
 <tr>
@@ -193,13 +195,15 @@ Real-world engineering case studies — what was built, why decisions were made,
   <img src="https://img.shields.io/badge/Framer_Motion-EF0078?style=for-the-badge&logo=framer&logoColor=white" />
 </p>
 
-| Technology | Purpose |
-|:-----------|:--------|
-| **Next.js 16** | App Router, Server Components, Server Actions, Streaming |
-| **React** | Component architecture, Hooks, Context API |
-| **TypeScript** | Type safety, better DX, reduced runtime bugs |
-| **Tailwind CSS v4** | Utility-first styling, dark mode, responsive design |
-| **Framer Motion** | Page transitions, scroll animations, micro-interactions |
+| Technology | Version | Purpose |
+|:-----------|:-------:|:--------|
+| **Next.js** | 16 | App Router, Server Components, Server Actions, Streaming |
+| **React** | 19 | Component architecture, Hooks, Context API |
+| **TypeScript** | 5+ | Type safety, better DX, reduced runtime bugs |
+| **Tailwind CSS** | v4 | Utility-first styling, dark mode, responsive design |
+| **Framer Motion** | latest | Page transitions, scroll animations, micro-interactions |
+
+---
 
 ### 📈 SEO & Analytics
 
@@ -218,6 +222,8 @@ Real-world engineering case studies — what was built, why decisions were made,
 | **Vercel Analytics** | Real-user performance metrics |
 | **Vercel Speed Insights** | Core Web Vitals monitoring in production |
 
+---
+
 ### 📝 Content Layer
 
 <p>
@@ -231,6 +237,8 @@ Real-world engineering case studies — what was built, why decisions were made,
 | **MDX** | Markdown + JSX — interactive blog posts with embedded components |
 | **Gray Matter** | Frontmatter parsing for blog metadata (title, date, tags, slug) |
 | **Reading Time** | Auto-calculated read time displayed on every blog post |
+
+---
 
 ### ☁️ Deployment & Infrastructure
 
@@ -374,67 +382,56 @@ npm   >= 10.x   (or pnpm / yarn)
 git   >= 2.x
 ```
 
-### Installation
+### 1️⃣ Clone the Repository
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/ajitdev01/ajitdev.com.git
 cd ajitdev.com
-
-# 2. Install dependencies
-npm install
-
-# 3. Set up environment variables
-cp .env.example .env.local
 ```
 
-### Environment Variables
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Configure Environment Variables
+
+```bash
+cp .env.example .env.local
+```
 
 ```env
 # .env.local
 
-# Site
+# ── Site ──────────────────────────────────────────────
 NEXT_PUBLIC_SITE_URL=https://ajitdev.com
 
-# Analytics
+# ── Analytics ─────────────────────────────────────────
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+NEXT_PUBLIC_CLARITY_ID=XXXXXXXXX
 
-# Contact Form
+# ── Contact Form ──────────────────────────────────────
 CONTACT_EMAIL=ajitk23192@gmail.com
 RESEND_API_KEY=re_XXXXXXXXXXXX
-
-# Optional
-NEXT_PUBLIC_CLARITY_ID=XXXXXXXXX
 ```
 
-### Development
+### 4️⃣ Start Development Server
 
 ```bash
-# Start development server (Turbopack)
 npm run dev
-
-# Open in browser
-http://localhost:3000
+# → Open http://localhost:3000
 ```
 
-### Production Build
+### 5️⃣ Production Commands
 
 ```bash
-# Build for production
-npm run build
-
-# Analyze bundle size
-npm run build:analyze
-
-# Start production server
-npm run start
-
-# Run linter
-npm run lint
-
-# Type check
-npm run type-check
+npm run build          # Build for production
+npm run build:analyze  # Analyze bundle size
+npm run start          # Start production server
+npm run lint           # Run ESLint
+npm run type-check     # TypeScript type check
 ```
 
 ---
@@ -444,29 +441,26 @@ npm run type-check
 ```
 ajitdev.com/
 │
-├── app/                          ← Next.js App Router
+├── app/                          ← Next.js App Router (root)
 │   ├── (home)/
 │   │   └── page.tsx              ← Home page
-│   ├── about/
-│   │   └── page.tsx
+│   ├── about/page.tsx
 │   ├── blog/
-│   │   ├── page.tsx              ← Blog index
-│   │   └── [slug]/
-│   │       └── page.tsx          ← Dynamic blog post
-│   ├── projects/
-│   ├── case-studies/
-│   ├── dsa/
-│   ├── system-design/
-│   ├── devops/
-│   ├── aws/
-│   ├── cloud-security/
-│   ├── resume/
-│   ├── contact/
+│   │   ├── page.tsx              ← Blog index (search & tags)
+│   │   └── [slug]/page.tsx       ← Dynamic blog post
+│   ├── projects/page.tsx
+│   ├── case-studies/page.tsx
+│   ├── dsa/page.tsx
+│   ├── system-design/page.tsx
+│   ├── devops/page.tsx
+│   ├── aws/page.tsx
+│   ├── cloud-security/page.tsx
+│   ├── resume/page.tsx
+│   ├── contact/page.tsx
 │   ├── layout.tsx                ← Root layout (metadata, fonts, analytics)
-│   ├── sitemap.ts                ← Auto-generated sitemap
+│   ├── sitemap.ts                ← Auto-generated sitemap.xml
 │   ├── robots.ts                 ← robots.txt generation
-│   └── rss.xml/
-│       └── route.ts              ← RSS feed endpoint
+│   └── rss.xml/route.ts          ← RSS feed endpoint
 │
 ├── components/
 │   ├── ui/                       ← shadcn/ui base components
@@ -477,35 +471,34 @@ ajitdev.com/
 │   └── shared/                   ← SEO, Analytics, ThemeToggle
 │
 ├── content/
-│   ├── blog/                     ← MDX blog posts
-│   │   └── *.mdx
+│   ├── blog/                     ← MDX blog posts (*.mdx)
 │   ├── dsa/                      ← DSA notes in MDX
 │   ├── case-studies/             ← Case study MDX files
 │   └── system-design/            ← System design articles
 │
 ├── lib/
-│   ├── mdx.ts                    ← MDX parser & gray-matter
-│   ├── seo.ts                    ← Metadata generators
+│   ├── mdx.ts                    ← MDX parser & gray-matter integration
+│   ├── seo.ts                    ← Metadata generators per page/post
 │   ├── schema.ts                 ← JSON-LD schema builders
-│   ├── analytics.ts              ← GA4 + Clarity helpers
-│   └── utils.ts                  ← Shared utilities
+│   ├── analytics.ts              ← GA4 + Clarity event helpers
+│   └── utils.ts                  ← Shared utility functions
 │
 ├── public/
-│   ├── images/
+│   ├── images/                   ← Static images & assets
 │   ├── resume/
-│   │   └── ajit-dev-resume.pdf
+│   │   └── ajit-dev-resume.pdf   ← Downloadable résumé
 │   ├── favicon.ico
 │   └── og-image.png              ← Default Open Graph image
 │
 ├── styles/
-│   └── globals.css               ← Tailwind base + custom vars
+│   └── globals.css               ← Tailwind base + custom CSS vars
 │
-├── .env.example
-├── .env.local
-├── next.config.ts
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
+├── .env.example                  ← Environment variable template
+├── .env.local                    ← Local secrets (git-ignored)
+├── next.config.ts                ← Next.js configuration
+├── tailwind.config.ts            ← Tailwind CSS configuration
+├── tsconfig.json                 ← TypeScript configuration
+└── package.json                  ← Dependencies & scripts
 ```
 
 ---
@@ -515,7 +508,7 @@ ajitdev.com/
 ```
 Phase 1 — Content Foundation (2025)
 ├── ✅ Website launched on ajitdev.com
-├── 📋 Publish 20+ technical blog posts
+├── 🔄 Publish 20+ technical blog posts
 ├── 📋 Add 100+ DSA problem notes
 ├── 📋 Add 10+ case studies
 └── 📋 Set up RSS feed & sitemap indexing
@@ -535,17 +528,19 @@ Phase 3 — Community & Scale (2027–2028)
 └── 📋 Community comments (Giscus / GitHub Discussions)
 ```
 
+### Milestone Tracker
+
 | Milestone | Target | Status |
-|:----------|:-------|:------:|
-| Website Live | 2025 | ✅ |
-| 20+ Blogs | 2025 | 📋 |
-| 100+ DSA Notes | 2026 | 📋 |
-| 50+ System Design Articles | 2026 | 📋 |
-| 50+ DevOps Tutorials | 2026 | 📋 |
-| 100+ Technical Blogs | 2026 | 📋 |
-| 25+ Case Studies | 2027 | 📋 |
-| Open Source Contributions | 2027 | 📋 |
-| Advanced Cloud Security Hub | 2028 | 📋 |
+|:----------|:------:|:------:|
+| Website Live | 2025 | ✅ Done |
+| 20+ Blog Posts | 2025 | 🔄 In Progress |
+| 100+ DSA Notes | 2026 | 📋 Planned |
+| 50+ System Design Articles | 2026 | 📋 Planned |
+| 50+ DevOps Tutorials | 2026 | 📋 Planned |
+| 100+ Technical Blogs | 2026 | 📋 Planned |
+| Newsletter Integration | 2027 | 📋 Planned |
+| 25+ Case Studies | 2027 | 📋 Planned |
+| Advanced Cloud Security Hub | 2028 | 📋 Planned |
 
 ---
 
@@ -636,9 +631,9 @@ Code. Deploy. Secure. Scale. Repeat.
 
 <br/>
 
-![Made with ❤️ in India](https://img.shields.io/badge/Made%20with%20❤️%20in-India-FF9933?style=flat-square)
-![Next.js](https://img.shields.io/badge/Built_with-Next.js_16-000?style=flat-square&logo=next.js)
+![Made with love in India](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20in-India-FF9933?style=flat-square)
+![Built with Next.js](https://img.shields.io/badge/Built_with-Next.js_16-000?style=flat-square&logo=next.js)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-4ECDC4?style=flat-square)
-![Last Updated](https://img.shields.io/badge/Updated-June%202026-9B59B6?style=flat-square)
+![Last Updated](https://img.shields.io/badge/Updated-September%202026-9B59B6?style=flat-square)
 
 </div>
