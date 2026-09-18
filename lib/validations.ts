@@ -171,17 +171,12 @@ export function validateSearchQuery(
   const rawLimit = typeof params.limit === "string" ? parseInt(params.limit, 10) : 10;
   const limit = isNaN(rawLimit) || rawLimit < 1 ? 10 : Math.min(rawLimit, 100);
 
-  const allowedCategories = [
-    "all", "devops", "ai", "cloud", "programming", "cyber security",
-    "aws", "docker", "kubernetes", "nextjs", "react", "system-design",
-  ];
-
   const category = typeof params.category === "string"
     ? params.category.toLowerCase().trim()
     : undefined;
 
-  if (category && !allowedCategories.includes(category)) {
-    errors.push({ field: "category", message: `Invalid category. Allowed: ${allowedCategories.join(", ")}` });
+  if (category && (category.length > 50 || !/^[a-z0-9-_ ]+$/.test(category))) {
+    errors.push({ field: "category", message: "Category must be alphanumeric (max 50 characters)." });
   }
 
   if (errors.length > 0) {
@@ -194,13 +189,25 @@ export function validateSearchQuery(
   };
 }
 
-// ============================================================
-// API ROUTE HELPERS
-// ============================================================
+export interface ApiSuccessResponse<T> {
+  success: true;
+  data: T;
+  message?: string;
+  [key: string]: unknown;
+}
+
+export interface ApiErrorResponse {
+  success: false;
+  error: {
+    code: string;
+    message: string;
+    details?: ValidationError[];
+  };
+}
 
 /**
  * Parse and validate a JSON request body with type safety.
- * Returns null on malformed JSON.
+ * Returns null on malformed JSON or empty request.
  */
 export async function parseJsonBody(
   request: Request
@@ -220,23 +227,61 @@ export async function parseJsonBody(
 export function apiError(
   message: string,
   status: number = 400,
+  code: string = "VALIDATION_ERROR",
   errors?: ValidationError[]
 ): Response {
-  return new Response(
-    JSON.stringify({ error: message, ...(errors ? { details: errors } : {}) }),
-    {
-      status,
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const body: ApiErrorResponse = {
+    success: false,
+    error: {
+      code,
+      message,
+      ...(errors && errors.length > 0 ? { details: errors } : {}),
+    },
+  };
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 /**
  * Build a standardized API success response.
  */
-export function apiSuccess<T>(data: T, status: number = 200): Response {
-  return new Response(JSON.stringify({ success: true, data }), {
+export function apiSuccess<T>(
+  data: T,
+  message: string = "Success",
+  status: number = 200,
+  extra: Record<string, unknown> = {}
+): Response {
+  const body = {
+    success: true,
+    data,
+    message,
+    ...extra,
+  };
+  return new Response(JSON.stringify(body), {
     status,
     headers: { "Content-Type": "application/json" },
   });
 }
+
+/**
+ * Build a standardized 405 Method Not Allowed response with Allow header.
+ */
+export function methodNotAllowed(allowedMethods: string[]): Response {
+  const body: ApiErrorResponse = {
+    success: false,
+    error: {
+      code: "METHOD_NOT_ALLOWED",
+      message: `Method not allowed. Supported: ${allowedMethods.join(", ")}`,
+    },
+  };
+  return new Response(JSON.stringify(body), {
+    status: 405,
+    headers: {
+      "Content-Type": "application/json",
+      Allow: allowedMethods.join(", "),
+    },
+  });
+}
+

@@ -14,7 +14,19 @@ function getClientIp(request: NextRequest): string {
   return "unknown";
 }
 
+function cleanExpiredRateLimits(): void {
+  if (rateLimitStore.size > 5000) {
+    const now = Date.now();
+    for (const [key, val] of rateLimitStore.entries()) {
+      if (now > val.resetAt) {
+        rateLimitStore.delete(key);
+      }
+    }
+  }
+}
+
 function isRateLimited(ip: string): boolean {
+  cleanExpiredRateLimits();
   const now = Date.now();
   const entry = rateLimitStore.get(ip);
 
@@ -36,7 +48,13 @@ export function proxy(request: NextRequest) {
   if (pathname.startsWith("/api/")) {
     if (isRateLimited(ip)) {
       return new NextResponse(
-        JSON.stringify({ error: "Too many requests. Please slow down." }),
+        JSON.stringify({
+          success: false,
+          error: {
+            code: "RATE_LIMIT_EXCEEDED",
+            message: "Too many requests. Please slow down and try again later.",
+          },
+        }),
         {
           status: 429,
           headers: {
@@ -77,7 +95,13 @@ export function proxy(request: NextRequest) {
 
     if (origin && !allowedOrigins.includes(origin)) {
       return new NextResponse(
-        JSON.stringify({ error: "CSRF: Origin not allowed." }),
+        JSON.stringify({
+          success: false,
+          error: {
+            code: "CSRF_FORBIDDEN",
+            message: "CSRF: Origin not allowed.",
+          },
+        }),
         {
           status: 403,
           headers: { "Content-Type": "application/json" },

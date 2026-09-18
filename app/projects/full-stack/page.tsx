@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Server, Database, BookOpen, ExternalLink, Star } from "lucide-react";
+import { ArrowLeft, Server, Database, ExternalLink, Star } from "lucide-react";
 import { FiGithub as Github } from "@/lib/icons";
 import JSONLD from "@/app/components/JSONLD";
 

@@ -26,7 +26,7 @@ export async function GET() {
 
   // Pillar Topic Pages (0.8)
   const pillarPages = [
-    "/cloud", "/aws", "/docker", "/kubernetes", "/terraform", "/linux",
+    "/aws", "/docker", "/kubernetes", "/terraform", "/linux",
     "/cloud-security", "/cyber-security", "/case-studies", "/devsecops",
     "/lamp-stack", "/mern-stack", "/react", "/nextjs", "/javascript",
     "/typescript", "/nodejs", "/php", "/mysql", "/mongodb",

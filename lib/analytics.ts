@@ -1,14 +1,17 @@
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    clarity?: (...args: any[]) => void;
+    gtag?: (...args: unknown[]) => void;
+    clarity?: (...args: unknown[]) => void;
   }
 }
 
 /**
  * Dispatches custom analytics tracking events to GA4, Microsoft Clarity, and Vercel Analytics.
  */
-export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
+export function trackEvent(
+  eventName: string,
+  eventParams?: Record<string, string | number | boolean | undefined | null>
+) {
   if (typeof window === "undefined") return;
 
   // 1. Google Analytics Event Tracking

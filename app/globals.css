@@ -1,24 +1,63 @@
+
 @import "tailwindcss";
 
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
-/* loder start */
-/* From Uiverse.io by vinodjangid07 */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   LOADER
+   ========================================================= */
 
 .loader-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   width: 100%;
+  height: 100vh;
 }
 
-/* From Uiverse.io by Vosoone */
 .main-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .loader {
@@ -71,34 +110,50 @@
   }
 }
 
-/* Čip */
+/* =========================================================
+   CHIP
+   ========================================================= */
+
 .chip-body {
   rx: 20;
   ry: 20;
 }
 
-/* Text uvnitř čipu */
 .chip-text {
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-/* Piny */
 .chip-pin {
   stroke: #444;
   stroke-width: 0.5;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.6));
 }
 
-/* GPU-accelerated CSS animations */
+/* =========================================================
+   GRADIENT ANIMATIONS
+   ========================================================= */
+
 @keyframes gradient-move {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes gradient-x {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .animate-gradient {
@@ -111,42 +166,91 @@
   animation: gradient-x 4s ease infinite;
 }
 
+/* =========================================================
+   BOUNCE
+   ========================================================= */
+
 @keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(12px);
+  }
 }
 
 .animate-bounce-slow {
   animation: bounce-slow 1.5s ease-in-out infinite;
 }
 
+/* =========================================================
+   BLINK
+   ========================================================= */
+
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {
   animation: blink 0.8s steps(2, start) infinite;
 }
 
+/* =========================================================
+   FLOATING BLOBS
+   ========================================================= */
+
 @keyframes float-blob {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -30px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
 }
 
 .animate-float-blob {
   animation: float-blob 12s ease-in-out infinite;
 }
 
+/* =========================================================
+   PULSE
+   ========================================================= */
+
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.04); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.04);
+  }
 }
 
 .animate-pulse-slow {
   animation: pulse-slow 5s ease-in-out infinite;
 }
+
+/* =========================================================
+   SHIMMER
+   ========================================================= */
 
 @keyframes shimmer {
   100% {
@@ -154,7 +258,10 @@
   }
 }
 
-/* Glassmorphism & Developer Grid Patterns */
+/* =========================================================
+   GLASSMORPHISM
+   ========================================================= */
+
 .glass-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -169,19 +276,41 @@
   border: 1px solid rgba(51, 65, 85, 0.6);
 }
 
+/* =========================================================
+   GRID PATTERN
+   ========================================================= */
+
 .bg-grid-pattern {
   background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(99, 102, 241, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(99, 102, 241, 0.05) 1px,
+      transparent 1px
+    );
 }
 
+/* =========================================================
+   DOT PATTERN
+   ========================================================= */
+
 .bg-dot-pattern {
-  background-image: radial-gradient(rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(99, 102, 241, 0.12) 1px,
+    transparent 1px
+  );
   background-size: 24px 24px;
 }
 
-/* Custom Scrollbar */
+/* =========================================================
+   CUSTOM SCROLLBAR
+   ========================================================= */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -200,32 +329,48 @@
   background: #94a3b8;
 }
 
-/* Glow Border & Hover Effects */
+/* =========================================================
+   GLOW HOVER
+   ========================================================= */
+
 .glow-on-hover {
   position: relative;
-  transition: all 0.3s ease;
+  transition:
+    box-shadow 300ms ease,
+    transform 300ms ease,
+    opacity 300ms ease;
 }
 
 .glow-on-hover:hover {
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25), 0 8px 16px -6px rgba(99, 102, 241, 0.2);
+  box-shadow:
+    0 0 25px -5px rgba(99, 102, 241, 0.25),
+    0 8px 16px -6px rgba(99, 102, 241, 0.2);
 }
 
-/* Mobile Touch & Cursor UI/UX Optimizations */
-html, body {
+/* =========================================================
+   MOBILE / TOUCH
+   ========================================================= */
+
+html,
+body {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  overflow-x: hidden;
 }
 
-/* Prevent unwanted mobile text selection carets/cursors on interactive UI elements */
-button, a, [role="button"], .no-select {
+/* Prevent unwanted selection on interactive elements */
+
+button,
+a,
+[role="button"],
+.no-select {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
 }
 
-/* Allow text selection specifically for body content */
+/* Allow normal text selection */
+
 .selectable-text {
   -webkit-user-select: text;
   user-select: text;
-}
+}

@@ -39,6 +39,14 @@ let nextConfig: NextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  async rewrites() {
+    return [
+      {
+        source: '/og-image.png',
+        destination: '/opengraph-image',
+      },
+    ];
+  },
   async headers() {
     return [
       {

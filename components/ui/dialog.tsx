@@ -49,6 +49,8 @@ const DialogContent = React.forwardRef<
 >(({ className, children, onClose, ...props }, ref) => (
   <div
     ref={ref}
+    role="dialog"
+    aria-modal="true"
     className={cn(
       "relative z-10 w-full max-w-lg rounded-3xl border border-slate-200/80 bg-white p-6 shadow-2xl animate-in zoom-in-95 fade-in duration-200 max-h-[90vh] overflow-y-auto",
       className

@@ -1,15 +1,86 @@
-import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
+import {
+  parseJsonBody,
+  validateContactForm,
+  apiSuccess,
+  apiError,
+  methodNotAllowed,
+} from "@/lib/validations";
 
-export async function POST(req: Request) {
+export const dynamic = "force-dynamic";
+
+// In-memory duplicate submission store (keyed by `${ip}:${email}`)
+const submissionHistory = new Map<string, { lastSubmittedAt: number; messageHash: string }>();
+const DUPLICATE_COOLDOWN_MS = 30_000; // 30 seconds
+
+function getClientIp(req: NextRequest | Request): string {
+  const forwarded = req.headers.get("x-forwarded-for");
+  const realIp = req.headers.get("x-real-ip");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  if (realIp) return realIp.trim();
+  return "unknown";
+}
+
+function cleanExpiredSubmissions() {
+  if (submissionHistory.size > 2000) {
+    const now = Date.now();
+    for (const [key, val] of submissionHistory.entries()) {
+      if (now - val.lastSubmittedAt > DUPLICATE_COOLDOWN_MS) {
+        submissionHistory.delete(key);
+      }
+    }
+  }
+}
+
+export async function POST(req: NextRequest) {
   try {
-    const { name, email, subject, message } = await req.json();
-
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: "Name, email, and message are required fields." },
-        { status: 400 }
+    const body = await parseJsonBody(req);
+    if (!body) {
+      return apiError(
+        "Invalid or empty JSON request body.",
+        400,
+        "INVALID_JSON"
       );
+    }
+
+    // Honeypot spam trap: real users won't fill this field
+    const honeypot = body._gotcha || body.honeypot;
+    if (typeof honeypot === "string" && honeypot.trim().length > 0) {
+      // Silently succeed to fool bots without sending email
+      return apiSuccess(
+        { sentAt: new Date().toISOString() },
+        "Your message has been sent successfully!"
+      );
+    }
+
+    // Validate inputs with sanitization and length checks
+    const validation = validateContactForm(body);
+    if (!validation.success) {
+      return apiError(
+        validation.errors[0]?.message || "Validation failed. Please verify your input.",
+        400,
+        "VALIDATION_ERROR",
+        validation.errors
+      );
+    }
+
+    const { name, email, subject, message } = validation.data;
+    const ip = getClientIp(req);
+    const submissionKey = `${ip}:${email}`;
+    const now = Date.now();
+
+    // Prevent spamming rapid duplicate submissions
+    cleanExpiredSubmissions();
+    const previous = submissionHistory.get(submissionKey);
+    if (previous && (now - previous.lastSubmittedAt < DUPLICATE_COOLDOWN_MS)) {
+      if (previous.messageHash === message) {
+        return apiError(
+          "Duplicate message detected. Please wait before submitting again.",
+          429,
+          "DUPLICATE_SUBMISSION"
+        );
+      }
     }
 
     const gmailUser = process.env.GMAIL_USER;
@@ -18,9 +89,10 @@ export async function POST(req: Request) {
 
     if (!gmailUser || !gmailPass || !receiverEmail) {
       console.warn("Contact mail service not configured: GMAIL_USER or GMAIL_PASS missing.");
-      return NextResponse.json(
-        { error: "Mail service is currently unavailable. Please reach out directly to support@ajitdev.com." },
-        { status: 503 }
+      return apiError(
+        "Mail service is currently unavailable. Please reach out directly to support@ajitdev.com.",
+        503,
+        "SERVICE_UNAVAILABLE"
       );
     }
 
@@ -70,7 +142,6 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    // Send email via Gmail Nodemailer
     await transporter.sendMail({
       from: `"AJITDEV Contact Form" <${gmailUser}>`,
       to: receiverEmail,
@@ -79,15 +150,36 @@ export async function POST(req: Request) {
       html: htmlContent,
     });
 
-    return NextResponse.json(
-      { success: true, message: "Your message has been sent successfully!" },
-      { status: 200 }
+    // Record submission for duplicate tracking
+    submissionHistory.set(submissionKey, { lastSubmittedAt: now, messageHash: message });
+
+    return apiSuccess(
+      { sentAt: new Date().toISOString() },
+      "Your message has been sent successfully!"
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    // Log full error server-side for observability, but NEVER leak credentials or stack trace to client
     console.error("Nodemailer API error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to send message via Nodemailer." },
-      { status: 500 }
+    return apiError(
+      "Failed to send message. Please try again later or email directly to support@ajitdev.com.",
+      500,
+      "INTERNAL_SERVER_ERROR"
     );
   }
+}
+
+export async function GET() {
+  return methodNotAllowed(["POST"]);
+}
+
+export async function PUT() {
+  return methodNotAllowed(["POST"]);
+}
+
+export async function PATCH() {
+  return methodNotAllowed(["POST"]);
+}
+
+export async function DELETE() {
+  return methodNotAllowed(["POST"]);
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { Layers, Cpu, Terminal, Key, Shield } from "lucide-react";
 
 export interface Section {
@@ -17,7 +18,7 @@ export interface Paper {
   category: string;
   date: string;
   readTime: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   sections: Section[];
 }
 

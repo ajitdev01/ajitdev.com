@@ -122,6 +122,8 @@ const Header = () => {
             <button
               onClick={() => setIsMobileOpen(true)}
               aria-label="Open navigation menu"
+              aria-expanded={isMobileOpen}
+              aria-controls="mobile-nav-drawer"
               type="button"
               className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100/80 border border-slate-200/80 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all cursor-pointer shadow-xs active:scale-95"
             >
@@ -133,7 +135,7 @@ const Header = () => {
 
       {/* Mobile Drawer Overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-[1200] lg:hidden">
+        <div id="mobile-nav-drawer" className="fixed inset-0 z-[1200] lg:hidden">
           {/* Backdrop */}
           <div
             onClick={() => setIsMobileOpen(false)}

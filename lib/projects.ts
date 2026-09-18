@@ -1,10 +1,31 @@
+import React from "react";
 import {
   FiBook, FiDatabase,
   FiBarChart2, FiGlobe, FiPackage, FiGitPullRequest, FiTerminal,
   FiServer
 } from "@/lib/icons";
 
-export const projects = [
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  shortDescription: string;
+  tech: string[];
+  category: string;
+  subcategory: string;
+  github: string;
+  liveDemo: string;
+  icon: React.ComponentType<{ className?: string }>;
+  gradient: string;
+  features: string[];
+  complexity: string;
+  stars: number;
+  lastUpdated: string;
+  highlight: boolean;
+  learningOutcome: string;
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "IRCTC Railway System Clone",

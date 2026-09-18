@@ -32,9 +32,10 @@ self.addEventListener("activate", (event) => {
 
 // Fetch Event (Network-First falling back to Cache, then Offline Fallback Page)
 self.addEventListener("fetch", (event) => {
-  // Only handle GET requests and exclude dynamic paths like browser-sync, Clarity, Google Analytics
+  // Only handle GET requests and exclude API routes & analytics/extensions
   if (
     event.request.method !== "GET" ||
+    event.request.url.includes("/api/") ||
     event.request.url.includes("chrome-extension") ||
     event.request.url.includes("clarity.ms") ||
     event.request.url.includes("googletagmanager.com")

@@ -44,8 +44,8 @@ export default function CommandPalette() {
         if (!res.ok) throw new Error("Search data load failed");
         const data = await res.json();
         if (active) {
-          setBlogPosts(data.posts || []);
-          setProjectsData(data.projects || []);
+          setBlogPosts(data.data?.posts || data.posts || []);
+          setProjectsData(data.data?.projects || data.projects || []);
         }
       } catch (err) {
         console.error("Failed to load command palette search index:", err);
@@ -276,6 +276,9 @@ export default function CommandPalette() {
       <div
         ref={containerRef}
         onKeyDown={handleKeyDown}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
         className="relative w-full max-w-lg bg-white/95 border border-gray-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[60vh] text-gray-800 animate-in fade-in zoom-in-95 duration-100"
       >
         {/* Search Bar */}
@@ -284,6 +287,10 @@ export default function CommandPalette() {
           <input
             ref={inputRef}
             type="text"
+            role="combobox"
+            aria-expanded="true"
+            aria-autocomplete="list"
+            aria-controls="command-palette-results"
             placeholder="Search files, routes, projects, articles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -304,7 +311,7 @@ export default function CommandPalette() {
         </div>
 
         {/* Scrollable Results Area */}
-        <div className="flex-1 overflow-y-auto p-2 min-h-[200px]">
+        <div id="command-palette-results" role="listbox" className="flex-1 overflow-y-auto p-2 min-h-[200px]">
           {filteredItems.length > 0 ? (
             <div className="space-y-1">
               {filteredItems.map((item, index) => {
@@ -314,6 +321,8 @@ export default function CommandPalette() {
                   <button
                     key={item.id}
                     onClick={item.action}
+                    role="option"
+                    aria-selected={isSelected}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all text-left ${
                       isSelected
                         ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10 font-medium"

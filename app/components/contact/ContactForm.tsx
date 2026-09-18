@@ -87,6 +87,11 @@ export default function ContactForm() {
 
       const data = await response.json();
 
+      const rawError =
+        data.error?.message ||
+        (typeof data.error === "string" ? data.error : null) ||
+        data.message;
+
       if (response.ok && data.success) {
         setIsLoading(false);
         setShowSuccessModal(true);
@@ -94,13 +99,14 @@ export default function ContactForm() {
         trackEvent("contact_submission_success", { subject: formData.subject || "General" });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error(data.error || "Failed to send email");
+        throw new Error(rawError || "Failed to send email");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : "Failed to send message. Please try again or email me directly.";
       console.error("Contact form error:", err);
       setIsLoading(false);
-      trackEvent("contact_submission_failed", { error: err.message || "Unknown error" });
-      setError(err.message || "Failed to send message. Please try again or email me directly.");
+      trackEvent("contact_submission_failed", { error: errMsg });
+      setError(errMsg);
     }
   };
 
@@ -249,13 +255,25 @@ export default function ContactForm() {
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {/* Invisible honeypot field to trap bots */}
+              <input
+                type="text"
+                name="_gotcha"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+                style={{ display: "none" }}
+              />
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Name Field */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  <label htmlFor="contact-name" className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
                     Full Name <span className="text-rose-500">*</span>
                   </label>
                   <Input
+                    id="contact-name"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
@@ -267,10 +285,11 @@ export default function ContactForm() {
 
                 {/* Email Field */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  <label htmlFor="contact-email" className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
                     Email Address <span className="text-rose-500">*</span>
                   </label>
                   <Input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -285,7 +304,7 @@ export default function ContactForm() {
               {/* Subject Field */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  <label htmlFor="contact-subject" className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
                     Subject
                   </label>
                   {selectedTopic && (
@@ -302,6 +321,7 @@ export default function ContactForm() {
                   )}
                 </div>
                 <Input
+                  id="contact-subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
@@ -313,7 +333,7 @@ export default function ContactForm() {
               {/* Message Field */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
+                  <label htmlFor="contact-message" className="text-xs font-extrabold text-slate-700 uppercase tracking-wider block">
                     Message <span className="text-rose-500">*</span>
                   </label>
                   <span className="text-[11px] font-mono font-medium text-slate-400">
@@ -321,6 +341,7 @@ export default function ContactForm() {
                   </span>
                 </div>
                 <Textarea
+                  id="contact-message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
