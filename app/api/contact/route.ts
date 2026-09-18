@@ -109,11 +109,25 @@ export async function POST(req: NextRequest) {
       tls: {
         rejectUnauthorized: false,
       },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
     const mailSubject = subject
       ? `[Portfolio Inquiry] ${subject}`
       : `[Portfolio Contact] New message from ${name}`;
+
+    const textContent = `
+New Contact Form Submission from AJITDEV.com Portfolio
+
+Sender: ${name}
+Email: ${email}
+Subject: ${subject || "General Inquiry"}
+
+Message:
+${message}
+    `.trim();
 
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -153,6 +167,7 @@ export async function POST(req: NextRequest) {
       to: receiverEmail,
       replyTo: email,
       subject: mailSubject,
+      text: textContent,
       html: htmlContent,
     });
 
