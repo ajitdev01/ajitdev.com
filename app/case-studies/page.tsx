@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
 import { PAGE_KEYWORDS } from "@/lib/seo";
-import { getCollectionPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Technical Case Studies – Ajit Dev",

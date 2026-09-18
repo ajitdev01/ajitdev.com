@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Award, Briefcase, TrendingUp, Sparkles } from "lucide-react";
+import { ArrowRight, Award, Briefcase, TrendingUp } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
