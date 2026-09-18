@@ -240,22 +240,20 @@ export default function ResumePage() {
               <div className="flex p-1 bg-slate-200/80 rounded-xl border border-slate-300/50">
                 <button
                   onClick={() => setViewMode("web")}
-                  className={`px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                    viewMode === "web"
-                      ? "bg-white text-indigo-700 shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  className={`px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${viewMode === "web"
+                    ? "bg-white text-indigo-700 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
                 >
                   <FileText className="w-3.5 h-3.5" />
                   Web Resume
                 </button>
                 <button
                   onClick={() => setViewMode("pdf")}
-                  className={`px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                    viewMode === "pdf"
-                      ? "bg-white text-indigo-700 shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  className={`px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${viewMode === "pdf"
+                    ? "bg-white text-indigo-700 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                    }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
                   PDF Viewer
@@ -275,8 +273,8 @@ export default function ResumePage() {
                 Open PDF in New Tab
               </a>
               <a
-                href="/AJIT_KUMAR.pdf"
-                download="AJIT_KUMAR_Resume.pdf"
+                href="/resume.pdf"
+                download="/resume.pdf"
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-sm transition-all no-underline"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -306,7 +304,7 @@ export default function ResumePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <a
-                    href="/AJIT_KUMAR.pdf"
+                    href="/resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white text-slate-800 border border-slate-200 hover:bg-slate-50 text-xs font-extrabold rounded-xl transition-all shadow-2xs no-underline"
@@ -315,7 +313,7 @@ export default function ResumePage() {
                     Open in New Tab
                   </a>
                   <a
-                    href="/AJIT_KUMAR.pdf"
+                    href="/resume.pdf"
                     download="AJIT_KUMAR_Resume.pdf"
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold rounded-xl shadow-sm transition-all no-underline"
                   >
@@ -328,19 +326,19 @@ export default function ResumePage() {
               {/* PDF Document Frame */}
               <div className="w-full h-[750px] sm:h-[900px] rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner">
                 <object
-                  data="/AJIT_KUMAR.pdf"
+                  data="/resume.pdf"
                   type="application/pdf"
                   className="w-full h-full"
                 >
                   <iframe
-                    src="/AJIT_KUMAR.pdf"
+                    src="/resume.pdf"
                     className="w-full h-full border-0"
                     title="Ajit Kumar Resume PDF"
                   >
                     <div className="p-8 text-center">
                       <p className="text-sm font-semibold text-slate-600 mb-4">Your browser doesn&apos;t support direct PDF embedding.</p>
                       <a
-                        href="/AJIT_KUMAR.pdf"
+                        href="/resume.pdf"
                         download="AJIT_KUMAR_Resume.pdf"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-sm"
                       >
@@ -352,439 +350,439 @@ export default function ResumePage() {
               </div>
             </div>
           ) : (
-          /* ═══════════════════════════════════════════════════════════════
-              RESUME CARD
-          ═══════════════════════════════════════════════════════════════ */
-          <div className="resume-card rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/80 print:rounded-none print:border-none print:shadow-none">
+            /* ═══════════════════════════════════════════════════════════════
+                RESUME CARD
+            ═══════════════════════════════════════════════════════════════ */
+            <div className="resume-card rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/80 print:rounded-none print:border-none print:shadow-none">
 
-            {/* ════ HEADER ════════════════════════════════════════════════ */}
-            <div className="
+              {/* ════ HEADER ════════════════════════════════════════════════ */}
+              <div className="
               relative overflow-hidden rounded-t-3xl
               bg-gradient-to-br from-white via-indigo-50/60 to-white
               px-8 pt-7 pb-5 border-b border-slate-100
               print:rounded-none print:px-0 print:pt-0 print:pb-3 print:border-b print:border-black print:bg-white
             ">
-              {/* Dot grid — screen only */}
-              <div className="absolute inset-0 print:hidden" aria-hidden="true"
-                style={{ backgroundImage: "radial-gradient(circle, rgba(99,102,241,0.06) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
-              />
+                {/* Dot grid — screen only */}
+                <div className="absolute inset-0 print:hidden" aria-hidden="true"
+                  style={{ backgroundImage: "radial-gradient(circle, rgba(99,102,241,0.06) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+                />
 
-              <div className="relative">
-                {/* ── Print header: centered name block ── */}
-                <div className="hidden print:block print:text-center print:mb-2">
-                  <h1 className="print:text-[22pt] print:font-black print:text-black print:leading-none print:tracking-tight">
-                    Ajit Kumar
-                  </h1>
-                  <p className="print:text-[9pt] print:font-bold print:text-black print:mt-0.5">
-                    Software Engineer · Full Stack · DevOps · Cloud Security · DevSecOps
-                  </p>
-                  {/* Print contact row */}
-                  <p className="print:text-[7pt] print:text-black print:mt-1 print:leading-relaxed">
-                    support@ajitdev.com &nbsp;·&nbsp; ajitk23192@gmail.com &nbsp;·&nbsp; +91 62055 26784 &nbsp;·&nbsp; Katihar, Bihar, India
-                  </p>
-                  <p className="print:text-[7pt] print:text-black print:leading-relaxed">
-                    github.com/ajitdev01 &nbsp;·&nbsp; linkedin.com/in/ajitdev01 &nbsp;·&nbsp; ajitdev.com &nbsp;·&nbsp; leetcode.com/ajitdev01
-                  </p>
-                  {/* Print summary */}
-                  <p className="print:text-[7.5pt] print:text-black print:mt-1.5 print:leading-snug print:text-left">
-                    Results-driven Full Stack Engineer with hands-on LAMP Stack production experience and a strong foundation in
-                    MERN Stack, Next.js, and cloud-native infrastructure. Engineered 4+ production-grade web applications covering
-                    authentication systems, admin dashboards, CMS portals, and REST API integrations. Proficient in Docker, AWS,
-                    Terraform, and GitHub Actions CI/CD with a DevSecOps mindset. 518+ LeetCode problems solved; advancing in
-                    System Design, Distributed Systems, and Cloud Security.
-                  </p>
-                </div>
-
-                {/* ── Screen header ── */}
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 print:hidden">
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-3 mb-1">
-                      <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
-                        Ajit Kumar
-                      </h1>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        Open to Work
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-indigo-600 tracking-wide mt-1">
+                <div className="relative">
+                  {/* ── Print header: centered name block ── */}
+                  <div className="hidden print:block print:text-center print:mb-2">
+                    <h1 className="print:text-[22pt] print:font-black print:text-black print:leading-none print:tracking-tight">
+                      Ajit Kumar
+                    </h1>
+                    <p className="print:text-[9pt] print:font-bold print:text-black print:mt-0.5">
                       Software Engineer · Full Stack · DevOps · Cloud Security · DevSecOps
                     </p>
-                    <p className="mt-3 text-[12px] text-slate-500 leading-relaxed max-w-2xl">
-                      Results-driven Full Stack Engineer with hands-on LAMP Stack production experience and a
-                      strong foundation in MERN Stack, Next.js, and cloud-native infrastructure. Engineered
-                      4+ production-grade web applications covering authentication systems, admin dashboards,
-                      CMS portals, and REST API integrations. Proficient in Docker, AWS, Terraform, and
-                      GitHub Actions CI/CD pipelines with a security-first DevSecOps mindset. Active competitive
-                      programmer with 518+ LeetCode problems solved, continuously advancing in System Design,
-                      Distributed Systems, and Cloud Security.
+                    {/* Print contact row */}
+                    <p className="print:text-[7pt] print:text-black print:mt-1 print:leading-relaxed">
+                      support@ajitdev.com &nbsp;·&nbsp; ajitk23192@gmail.com &nbsp;·&nbsp; +91 62055 26784 &nbsp;·&nbsp; Katihar, Bihar, India
                     </p>
-                    {/* Stat badges */}
-                    <div className="mt-4 grid grid-cols-4 gap-2 max-w-lg">
-                      <StatBadge value="518+" label="LeetCode" icon={<Leetcode className="w-3.5 h-3.5" />} />
-                      <StatBadge value="242+" label="Day Streak" icon={<Zap className="w-3 h-3" />} />
-                      <StatBadge value="4+" label="Live Projects" icon={<Globe className="w-3 h-3" />} />
-                      <StatBadge value="6mo" label="Eng. XP" icon={<Briefcase className="w-3 h-3" />} />
-                    </div>
+                    <p className="print:text-[7pt] print:text-black print:leading-relaxed">
+                      github.com/ajitdev01 &nbsp;·&nbsp; linkedin.com/in/ajitdev01 &nbsp;·&nbsp; ajitdev.com &nbsp;·&nbsp; leetcode.com/ajitdev01
+                    </p>
+                    {/* Print summary */}
+                    <p className="print:text-[7.5pt] print:text-black print:mt-1.5 print:leading-snug print:text-left">
+                      Results-driven Full Stack Engineer with hands-on LAMP Stack production experience and a strong foundation in
+                      MERN Stack, Next.js, and cloud-native infrastructure. Engineered 4+ production-grade web applications covering
+                      authentication systems, admin dashboards, CMS portals, and REST API integrations. Proficient in Docker, AWS,
+                      Terraform, and GitHub Actions CI/CD with a DevSecOps mindset. 518+ LeetCode problems solved; advancing in
+                      System Design, Distributed Systems, and Cloud Security.
+                    </p>
                   </div>
-                  {/* Contact */}
-                  <div className="shrink-0 space-y-1.5 text-[11px] text-slate-500">
-                    {[
-                      { icon: <Mail className="w-3 h-3" />, href: "mailto:support@ajitdev.com", label: "support@ajitdev.com" },
-                      { icon: <Mail className="w-3 h-3" />, href: "mailto:ajitk23192@gmail.com", label: "ajitk23192@gmail.com" },
-                      { icon: <Phone className="w-3 h-3" />, href: "tel:+916205526784", label: "+91 62055 26784" },
-                      { icon: <MapPin className="w-3 h-3" />, href: null, label: "Katihar, Bihar, India" },
-                      { icon: <Github className="w-3 h-3" />, href: "https://github.com/ajitdev01", label: "github.com/ajitdev01" },
-                      { icon: <Linkedin className="w-3 h-3" />, href: "https://linkedin.com/in/ajitdev01", label: "linkedin.com/in/ajitdev01" },
-                      { icon: <Globe className="w-3 h-3" />, href: "https://ajitdev.com", label: "ajitdev.com" },
-                      { icon: <Leetcode className="w-3 h-3" />, href: "https://leetcode.com/ajitdev01", label: "leetcode.com/ajitdev01" },
-                    ].map(({ icon, href, label }) => (
-                      <div key={label} className="flex items-center gap-2">
-                        <span className="text-indigo-500">{icon}</span>
-                        {href ? (
-                          <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
-                            className="hover:text-indigo-600 transition-colors">{label}</a>
-                        ) : <span>{label}</span>}
+
+                  {/* ── Screen header ── */}
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 print:hidden">
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-3 mb-1">
+                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
+                          Ajit Kumar
+                        </h1>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Open to Work
+                        </span>
                       </div>
-                    ))}
+                      <p className="text-sm font-bold text-indigo-600 tracking-wide mt-1">
+                        Software Engineer · Full Stack · DevOps · Cloud Security · DevSecOps
+                      </p>
+                      <p className="mt-3 text-[12px] text-slate-500 leading-relaxed max-w-2xl">
+                        Results-driven Full Stack Engineer with hands-on LAMP Stack production experience and a
+                        strong foundation in MERN Stack, Next.js, and cloud-native infrastructure. Engineered
+                        4+ production-grade web applications covering authentication systems, admin dashboards,
+                        CMS portals, and REST API integrations. Proficient in Docker, AWS, Terraform, and
+                        GitHub Actions CI/CD pipelines with a security-first DevSecOps mindset. Active competitive
+                        programmer with 518+ LeetCode problems solved, continuously advancing in System Design,
+                        Distributed Systems, and Cloud Security.
+                      </p>
+                      {/* Stat badges */}
+                      <div className="mt-4 grid grid-cols-4 gap-2 max-w-lg">
+                        <StatBadge value="518+" label="LeetCode" icon={<Leetcode className="w-3.5 h-3.5" />} />
+                        <StatBadge value="242+" label="Day Streak" icon={<Zap className="w-3 h-3" />} />
+                        <StatBadge value="4+" label="Live Projects" icon={<Globe className="w-3 h-3" />} />
+                        <StatBadge value="6mo" label="Eng. XP" icon={<Briefcase className="w-3 h-3" />} />
+                      </div>
+                    </div>
+                    {/* Contact */}
+                    <div className="shrink-0 space-y-1.5 text-[11px] text-slate-500">
+                      {[
+                        { icon: <Mail className="w-3 h-3" />, href: "mailto:support@ajitdev.com", label: "support@ajitdev.com" },
+                        { icon: <Mail className="w-3 h-3" />, href: "mailto:ajitk23192@gmail.com", label: "ajitk23192@gmail.com" },
+                        { icon: <Phone className="w-3 h-3" />, href: "tel:+916205526784", label: "+91 62055 26784" },
+                        { icon: <MapPin className="w-3 h-3" />, href: null, label: "Katihar, Bihar, India" },
+                        { icon: <Github className="w-3 h-3" />, href: "https://github.com/ajitdev01", label: "github.com/ajitdev01" },
+                        { icon: <Linkedin className="w-3 h-3" />, href: "https://linkedin.com/in/ajitdev01", label: "linkedin.com/in/ajitdev01" },
+                        { icon: <Globe className="w-3 h-3" />, href: "https://ajitdev.com", label: "ajitdev.com" },
+                        { icon: <Leetcode className="w-3 h-3" />, href: "https://leetcode.com/ajitdev01", label: "leetcode.com/ajitdev01" },
+                      ].map(({ icon, href, label }) => (
+                        <div key={label} className="flex items-center gap-2">
+                          <span className="text-indigo-500">{icon}</span>
+                          {href ? (
+                            <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
+                              className="hover:text-indigo-600 transition-colors">{label}</a>
+                          ) : <span>{label}</span>}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* ════ BODY ═══════════════════════════════════════════════════ */}
-            <div className="print-grid grid md:grid-cols-12">
+              {/* ════ BODY ═══════════════════════════════════════════════════ */}
+              <div className="print-grid grid md:grid-cols-12">
 
-              {/* ════ LEFT COLUMN ══════════════════════════════════════════ */}
-              <div className="print-left md:col-span-8 px-8 py-6 space-y-7 border-r border-slate-100 print:space-y-0 print:px-0 print:py-0 print:border-slate-300">
+                {/* ════ LEFT COLUMN ══════════════════════════════════════════ */}
+                <div className="print-left md:col-span-8 px-8 py-6 space-y-7 border-r border-slate-100 print:space-y-0 print:px-0 print:py-0 print:border-slate-300">
 
-                {/* ── EXPERIENCE ──────────────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<Briefcase className="w-3.5 h-3.5" />}>
-                    Professional Experience
-                  </SectionHeading>
+                  {/* ── EXPERIENCE ──────────────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<Briefcase className="w-3.5 h-3.5" />}>
+                      Professional Experience
+                    </SectionHeading>
 
-                  <div className="space-y-5 print:space-y-0">
+                    <div className="space-y-5 print:space-y-0">
 
-                    {/* Exp 1 */}
-                    <div className="exp-block relative pl-4 border-l-2 border-indigo-300 print:pl-0 print:border-0 print:border-l-0">
-                      <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-indigo-500 ring-2 ring-white print:hidden" />
-                      <div className="flex flex-wrap justify-between items-start gap-1 mb-1.5 print:mb-0.5">
-                        <div>
-                          <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
-                            Full Stack Engineer — Web Development
-                          </h3>
-                          <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-semibold">
-                            Freelance / Contract · LAMP Stack · REST APIs · MVC Architecture
-                          </p>
-                        </div>
-                        <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
-                          6 Months · 2024
-                        </span>
-                      </div>
-                      <ul className="space-y-1.5 print:space-y-0.5 print:list-disc print:list-outside print:ml-4">
-                        <Bullet>Engineered 4+ production-ready LAMP Stack web applications encompassing business portals, admin dashboards, authentication systems, and CMS-driven sites deployed on Apache/Linux.</Bullet>
-                        <Bullet>Designed responsive, cross-browser-compatible UI layouts using HTML5, CSS3, and Bootstrap, reducing page rendering inconsistencies across Chrome, Firefox, and Safari.</Bullet>
-                        <Bullet>Developed reusable PHP backend modules with MVC-style architecture, implementing role-based access control, session management, and secure form validation workflows.</Bullet>
-                        <Bullet>Integrated RESTful APIs and third-party SMTP mail services to enable automated client communication pipelines within production environments.</Bullet>
-                        <Bullet>Optimized MySQL database queries through indexing strategies and JOIN refactoring, improving average query execution time across high-frequency data retrieval endpoints.</Bullet>
-                        <Bullet>Automated deployment workflows using Git/GitHub version control and Apache VirtualHost configuration, streamlining production release cycles.</Bullet>
-                        <Bullet>Implemented on-page SEO optimizations including semantic HTML structure, meta tags, and structured content, improving search engine indexability for client websites.</Bullet>
-                        <Bullet>Resolved production bugs across backend authentication flows and frontend rendering pipelines, maintaining uptime and stability for active client deployments.</Bullet>
-                      </ul>
-                    </div>
-
-                    {/* Exp 2 */}
-                    <div className="exp-block relative pl-4 border-l-2 border-violet-300 print:pl-0 print:border-0 print:mt-3">
-                      <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-violet-500 ring-2 ring-white print:hidden" />
-                      <div className="flex flex-wrap justify-between items-start gap-1 mb-1.5 print:mb-0.5">
-                        <div>
-                          <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
-                            Web Developer — Contributor
-                          </h3>
-                          <a href="https://rexvel.com" target="_blank" rel="noopener noreferrer"
-                            className="text-[11px] text-violet-600 font-semibold hover:text-violet-700 inline-flex items-center gap-1 print:text-[7.5pt] print:text-black print:font-semibold print:no-underline">
-                            RexVel Web Solution <ExternalLink className="w-2.5 h-2.5 print:hidden" />
-                          </a>
-                          <p className="text-[10px] text-slate-400 print:text-[7pt] print:text-black">Digital Branding &amp; Web Development Agency · rexvel.com</p>
-                        </div>
-                        <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded print:hidden">
-                          Collaborative
-                        </span>
-                      </div>
-                      <ul className="space-y-1.5 print:space-y-0.5 print:list-disc print:list-outside print:ml-4">
-                        <Bullet>Contributed to development and maintenance of responsive business websites and digital solutions, delivering pixel-accurate UI components and PHP-driven backend features.</Bullet>
-                        <Bullet>Designed reusable front-end components with Bootstrap and vanilla CSS, ensuring consistent branding and cross-device responsiveness across client deliverables.</Bullet>
-                        <Bullet>Maintained and extended PHP backend codebases implementing database-driven functionality, dynamic content rendering, and secure authentication modules.</Bullet>
-                        <Bullet>Integrated MySQL databases with optimized query structures to support data-driven web portals, admin panels, and dynamic landing pages.</Bullet>
-                        <Bullet>Delivered client customizations and feature enhancements within defined scope, meeting deadlines and maintaining production deployment stability.</Bullet>
-                        <Bullet>Supported SEO improvements and cross-browser compatibility fixes enhancing page performance and discoverability for agency client portfolios.</Bullet>
-                      </ul>
-                    </div>
-
-                  </div>
-                </div>
-
-                {/* ── PROJECTS ────────────────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<Code className="w-3.5 h-3.5" />}>
-                    Featured Engineering Projects
-                  </SectionHeading>
-
-                  <div className="space-y-3.5 print:space-y-0">
-                    {[
-                      {
-                        title: "DevSecOps Automation Pipeline — Shift-Left Security CI/CD",
-                        tags: ["GitHub Actions", "Docker", "Trivy", "SAST", "OWASP"],
-                        bullets: [
-                          "Architected a multi-stage GitHub Actions CI/CD pipeline integrating Trivy container image vulnerability scanning and OWASP dependency-check SAST analysis before every Docker registry push.",
-                          "Containerized a React application with multi-stage Dockerfile, reducing final image size by isolating build and runtime layers, and enforcing non-root container execution for security hardening.",
-                          "Configured automated workflow gates that block deployments on high/critical CVE detections, implementing a shift-left security model aligned with OWASP DevSecOps practices.",
-                          "Instrumented pipeline with secrets management best practices—injecting API keys via GitHub Encrypted Secrets, preventing credential exposure in build logs.",
-                        ],
-                      },
-                      {
-                        title: "Cloud Security Lab — AWS VPC Network Isolation",
-                        tags: ["AWS", "Terraform", "IAM", "VPC", "EC2", "CloudWatch"],
-                        bullets: [
-                          "Provisioned a production-grade AWS VPC architecture using Terraform IaC, segregating database nodes inside private non-egress subnets while routing public traffic through an Application Load Balancer and NAT Gateway.",
-                          "Configured granular IAM policies with least-privilege boundaries for EC2 instances, S3 buckets, and CloudWatch monitoring to eliminate over-privileged access vectors.",
-                          "Designed Security Group firewall rules enforcing explicit ingress/egress allowlists, blocking unauthorized lateral movement between VPC tiers aligned with Zero Trust networking principles.",
-                          "Automated infrastructure provisioning with Terraform state management enabling reproducible multi-environment deployments and infrastructure drift detection.",
-                        ],
-                      },
-                      {
-                        title: "Stateless MERN Platform — JWT Auth + Redis Caching Layer",
-                        tags: ["MongoDB", "Express", "React", "Node.js", "Redis", "JWT"],
-                        bullets: [
-                          "Engineered a scalable MERN Stack web platform with stateless JWT authentication via HTTP-only cookies, eliminating XSS-based token theft vectors and maintaining secure session lifecycle.",
-                          "Implemented Cache-Aside pattern using Redis to intercept high-frequency MongoDB read operations, reducing database round-trips and improving response latency for frequently queried resources.",
-                          "Designed normalized MongoDB schema with compound indexing strategies, optimizing aggregation pipeline performance for data-intensive dashboard queries.",
-                          "Secured REST API endpoints with Express middleware enforcing input sanitization, rate limiting, and RBAC guards aligned with OWASP API Security Top 10.",
-                        ],
-                      },
-                      {
-                        title: "LAMP Stack Production Applications — 4+ Client Deployments",
-                        tags: ["PHP", "MySQL", "Apache", "Linux", "REST API", "Bootstrap"],
-                        bullets: [
-                          "Delivered 4+ production-ready LAMP Stack applications: a business CRM portal, multi-role admin dashboard, client authentication system, and CMS-driven brochure website with SEO optimization.",
-                          "Architected role-based authentication modules with PHP session management and MySQL-backed user permission tables, independently securing admin, editor, and client access tiers.",
-                          "Integrated third-party REST APIs and SMTP mail services for contact forms and automated notification workflows within deployed production environments.",
-                          "Optimized SQL query execution through strategic indexing, query refactoring, and EXPLAIN analysis, reducing database load on high-frequency data fetch operations.",
-                        ],
-                      },
-                    ].map(({ title, tags, bullets }) => (
-                      <div key={title} className="project-card rounded-xl bg-slate-50 border border-slate-200 p-4 hover:border-indigo-200 hover:bg-indigo-50/30 transition-colors">
+                      {/* Exp 1 */}
+                      <div className="exp-block relative pl-4 border-l-2 border-indigo-300 print:pl-0 print:border-0 print:border-l-0">
+                        <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-indigo-500 ring-2 ring-white print:hidden" />
                         <div className="flex flex-wrap justify-between items-start gap-1 mb-1.5 print:mb-0.5">
-                          <h3 className="text-[12px] font-bold text-slate-800 print:text-[8pt] print:font-bold print:text-black">
-                            {title}
-                          </h3>
-                          <div className="flex flex-wrap gap-1 print:hidden">
-                            {tags.map(t => <Tag key={t}>{t}</Tag>)}
+                          <div>
+                            <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
+                              Full Stack Engineer — Web Development
+                            </h3>
+                            <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-semibold">
+                              Freelance / Contract · LAMP Stack · REST APIs · MVC Architecture
+                            </p>
                           </div>
-                          {/* Print inline tag list */}
-                          <span className="hidden print:inline text-[7pt] text-black">
-                            {tags.join(" · ")}
+                          <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
+                            6 Months · 2024
                           </span>
                         </div>
-                        <ul className="space-y-1 print:space-y-0 print:list-disc print:list-outside print:ml-4">
-                          {bullets.map((b, i) => <Bullet key={i}>{b}</Bullet>)}
+                        <ul className="space-y-1.5 print:space-y-0.5 print:list-disc print:list-outside print:ml-4">
+                          <Bullet>Engineered 4+ production-ready LAMP Stack web applications encompassing business portals, admin dashboards, authentication systems, and CMS-driven sites deployed on Apache/Linux.</Bullet>
+                          <Bullet>Designed responsive, cross-browser-compatible UI layouts using HTML5, CSS3, and Bootstrap, reducing page rendering inconsistencies across Chrome, Firefox, and Safari.</Bullet>
+                          <Bullet>Developed reusable PHP backend modules with MVC-style architecture, implementing role-based access control, session management, and secure form validation workflows.</Bullet>
+                          <Bullet>Integrated RESTful APIs and third-party SMTP mail services to enable automated client communication pipelines within production environments.</Bullet>
+                          <Bullet>Optimized MySQL database queries through indexing strategies and JOIN refactoring, improving average query execution time across high-frequency data retrieval endpoints.</Bullet>
+                          <Bullet>Automated deployment workflows using Git/GitHub version control and Apache VirtualHost configuration, streamlining production release cycles.</Bullet>
+                          <Bullet>Implemented on-page SEO optimizations including semantic HTML structure, meta tags, and structured content, improving search engine indexability for client websites.</Bullet>
+                          <Bullet>Resolved production bugs across backend authentication flows and frontend rendering pipelines, maintaining uptime and stability for active client deployments.</Bullet>
                         </ul>
                       </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* ── EDUCATION ───────────────────────────────────────── */}
-                <div>
-                  <SectionHeading icon={<GraduationCap className="w-3.5 h-3.5" />}>
-                    Education &amp; Training
-                  </SectionHeading>
-                  <div className="space-y-4 print:space-y-1.5">
-                    <div className="flex flex-wrap justify-between items-start gap-2">
-                      <div>
-                        <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
-                          Bachelor of Computer Applications (BCA)
-                        </h3>
-                        <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-normal">
-                          Specialization: Cloud Computing &amp; Security
-                        </p>
-                        <p className="text-[10px] text-slate-400 print:text-[7pt] print:text-black">Amity University Online</p>
+                      {/* Exp 2 */}
+                      <div className="exp-block relative pl-4 border-l-2 border-violet-300 print:pl-0 print:border-0 print:mt-3">
+                        <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-violet-500 ring-2 ring-white print:hidden" />
+                        <div className="flex flex-wrap justify-between items-start gap-1 mb-1.5 print:mb-0.5">
+                          <div>
+                            <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
+                              Web Developer — Contributor
+                            </h3>
+                            <a href="https://rexvel.com" target="_blank" rel="noopener noreferrer"
+                              className="text-[11px] text-violet-600 font-semibold hover:text-violet-700 inline-flex items-center gap-1 print:text-[7.5pt] print:text-black print:font-semibold print:no-underline">
+                              RexVel Web Solution <ExternalLink className="w-2.5 h-2.5 print:hidden" />
+                            </a>
+                            <p className="text-[10px] text-slate-400 print:text-[7pt] print:text-black">Digital Branding &amp; Web Development Agency · rexvel.com</p>
+                          </div>
+                          <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded print:hidden">
+                            Collaborative
+                          </span>
+                        </div>
+                        <ul className="space-y-1.5 print:space-y-0.5 print:list-disc print:list-outside print:ml-4">
+                          <Bullet>Contributed to development and maintenance of responsive business websites and digital solutions, delivering pixel-accurate UI components and PHP-driven backend features.</Bullet>
+                          <Bullet>Designed reusable front-end components with Bootstrap and vanilla CSS, ensuring consistent branding and cross-device responsiveness across client deliverables.</Bullet>
+                          <Bullet>Maintained and extended PHP backend codebases implementing database-driven functionality, dynamic content rendering, and secure authentication modules.</Bullet>
+                          <Bullet>Integrated MySQL databases with optimized query structures to support data-driven web portals, admin panels, and dynamic landing pages.</Bullet>
+                          <Bullet>Delivered client customizations and feature enhancements within defined scope, meeting deadlines and maintaining production deployment stability.</Bullet>
+                          <Bullet>Supported SEO improvements and cross-browser compatibility fixes enhancing page performance and discoverability for agency client portfolios.</Bullet>
+                        </ul>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
-                        Ongoing
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap justify-between items-start gap-2">
-                      <div>
-                        <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
-                          DevOps Engineering &amp; Full Stack Specialist Program
-                        </h3>
-                        <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-normal">
-                          Brainzima Innovation Institute
-                        </p>
-                        <p className="text-[10px] text-slate-500 mt-0.5 max-w-lg leading-relaxed print:text-[7pt] print:text-black">
-                          MERN Stack development, Linux server administration, Docker/Kubernetes orchestration, Git workflows, and cloud-native infrastructure fundamentals.
-                        </p>
-                      </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
-                        Completed
-                      </span>
+
                     </div>
                   </div>
-                </div>
 
-              </div>
+                  {/* ── PROJECTS ────────────────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<Code className="w-3.5 h-3.5" />}>
+                      Featured Engineering Projects
+                    </SectionHeading>
 
-              {/* ════ RIGHT COLUMN ═════════════════════════════════════════ */}
-              <div className="print-right md:col-span-4 px-6 py-6 space-y-6 bg-slate-50/50 rounded-br-3xl print:space-y-0 print:px-0 print:py-0 print:bg-white print:rounded-none">
+                    <div className="space-y-3.5 print:space-y-0">
+                      {[
+                        {
+                          title: "DevSecOps Automation Pipeline — Shift-Left Security CI/CD",
+                          tags: ["GitHub Actions", "Docker", "Trivy", "SAST", "OWASP"],
+                          bullets: [
+                            "Architected a multi-stage GitHub Actions CI/CD pipeline integrating Trivy container image vulnerability scanning and OWASP dependency-check SAST analysis before every Docker registry push.",
+                            "Containerized a React application with multi-stage Dockerfile, reducing final image size by isolating build and runtime layers, and enforcing non-root container execution for security hardening.",
+                            "Configured automated workflow gates that block deployments on high/critical CVE detections, implementing a shift-left security model aligned with OWASP DevSecOps practices.",
+                            "Instrumented pipeline with secrets management best practices—injecting API keys via GitHub Encrypted Secrets, preventing credential exposure in build logs.",
+                          ],
+                        },
+                        {
+                          title: "Cloud Security Lab — AWS VPC Network Isolation",
+                          tags: ["AWS", "Terraform", "IAM", "VPC", "EC2", "CloudWatch"],
+                          bullets: [
+                            "Provisioned a production-grade AWS VPC architecture using Terraform IaC, segregating database nodes inside private non-egress subnets while routing public traffic through an Application Load Balancer and NAT Gateway.",
+                            "Configured granular IAM policies with least-privilege boundaries for EC2 instances, S3 buckets, and CloudWatch monitoring to eliminate over-privileged access vectors.",
+                            "Designed Security Group firewall rules enforcing explicit ingress/egress allowlists, blocking unauthorized lateral movement between VPC tiers aligned with Zero Trust networking principles.",
+                            "Automated infrastructure provisioning with Terraform state management enabling reproducible multi-environment deployments and infrastructure drift detection.",
+                          ],
+                        },
+                        {
+                          title: "Stateless MERN Platform — JWT Auth + Redis Caching Layer",
+                          tags: ["MongoDB", "Express", "React", "Node.js", "Redis", "JWT"],
+                          bullets: [
+                            "Engineered a scalable MERN Stack web platform with stateless JWT authentication via HTTP-only cookies, eliminating XSS-based token theft vectors and maintaining secure session lifecycle.",
+                            "Implemented Cache-Aside pattern using Redis to intercept high-frequency MongoDB read operations, reducing database round-trips and improving response latency for frequently queried resources.",
+                            "Designed normalized MongoDB schema with compound indexing strategies, optimizing aggregation pipeline performance for data-intensive dashboard queries.",
+                            "Secured REST API endpoints with Express middleware enforcing input sanitization, rate limiting, and RBAC guards aligned with OWASP API Security Top 10.",
+                          ],
+                        },
+                        {
+                          title: "LAMP Stack Production Applications — 4+ Client Deployments",
+                          tags: ["PHP", "MySQL", "Apache", "Linux", "REST API", "Bootstrap"],
+                          bullets: [
+                            "Delivered 4+ production-ready LAMP Stack applications: a business CRM portal, multi-role admin dashboard, client authentication system, and CMS-driven brochure website with SEO optimization.",
+                            "Architected role-based authentication modules with PHP session management and MySQL-backed user permission tables, independently securing admin, editor, and client access tiers.",
+                            "Integrated third-party REST APIs and SMTP mail services for contact forms and automated notification workflows within deployed production environments.",
+                            "Optimized SQL query execution through strategic indexing, query refactoring, and EXPLAIN analysis, reducing database load on high-frequency data fetch operations.",
+                          ],
+                        },
+                      ].map(({ title, tags, bullets }) => (
+                        <div key={title} className="project-card rounded-xl bg-slate-50 border border-slate-200 p-4 hover:border-indigo-200 hover:bg-indigo-50/30 transition-colors">
+                          <div className="flex flex-wrap justify-between items-start gap-1 mb-1.5 print:mb-0.5">
+                            <h3 className="text-[12px] font-bold text-slate-800 print:text-[8pt] print:font-bold print:text-black">
+                              {title}
+                            </h3>
+                            <div className="flex flex-wrap gap-1 print:hidden">
+                              {tags.map(t => <Tag key={t}>{t}</Tag>)}
+                            </div>
+                            {/* Print inline tag list */}
+                            <span className="hidden print:inline text-[7pt] text-black">
+                              {tags.join(" · ")}
+                            </span>
+                          </div>
+                          <ul className="space-y-1 print:space-y-0 print:list-disc print:list-outside print:ml-4">
+                            {bullets.map((b, i) => <Bullet key={i}>{b}</Bullet>)}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* ── KEY HIGHLIGHTS ─────────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<Award className="w-3.5 h-3.5" />}>
-                    Key Highlights
-                  </SectionHeading>
-                  {/* Screen list */}
-                  <ul className="space-y-2 print:hidden">
-                    {[
-                      { label: "518+ LeetCode Problems Solved", sub: "242+ Day Active Streak" },
-                      { label: "4+ Live Production Projects", sub: "LAMP · MERN · Next.js" },
-                      { label: "6 Months Full Stack Engineering", sub: "PHP · MySQL · REST APIs" },
-                      { label: "RexVel Web Solution Contributor", sub: "rexvel.com" },
-                      { label: "BCA Cloud & Security", sub: "Amity University Online" },
-                      { label: "DevSecOps Pipeline Implemented", sub: "Trivy · GitHub Actions" },
-                      { label: "AWS VPC + Terraform IaC Labs", sub: "IAM · EC2 · S3 · VPC" },
-                      { label: "Docker Container Hardening", sub: "Multi-stage · Non-root" },
-                      { label: "Active GitHub Contributions", sub: "Boilerplates · OSS" },
-                      { label: "DSA Foundations Mastered", sub: "Advancing: Graphs · DP" },
-                    ].map(({ label, sub }) => (
-                      <li key={label} className="flex gap-2 items-start">
-                        <CheckCircle className="w-3 h-3 text-indigo-500 mt-0.5 shrink-0" />
+                  {/* ── EDUCATION ───────────────────────────────────────── */}
+                  <div>
+                    <SectionHeading icon={<GraduationCap className="w-3.5 h-3.5" />}>
+                      Education &amp; Training
+                    </SectionHeading>
+                    <div className="space-y-4 print:space-y-1.5">
+                      <div className="flex flex-wrap justify-between items-start gap-2">
                         <div>
-                          <p className="text-[11px] font-semibold text-slate-700 leading-tight">{label}</p>
-                          <p className="text-[10px] text-slate-400">{sub}</p>
+                          <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
+                            Bachelor of Computer Applications (BCA)
+                          </h3>
+                          <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-normal">
+                            Specialization: Cloud Computing &amp; Security
+                          </p>
+                          <p className="text-[10px] text-slate-400 print:text-[7pt] print:text-black">Amity University Online</p>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                  {/* Print compact list */}
-                  <ul className="hidden print:block print:space-y-0.5">
-                    {[
-                      "518+ LeetCode Problems · 242+ Day Streak",
-                      "4+ Live Production Projects (LAMP · MERN · Next.js)",
-                      "6 Months Full Stack Engineering (PHP · MySQL · REST APIs)",
-                      "RexVel Web Solution Contributor — rexvel.com",
-                      "BCA Cloud & Security — Amity University Online",
-                      "DevSecOps Pipeline (Trivy · GitHub Actions · SAST)",
-                      "AWS VPC + Terraform IaC (IAM · EC2 · S3 · VPC)",
-                      "Docker Multi-stage Container Hardening",
-                      "Active GitHub Contributions — Boilerplates & OSS",
-                      "DSA Mastered — Advancing: Graphs · DP · System Design",
-                    ].map((item) => (
-                      <li key={item} className="flex gap-1 items-start text-[7pt] text-black leading-snug list-none">
-                        <span className="shrink-0 mt-[1pt]">✓</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* ── TECH STACK ─────────────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<Code className="w-3.5 h-3.5" />}>
-                    Tech Stack
-                  </SectionHeading>
-
-                  {/* Screen tag groups */}
-                  <div className="space-y-3 print:hidden">
-                    {techStack.map(({ label, tags }) => (
-                      <div key={label}>
-                        <h3 className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">
-                          {label}
-                        </h3>
-                        <div className="flex flex-wrap gap-1">
-                          {tags.map(t => <Tag key={t}>{t}</Tag>)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Print tech stack */}
-                  <div className="hidden print:block print:space-y-0.5">
-                    {techStack.map(({ label, tags }) => (
-                      <PrintSkillRow key={label} label={label} tags={tags} />
-                    ))}
-                  </div>
-                </div>
-
-                {/* ── CORE CS ────────────────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<GraduationCap className="w-3.5 h-3.5" />}>
-                    Core CS
-                  </SectionHeading>
-                  <div className="flex flex-wrap gap-1 print:hidden">
-                    {["Data Structures", "Algorithms", "OS", "Computer Networks", "DBMS", "OOP", "System Design", "Cloud Computing", "Cyber Security", "Distributed Systems"].map(t => <Tag key={t}>{t}</Tag>)}
-                  </div>
-                  <p className="hidden print:block print:text-[7pt] print:text-black">
-                    Data Structures · Algorithms · OS · Computer Networks · DBMS · OOP · System Design · Cloud Computing · Cyber Security · Distributed Systems
-                  </p>
-                </div>
-
-                {/* ── CURRENT LEARNING ───────────────────────────────── */}
-                <div className="print:mb-3">
-                  <SectionHeading icon={<Target className="w-3.5 h-3.5" />}>
-                    Current Learning
-                  </SectionHeading>
-                  <ul className="space-y-1.5 print:hidden">
-                    {[
-                      ["Advanced Graph Algorithms", "Active"],
-                      ["Dynamic Programming", "Active"],
-                      ["Low-Level Design (LLD)", "Active"],
-                      ["High-Level Design (HLD)", "Active"],
-                      ["Distributed Systems", "Focus"],
-                      ["Kubernetes Deep Dive", "Focus"],
-                      ["AWS Solutions Architecture", "Focus"],
-                      ["Zero Trust Networking", "Focus"],
-                    ].map(([topic, status]) => (
-                      <li key={topic} className="flex justify-between items-center">
-                        <span className="text-[10px] text-slate-500">{topic}</span>
-                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border
-                          ${status === "Active" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-indigo-50 text-indigo-700 border-indigo-200"}`}>
-                          {status}
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
+                          Ongoing
                         </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="hidden print:block print:text-[7pt] print:text-black">
-                    Advanced Graph Algorithms · Dynamic Programming · LLD · HLD · Distributed Systems · Kubernetes · AWS Architecture · Zero Trust Networking
-                  </p>
-                </div>
-
-                {/* ── TARGET ROLES ───────────────────────────────────── */}
-                <div>
-                  <SectionHeading icon={<Target className="w-3.5 h-3.5" />}>
-                    Target Roles
-                  </SectionHeading>
-                  <div className="flex flex-wrap gap-1 print:hidden">
-                    {["Software Engineer", "Full Stack Engineer", "Backend Engineer", "DevOps Engineer", "Cloud Engineer", "DevSecOps Engineer"].map(role => (
-                      <span key={role} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700">
-                        {role}
-                      </span>
-                    ))}
+                      </div>
+                      <div className="flex flex-wrap justify-between items-start gap-2">
+                        <div>
+                          <h3 className="text-[13px] font-bold text-slate-800 print:text-[8.5pt] print:font-bold print:text-black">
+                            DevOps Engineering &amp; Full Stack Specialist Program
+                          </h3>
+                          <p className="text-[11px] text-indigo-600 font-semibold print:text-[7.5pt] print:text-black print:font-normal">
+                            Brainzima Innovation Institute
+                          </p>
+                          <p className="text-[10px] text-slate-500 mt-0.5 max-w-lg leading-relaxed print:text-[7pt] print:text-black">
+                            MERN Stack development, Linux server administration, Docker/Kubernetes orchestration, Git workflows, and cloud-native infrastructure fundamentals.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 print:bg-transparent print:border-0 print:text-[7.5pt] print:text-black print:font-normal print:px-0">
+                          Completed
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="hidden print:block print:text-[7pt] print:text-black">
-                    Software Engineer · Full Stack Engineer · Backend Engineer · DevOps Engineer · Cloud Engineer · DevSecOps Engineer
-                  </p>
+
                 </div>
 
-                {/* Print footer */}
-                <div className="hidden print:block print:mt-4 print:pt-2 print:border-t print:border-slate-300 print:text-center print:text-[6.5pt] print:text-black">
-                  ajitdev.com · github.com/ajitdev01 · linkedin.com/in/ajitdev01
-                </div>
+                {/* ════ RIGHT COLUMN ═════════════════════════════════════════ */}
+                <div className="print-right md:col-span-4 px-6 py-6 space-y-6 bg-slate-50/50 rounded-br-3xl print:space-y-0 print:px-0 print:py-0 print:bg-white print:rounded-none">
 
+                  {/* ── KEY HIGHLIGHTS ─────────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<Award className="w-3.5 h-3.5" />}>
+                      Key Highlights
+                    </SectionHeading>
+                    {/* Screen list */}
+                    <ul className="space-y-2 print:hidden">
+                      {[
+                        { label: "518+ LeetCode Problems Solved", sub: "242+ Day Active Streak" },
+                        { label: "4+ Live Production Projects", sub: "LAMP · MERN · Next.js" },
+                        { label: "6 Months Full Stack Engineering", sub: "PHP · MySQL · REST APIs" },
+                        { label: "RexVel Web Solution Contributor", sub: "rexvel.com" },
+                        { label: "BCA Cloud & Security", sub: "Amity University Online" },
+                        { label: "DevSecOps Pipeline Implemented", sub: "Trivy · GitHub Actions" },
+                        { label: "AWS VPC + Terraform IaC Labs", sub: "IAM · EC2 · S3 · VPC" },
+                        { label: "Docker Container Hardening", sub: "Multi-stage · Non-root" },
+                        { label: "Active GitHub Contributions", sub: "Boilerplates · OSS" },
+                        { label: "DSA Foundations Mastered", sub: "Advancing: Graphs · DP" },
+                      ].map(({ label, sub }) => (
+                        <li key={label} className="flex gap-2 items-start">
+                          <CheckCircle className="w-3 h-3 text-indigo-500 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="text-[11px] font-semibold text-slate-700 leading-tight">{label}</p>
+                            <p className="text-[10px] text-slate-400">{sub}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    {/* Print compact list */}
+                    <ul className="hidden print:block print:space-y-0.5">
+                      {[
+                        "518+ LeetCode Problems · 242+ Day Streak",
+                        "4+ Live Production Projects (LAMP · MERN · Next.js)",
+                        "6 Months Full Stack Engineering (PHP · MySQL · REST APIs)",
+                        "RexVel Web Solution Contributor — rexvel.com",
+                        "BCA Cloud & Security — Amity University Online",
+                        "DevSecOps Pipeline (Trivy · GitHub Actions · SAST)",
+                        "AWS VPC + Terraform IaC (IAM · EC2 · S3 · VPC)",
+                        "Docker Multi-stage Container Hardening",
+                        "Active GitHub Contributions — Boilerplates & OSS",
+                        "DSA Mastered — Advancing: Graphs · DP · System Design",
+                      ].map((item) => (
+                        <li key={item} className="flex gap-1 items-start text-[7pt] text-black leading-snug list-none">
+                          <span className="shrink-0 mt-[1pt]">✓</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* ── TECH STACK ─────────────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<Code className="w-3.5 h-3.5" />}>
+                      Tech Stack
+                    </SectionHeading>
+
+                    {/* Screen tag groups */}
+                    <div className="space-y-3 print:hidden">
+                      {techStack.map(({ label, tags }) => (
+                        <div key={label}>
+                          <h3 className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">
+                            {label}
+                          </h3>
+                          <div className="flex flex-wrap gap-1">
+                            {tags.map(t => <Tag key={t}>{t}</Tag>)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Print tech stack */}
+                    <div className="hidden print:block print:space-y-0.5">
+                      {techStack.map(({ label, tags }) => (
+                        <PrintSkillRow key={label} label={label} tags={tags} />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ── CORE CS ────────────────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<GraduationCap className="w-3.5 h-3.5" />}>
+                      Core CS
+                    </SectionHeading>
+                    <div className="flex flex-wrap gap-1 print:hidden">
+                      {["Data Structures", "Algorithms", "OS", "Computer Networks", "DBMS", "OOP", "System Design", "Cloud Computing", "Cyber Security", "Distributed Systems"].map(t => <Tag key={t}>{t}</Tag>)}
+                    </div>
+                    <p className="hidden print:block print:text-[7pt] print:text-black">
+                      Data Structures · Algorithms · OS · Computer Networks · DBMS · OOP · System Design · Cloud Computing · Cyber Security · Distributed Systems
+                    </p>
+                  </div>
+
+                  {/* ── CURRENT LEARNING ───────────────────────────────── */}
+                  <div className="print:mb-3">
+                    <SectionHeading icon={<Target className="w-3.5 h-3.5" />}>
+                      Current Learning
+                    </SectionHeading>
+                    <ul className="space-y-1.5 print:hidden">
+                      {[
+                        ["Advanced Graph Algorithms", "Active"],
+                        ["Dynamic Programming", "Active"],
+                        ["Low-Level Design (LLD)", "Active"],
+                        ["High-Level Design (HLD)", "Active"],
+                        ["Distributed Systems", "Focus"],
+                        ["Kubernetes Deep Dive", "Focus"],
+                        ["AWS Solutions Architecture", "Focus"],
+                        ["Zero Trust Networking", "Focus"],
+                      ].map(([topic, status]) => (
+                        <li key={topic} className="flex justify-between items-center">
+                          <span className="text-[10px] text-slate-500">{topic}</span>
+                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border
+                          ${status === "Active" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-indigo-50 text-indigo-700 border-indigo-200"}`}>
+                            {status}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="hidden print:block print:text-[7pt] print:text-black">
+                      Advanced Graph Algorithms · Dynamic Programming · LLD · HLD · Distributed Systems · Kubernetes · AWS Architecture · Zero Trust Networking
+                    </p>
+                  </div>
+
+                  {/* ── TARGET ROLES ───────────────────────────────────── */}
+                  <div>
+                    <SectionHeading icon={<Target className="w-3.5 h-3.5" />}>
+                      Target Roles
+                    </SectionHeading>
+                    <div className="flex flex-wrap gap-1 print:hidden">
+                      {["Software Engineer", "Full Stack Engineer", "Backend Engineer", "DevOps Engineer", "Cloud Engineer", "DevSecOps Engineer"].map(role => (
+                        <span key={role} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700">
+                          {role}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="hidden print:block print:text-[7pt] print:text-black">
+                      Software Engineer · Full Stack Engineer · Backend Engineer · DevOps Engineer · Cloud Engineer · DevSecOps Engineer
+                    </p>
+                  </div>
+
+                  {/* Print footer */}
+                  <div className="hidden print:block print:mt-4 print:pt-2 print:border-t print:border-slate-300 print:text-center print:text-[6.5pt] print:text-black">
+                    ajitdev.com · github.com/ajitdev01 · linkedin.com/in/ajitdev01
+                  </div>
+
+                </div>
               </div>
-            </div>
 
-          </div>
+            </div>
           )}
         </div>
       </section>
