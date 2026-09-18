@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Award, Flame, Star, ArrowRight, Zap, Target } from "lucide-react";
+import { Flame, ArrowRight, Target } from "lucide-react";
 
 export default function DsaHighlightsSection() {
   const stats = {

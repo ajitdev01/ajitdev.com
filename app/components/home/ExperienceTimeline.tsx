@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Briefcase, Calendar, FolderGit, GraduationCap, CheckCircle } from "lucide-react";
+import { Briefcase, Calendar, FolderGit, GraduationCap } from "lucide-react";
 
 export default function ExperienceTimeline() {
   const experiences = [

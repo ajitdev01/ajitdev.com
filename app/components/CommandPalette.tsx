@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Compass, FileText, Check, Link2, X, BookOpen, Folder } from "lucide-react";
+import { Search, Compass, Check, Link2, X, BookOpen, Folder } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import Fuse from "fuse.js";
 
@@ -26,7 +26,7 @@ export default function CommandPalette() {
   // Dynamic search data from API
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [projectsData, setProjectsData] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(false);
 
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Trophy, Award, Zap, Code, Database, Terminal } from "lucide-react";
+import { Trophy, Award, Zap, Code, Terminal } from "lucide-react";
 
 export default function CodingJourneyTimeline() {
   const milestones = [

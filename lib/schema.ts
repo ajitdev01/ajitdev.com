@@ -5,7 +5,6 @@ import type {
   BlogPosting,
   BreadcrumbList,
   Blog,
-  ItemList,
 } from "schema-dts";
 import { BRAND, SITE_URL, ALL_SOCIAL_URLS, ADDRESS } from "./seo";
 import type { BlogPost } from "./blog";

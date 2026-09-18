@@ -192,7 +192,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         authors: ["https://ajitdev.com"],
       },
     };
-  } catch (_e) {
+  } catch {
     return {
       title: "Blog Post Not Found",
       description: "The requested technical article could not be found.",
@@ -280,7 +280,7 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
   let post;
   try {
     post = getPostBySlug(resolvedParams.slug);
-  } catch (_error) {
+  } catch {
     notFound();
   }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Award, ShieldAlert, GraduationCap, CheckCircle, ExternalLink } from "lucide-react";
+import { Award, GraduationCap, CheckCircle, ExternalLink } from "lucide-react";
 
 export default function CertificatesSection() {
   const certifications = [

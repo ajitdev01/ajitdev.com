@@ -15,7 +15,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   let post;
   try {
     post = getPostBySlug(resolvedParams.slug);
-  } catch (_e) {
+  } catch {
     post = {
       title: "Technical Engineering Guide",
       category: "Software Development",

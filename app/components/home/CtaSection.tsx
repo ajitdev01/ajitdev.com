@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Send, FileText, ArrowRight, CheckCircle, Mail, MapPin } from "lucide-react";
+import { Send, FileText, CheckCircle, Mail, MapPin } from "lucide-react";
 
 export default function CtaSection() {
   return (

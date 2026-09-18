@@ -50,7 +50,7 @@ let nextConfig: NextConfig = {
 };
 
 if (process.env.ANALYZE === "true") {
-  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: true,
   });
   nextConfig = withBundleAnalyzer(nextConfig);

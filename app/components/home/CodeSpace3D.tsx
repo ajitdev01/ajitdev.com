@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
-import { Terminal, RefreshCw, Code2 } from "lucide-react";
+import { Terminal, RefreshCw } from "lucide-react";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const FiCommand = ({ className }: { className?: string }) => (

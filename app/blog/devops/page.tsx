@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Clock, Tag, BookOpen } from "lucide-react";
+import { ArrowLeft, Clock, BookOpen } from "lucide-react";
 import { getPostsByCategory } from "@/lib/blog";
 import JSONLD from "@/app/components/JSONLD";
 

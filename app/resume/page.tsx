@@ -12,12 +12,8 @@ import {
   GraduationCap,
   Code,
   Target,
-  Shield,
   Zap,
   Globe,
-  Database,
-  Server,
-  Cloud,
   ExternalLink,
   CheckCircle,
   Download,
@@ -26,7 +22,6 @@ import {
   Eye,
 } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
-import PrintButton from "@/app/components/PrintButton";
 
 // ── Inline SVG Icons ──────────────────────────────────────────────────────────
 const Github = ({ className }: { className?: string }) => (

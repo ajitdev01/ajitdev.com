@@ -12,9 +12,17 @@ export async function POST(req: Request) {
       );
     }
 
-    const gmailUser = process.env.GMAIL_USER || "nilam23192@gmail.com";
-    const gmailPass = process.env.GMAIL_PASS || "ofnf fyke xqow qrep";
-    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "nilam23192@gmail.com";
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_PASS;
+    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || gmailUser;
+
+    if (!gmailUser || !gmailPass || !receiverEmail) {
+      console.warn("Contact mail service not configured: GMAIL_USER or GMAIL_PASS missing.");
+      return NextResponse.json(
+        { error: "Mail service is currently unavailable. Please reach out directly to support@ajitdev.com." },
+        { status: 503 }
+      );
+    }
 
     // Setup Nodemailer Gmail transporter
     const transporter = nodemailer.createTransport({

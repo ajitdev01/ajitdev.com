@@ -1,4 +1,4 @@
-import { Layers, Cpu, Terminal, Key, Shield, BookOpen } from "lucide-react";
+import { Layers, Cpu, Terminal, Key, Shield } from "lucide-react";
 
 export interface Section {
   heading: string;

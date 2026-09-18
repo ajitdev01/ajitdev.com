@@ -3,24 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Mail,
-  MapPin,
-  BookOpen,
-  Briefcase,
+  MapPin,  Briefcase,
   Code,
   FileText,
   Copy,
-  Check,
-  ExternalLink,
-  Sparkles,
+  Check,  Sparkles,
   ArrowUpRight,
-  GraduationCap,
-  Globe,
-  Building2,
-  CheckCircle2,
+  GraduationCap,  CheckCircle2,
 } from "lucide-react";
 
 const FiGithub = ({ className = "w-5 h-5" }: { className?: string }) => (

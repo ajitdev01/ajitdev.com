@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, BookOpen } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
 import { PAGE_KEYWORDS } from "@/lib/seo";

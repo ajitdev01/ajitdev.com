@@ -13,7 +13,6 @@ import {
   Calendar,
   Clock,
   ArrowRight,
-  X,
 } from "lucide-react";
 import { BlogPost } from "@/lib/blog";
 import Fuse from "fuse.js";

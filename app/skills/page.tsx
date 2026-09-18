@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   Code,
-  Server,
-  Database,
   CheckCircle2,
   BarChart3,
   Target,
   MapPin,
   Briefcase,
-  Calendar,
-  Package,
   Star,
   ArrowRight,
-  Sparkles,
   Flame,
-  Award,
 } from "lucide-react";
 import SkillsSection from "../components/skills/SkillsSection";
 import { PAGE_KEYWORDS } from "@/lib/seo";

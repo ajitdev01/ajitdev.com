@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Newspaper, Calendar, Tag, ArrowRight, ExternalLink } from "lucide-react";
+import { Newspaper, Calendar, Tag, ArrowRight } from "lucide-react";
 import { NEWS_DATABASE } from "@/lib/news";
 
 export default function LatestNewsSection() {
