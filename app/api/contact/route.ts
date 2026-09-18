@@ -9,6 +9,7 @@ import {
 } from "@/lib/validations";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 // In-memory duplicate submission store (keyed by `${ip}:${email}`)
 const submissionHistory = new Map<string, { lastSubmittedAt: number; messageHash: string }>();
@@ -96,13 +97,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Setup Nodemailer Gmail transporter
+    // Setup Nodemailer Gmail transporter with direct SSL on port 465 (reliable on Vercel/cloud)
+    const cleanedPass = gmailPass.replace(/\s+/g, "");
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: gmailUser,
-        pass: gmailPass,
+        user: gmailUser.trim(),
+        pass: cleanedPass,
       },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
     const mailSubject = subject
@@ -158,8 +165,14 @@ export async function POST(req: NextRequest) {
       "Your message has been sent successfully!"
     );
   } catch (error: unknown) {
-    // Log full error server-side for observability, but NEVER leak credentials or stack trace to client
-    console.error("Nodemailer API error:", error);
+    const err = error as { code?: string; message?: string; command?: string; responseCode?: number };
+    // Log full error server-side for Vercel observability, but NEVER leak credentials or stack trace to client
+    console.error("Nodemailer API error details:", {
+      code: err?.code,
+      message: err?.message,
+      command: err?.command,
+      responseCode: err?.responseCode,
+    });
     return apiError(
       "Failed to send message. Please try again later or email directly to support@ajitdev.com.",
       500,
