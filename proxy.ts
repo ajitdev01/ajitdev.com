@@ -87,26 +87,55 @@ export function proxy(request: NextRequest) {
   // Add CSRF origin check for API mutation requests
   if (pathname.startsWith("/api/") && ["POST", "PUT", "PATCH", "DELETE"].includes(request.method)) {
     const origin = request.headers.get("origin");
-    const allowedOrigins = [
-      "https://ajitdev.com",
-      "https://www.ajitdev.com",
-      ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
-    ];
+    const host = request.headers.get("host");
 
-    if (origin && !allowedOrigins.includes(origin)) {
-      return new NextResponse(
-        JSON.stringify({
-          success: false,
-          error: {
-            code: "CSRF_FORBIDDEN",
-            message: "CSRF: Origin not allowed.",
-          },
-        }),
-        {
-          status: 403,
-          headers: { "Content-Type": "application/json" },
+    if (origin) {
+      try {
+        const originUrl = new URL(origin);
+        const originHost = originUrl.host;
+
+        const isAllowed =
+          // 1. Same-origin request matching Host header
+          (host && originHost === host) ||
+          // 2. Production custom domains
+          originHost === "ajitdev.com" ||
+          originHost === "www.ajitdev.com" ||
+          // 3. Vercel deployment and preview URLs
+          originHost.endsWith(".vercel.app") ||
+          // 4. Localhost on any development port (e.g. 3000, 3001, etc.)
+          originHost.startsWith("localhost") ||
+          originHost.startsWith("127.0.0.1");
+
+        if (!isAllowed) {
+          return new NextResponse(
+            JSON.stringify({
+              success: false,
+              error: {
+                code: "CSRF_FORBIDDEN",
+                message: "CSRF: Origin not allowed.",
+              },
+            }),
+            {
+              status: 403,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
         }
-      );
+      } catch {
+        return new NextResponse(
+          JSON.stringify({
+            success: false,
+            error: {
+              code: "CSRF_FORBIDDEN",
+              message: "CSRF: Invalid origin header.",
+            },
+          }),
+          {
+            status: 403,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
     }
   }
 
