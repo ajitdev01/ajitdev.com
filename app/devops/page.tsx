@@ -4,11 +4,26 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
 export const metadata: Metadata = {
   title: "DevOps Operations & Pipelines | Ajit Dev Portfolio",
-  description: "Review DevOps engineering layouts. Configuring CI/CD pipelines, container runtime orchestration, Nginx reverse proxy routes, and Linux server hardening.",
+  description: "DevOps engineering by Ajit Dev. Automated CI/CD pipelines, Docker container runtime, Kubernetes orchestration, AWS cloud deployments, and Linux server hardening.",
+  keywords: [...PAGE_KEYWORDS.devops],
   alternates: {
-    canonical: "https://ajitdev.com/devops",
+    canonical: "/devops",
+  },
+  openGraph: {
+    title: "DevOps Operations & Cloud Pipelines | Ajit Dev",
+    description: "DevOps engineering by Ajit Dev. Automated CI/CD pipelines, Docker container runtime, Kubernetes orchestration, and Linux hardening.",
+    url: `${SITE_URL}/devops`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "DevOps Engineering by Ajit Dev" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DevOps Operations & Cloud Pipelines | Ajit Dev",
+    description: "DevOps engineering by Ajit Dev. Automated CI/CD pipelines, Docker containerization, and AWS infrastructure.",
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
@@ -16,19 +31,19 @@ export default function DevopsPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/devops/#breadcrumb",
+    "@id": `${SITE_URL}/devops/#breadcrumb`,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ajitdev.com",
+        "item": SITE_URL,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "devops",
-        "item": "https://ajitdev.com/devops",
+        "item": `${SITE_URL}/devops`,
       },
     ],
   };

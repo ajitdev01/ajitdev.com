@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { getAllPosts, BlogPost } from "@/lib/blog";
+import { SITE_URL } from "@/lib/seo";
 
 export async function GET() {
-  const baseUrl = "https://ajitdev.com";
+  const baseUrl = SITE_URL;
   
   let posts: BlogPost[] = [];
   try {

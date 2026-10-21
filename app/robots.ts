@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
         "/private/",
       ],
     },
-    sitemap: "https://ajitdev.com/sitemap.xml",
-    host: "https://ajitdev.com",
+    sitemap: "https://www.ajitdev.com/sitemap.xml",
+    host: "https://www.ajitdev.com",
   };
 }

@@ -41,10 +41,30 @@ export default function HeroSocialLinks() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LeetCode profile @ajitdev01"
-          title="LeetCode @ajitdev01"
+          title="LeetCode @ajitdev01 (518+ Solved, 242-Day Streak)"
           className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-black shadow-xs select-none"
         >
           LC
+        </a>
+        <a
+          href="https://codeforces.com/profile/ajitdev01"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Codeforces profile @ajitdev01"
+          title="Codeforces @ajitdev01"
+          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-blue-600 hover:border-blue-300 text-xs font-black shadow-xs select-none"
+        >
+          CF
+        </a>
+        <a
+          href="https://www.codechef.com/users/ajitdev01/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="CodeChef profile @ajitdev01"
+          title="CodeChef @ajitdev01"
+          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-yellow-600 hover:border-yellow-300 text-xs font-black shadow-xs select-none"
+        >
+          CC
         </a>
       </div>
       <span className="text-xs font-bold text-slate-600 select-none">

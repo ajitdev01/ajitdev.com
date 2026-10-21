@@ -4,11 +4,26 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
 export const metadata: Metadata = {
-  title: "Cybersecurity & OWASP App Hardening | Ajit Dev",
-  description: "Explore application security auditing. Defending Express backends against OWASP Top 10 vulnerabilities, encrypting tokens, and securing API limits.",
+  title: "Cybersecurity & OWASP Web Application Hardening | Ajit Dev",
+  description: "Web application security engineering by Ajit Dev. OWASP Top 10 mitigation, XSS/CSRF defense, SQL injection prevention, Content Security Policy (CSP), and secure JWT authentication.",
+  keywords: [...PAGE_KEYWORDS.cyberSecurity],
   alternates: {
-    canonical: "https://ajitdev.com/cyber-security",
+    canonical: "/cyber-security",
+  },
+  openGraph: {
+    title: "Cybersecurity & Web Application Hardening | Ajit Dev",
+    description: "Application security engineering by Ajit Dev. OWASP Top 10 mitigation, CSP implementation, and penetration testing.",
+    url: `${SITE_URL}/cyber-security`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "Cybersecurity Engineering by Ajit Dev" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cybersecurity & Web Application Hardening | Ajit Dev",
+    description: "Application security engineering by Ajit Dev. Defending applications against OWASP Top 10 vulnerabilities.",
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
@@ -16,19 +31,19 @@ export default function CyberSecurityPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/cyber-security/#breadcrumb",
+    "@id": `${SITE_URL}/cyber-security/#breadcrumb`,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ajitdev.com",
+        "item": SITE_URL,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "cyber security",
-        "item": "https://ajitdev.com/cyber-security",
+        "item": `${SITE_URL}/cyber-security`,
       },
     ],
   };

@@ -3,12 +3,13 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "TypeScript Static Type Architectures | Ajit Dev",
   description: "Explore TypeScript static typing rules. Interfaces, generic methods, utility parameters, and compiler configurations.",
   alternates: {
-    canonical: "https://ajitdev.com/typescript",
+    canonical: "/typescript",
   },
 };
 
@@ -16,19 +17,19 @@ export default function TypescriptPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/typescript/#breadcrumb",
+    "@id": `${SITE_URL}/typescript/#breadcrumb`,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ajitdev.com",
+        "item": SITE_URL,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "typescript",
-        "item": "https://ajitdev.com/typescript",
+        "item": `${SITE_URL}/typescript`,
       },
     ],
   };

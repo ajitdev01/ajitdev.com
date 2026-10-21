@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/seo";
 
 export async function GET() {
-  const baseUrl = "https://ajitdev.com";
+  const baseUrl = SITE_URL;
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap-favicon.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -29,6 +29,8 @@ const FiCheckCircle = ({ className }: { className?: string }) => (
   </svg>
 );
 
+import { CODING_STATS } from "@/lib/seo";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } }
@@ -45,40 +47,40 @@ const staggerContainer = {
 export default function StatsSection() {
   const stats = [
     {
-      value: "518+",
-      label: "LeetCode Solved",
+      value: CODING_STATS.totalDsaSolved,
+      label: "DSA Problems Solved",
       icon: FiAward,
-      description: "Strong algorithmic logic",
-      href: "https://leetcode.com/u/ajitdev01/",
-      isExternal: true,
-      badge: "Rank #192,927"
-    },
-    {
-      value: "5+",
-      label: "Production Apps",
-      icon: FiBriefcase,
-      description: "MERN & Next.js systems",
-      href: "/projects",
+      description: `${CODING_STATS.leetCodeSolved} LeetCode · ${CODING_STATS.neetCodeSolved} NeetCode`,
+      href: "/dsa",
       isExternal: false,
-      badge: "Full Stack"
+      badge: "Snapshot: Oct 2026"
     },
     {
-      value: "242+",
-      label: "Coding Streak",
+      value: `${CODING_STATS.activeStreakDays} Days`,
+      label: "Active Coding Streak",
       icon: FiUsers,
-      description: "Consistent daily practice",
+      description: "Consistent daily problem solving",
       href: "https://leetcode.com/u/ajitdev01/",
       isExternal: true,
       badge: "200 Days Badge"
     },
     {
-      value: "100%",
-      label: "Success Rate",
-      icon: FiCheckCircle,
-      description: "On-time delivery",
-      href: "/contact",
+      value: CODING_STATS.productionWebApps,
+      label: "Production Web Apps",
+      icon: FiBriefcase,
+      description: "MERN, Next.js & Cloud Systems",
+      href: "/projects",
       isExternal: false,
-      badge: "Verified"
+      badge: "Full Stack"
+    },
+    {
+      value: CODING_STATS.githubContributions,
+      label: "GitHub Contributions",
+      icon: FiCheckCircle,
+      description: "17+ Repositories & Open Source",
+      href: "https://github.com/ajitdev01",
+      isExternal: true,
+      badge: "@ajitdev01"
     },
   ];
 
@@ -86,13 +88,14 @@ export default function StatsSection() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <motion.div
-      ref={sectionRef}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={staggerContainer}
-      className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16"
-    >
+    <div className="mt-16">
+      <motion.div
+        ref={sectionRef}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      >
       {stats.map((stat) => {
         const Icon = stat.icon;
         const CardContent = (
@@ -147,5 +150,15 @@ export default function StatsSection() {
         );
       })}
     </motion.div>
+    <div className="mt-4 text-center">
+      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[11px] font-semibold text-slate-500">
+        <span>Verified Snapshot: {CODING_STATS.snapshotDate}</span>
+        <span>•</span>
+        <span>Handle: <strong className="text-indigo-600">@{CODING_STATS.leetCodeHandle}</strong></span>
+        <span>•</span>
+        <span>LeetCode {CODING_STATS.leetCodeRank}</span>
+      </span>
+    </div>
+  </div>
   );
 }

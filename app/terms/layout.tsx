@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     title: "Terms of Service | Ajit Kumar — Full Stack Engineer Portfolio",
     description:
       "Terms of Service for Ajit Kumar's professional developer portfolio. Covers usage terms, intellectual property, freelance collaborations, and code licensing.",
-    url: "https://ajitdev.com/terms",
-    images: [{ url: "/og-image.jpg" }],
+    url: "https://www.ajitdev.com/terms",
+    images: [{ url: "/og-image.png" }],
   },
   twitter: {
     card: "summary_large_image",

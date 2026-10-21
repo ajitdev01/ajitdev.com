@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Terms of Service | Ajit Dev — DevOps Engineer Portfolio",
   description: "Complete terms and conditions for Ajit Dev's DevOps engineer portfolio. Covers intellectual property, acceptable use, liability, and legal compliance.",
   alternates: {
-    canonical: "https://ajitdev.com/terms",
+    canonical: "/terms",
   },
 };
 
@@ -27,9 +27,9 @@ const structuredData = {
   "@graph": [
     {
       "@type": "TermsOfService",
-      "@id": "https://ajitdev.com/terms#terms",
+      "@id": "https://www.ajitdev.com/terms#terms",
       "name": "Terms of Service | Ajit Dev — DevOps Engineer Portfolio India",
-      "url": "https://ajitdev.com/terms",
+      "url": "https://www.ajitdev.com/terms",
       "description": "Complete terms and conditions for Ajit Dev's DevOps engineer portfolio.",
       "inLanguage": ["en-IN", "en-US"],
       "dateModified": "2026-02-22",

@@ -17,6 +17,7 @@ import { getPostBySlug, getPostSlugs, getPostsByCategory, getAllPosts } from "@/
 import { MDXComponents } from "@/app/components/MDXComponents";
 import JSONLD from "@/app/components/JSONLD";
 import { getBlogPostingSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -187,9 +188,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: `${post.title} — AJITDEV`,
         description: post.description,
         type: "article",
-        url: `https://ajitdev.com/blog/${resolvedParams.slug}`,
+        url: `${SITE_URL}/blog/${resolvedParams.slug}`,
         publishedTime: post.date,
-        authors: ["https://ajitdev.com"],
+        authors: [SITE_URL],
       },
     };
   } catch {
@@ -388,18 +389,30 @@ export default async function BlogPostOrCategoryPage({ params }: PageProps) {
                   <h4 className="text-lg font-black text-slate-900">
                     Ajit Dev <span className="text-slate-500 font-bold text-sm">(@ajitdev01)</span>
                   </h4>
+                  <p className="text-xs sm:text-sm font-semibold text-indigo-600 mt-0.5">
+                    CTO @ Brainzima Innovation Institute 🚀 · Full Stack Developer &amp; DevOps Engineer
+                  </p>
                   <p className="text-xs sm:text-sm font-medium text-slate-600 mt-1 mb-3">
-                    Full Stack Developer, DevOps Engineer &amp; Cloud Security Specialist from Katihar, Bihar, India.
+                    Ajit Dev (also known as Ajit Kumar) is based in Katihar, Bihar, India. Specializing in MERN Stack, Next.js, Cloud Security, and Distributed Systems.
                   </p>
                   <div className="flex flex-wrap gap-3 text-xs font-extrabold text-indigo-600">
+                    <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      LeetCode (518+ Solved)
+                    </a>
                     <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      GitHub
+                      GitHub (1,532+ Contribs)
+                    </a>
+                    <a href="https://codeforces.com/profile/ajitdev01" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      Codeforces
+                    </a>
+                    <a href="https://www.codechef.com/users/ajitdev01/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      CodeChef
                     </a>
                     <a href="https://linkedin.com/in/ajitdev01" target="_blank" rel="noopener noreferrer" className="hover:underline">
                       LinkedIn
                     </a>
-                    <a href="https://leetcode.com/u/ajitdev01/" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      LeetCode
+                    <a href="https://www.instagram.com/brainzima/" target="_blank" rel="noopener noreferrer" className="hover:underline text-purple-600">
+                      @brainzima
                     </a>
                   </div>
                 </div>

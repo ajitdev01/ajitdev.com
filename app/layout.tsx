@@ -25,17 +25,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ajitdev.com"),
+  metadataBase: new URL("https://www.ajitdev.com"),
   title: {
-    default: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
-    template: "%s — AJITDEV",
+    default: "Ajit Dev | CTO @ Brainzima · Full Stack Developer & DevOps Engineer in Katihar, Bihar",
+    template: "%s | AJITDEV — Ajit Dev",
   },
   description:
-    "Ajit Dev (ajitdev01) is a Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast from Katihar, Bihar, India. Expert in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux & System Design.",
-  authors: [{ name: "Ajit Dev", url: "https://ajitdev.com" }],
+    "Ajit Dev (@ajitdev01, Ajit Kumar) is the CTO at Brainzima Innovation Institute, Full Stack Developer, DevOps Engineer & Cloud Security Specialist from Katihar, Bihar, India. Expert in Next.js, React, MERN Stack, AWS, Docker, Kubernetes, Terraform, Linux & System Design.",
+  authors: [{ name: "Ajit Dev", url: "https://www.ajitdev.com" }],
   creator: "Ajit Dev",
   publisher: "Ajit Dev",
-  keywords: ["Ajit Dev", "Ajit Kumar", "AjitDev01", "Full Stack Developer", "DevOps Engineer", "Cloud Security", "MERN Stack", "Next.js", "React", "Katihar", "Bihar", "India"],
+  keywords: [
+    "Ajit Dev",
+    "Ajit Kumar",
+    "AjitDev01",
+    "ajitdev01",
+    "CTO Brainzima Innovation Institute",
+    "CTO @brainzima",
+    "Ajit Dev CTO",
+    "Chief Technology Officer Brainzima",
+    "Ajit Dev Katihar",
+    "Ajit Dev Bihar",
+    "Ajit Dev India",
+    "Ajit Dev Portfolio",
+    "Full Stack Developer",
+    "DevOps Engineer",
+    "Cloud Security",
+    "MERN Stack",
+    "Next.js",
+    "React",
+    "Node.js",
+    "TypeScript",
+    "DevSecOps",
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "Katihar",
+    "Bihar",
+    "India",
+  ],
   alternates: {
     canonical: "/",
   },
@@ -49,14 +78,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     alternateLocale: ["en_US"],
-    url: "https://ajitdev.com/",
-    siteName: "AJITDEV Portfolio",
-    title: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
+    url: "https://www.ajitdev.com/",
+    siteName: "AJITDEV — Ajit Dev Portfolio",
+    title: "Ajit Dev | CTO @ Brainzima · Full Stack Developer & DevOps Engineer in Katihar, Bihar",
     description:
       "Full Stack Developer, DevOps Engineer & Cloud Security portfolio by Ajit Dev (ajitdev01). Next.js, React, MERN Stack, AWS, Docker, Kubernetes projects from Katihar, Bihar, India.",
     images: [
       {
-        url: "https://ajitdev.com/og-image.png",
+        url: "https://www.ajitdev.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Ajit Dev — Full Stack Developer & DevOps Engineer Portfolio",
@@ -68,10 +97,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ajitdev01",
     creator: "@ajitdev01",
-    title: "AJITDEV — Full Stack Developer | Cloud, DevOps & DevSecOps",
+    title: "Ajit Dev | CTO @ Brainzima · Full Stack Developer & DevOps Engineer in Katihar, Bihar",
     description:
       "Full Stack Developer, DevOps Engineer & Cloud Security Enthusiast. Next.js, React, MERN Stack, AWS, Docker, Kubernetes from Katihar, Bihar, India.",
-    images: ["https://ajitdev.com/og-image.png"],
+    images: ["https://www.ajitdev.com/og-image.png"],
   },
   robots: {
     index: true,
@@ -114,16 +143,26 @@ export default function RootLayout({
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="alternate" type="application/rss+xml" title="AJITDEV Blog RSS Feed" href="/rss.xml" />
 
-        {/* Identity Rel links */}
+        {/* Identity Rel links — verified canonical profile URLs */}
         <link rel="me" href="https://github.com/ajitdev01" />
         <link rel="me" href="https://linkedin.com/in/ajitdev01" />
+        <link rel="me" href="https://www.linkedin.com/in/ajitdev01/" />
+        <link rel="me" href="https://x.com/ajitdev01" />
         <link rel="me" href="https://twitter.com/ajitdev01" />
-        <link rel="me" href="https://facebook.com/ajitdev01" />
+        <link rel="me" href="https://www.facebook.com/ajitdev01/" />
+        <link rel="me" href="https://www.instagram.com/ajitdev01/" />
         <link rel="me" href="https://t.me/ajitdev01" />
-        <link rel="me" href="https://youtube.com/@ajitdev01" />
-        <link rel="me" href="https://hashnode.com/@ajitdev01" />
+        <link rel="me" href="https://snapchat.com/add/ajitdev01" />
+        <link rel="me" href="https://leetcode.com/ajitdev01" />
+        <link rel="me" href="https://leetcode.com/u/ajitdev01/" />
         <link rel="me" href="https://codeforces.com/profile/ajitdev01" />
-        <link rel="me" href="https://www.brainzima.com/" />
+        <link rel="me" href="https://www.codechef.com/users/ajitdev01/" />
+        <link rel="me" href="https://youtube.com/@ajitdev01" />
+        <link rel="me" href="https://medium.com/@ajitdev01" />
+        <link rel="me" href="https://hashnode.com/@ajitdev01" />
+        <link rel="me" href="https://dev.to/ajitdev01" />
+        <link rel="me" href="https://brainzima.com/" />
+        <link rel="me" href="https://www.instagram.com/brainzima/" />
 
         {/* DNS prefetch for third-party domains */}
         <link rel="dns-prefetch" href="https://www.youtube.com" />

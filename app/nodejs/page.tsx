@@ -4,11 +4,26 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
 export const metadata: Metadata = {
-  title: "Node.js REST backend architectures & APIs | Ajit Dev",
-  description: "Review Node.js REST API development. NPM packages, express routing, event queues, and clusters performance tuning.",
+  title: "Node.js REST Backend Architecture & APIs | Ajit Dev",
+  description: "Node.js backend development by Ajit Dev. Express.js REST APIs, JWT authentication middleware, non-blocking asynchronous event loops, and microservices architecture.",
+  keywords: [...PAGE_KEYWORDS.nodejs],
   alternates: {
-    canonical: "https://ajitdev.com/nodejs",
+    canonical: "/nodejs",
+  },
+  openGraph: {
+    title: "Node.js REST Backend Architecture & APIs | Ajit Dev",
+    description: "Node.js engineering by Ajit Dev. REST APIs, Express middleware, rate limiting, and database connection pooling.",
+    url: `${SITE_URL}/nodejs`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "Node.js Backend Engineering by Ajit Dev" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Node.js REST Backend Architecture & APIs | Ajit Dev",
+    description: "Node.js API engineering by Ajit Dev. Microservices, Redis caching, and async job queues.",
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 

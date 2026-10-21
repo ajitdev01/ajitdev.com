@@ -14,12 +14,12 @@ import {
 } from "lucide-react";
 import ProjectsSection from "../components/projects/ProjectsSection";
 import JSONLD from "@/app/components/JSONLD";
-import { getCollectionPageSchema } from "@/lib/schema";
-import { PAGE_KEYWORDS } from "@/lib/seo";
+import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schema";
+import { PAGE_KEYWORDS, SITE_URL, CODING_STATS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
-  description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions demonstrating 5+ production apps.",
+  title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps & Cloud Security",
+  description: "Browse Ajit Dev's projects: MERN/Next.js full-stack applications, AWS cloud deployments, DevOps pipelines, and production-grade solutions from Katihar, Bihar.",
   keywords: [...PAGE_KEYWORDS.projects],
   alternates: {
     canonical: "/projects",
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
     description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions demonstrating production-grade apps.",
-    url: "https://ajitdev.com/projects",
+    url: `${SITE_URL}/projects`,
     images: [
       {
-        url: "https://ajitdev.com/og-image.png",
+        url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Ajit Dev Full Stack & DevOps Projects Portfolio",
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
     description: "Browse Ajit Dev's projects: MERN/Next.js applications, AWS cloud deployments, and full-stack solutions.",
-    images: ["https://ajitdev.com/og-image.png"],
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
 const stats = [
-  { value: "518+", label: "LeetCode Solved", icon: BarChart3, color: "#6366f1" },
-  { value: "242 Days", label: "Active Coding Streak", icon: Flame, color: "#10b981" },
-  { value: "8+", label: "Production Web Apps", icon: Folder, color: "#8b5cf6" },
-  { value: "123+", label: "NeetCode Solved", icon: Trophy, color: "#f59e0b" }
+  { value: CODING_STATS.leetCodeSolved, label: "LeetCode Solved", icon: BarChart3, color: "#6366f1" },
+  { value: `${CODING_STATS.activeStreakDays} Days`, label: "Active Coding Streak", icon: Flame, color: "#10b981" },
+  { value: CODING_STATS.productionWebApps, label: "Production Web Apps", icon: Folder, color: "#8b5cf6" },
+  { value: CODING_STATS.neetCodeSolved, label: "NeetCode Solved", icon: Trophy, color: "#f59e0b" }
 ];
 
 const highlights = [
@@ -63,12 +63,18 @@ export default function ProjectsPage() {
   const collectionSchema = getCollectionPageSchema(
     "Ajit Dev Project Portfolio – MERN, Next.js, DevOps",
     "Browse Ajit Dev's production-grade projects including MERN/Next.js web applications and DevOps pipelines.",
-    "https://ajitdev.com/projects"
+    `${SITE_URL}/projects`
   );
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "Projects", item: "/projects" },
+  ]);
 
   return (
     <div className="min-h-screen bg-slate-50 pt-32 md:pt-40 pb-24">
       <JSONLD schema={collectionSchema} />
+      <JSONLD schema={breadcrumbSchema} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* HERO BANNER CARD */}

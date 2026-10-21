@@ -52,7 +52,7 @@ const contactDetails = [
   { icon: Mail, label: "Support Email", value: "support@ajitdev.com", href: "mailto:support@ajitdev.com" },
   { icon: Mail, label: "Personal Email", value: "ajitk23192@gmail.com", href: "mailto:ajitk23192@gmail.com" },
   { icon: MapPin, label: "Location", value: "Katihar, Bihar, India", href: null },
-  { icon: Briefcase, label: "Primary Role", value: "Full Stack Developer & DevOps Engineer", href: null },
+  { icon: Briefcase, label: "Primary Role", value: "CTO @ Brainzima · Full Stack & DevOps", href: null },
   { icon: Award, label: "Focus Area", value: "Production Web Apps & Cloud Security", href: null },
 ];
 
@@ -78,7 +78,7 @@ export default function AboutContent() {
           <div className="w-20 h-1 rounded-full bg-indigo-600 mx-auto mb-6" />
 
           <div className="text-lg sm:text-xl font-extrabold text-slate-800 max-w-[700px] mx-auto leading-relaxed">
-            Full Stack Developer · DevOps Engineer
+            CTO @ Brainzima · Full Stack Developer · DevOps Engineer
             <span className="block text-slate-500 font-bold text-sm sm:text-base mt-1">
               MERN Stack · Next.js · AWS · Cloud Security
             </span>
@@ -86,7 +86,7 @@ export default function AboutContent() {
 
           <div className="flex flex-wrap justify-center gap-2 mt-6">
             <Badge variant="primary" className="py-1 px-3">
-              <Sparkles className="w-3.5 h-3.5" /> Full Stack Engineer
+              <Sparkles className="w-3.5 h-3.5" /> CTO @ Brainzima Innovation Institute 🚀
             </Badge>
             <Badge variant="warning" className="py-1 px-3">
               <Flame className="w-3.5 h-3.5" /> DevOps &amp; DevSecOps
@@ -112,8 +112,16 @@ export default function AboutContent() {
                 priority
               />
               <div className="p-4 text-center">
-                <h3 className="font-black text-slate-900 text-lg">Ajit Kumar</h3>
-                <p className="text-xs font-bold text-slate-500 block mt-0.5">DevOps &amp; Cloud Security Specialist</p>
+                <h3 className="font-black text-slate-900 text-lg">Ajit Dev</h3>
+                <p className="text-xs font-semibold text-slate-500 block mt-0.5">
+                  Legal name: <span className="font-bold text-slate-700">Ajit Kumar</span> · <span className="text-indigo-600 font-bold">@ajitdev01</span>
+                </p>
+                <p className="text-xs font-bold text-indigo-600 block mt-1">
+                  CTO @ Brainzima Innovation Institute 🚀
+                </p>
+                <p className="text-[11px] font-medium text-slate-500 block mt-0.5">
+                  Full Stack Developer &amp; DevOps Specialist
+                </p>
                 <div className="flex justify-center gap-2 mt-4">
                   <a href="https://github.com/ajitdev01" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="small" className="gap-1.5">
@@ -159,6 +167,41 @@ export default function AboutContent() {
                 })}
               </div>
             </Card>
+
+            {/* Verified Profiles & Developer Handles Card */}
+            <Card className="p-6 rounded-3xl border border-slate-200 bg-white shadow-xs">
+              <h4 className="font-black text-slate-900 text-xs uppercase tracking-wider mb-4 flex items-center justify-between">
+                <span>Verified Profiles</span>
+                <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">@ajitdev01</span>
+              </h4>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { name: "LeetCode", url: "https://leetcode.com/u/ajitdev01/" },
+                  { name: "Codeforces", url: "https://codeforces.com/profile/ajitdev01" },
+                  { name: "CodeChef", url: "https://www.codechef.com/users/ajitdev01/" },
+                  { name: "GitHub", url: "https://github.com/ajitdev01" },
+                  { name: "Dev.to", url: "https://dev.to/ajitdev01" },
+                  { name: "Hashnode", url: "https://hashnode.com/@ajitdev01" },
+                  { name: "Medium", url: "https://medium.com/@ajitdev01" },
+                  { name: "YouTube", url: "https://youtube.com/@ajitdev01" },
+                  { name: "X (Twitter)", url: "https://x.com/ajitdev01" },
+                  { name: "Telegram", url: "https://t.me/ajitdev01" },
+                ].map((prof) => (
+                  <a
+                    key={prof.name}
+                    href={prof.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50 transition-colors flex items-center justify-between group"
+                  >
+                    <span className="text-xs font-bold text-slate-700 group-hover:text-indigo-600 truncate">
+                      {prof.name}
+                    </span>
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-indigo-600 shrink-0" />
+                  </a>
+                ))}
+              </div>
+            </Card>
           </div>
 
           {/* RIGHT COLUMN: Bio, Skills, Education & Values */}
@@ -170,10 +213,10 @@ export default function AboutContent() {
                 Professional Summary
               </h2>
               <p className="text-slate-600 leading-relaxed text-sm md:text-base mb-4 font-medium">
-                I&apos;m <strong className="text-slate-900 font-extrabold">Ajit Dev</strong> (@ajitdev01), a <strong className="text-slate-900 font-extrabold">Full Stack Developer</strong> and <strong className="text-slate-900 font-extrabold">DevOps Engineer</strong> from <strong className="text-slate-900 font-extrabold">Katihar, Bihar, India</strong>. I specialize in building production-grade web applications using the <strong className="text-slate-900 font-extrabold">MERN Stack</strong> (MongoDB, Express, React, Node.js), <strong className="text-slate-900 font-extrabold">Next.js</strong>, and <strong className="text-slate-900 font-extrabold">TypeScript</strong>, alongside <strong className="text-slate-900 font-extrabold">AWS, Docker, Kubernetes, Terraform</strong> and Cloud Security practices.
+                I&apos;m <strong className="text-slate-900 font-extrabold">Ajit Dev</strong> (also known legally and professionally as <strong className="text-slate-900 font-extrabold">Ajit Kumar</strong>, handle <strong className="text-indigo-600 font-extrabold">@ajitdev01</strong>), serving as the <strong className="text-slate-900 font-extrabold">Chief Technology Officer (CTO) at Brainzima Innovation Institute</strong> in <strong className="text-slate-900 font-extrabold">Katihar, Bihar, India</strong>. As a <strong className="text-slate-900 font-extrabold">Full Stack Developer</strong> and <strong className="text-slate-900 font-extrabold">DevOps Engineer</strong>, I lead technology architecture, software engineering, and developer mentorship across scalable modern web systems.
               </p>
               <p className="text-slate-600 leading-relaxed text-sm md:text-base mb-6 font-medium">
-                My focus is on writing clean, maintainable code and creating scalable architectures that solve real business problems. I&apos;ve delivered multiple full-stack projects from concept to deployment, ensuring performance, security, and great user experiences.
+                My technical expertise centers on the <strong className="text-slate-900 font-extrabold">MERN Stack</strong> (MongoDB, Express, React, Node.js), <strong className="text-slate-900 font-extrabold">Next.js</strong>, and <strong className="text-slate-900 font-extrabold">TypeScript</strong>, backed by cloud and infrastructure automation using <strong className="text-slate-900 font-extrabold">AWS, Docker, Kubernetes, Terraform</strong> and Cloud Security practices. I have architected and shipped 8+ production web applications from concept to deployment.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
@@ -230,11 +273,22 @@ export default function AboutContent() {
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
                   <div className="flex justify-between items-center mb-1">
-                    <h3 className="font-black text-slate-900 text-sm">Practical Software Training</h3>
-                    <Badge variant="outline" className="text-[10px]">ISO Certified</Badge>
+                    <h3 className="font-black text-slate-900 text-sm">CTO &amp; Technology Architecture</h3>
+                    <Badge variant="primary" className="text-[10px]">Chief Technology Officer 🚀</Badge>
                   </div>
-                  <span className="text-xs font-bold text-purple-600 block mb-1">Brainzima Innovation Institute · Katihar, Bihar</span>
-                  <p className="text-xs font-medium text-slate-600">Hands-on developer training specializing in Python scripting, API architecture, React/Next.js, and MERN Stack.</p>
+                  <span className="text-xs font-bold text-purple-600 block mb-1">
+                    Brainzima Innovation Institute · Katihar, Bihar (
+                    <a
+                      href="https://www.instagram.com/brainzima/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline text-indigo-600 font-extrabold"
+                    >
+                      @brainzima
+                    </a>
+                    )
+                  </span>
+                  <p className="text-xs font-medium text-slate-600">Directing technical engineering architecture, developer mentorship, and scalable web solutions across Next.js, React, Python, and the MERN stack.</p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/seo";
 
 export async function GET() {
-  const baseUrl = "https://ajitdev.com";
+  const baseUrl = SITE_URL;
   const projectPaths = [
     "/projects",
     "/projects/full-stack",

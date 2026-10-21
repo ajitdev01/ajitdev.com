@@ -4,11 +4,26 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
 export const metadata: Metadata = {
-  title: "React.js Frontend Engineering & State Systems | Ajit Dev",
-  description: "Discover React.js frontend engineering. Reusable component designs, custom hooks, virtual DOM, and animations with Framer Motion.",
+  title: "React.js Frontend Engineering & State Architecture | Ajit Dev",
+  description: "React.js frontend development by Ajit Dev. Reusable component architecture, custom hooks, TypeScript types, Redux/Zustand state management, and virtual DOM optimization.",
+  keywords: [...PAGE_KEYWORDS.react],
   alternates: {
-    canonical: "https://ajitdev.com/react",
+    canonical: "/react",
+  },
+  openGraph: {
+    title: "React.js Frontend Engineering & State Architecture | Ajit Dev",
+    description: "React development by Ajit Dev. Reusable component patterns, hooks, and performance profiling.",
+    url: `${SITE_URL}/react`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "React.js Engineering by Ajit Dev" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "React.js Frontend Engineering & State Architecture | Ajit Dev",
+    description: "React engineering by Ajit Dev. Custom hooks, component lifecycle, and modern UI architectures.",
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
@@ -16,19 +31,19 @@ export default function ReactPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/react/#breadcrumb",
+    "@id": `${SITE_URL}/react/#breadcrumb`,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ajitdev.com",
+        "item": SITE_URL,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "react",
-        "item": "https://ajitdev.com/react",
+        "item": `${SITE_URL}/react`,
       },
     ],
   };

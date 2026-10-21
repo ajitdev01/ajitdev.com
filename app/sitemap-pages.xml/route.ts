@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { RESEARCH_DB } from "@/lib/research";
+import { SITE_URL } from "@/lib/seo";
 
 export async function GET() {
-  const baseUrl = "https://ajitdev.com";
+  const baseUrl = SITE_URL;
   const dynamicResearchPaths = Object.keys(RESEARCH_DB).map(slug => `/research/${slug}`);
 
   // High Priority Core Hubs (1.0 - 0.9)

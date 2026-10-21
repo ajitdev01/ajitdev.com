@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import JSONLD from "./components/JSONLD";
 import HeroAnimatedText from "./components/home/HeroAnimatedText";
 import HeroCTAButtons from "./components/home/HeroCTAButtons";
@@ -5,95 +6,31 @@ import HeroSocialLinks from "./components/home/HeroSocialLinks";
 
 import CodeSpace3D from "./components/home/CodeSpace3D";
 import StatsSection from "./components/home/StatsSection";
+import VerifiedCodingProfiles from "./components/home/VerifiedCodingProfiles";
 import EducationSection from "./components/home/EducationSection";
+import { getHomepageGraph } from "@/lib/schema";
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Ajit Dev | CTO @ Brainzima · Full Stack Developer & DevOps Engineer",
+  description: "Ajit Dev (@ajitdev01, Ajit Kumar) is the CTO at Brainzima Innovation Institute, Full Stack Developer, DevOps Engineer & Cloud Security Specialist from Katihar, Bihar, India.",
+  keywords: [...PAGE_KEYWORDS.home],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Ajit Dev | CTO @ Brainzima · Full Stack Developer & DevOps Engineer",
+    description: "Full Stack Developer, DevOps Engineer & Cloud Security portfolio by Ajit Dev (@ajitdev01). Next.js, React, MERN Stack, AWS, Docker, Kubernetes from Katihar, Bihar, India.",
+    url: `${SITE_URL}/`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "Ajit Dev Portfolio" }],
+  },
+};
 
 export default function HomePage() {
-  const allSocialUrls = [
-    "https://github.com/ajitdev01",
-    "https://linkedin.com/in/ajitdev01",
-    "https://instagram.com/ajitdev01",
-    "https://facebook.com/ajitdev01",
-    "https://t.me/ajitdev01",
-    "https://snapchat.com/add/ajitdev01",
-    "https://leetcode.com/ajitdev01",
-    "https://codeforces.com/profile/ajitdev01",
-    "https://twitter.com/ajitdev01",
-    "https://youtube.com/@ajitdev01",
-    "https://medium.com/@ajitdev01",
-    "https://hashnode.com/@ajitdev01",
-    "https://dev.to/ajitdev01",
-  ];
-
   return (
     <>
-      {/* JSON-LD Schema */}
-      <JSONLD
-        schema={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Person",
-              "@id": "https://ajitdev.com/#person",
-              "name": "Ajit Dev",
-              "alternateName": ["Ajit Kumar", "AjitDev01", "ajitdev01"],
-              "url": "https://ajitdev.com",
-              "mainEntityOfPage": {
-                "@id": "https://ajitdev.com/#profilepage"
-              },
-              "image": {
-                "@type": "ImageObject",
-                "@id": "https://ajitdev.com/#personimage",
-                "url": "https://ajitdev.com/logo.png",
-                "width": 400,
-                "height": 400,
-                "caption": "Ajit Dev — DevOps, DevSecOps & Cloud Security Developer"
-              },
-              "jobTitle": [
-                "Full Stack Developer",
-                "DevOps Engineer",
-                "Cloud Security Enthusiast",
-                "DevSecOps Engineer"
-              ],
-              "description": "Ajit Dev (ajitdev01) — Full Stack Developer, DevOps Engineer, Cloud Security and Cybersecurity Enthusiast from Katihar, Bihar, India. Student at Amity University Online and learner at Brainzima Innovation Institute. Specializes in Next.js, React, MERN Stack, cloud computing, CI/CD automation, security engineering, Linux, Docker, AWS, Kubernetes, Terraform.",
-              "gender": "Male",
-              "nationality": "Indian",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Katihar",
-                "addressRegion": "Bihar",
-                "addressCountry": "IN",
-                "postalCode": "854105"
-              },
-              "alumniOf": [
-                {
-                  "@type": "CollegeOrUniversity",
-                  "@id": "https://amityonline.com/#org",
-                  "name": "Amity University Online",
-                  "url": "https://amityonline.com"
-                },
-                {
-                  "@type": "EducationalOrganization",
-                  "@id": "https://www.brainzima.com/#org",
-                  "name": "Brainzima Innovation Institute",
-                  "url": "https://www.brainzima.com/"
-                }
-              ],
-              "sameAs": allSocialUrls
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://ajitdev.com/#website",
-              "url": "https://ajitdev.com",
-              "name": "AJITDEV",
-              "alternateName": "Ajit Dev Portfolio & Technical Engineering Hub",
-              "description": "Full Stack & DevOps Engineer Portfolio of Ajit Dev. Highlighting MERN, Next.js, Cloud Security, Docker, Kubernetes, and DSA (641+ solved).",
-              "publisher": {
-                "@id": "https://ajitdev.com/#person"
-              }
-            }
-          ]
-        }}
-      />
+      {/* JSON-LD Identity Graph — Person + WebSite + ProfilePage */}
+      <JSONLD schema={getHomepageGraph()} />
 
       <div className="min-h-screen bg-slate-50 pt-20 sm:pt-28 md:pt-36 pb-8 md:pb-16 overflow-x-hidden relative">
         {/* Ambient Developer Grid & Soft Light Accents */}
@@ -118,8 +55,13 @@ export default function HomePage() {
           </div>
 
           {/* Stats Section */}
-          <div className="mb-12 md:mb-20">
+          <div className="mb-12 md:mb-16">
             <StatsSection />
+          </div>
+
+          {/* Dedicated Verified Coding Profiles & Leadership Section */}
+          <div className="mb-12 md:mb-20">
+            <VerifiedCodingProfiles />
           </div>
 
           {/* Education & Qualifications Section */}

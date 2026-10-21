@@ -4,11 +4,26 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import JSONLD from "@/app/components/JSONLD";
 
+import { PAGE_KEYWORDS, SITE_URL } from "@/lib/seo";
+
 export const metadata: Metadata = {
   title: "Linux Server Administration & Hardening | Ajit Dev",
-  description: "Discover Linux system operations. Hardening virtual private servers, writing bash automation scripts, and configuring Nginx web services.",
+  description: "Linux system administration and server security hardening by Ajit Dev. Nginx reverse proxy configuration, systemd daemon management, fail2ban, UFW, and Bash automation scripts.",
+  keywords: [...PAGE_KEYWORDS.linux],
   alternates: {
-    canonical: "https://ajitdev.com/linux",
+    canonical: "/linux",
+  },
+  openGraph: {
+    title: "Linux Server Administration & Hardening | Ajit Dev",
+    description: "Linux systems engineering by Ajit Dev. VPS hardening, Nginx reverse proxy, and automated shell scripting.",
+    url: `${SITE_URL}/linux`,
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: "Linux Administration by Ajit Dev" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Linux Server Administration & Hardening | Ajit Dev",
+    description: "Linux system administration, server hardening, and automation by Ajit Dev.",
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
@@ -16,19 +31,19 @@ export default function LinuxPage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://ajitdev.com/linux/#breadcrumb",
+    "@id": `${SITE_URL}/linux/#breadcrumb`,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ajitdev.com",
+        "item": SITE_URL,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "linux",
-        "item": "https://ajitdev.com/linux",
+        "item": `${SITE_URL}/linux`,
       },
     ],
   };
